@@ -27,9 +27,9 @@ export const en: Translation = {
 		title: "Check out my latest work",
 		description: "I've worked on a variety of projects, from simple websites to complex web applications. Here are a few of my favorites.",
 		items: {
-			"api-financeiro": {
-				title: "Financial API",
-				description: "Complete REST API for personal financial management built with TypeScript and Fastify. Implements JWT authentication, transactions with categorization, and reports. Uses Knex.js as query builder, SQLite as database, data validation with Zod, and offers complete Swagger documentation."
+			"oportune": {
+				title: "Oportune+",
+				description: "Web platform connecting students, professors, and companies to centralize opportunities for early career professionals. Built with microservices architecture using Node.js, Fastify, React, and Go. Features include one-click applications, advanced search filters, email notifications, and multi-user profiles (Students, Companies, Professors). Implements full-stack solution with PostgreSQL, Prisma ORM, Docker containerization, and Python for specific validations."
 			},
 			"saude-pontual": {
 				title: "Saúde Pontual",
@@ -38,6 +38,10 @@ export const en: Translation = {
 			"plan-it-calendar": {
 				title: "Plan It - Calendar",
 				description: "Academic project built using Scrum methodology. An intuitive calendar application for event management with create, edit, and delete functionality. Developed as part of practical learning of agile development practices."
+			},
+			"api-financeiro": {
+				title: "Financial API",
+				description: "Complete REST API for personal financial management built with TypeScript and Fastify. Implements JWT authentication, transactions with categorization, and reports. Uses Knex.js as query builder, SQLite as database, data validation with Zod, and offers complete Swagger documentation."
 			},
 			"notes-api": {
 				title: "Notes API",

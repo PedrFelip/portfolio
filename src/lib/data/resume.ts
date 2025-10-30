@@ -24,6 +24,7 @@ import MitreMediaImg from '$lib/imgs/mitremedia.png';
 import UniceplacImg from '$lib/imgs/uniceplac.png';
 import SaudePontualImg from '$lib/imgs/saudepontual.png';
 import PlanItImg from '$lib/imgs/calendario.png';
+import OportuneImg from '$lib/imgs/oportune.png';
 
 // Your resume data
 export const DATA = {
@@ -201,29 +202,33 @@ export const DATA = {
 	],
 	projects: [
 		{
-			id: 'api-financeiro',
-			title: 'API Financeiro',
-			href: 'https://github.com/PedrFelip/api-financeiro',
-			dates: '',
+			id: 'oportune',
+			title: 'Oportune+',
+			href: 'https://github.com/PedrFelip/oportune',
+			dates: '2024 - Present',
 			active: true,
 			description:
-				'Financial transactions management API built with TypeScript and Fastify for high performance. Features modern REST architecture with SQLite database, Knex query builder for optimized queries, Zod validation for type-safe data handling, and cookie-based session management.',
+				'Web platform connecting students, professors, and companies to centralize opportunities for early career professionals. Built with microservices architecture using Node.js, Fastify, React, and Go. Features include one-click applications, advanced search filters, email notifications, and multi-user profiles (Students, Companies, Professors). Implements full-stack solution with PostgreSQL, Prisma ORM, Docker containerization, and Python for specific validations.',
 			technologies: [
+				'React',
 				'TypeScript',
+				'Node.js',
 				'Fastify',
-				'SQLite',
-				'Knex',
-				'Zod',
-				'Node.js'
+				'PostgreSQL',
+				'Prisma',
+				'Docker',
+				'Go',
+				'Python',
+				'Tailwind CSS'
 			],
 			links: [
 				{
 					type: 'GitHub',
-					href: 'https://github.com/PedrFelip/api-financeiro',
+					href: 'https://github.com/PedrFelip/oportune',
 					icon: Github
 				}
 			],
-			image: '',
+			image: OportuneImg,
 			video: ''
 		},
 		{
@@ -279,6 +284,32 @@ export const DATA = {
 			video: ''
 		},
 		{
+			id: 'api-financeiro',
+			title: 'API Financeiro',
+			href: 'https://github.com/PedrFelip/api-financeiro',
+			dates: '',
+			active: true,
+			description:
+				'Financial transactions management API built with TypeScript and Fastify for high performance. Features modern REST architecture with SQLite database, Knex query builder for optimized queries, Zod validation for type-safe data handling, and cookie-based session management.',
+			technologies: [
+				'TypeScript',
+				'Fastify',
+				'SQLite',
+				'Knex',
+				'Zod',
+				'Node.js'
+			],
+			links: [
+				{
+					type: 'GitHub',
+					href: 'https://github.com/PedrFelip/api-financeiro',
+					icon: Github
+				}
+			],
+			image: '',
+			video: ''
+		},
+		{
 			id: 'notes-api',
 			title: 'Notes API',
 			href: 'https://github.com/PedrFelip/notes-api',
@@ -304,131 +335,6 @@ export const DATA = {
 			],
 			image: '',
 			video: ''
-		},
-		{
-			title: 'Chat Collect',
-			href: 'https://chatcollect.com',
-			dates: 'Jan 2024 - Feb 2024',
-			active: true,
-			description:
-				'With the release of the [OpenAI GPT Store](https://openai.com/blog/introducing-the-gpt-store), I decided to build a SaaS which allows users to collect email addresses from their GPT users. This is a great way to build an audience and monetize your GPT API usage.',
-			technologies: [
-				'Next.js',
-				'Typescript',
-				'PostgreSQL',
-				'Prisma',
-				'TailwindCSS',
-				'Stripe',
-				'Shadcn UI',
-				'Magic UI'
-			],
-			links: [
-				{
-					type: 'Website',
-					href: 'https://chatcollect.com',
-					// icon: <Icons.globe className="size-3" />,
-					icon: Globe
-				}
-			],
-			image: '',
-			video: ''
-		},
-		{
-			title: 'Magic UI',
-			href: 'https://magicui.design',
-			dates: 'June 2023 - Present',
-			active: true,
-			description: 'Designed, developed and sold animated UI components for developers.',
-			technologies: [
-				'Next.js',
-				'Typescript',
-				'PostgreSQL',
-				'Prisma',
-				'TailwindCSS',
-				'Stripe',
-				'Shadcn UI',
-				'Magic UI'
-			],
-			links: [
-				{
-					type: 'Website',
-					href: 'https://magicui.design',
-					// icon: <Icons.globe className="size-3" />,
-					icon: Globe
-				},
-				{
-					type: 'Source',
-					href: 'https://github.com/magicuidesign/magicui',
-					icon: Github
-					// icon: <Icons.github className="size-3" />,
-				}
-			],
-			image: '',
-			video: 'https://cdn.magicui.design/bento-grid.mp4'
-		},
-		{
-			title: 'llm.report',
-			href: 'https://llm.report',
-			dates: 'April 2023 - September 2023',
-			active: true,
-			description:
-				'Developed an open-source logging and analytics platform for OpenAI: Log your ChatGPT API requests, analyze costs, and improve your prompts.',
-			technologies: [
-				'Next.js',
-				'Typescript',
-				'PostgreSQL',
-				'Prisma',
-				'TailwindCSS',
-				'Shadcn UI',
-				'Magic UI',
-				'Stripe',
-				'Cloudflare Workers'
-			],
-			links: [
-				{
-					type: 'Website',
-					href: 'https://llm.report',
-					icon: Globe
-					// icon: <Icons.globe className="size-3" />,
-				},
-				{
-					type: 'Source',
-					href: 'https://github.com/dillionverma/llm.report',
-					icon: Github
-					// icon: <Icons.github className="size-3" />,
-				}
-			],
-			image: '',
-			video: 'https://cdn.llm.report/openai-demo.mp4'
-		},
-		{
-			title: 'Automatic Chat',
-			href: 'https://automatic.chat',
-			dates: 'April 2023 - March 2024',
-			active: true,
-			description:
-				'Developed an AI Customer Support Chatbot which automatically responds to customer support tickets using the latest GPT models.',
-			technologies: [
-				'Next.js',
-				'Typescript',
-				'PostgreSQL',
-				'Prisma',
-				'TailwindCSS',
-				'Shadcn UI',
-				'Magic UI',
-				'Stripe',
-				'Cloudflare Workers'
-			],
-			links: [
-				{
-					type: 'Website',
-					href: 'https://automatic.chat',
-					icon: Globe
-					// icon: <Icons.globe className="size-3" />,
-				}
-			],
-			image: '',
-			video: 'https://pub-83c5db439b40468498f97946200806f7.r2.dev/automatic-chat.mp4'
 		}
 	],
 	hackathons: [

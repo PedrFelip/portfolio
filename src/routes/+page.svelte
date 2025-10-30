@@ -12,27 +12,27 @@
 </script>
 
 <svelte:head>
-	<title>{DATA.name}</title>
-	<meta name="description" content={DATA.description} />
-	<meta property="og:title" content={DATA.name} />
-	<meta property="og:description" content={DATA.description} />
-	<meta property="og:url" content={DATA.url} />
-	<meta property="og:site_name" content={DATA.name} />
-	<meta property="og:image" content={DATA.img} />
-	<meta property="og:locale" content="en_US" />
+	<title>{DATA.name} - Backend Developer & DevOps Enthusiast</title>
+	<meta name="description" content="Backend developer passionate about system design, cloud infrastructure, and automation. Building scalable APIs with Node.js, TypeScript, Go, PostgreSQL, and Docker." />
+	<meta property="og:title" content="{DATA.name} - Backend Developer & DevOps Enthusiast" />
+	<meta property="og:description" content="Backend developer passionate about system design, cloud infrastructure, and automation. Building scalable APIs with Node.js, TypeScript, Go, PostgreSQL, and Docker." />
+	<meta property="og:url" content="https://github.com/pedrfelip" />
+	<meta property="og:site_name" content="{DATA.name} Portfolio" />
+	<meta property="og:image" content={DATA.avatarUrl} />
+	<meta property="og:locale" content="pt_BR" />
 	<meta property="og:type" content="website" />
 	<meta name="robots" content="index, follow" />
 	<meta
 		name="googlebot"
 		content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"
 	/>
-	<meta name="twitter:title" content={DATA.name} />
+	<meta name="twitter:title" content="{DATA.name} - Backend Developer & DevOps" />
 	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:image" content={DATA.img} />
-	<meta name="twitter:description" content={DATA.description} />
-
-	<meta name="google-site-verification" content="your-google-verification-code" />
-	<meta name="yandex-verification" content="your-yandex-verification-code" />
+	<meta name="twitter:image" content={DATA.avatarUrl} />
+	<meta name="twitter:description" content="Backend developer passionate about system design, cloud infrastructure, and automation." />
+	<meta name="twitter:creator" content="@pedrofelipeek" />
+	<meta name="author" content={DATA.name} />
+	<meta name="keywords" content="backend developer, devops, node.js, typescript, go, postgresql, docker, linux, api development, cloud infrastructure, pedro felipe" />
 </svelte:head>
 <main class="flex min-h-[100dvh] flex-col space-y-10">
 	<section id="hero">

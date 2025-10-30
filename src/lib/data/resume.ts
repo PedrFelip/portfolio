@@ -26,7 +26,7 @@ import SaudePontualImg from '$lib/imgs/saudepontual.png';
 import PlanItImg from '$lib/imgs/calendario.png';
 
 // Your resume data
-export let DATA = {
+export const DATA = {
 	name: 'Pedro Felipe',
 	initials: 'P',
 	url: 'https://github.com/SikandarJODD',

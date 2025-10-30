@@ -20,17 +20,12 @@
 	<meta property="og:description" content="Backend developer passionate about system design, cloud infrastructure, and automation. Building scalable APIs with Node.js, TypeScript, Go, PostgreSQL, and Docker." />
 	<meta property="og:url" content="https://github.com/pedrfelip" />
 	<meta property="og:site_name" content="{DATA.name} Portfolio" />
-	<meta property="og:image" content="" />
-	<meta property="og:image:width" content="1200" />
-	<meta property="og:image:height" content="630" />
-	<meta property="og:image:alt" content="Pedro Felipe - Backend Developer" />
 	<meta property="og:locale" content="pt_BR" />
 	<meta property="og:type" content="website" />
 	
 	<!-- Twitter -->
 	<meta name="twitter:title" content="{DATA.name} - Backend Developer & DevOps" />
-	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:image" content="https://i.pinimg.com/564x/df/d2/76/dfd276448eed0f2b6094d1cb2c9d0269" />
+	<meta name="twitter:card" content="summary" />
 	<meta name="twitter:description" content="Backend developer passionate about system design, cloud infrastructure, and automation." />
 	<meta name="twitter:creator" content="@pedrofelipeek" />
 	

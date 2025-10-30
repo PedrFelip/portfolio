@@ -38,6 +38,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@vercel/speed-insights": "^1.2.0",
 		"bits-ui": "^0.21.12",
 		"class-variance-authority": "^0.7.0",
 		"clsx": "^2.1.1",

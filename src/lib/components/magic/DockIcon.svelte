@@ -6,6 +6,7 @@
       useSpring,
       useTransform,
     } from "svelte-motion";
+    import { onMount } from 'svelte';
   
     export let magnification = 60;
     export let distance = 160;
@@ -17,6 +18,16 @@
     export { className as class };
   
     let iconElement: HTMLDivElement;
+    let isMobile = false;
+
+    onMount(() => {
+      isMobile = window.innerWidth < 640;
+      const handleResize = () => {
+        isMobile = window.innerWidth < 640;
+      };
+      window.addEventListener('resize', handleResize);
+      return () => window.removeEventListener('resize', handleResize);
+    });
   
     let distanceCalc = useTransform(mint, (val: number) => {
       const bounds = iconElement?.getBoundingClientRect() ?? { x: 0, width: 0 };
@@ -26,7 +37,7 @@
     let widthSync = useTransform(
       distanceCalc,
       [-distance, 0, distance],
-      [38, magnification, 38]
+      isMobile ? [36, 36, 36] : [38, magnification, 38]
     );
   
     let width = useSpring(widthSync, {
@@ -41,7 +52,7 @@
     );
   </script>
   
-  <Motion style={{ width: width }} let:motion>
+  <Motion style={{ width: isMobile ? 36 : width }} let:motion>
     <div use:motion bind:this={iconElement} class={iconClass}>
       <slot></slot>
     </div>

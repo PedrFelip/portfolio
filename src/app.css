@@ -54,7 +54,86 @@
 	}
 	body {
 		@apply bg-background text-foreground;
+		transition:
+			background-color 0.3s ease,
+			color 0.3s ease;
 	}
 }
 
+/* Animação suave para transição de tema */
+@layer utilities {
+	/* Transição suave para todos os elementos que mudam com o tema */
+	* {
+		transition-property: background-color, border-color, color, fill, stroke;
+		transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+		transition-duration: 300ms;
+	}
 
+	/* Exceções para elementos que não devem ter transição */
+	*:where([class*='transition-none'], [class*='duration-'], [class*='animate-']) {
+		transition-property: none;
+	}
+
+	/* Respeitar preferências de acessibilidade */
+	@media (prefers-reduced-motion: reduce) {
+		*,
+		::before,
+		::after {
+			animation-duration: 0.01ms !important;
+			animation-iteration-count: 1 !important;
+			transition-duration: 0.01ms !important;
+			scroll-behavior: auto !important;
+		}
+	}
+
+	/* Animação de fade para a troca de tema (fallback) */
+	@keyframes theme-fade {
+		0% {
+			opacity: 1;
+		}
+		50% {
+			opacity: 0.85;
+		}
+		100% {
+			opacity: 1;
+		}
+	}
+
+	/* Classe para aplicar durante a transição (fallback) */
+	.theme-transitioning {
+		animation: theme-fade 0.5s ease-in-out;
+	}
+}
+
+/* Suporte para View Transitions API (navegadores modernos) */
+@supports (view-transition-name: none) {
+	/* Otimização de performance */
+	::view-transition-group(root) {
+		animation-duration: 0.5s;
+		animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	::view-transition-old(root),
+	::view-transition-new(root) {
+		animation: none;
+		mix-blend-mode: normal;
+	}
+
+	::view-transition-new(root) {
+		animation: reveal 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	@keyframes reveal {
+		from {
+			opacity: 0;
+		}
+		to {
+			opacity: 1;
+		}
+	}
+}
+
+/* Habilita transições suaves no HTML para clip-path */
+html {
+	view-transition-name: root;
+}

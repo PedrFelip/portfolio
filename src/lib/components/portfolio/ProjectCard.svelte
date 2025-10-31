@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { marked } from 'marked';
+	import { marked } from '$lib/utils';
 	import Badge from '../ui/badge/badge.svelte';
 
 	let _class = '';
@@ -20,7 +20,7 @@
 	class="flex h-full flex-col overflow-hidden border transition-all duration-300 ease-out hover:shadow-lg rounded-lg bg-card text-card-foreground"
 >
 	{#if video || image}
-		<a href={href || '#'} class="block cursor-pointer">
+		<a href={href || '#'} target="_blank" rel="noopener noreferrer" class="block cursor-pointer">
 			{#if video}
 				<video
 					class="pointer-events-none mx-auto h-32 sm:h-40 w-full object-cover object-top"
@@ -67,7 +67,7 @@
 		{#if links && links.length > 0}
 			<div class="flex flex-row flex-wrap items-start gap-1">
 				{#each links as link}
-					<a href={link?.href} target="_blank">
+					<a href={link?.href} target="_blank" rel="noopener noreferrer">
 						<Badge class="flex gap-1 px-2 py-1 text-[10px] items-center justify-center">
 							<!-- {link.icon} -->
 							<svelte:component this={link.icon} class="size-3 mb-px" strokeWidth={1.6} />

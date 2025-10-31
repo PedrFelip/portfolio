@@ -24,7 +24,7 @@
 	};
 </script>
 
-<a href={href || '#'} on:click={handleClick}>
+<a href={href || '#'} target={href && href.startsWith('http') ? '_blank' : undefined} rel={href && href.startsWith('http') ? 'noopener noreferrer' : undefined} on:click={handleClick}>
 	<div class="flex rounded-lg bg-card text-card-foreground">
 		<div class="flex-none">
 			<Avatar.Root class="bg-muted-background m-auto size-12 border dark:bg-foreground">

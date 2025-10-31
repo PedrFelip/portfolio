@@ -8,6 +8,7 @@
 	import LanguageToggle from './LanguageToggle.svelte';
 	import Button from '$lib/components/ui/button/button.svelte';
 	import { mode } from 'mode-watcher';
+	import { t } from '$lib/i18n';
 	$: theme = $mode;
 </script>
 
@@ -33,7 +34,7 @@
 						</Button>
 					</Tooltip.Trigger>
 					<Tooltip.Content>
-						<p>{item.label}</p>
+						<p>{$t.navbar[item.label.toLowerCase()]}</p>
 					</Tooltip.Content>
 				</Tooltip.Root>
 			</DockIcon>
@@ -45,7 +46,7 @@
 			<DockIcon {magnification} {mouseX} {distance}>
 				<Tooltip.Root openDelay={300}>
 					<Tooltip.Trigger>
-						<Button href={social.url} variant="ghost" size="icon" class="size-9 sm:size-12 rounded-full">
+						<Button href={social.url} target="_blank" rel="noopener noreferrer" variant="ghost" size="icon" class="size-9 sm:size-12 rounded-full">
 							<!-- <svelte:component this={social.icon} class="size-4" strokeWidth={1.5} /> -->
 							{#if social?.dark_icon && theme === 'dark'}
 								<img src={social?.dark_icon} class="size-3 sm:size-4 invert-0" alt={social.name} />
@@ -55,7 +56,7 @@
 						</Button>
 					</Tooltip.Trigger>
 					<Tooltip.Content>
-						<p>{social.name}</p>
+						<p>{$t.navbar[social.name.toLowerCase().replace(' ', '')]}</p>
 					</Tooltip.Content>
 				</Tooltip.Root>
 			</DockIcon>
@@ -67,7 +68,7 @@
 					<LanguageToggle />
 				</Tooltip.Trigger>
 				<Tooltip.Content>
-					<p>Language</p>
+					<p>{$t.navbar.language}</p>
 				</Tooltip.Content>
 			</Tooltip.Root>
 		</DockIcon>
@@ -77,7 +78,7 @@
 					<ModeToggle />
 				</Tooltip.Trigger>
 				<Tooltip.Content>
-					<p>Theme</p>
+					<p>{$t.navbar.theme}</p>
 				</Tooltip.Content>
 			</Tooltip.Root>
 		</DockIcon>

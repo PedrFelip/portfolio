@@ -3,6 +3,7 @@
 	import Button from '$lib/components/ui/button/button.svelte';
 	import Separator from '$lib/components/ui/separator/separator.svelte';
 	import { formatDate } from '$lib/utils';
+	import { t } from '$lib/i18n';
 
 	export let data;
 </script>
@@ -33,7 +34,7 @@
 			class="lucide lucide-arrow-left mb-px mr-1"
 			><path d="m12 19-7-7 7-7" /><path d="M19 12H5" /></svg
 		>
-		Back</Button
+		{$t.blog.back}</Button
 	>
 </div>
 <article>

@@ -7,14 +7,14 @@
 	import Badge from '$lib/components/ui/badge/badge.svelte';
 	import { DATA } from '$lib/data/resume';
 	import { t } from '$lib/i18n';
-	import { marked } from 'marked';
+	import { marked } from '$lib/utils';
 	let BLUR_FADE_DELAY = 0.04;
 </script>
 
 <svelte:head>
 	<title>{DATA.name} - Backend Developer & DevOps Enthusiast</title>
 	<meta name="description" content="Backend developer passionate about system design, cloud infrastructure, and automation. Building scalable APIs with Node.js, TypeScript, Go, PostgreSQL, and Docker." />
-	
+
 	<!-- Open Graph / Facebook / LinkedIn -->
 	<meta property="og:title" content="{DATA.name} - Backend Developer & DevOps Enthusiast" />
 	<meta property="og:description" content="Backend developer passionate about system design, cloud infrastructure, and automation. Building scalable APIs with Node.js, TypeScript, Go, PostgreSQL, and Docker." />
@@ -22,13 +22,13 @@
 	<meta property="og:site_name" content="{DATA.name} Portfolio" />
 	<meta property="og:locale" content="pt_BR" />
 	<meta property="og:type" content="website" />
-	
+
 	<!-- Twitter -->
 	<meta name="twitter:title" content="{DATA.name} - Backend Developer & DevOps" />
 	<meta name="twitter:card" content="summary" />
 	<meta name="twitter:description" content="Backend developer passionate about system design, cloud infrastructure, and automation." />
 	<meta name="twitter:creator" content="@pedrofelipeek" />
-	
+
 	<!-- SEO -->
 	<meta name="robots" content="index, follow" />
 	<meta name="googlebot" content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1" />
@@ -51,7 +51,7 @@
 				</div>
 				<BlurFade delay={BLUR_FADE_DELAY}>
 					<Avatar.Root class="size-20 sm:size-28 border">
-						<Avatar.Image alt={DATA.name} src={DATA.avatarUrl} />
+						<Avatar.Image alt={DATA.name} src={DATA.avatarUrl} class="object-cover" />
 						<Avatar.Fallback>{DATA.initials}</Avatar.Fallback>
 					</Avatar.Root>
 				</BlurFade>

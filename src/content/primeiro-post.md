@@ -1,7 +1,7 @@
 ---
 title: Bem-vindo ao Blog
 description: Esse é o primeiro post para estrear .
-date: '2024-10-28'
+date: '2025-10-28'
 categories:
   - Blog
 published: true

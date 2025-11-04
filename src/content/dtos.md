@@ -110,5 +110,3 @@ interface DeleteUserResponseDTO {
 <br />
 
 ## **Controller ao Repository**
-
-...

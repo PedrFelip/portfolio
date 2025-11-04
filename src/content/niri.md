@@ -10,32 +10,32 @@ categories:
 published: true
 ---
 
-## Introdução ao Niri Scrollable Tiling
+## **Introdução ao Niri Scrollable Tiling**
 
-O Niri é um compositor Wayland que organiza janelas em um layout que estende horizontalmente para a direita infinitamente, que ao abrir uma nova janela nunca faz com que as janelas existentes sejam redimensionadas. <br />
-Isso permite que navegue facilmente as colunas de janelas usando atalhos de teclado, rolando nas janelas abertas, mantendo o foco e a produtividade. <br />
-Ele é escrito em Rust, o que já é um ponto de hype 😅 <br />
-Links do projeto: <br />
+O **Niri** é um compositor **Wayland** que organiza janelas em um layout que estende horizontalmente para a direita infinitamente, que ao abrir uma nova janela nunca faz com que as janelas existentes sejam redimensionadas. <br />
+Isso permite que navegue facilmente as colunas de janelas usando **atalhos de teclado**, rolando nas janelas abertas, mantendo o foco e a produtividade. <br />
+Ele é escrito em **Rust**, o que já é um ponto de hype 😅 <br />
+**Links do projeto:** <br />
 - [Niri WM](https://github.com/YaLTeR/niri)
 - [Documentação](https://yalter.github.io/niri/Configuration%3A-Introduction.html)
 <br />
 
 ---
-## Mas oq diferencia ele de outros tiling window managers como hyprland e i3? 
+## **Mas oq diferencia ele de outros tiling window managers como hyprland e i3?**
 
-O destaque do Niri é o “scrollable tiling” <br />
+O destaque do **Niri** é o **“scrollable tiling”** <br />
 Um modelo em que o layout não é limitado por uma grade fixa, mas por uma sequência rolável de colunas.
-Isso muda completamente a experiência de multitarefa: você pode manter várias janelas abertas “fora da tela”, sem bagunçar o layout atual.
+Isso muda completamente a experiência de multitarefa: você pode manter várias janelas abertas **“fora da tela”**, sem bagunçar o layout atual.
 
 ![Niri screenshot](/images/posts/niri/niri-hero.png)
-> Perceba que a janela do zed esta do lado direito, fora da tela principal, mas ainda acessível via scroll horizontal
+> Perceba que a janela do zed está do lado direito, fora da tela principal, mas ainda acessível via scroll horizontal
 
 <br />
 
-### O que muda comparando com o hyprland?
+### **O que muda comparando com o hyprland?**
 
-No hyprland, ao abrir uma nova janela, o espaço disponível é redistribuído entre todas as janelas abertas, o que pode levar a redimensionamentos indesejados e perda de foco. <br />
-No Niri, as janelas mantêm seus tamanhos originais, e você pode rolar horizontalmente para acessar janelas adicionais, proporcionando uma experiência mais fluida e focada. <br />
+No **hyprland**, ao abrir uma nova janela, o espaço disponível é redistribuído entre todas as janelas abertas, o que pode levar a redimensionamentos indesejados e perda de foco. <br />
+No **Niri**, as janelas mantêm seus tamanhos originais, e você pode rolar horizontalmente para acessar janelas adicionais, proporcionando uma experiência mais fluida e focada. <br />
 
 ![Hyprland exemplo](/images/posts/niri/hyprland-exemplo.png)
 
@@ -43,29 +43,29 @@ No Niri, as janelas mantêm seus tamanhos originais, e você pode rolar horizont
 
 <br />
 
-## Features principais do Niri
+## **Features principais do Niri**
 
-- **Construido do zero pensado para scrollable tiling**
-- **Areas de trabalho dinâmicas**
+- **Construído do zero pensado para scrollable tiling**
+- **Áreas de trabalho dinâmicas**
 - **Overviews de janelas abertas**
 - **Grupo de Janelas em Abas**
 - **Recarregamento dinâmico de configurações**
 - **Gestos em touchpad e mouse**
 
-### Quer experimentar o scrollable tiling?
+### **Quer experimentar o scrollable tiling?**
 
-Tem projetos de tiling que são implentadas em DEs como gnome e kde, como o PaperWM e o Karousel, respectivamente. que são otimos projetos para quem quer experimentar o conceito sem sair do ambiente atual.
-Tem o PaperWM.spoon para MacOS, que traz o conceito de scrollable tiling para o ecossistema da maçã. <br />
-> lembrando que são implementações parciais do conceito, pode não ser tão polido é bom pra testar o conceito.
+Tem projetos de tiling que são implementadas em DEs como **gnome** e **kde**, como o **PaperWM** e o **Karousel**, respectivamente, que são ótimos projetos para quem quer experimentar o conceito sem sair do ambiente atual.
+Tem o **PaperWM.spoon** para **MacOS**, que traz o conceito de scrollable tiling para o ecossistema da maçã. <br />
+> Lembrando que são implementações parciais do conceito, pode não ser tão polido, mas é bom pra testar o conceito.
 
-## Configuração do Niri
+## **Configuração do Niri**
 
 ![](/images/posts/niri/overview.png)
-> Um Overview tipo do gnome, que mostra as janelas abertas e organizadas, alem de mostrar as areas de trabalho no meu caso duas areas de trabalho
+> Um Overview tipo do gnome, que mostra as janelas abertas e organizadas, além de mostrar as áreas de trabalho (no meu caso, duas áreas de trabalho)
 
-A configuração do Niri é feita através de um arquivo .kdl (Kotlin Data Language) que é simples e direto. <br />
+A configuração do **Niri** é feita através de um arquivo **.kdl (Kotlin Data Language)** que é simples e direto. <br />
 
-a estrutuda básica do arquivo de configuração inclui seções para definir atalhos de teclado, comportamento de janelas e outras preferências. <br />
+A estrutura básica do arquivo de configuração inclui seções para definir **atalhos de teclado**, **comportamento de janelas** e outras preferências. <br />
 
 ```json
 input { ... }
@@ -80,6 +80,6 @@ window-rule { ... }
 binds { ... }
 ```
 ---
-## Considerações Finais
-O Niri é um grande projeto promissor que traz um workflow diferente para o mundo dos tiling window managers. Venho testando ele essa semana e estou gostando bastante do conceito. <br />
+## **Considerações Finais**
+O **Niri** é um grande projeto promissor que traz um workflow diferente para o mundo dos tiling window managers. Venho testando ele essa semana e estou gostando bastante do conceito. <br />
 Se você é entusiasta de window managers, vale a pena dar uma olhada! <br />

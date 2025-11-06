@@ -110,3 +110,121 @@ interface DeleteUserResponseDTO {
 <br />
 
 ## **Controller ao Repository**
+
+Um fluxo que é comum em aplicaçoes com Arquitetura model-view-controller (MVC) é o seguinte:
+1. O **Controller** recebe uma requisição HTTP e extrai os dados do corpo da requisição.
+2. O **Controller** cria um **Request DTO** com os dados extraídos.
+3. O **Controller** passa o **Request DTO** para o serviço ou camada de negócio.
+4. O serviço processa os dados e interage com o **Repository** para persistir ou recuperar dados do banco de dados.
+5. O serviço recebe os dados do **Repository** e cria um **Response DTO** com os dados que serão enviados de volta ao cliente.
+6. O **Controller** envia o **Response DTO** como resposta HTTP.
+
+### **Exemplo de Fluxo com DTOs**
+
+vamos começar com a entidade do usuário:
+```ts
+export class User {
+  id: string
+  name: string
+  email: string
+  password: string
+  createdAt: Date
+  updatedAt: Date
+}
+```
+
+Agora, vamos definir os DTOs:
+```ts
+// dtos/user.dto.ts
+export interface CreateUserDTO {
+  name: string
+  email: string
+  password: string
+}
+
+export interface UserResponseDTO {
+  id: string
+  name: string
+  email: string
+}
+```
+
+Com isso vamos ter o Repository:
+```ts
+import { User } from '../entities/user.entity'
+import { CreateUserDTO } from '../dtos/user.dto'
+import { UUID } from 'crypto'
+
+export class UserRepository {
+  private users: User[] = []
+
+  create(userData: CreateUserDTO): User {
+    const newUser: User = {
+      id: UUID.v4(),
+      ...userData,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    }
+
+    this.users.push(newUser)
+    return newUser
+  }
+}
+```
+E o Service:
+```ts
+import { UserRepository } from '../repositories/user.repository'
+import { CreateUserDTO, UserResponseDTO } from '../dtos/user.dto'
+import { User } from '../entities/user.entity'
+
+export class UserService {
+  constructor(private userRepository: UserRepository) {}
+
+  createUser(userData: CreateUserDTO): UserResponseDTO {
+    const user: User = this.userRepository.create(userData)
+
+    const userResponse: UserResponseDTO = {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+    }
+
+    return userResponse
+  }
+}
+```
+
+E finalmente o Controller:
+```ts
+import { UserService } from '../services/user.service'
+import { CreateUserDTO, UserResponseDTO } from '../dtos/user.dto'
+import { FastifyReply, FastifyRequest } from 'fastify'
+
+export class UserController {
+  constructor(private userService: UserService) {}
+
+  async createUser(
+    request: FastifyRequest<{ Body: CreateUserDTO }>,
+    reply: FastifyReply
+  ) {
+    const userData: CreateUserDTO = request.body
+
+    const userResponse: UserResponseDTO = this.userService.createUser(userData)
+
+    return reply.code(201).send(userResponse)
+  }
+}
+```
+
+<br />
+
+O **Controller** é responsável por **receber a requisição HTTP**, interpretar os dados enviados e transformá-los em um **Request DTO**.
+Esse DTO define **exatamente o formato e os campos que a API aceita**, garantindo consistência e validação na entrada. <br />
+O **Service** que lida com a lógica de negócios, recebe o **Request DTO**, processa os dados conforme necessário e interage com o **Repository** que depois de criar o usuário, retorna a entidade completa. <br />
+O **Service** então cria um **Response DTO** a partir da entidade retornada pelo **Repository**. <br />
+Esse **Response DTO** define **quais dados serão expostos ao cliente**. Finalmente, o **Controller** envia o **Response DTO** como resposta HTTP para o cliente, garantindo que apenas os dados necessários sejam compartilhados. <br />
+
+## **Conclusão**
+
+- DTOs trazem clareza à forma como os dados trafegam dentro da aplicação
+- Reduzem o acoplamento entre a lógica de negócio e o mundo externo (APIs, front-end, bancos)

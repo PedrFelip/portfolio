@@ -89,17 +89,20 @@
 		if (!ctx) return;
 
 		const isDark = $mode === 'dark';
-		const starColor = isDark ? '255, 255, 255' : '100, 100, 120';
+		const starColor = isDark ? '255, 255, 255' : '40, 40, 80';
 
 		stars.forEach((star) => {
-			ctx.fillStyle = `rgba(${starColor}, ${star.opacity})`;
+			// Aumentar opacidade no tema claro
+			const adjustedOpacity = isDark ? star.opacity : star.opacity * 1.5;
+			ctx.fillStyle = `rgba(${starColor}, ${adjustedOpacity})`;
 			ctx.beginPath();
 			ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
 			ctx.fill();
 
 			// Add a subtle glow
 			if (star.opacity > 0.6) {
-				ctx.fillStyle = `rgba(${starColor}, ${star.opacity * 0.2})`;
+				const glowOpacity = isDark ? star.opacity * 0.2 : star.opacity * 0.4;
+				ctx.fillStyle = `rgba(${starColor}, ${glowOpacity})`;
 				ctx.beginPath();
 				ctx.arc(star.x, star.y, star.size * 2, 0, Math.PI * 2);
 				ctx.fill();
@@ -111,13 +114,16 @@
 		if (!ctx) return;
 
 		const isDark = $mode === 'dark';
-		const starColor = isDark ? '255, 255, 255' : '100, 100, 120';
-		const accentColor = isDark ? '200, 220, 255' : '80, 100, 180';
+		const starColor = isDark ? '255, 255, 255' : '30, 30, 70';
+		const accentColor = isDark ? '200, 220, 255' : '60, 80, 160';
 
 		shootingStars.forEach((star) => {
 			// Draw tail
 			star.tail.forEach((point, index) => {
-				const tailOpacity = (index / star.tail.length) * point.opacity * 0.5;
+				// Aumentar opacidade da cauda no tema claro
+				const tailOpacity = isDark
+					? (index / star.tail.length) * point.opacity * 0.5
+					: (index / star.tail.length) * point.opacity * 0.8;
 				const tailSize = (index / star.tail.length) * 2;
 
 				ctx.fillStyle = `rgba(${starColor}, ${tailOpacity})`;
@@ -133,12 +139,15 @@
 				star.x - Math.cos(star.angle) * star.length,
 				star.y - Math.sin(star.angle) * star.length
 			);
-			gradient.addColorStop(0, `rgba(${starColor}, ${star.opacity})`);
-			gradient.addColorStop(0.5, `rgba(${accentColor}, ${star.opacity * 0.6})`);
+			// Aumentar opacidade do gradiente no tema claro
+			const headOpacity = isDark ? star.opacity : star.opacity * 1.3;
+			const midOpacity = isDark ? star.opacity * 0.6 : star.opacity * 0.9;
+			gradient.addColorStop(0, `rgba(${starColor}, ${headOpacity})`);
+			gradient.addColorStop(0.5, `rgba(${accentColor}, ${midOpacity})`);
 			gradient.addColorStop(1, `rgba(${starColor}, 0)`);
 
 			ctx.strokeStyle = gradient;
-			ctx.lineWidth = 2;
+			ctx.lineWidth = isDark ? 2 : 2.5;
 			ctx.beginPath();
 			ctx.moveTo(star.x, star.y);
 			ctx.lineTo(
@@ -227,7 +236,7 @@
 	<canvas
 		bind:this={canvas}
 		class="fixed inset-0 pointer-events-none z-0"
-		style="opacity: {$mode === 'dark' ? '0.6' : '0.4'};"
+		style="opacity: {$mode === 'dark' ? '0.6' : '0.7'};"
 	></canvas>
 {/if}
 

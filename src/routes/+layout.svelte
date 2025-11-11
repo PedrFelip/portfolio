@@ -10,7 +10,9 @@
 
 <ModeWatcher defaultMode="dark" />
 <StarryBackground />
-<div class="relative mx-auto min-h-screen max-w-2xl bg-background px-4 sm:px-6 py-12 sm:py-24 font-sans antialiased z-10">
+<div
+	class="relative z-10 mx-auto min-h-screen max-w-2xl bg-background px-4 py-12 font-sans antialiased sm:px-6 sm:py-24"
+>
 	<slot></slot>
 	<Navbar />
 </div>

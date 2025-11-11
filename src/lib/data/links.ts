@@ -1,4 +1,4 @@
-import { Github, Linkedin, Mail, Twitter, Globe } from 'lucide-svelte';
+import { Github, Linkedin, Mail, Twitter, Globe, Briefcase } from 'lucide-svelte';
 import type { ComponentType } from 'svelte';
 
 export interface LinkItem {
@@ -50,6 +50,14 @@ export const socialLinks: LinkItem[] = [
 		url: 'mailto:pfsvila190406@gmail.com',
 		icon: Mail,
 		color: 'hover:bg-red-500 hover:text-white',
+		enabled: true
+	},
+	{
+		title: 'Portfólio',
+		description: 'Veja todos os meus projetos',
+		url: '/',
+		icon: Briefcase,
+		color: 'hover:bg-primary hover:text-primary-foreground',
 		enabled: true
 	}
 	// Adicione mais links aqui conforme necessário

@@ -13,6 +13,14 @@ export interface LinkItem {
 // Configure seus links aqui
 export const socialLinks: LinkItem[] = [
 	{
+		title: 'Portfólio',
+		description: 'Veja todos os meus projetos',
+		url: '/',
+		icon: Briefcase,
+		color: 'hover:bg-primary hover:text-primary-foreground',
+		enabled: true
+	},
+	{
 		title: 'GitHub',
 		description: 'Veja meus projetos e contribuições',
 		url: 'https://github.com/pedrfelip',
@@ -50,14 +58,6 @@ export const socialLinks: LinkItem[] = [
 		url: 'mailto:pfsvila190406@gmail.com',
 		icon: Mail,
 		color: 'hover:bg-red-500 hover:text-white',
-		enabled: true
-	},
-	{
-		title: 'Portfólio',
-		description: 'Veja todos os meus projetos',
-		url: '/',
-		icon: Briefcase,
-		color: 'hover:bg-primary hover:text-primary-foreground',
 		enabled: true
 	}
 	// Adicione mais links aqui conforme necessário

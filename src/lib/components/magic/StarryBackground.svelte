@@ -181,7 +181,7 @@
 		if (!canvas) return;
 		canvas.width = window.innerWidth;
 		canvas.height = window.innerHeight;
-		createStars(150);
+		createStars(168);
 	}
 
 	function checkMobile() {

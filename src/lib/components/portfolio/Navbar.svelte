@@ -7,9 +7,26 @@
 	import ModeToggle from './ModeToggle.svelte';
 	import LanguageToggle from './LanguageToggle.svelte';
 	import Button from '$lib/components/ui/button/button.svelte';
-	import { mode } from 'mode-watcher';
 	import { t } from '$lib/i18n';
-	$: theme = $mode;
+
+	function getNavbarLabel(key: string): string {
+		const navbarLabels: Record<string, string> = {
+			home: $t.navbar.home,
+			blog: $t.navbar.blog,
+			projects: $t.navbar.projects
+		};
+		return navbarLabels[key.toLowerCase()] || key;
+	}
+
+	function getSocialLabel(socialName: string): string {
+		const socialLabels: Record<string, string> = {
+			github: $t.navbar.github,
+			linkedin: $t.navbar.linkedin,
+			x: $t.navbar.x,
+			sendemail: $t.navbar.sendemail
+		};
+		return socialLabels[socialName.toLowerCase().replace(' ', '')] || socialName;
+	}
 </script>
 
 <div
@@ -28,35 +45,45 @@
 			<DockIcon {magnification} {mouseX} {distance}>
 				<Tooltip.Root openDelay={300}>
 					<Tooltip.Trigger>
-						<Button href={item.href} variant="ghost" size="icon" class="size-9 sm:size-12 rounded-full">
-							<!-- <item.icon class="size-4" /> -->
+						<Button
+							href={item.href}
+							variant="ghost"
+							size="icon"
+							class="size-9 rounded-full sm:size-12"
+						>
 							<svelte:component this={item.icon} class="size-4 sm:size-[18px]" strokeWidth={1.5} />
 						</Button>
 					</Tooltip.Trigger>
 					<Tooltip.Content>
-						<p>{$t.navbar[item.label.toLowerCase()]}</p>
+						<p>{getNavbarLabel(item.label)}</p>
 					</Tooltip.Content>
 				</Tooltip.Root>
 			</DockIcon>
 		{/each}
 		<Separator orientation="vertical" class="h-full" />
 		{#each Object.entries(DATA.contact.social)
-			.filter(([_, social]) => social.navbar)
-			.map(([_, social]) => social) as social}
+			.filter(([, social]) => social.navbar)
+			.map(([, social]) => social) as social}
 			<DockIcon {magnification} {mouseX} {distance}>
 				<Tooltip.Root openDelay={300}>
 					<Tooltip.Trigger>
-						<Button href={social.url} target="_blank" rel="noopener noreferrer" variant="ghost" size="icon" class="size-9 sm:size-12 rounded-full">
-							<!-- <svelte:component this={social.icon} class="size-4" strokeWidth={1.5} /> -->
-							{#if social?.dark_icon && theme === 'dark'}
-								<img src={social?.dark_icon} class="size-3 sm:size-4 invert-0" alt={social.name} />
-							{:else}
-								<img src={social.icon} class="size-4 sm:size-[18px] dark:invert" alt={social.name} />
-							{/if}
+						<Button
+							href={social.url}
+							target="_blank"
+							rel="noopener noreferrer"
+							variant="ghost"
+							size="icon"
+							class="size-9 rounded-full sm:size-12"
+						>
+							<svelte:component
+								this={social.icon}
+								class="size-4 sm:size-[18px]"
+								strokeWidth={1.5}
+							/>
 						</Button>
 					</Tooltip.Trigger>
 					<Tooltip.Content>
-						<p>{$t.navbar[social.name.toLowerCase().replace(' ', '')]}</p>
+						<p>{getSocialLabel(social.name)}</p>
 					</Tooltip.Content>
 				</Tooltip.Root>
 			</DockIcon>

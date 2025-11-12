@@ -1,4 +1,4 @@
-import { Github, Linkedin, Mail, Twitter, Globe, Briefcase } from 'lucide-svelte';
+import { Github, Linkedin, Mail, Twitter, Briefcase } from 'lucide-svelte';
 import type { ComponentType } from 'svelte';
 
 export interface LinkItem {

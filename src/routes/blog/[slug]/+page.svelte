@@ -4,6 +4,7 @@
 	import Separator from '$lib/components/ui/separator/separator.svelte';
 	import { formatDate } from '$lib/utils';
 	import { t } from '$lib/i18n';
+	import { ArrowLeft } from 'lucide-svelte';
 
 	export let data;
 </script>
@@ -19,23 +20,11 @@
 	<Button
 		href="/blog"
 		style="padding: 0 0px !important; background:transparent; border:none;"
-		class=" mb-2 h-6 border-none bg-transparent text-xs text-muted-foreground outline-none"
+		class="mb-2 h-6 border-none bg-transparent text-xs text-muted-foreground outline-none"
 	>
-		<svg
-			xmlns="http://www.w3.org/2000/svg"
-			width="14"
-			height="14"
-			viewBox="0 0 24 24"
-			fill="none"
-			stroke="currentColor"
-			stroke-width="1.2"
-			stroke-linecap="round"
-			stroke-linejoin="round"
-			class="lucide lucide-arrow-left mb-px mr-1"
-			><path d="m12 19-7-7 7-7" /><path d="M19 12H5" /></svg
-		>
-		{$t.blog.back}</Button
-	>
+		<ArrowLeft class="mb-px mr-1 h-3.5 w-3.5" strokeWidth={1.2} />
+		{$t.blog.back}
+	</Button>
 </div>
 <article>
 	<!-- Title -->
@@ -60,7 +49,7 @@
 
 	<!-- Post -->
 	<div
-		class="pb-24 md:pb-8 prose-video prose-ol:my2 prose dark:prose-invert prose-h1:my-1 prose-h2:my-1 prose-h3:my-1 prose-p:my-0 prose-a:my-3 prose-blockquote:my-3 prose-figcaption:my-3 prose-pre:my-3 prose-ul:my-3 prose-table:border-b last:prose-table:border-b prose-thead:border prose-thead:bg-zinc-100 prose-th:border prose-td:border-x prose-td:text-center prose-img:mx-auto prose-img:my-3 prose-img:text-center prose-hr:my-3 dark:prose-thead:bg-zinc-900"
+		class="prose-video prose-ol:my2 prose pb-24 dark:prose-invert prose-h1:my-1 prose-h2:my-1 prose-h3:my-1 prose-p:my-0 prose-a:my-3 prose-blockquote:my-3 prose-figcaption:my-3 prose-pre:my-3 prose-ul:my-3 prose-table:border-b last:prose-table:border-b prose-thead:border prose-thead:bg-zinc-100 prose-th:border prose-td:border-x prose-td:text-center prose-img:mx-auto prose-img:my-3 prose-img:text-center prose-hr:my-3 dark:prose-thead:bg-zinc-900 md:pb-8"
 	>
 		<svelte:component this={data.content} />
 	</div>

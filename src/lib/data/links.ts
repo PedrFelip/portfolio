@@ -14,7 +14,7 @@ export interface LinkItem {
 export const socialLinks: LinkItem[] = [
 	{
 		title: 'Portfólio',
-		description: 'Veja todos os meus projetos',
+		description: '',
 		url: '/',
 		icon: Briefcase,
 		color: 'hover:bg-primary hover:text-primary-foreground',
@@ -22,7 +22,7 @@ export const socialLinks: LinkItem[] = [
 	},
 	{
 		title: 'GitHub',
-		description: 'Veja meus projetos e contribuições',
+		description: '',
 		url: 'https://github.com/pedrfelip',
 		icon: Github,
 		color: 'hover:bg-[#333] hover:text-white',
@@ -30,7 +30,7 @@ export const socialLinks: LinkItem[] = [
 	},
 	{
 		title: 'LinkedIn',
-		description: 'Conecte-se comigo profissionalmente',
+		description: '',
 		url: 'https://www.linkedin.com/in/pedrfelip/',
 		icon: Linkedin,
 		color: 'hover:bg-[#0077b5] hover:text-white',
@@ -38,7 +38,7 @@ export const socialLinks: LinkItem[] = [
 	},
 	{
 		title: 'Twitter / X',
-		description: 'Acompanhe minhas atualizações',
+		description: '',
 		url: 'https://x.com/pedrofelipeek',
 		icon: Twitter,
 		color: 'hover:bg-[#1DA1F2] hover:text-white',
@@ -54,7 +54,7 @@ export const socialLinks: LinkItem[] = [
 	// },
 	{
 		title: 'Email',
-		description: 'Entre em contato diretamente',
+		description: '',
 		url: 'mailto:pfsvila190406@gmail.com',
 		icon: Mail,
 		color: 'hover:bg-red-500 hover:text-white',

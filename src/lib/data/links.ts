@@ -7,6 +7,7 @@ export interface LinkItem {
 	url: string;
 	icon: ComponentType;
 	color?: string;
+	shineColors?: string[];
 	enabled?: boolean;
 }
 
@@ -18,6 +19,7 @@ export const socialLinks: LinkItem[] = [
 		url: '/',
 		icon: Briefcase,
 		color: 'hover:bg-primary hover:text-primary-foreground',
+		shineColors: ['#A07CFE', '#FE8FB5', '#FFBE7B'],
 		enabled: true
 	},
 	{
@@ -26,6 +28,7 @@ export const socialLinks: LinkItem[] = [
 		url: 'https://github.com/pedrfelip',
 		icon: Github,
 		color: 'hover:bg-[#333] hover:text-white',
+		shineColors: ['#333333', '#6e5494', '#ffffff'],
 		enabled: true
 	},
 	{
@@ -34,6 +37,7 @@ export const socialLinks: LinkItem[] = [
 		url: 'https://www.linkedin.com/in/pedrfelip/',
 		icon: Linkedin,
 		color: 'hover:bg-[#0077b5] hover:text-white',
+		shineColors: ['#0077b5', '#00a0dc', '#ffffff'],
 		enabled: true
 	},
 	{
@@ -42,6 +46,7 @@ export const socialLinks: LinkItem[] = [
 		url: 'https://x.com/pedrofelipeek',
 		icon: Twitter,
 		color: 'hover:bg-[#1DA1F2] hover:text-white',
+		shineColors: ['#1DA1F2', '#14171A', '#657786'],
 		enabled: true
 	},
 	// {
@@ -58,6 +63,7 @@ export const socialLinks: LinkItem[] = [
 		url: 'mailto:pfsvila190406@gmail.com',
 		icon: Mail,
 		color: 'hover:bg-red-500 hover:text-white',
+		shineColors: ['#EA4335', '#FBBC04', '#34A853'],
 		enabled: true
 	}
 	// Adicione mais links aqui conforme necessário

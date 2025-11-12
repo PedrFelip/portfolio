@@ -1,7 +1,8 @@
 <script lang="ts">
 	import BlurFade from '$lib/components/magic/BlurFade.svelte';
+	import DotBackground from '$lib/components/magic/DotBackground.svelte';
+	import ShineBorder from '$lib/components/magic/ShineBorder.svelte';
 	import * as Avatar from '$lib/components/ui/avatar';
-	import * as Card from '$lib/components/ui/card';
 	import { DATA } from '$lib/data/resume';
 	import { enabledLinks } from '$lib/data/links';
 
@@ -17,7 +18,8 @@
 	<meta name="twitter:description" content="Todos os meus links em um só lugar" />
 </svelte:head>
 
-<main class="flex min-h-[100dvh] flex-col items-center justify-center space-y-8 py-12">
+<main class="relative flex min-h-[100dvh] flex-col items-center justify-center space-y-8 py-12">
+	<DotBackground class="[mask-image:radial-gradient(400px_circle_at_center,white,transparent)]" />
 	<!-- Header com Avatar e Info -->
 	<section class="w-full max-w-md">
 		<BlurFade delay={BLUR_FADE_DELAY} class="flex flex-col items-center space-y-4">
@@ -43,7 +45,12 @@
 					rel="noopener noreferrer"
 					class="block transition-transform hover:scale-105"
 				>
-					<Card.Root class="transition-colors duration-300 {link.color}">
+					<ShineBorder
+						class="w-full min-w-full transition-colors duration-300 {link.color}"
+						borderRadius={12}
+						color={link.shineColors || ['#A07CFE', '#FE8FB5', '#FFBE7B']}
+						duration={10}
+					>
 						<div class="p-6">
 							<div class="flex items-center space-x-4">
 								<div class="flex-shrink-0">
@@ -70,7 +77,7 @@
 								</div>
 							</div>
 						</div>
-					</Card.Root>
+					</ShineBorder>
 				</a>
 			</BlurFade>
 		{/each}

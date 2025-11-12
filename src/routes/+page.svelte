@@ -8,16 +8,22 @@
 	import { DATA } from '$lib/data/resume';
 	import { t } from '$lib/i18n';
 	import { marked } from '$lib/utils';
-	let BLUR_FADE_DELAY = 0.04;
+	let BLUR_FADE_DELAY = 0.15;
 </script>
 
 <svelte:head>
 	<title>{DATA.name} - Backend Developer & DevOps Enthusiast</title>
-	<meta name="description" content="Backend developer passionate about system design, cloud infrastructure, and automation. Building scalable APIs with Node.js, TypeScript, Go, PostgreSQL, and Docker." />
+	<meta
+		name="description"
+		content="Backend developer passionate about system design, cloud infrastructure, and automation. Building scalable APIs with Node.js, TypeScript, Go, PostgreSQL, and Docker."
+	/>
 
 	<!-- Open Graph / Facebook / LinkedIn -->
 	<meta property="og:title" content="{DATA.name} - Backend Developer & DevOps Enthusiast" />
-	<meta property="og:description" content="Backend developer passionate about system design, cloud infrastructure, and automation. Building scalable APIs with Node.js, TypeScript, Go, PostgreSQL, and Docker." />
+	<meta
+		property="og:description"
+		content="Backend developer passionate about system design, cloud infrastructure, and automation. Building scalable APIs with Node.js, TypeScript, Go, PostgreSQL, and Docker."
+	/>
 	<meta property="og:url" content="https://github.com/pedrfelip" />
 	<meta property="og:site_name" content="{DATA.name} Portfolio" />
 	<meta property="og:locale" content="pt_BR" />
@@ -26,14 +32,23 @@
 	<!-- Twitter -->
 	<meta name="twitter:title" content="{DATA.name} - Backend Developer & DevOps" />
 	<meta name="twitter:card" content="summary" />
-	<meta name="twitter:description" content="Backend developer passionate about system design, cloud infrastructure, and automation." />
+	<meta
+		name="twitter:description"
+		content="Backend developer passionate about system design, cloud infrastructure, and automation."
+	/>
 	<meta name="twitter:creator" content="@pedrofelipeek" />
 
 	<!-- SEO -->
 	<meta name="robots" content="index, follow" />
-	<meta name="googlebot" content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1" />
+	<meta
+		name="googlebot"
+		content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"
+	/>
 	<meta name="author" content={DATA.name} />
-	<meta name="keywords" content="backend developer, devops, node.js, typescript, go, postgresql, docker, linux, api development, cloud infrastructure, pedro felipe" />
+	<meta
+		name="keywords"
+		content="backend developer, devops, node.js, typescript, go, postgresql, docker, linux, api development, cloud infrastructure, pedro felipe"
+	/>
 </svelte:head>
 <main class="flex min-h-[100dvh] flex-col space-y-10">
 	<section id="hero">
@@ -50,7 +65,7 @@
 					>
 				</div>
 				<BlurFade delay={BLUR_FADE_DELAY}>
-					<Avatar.Root class="size-20 sm:size-28 border">
+					<Avatar.Root class="size-20 border sm:size-28">
 						<Avatar.Image alt={DATA.name} src={DATA.avatarUrl} class="object-cover" />
 						<Avatar.Fallback>{DATA.initials}</Avatar.Fallback>
 					</Avatar.Root>
@@ -62,7 +77,7 @@
 		<BlurFade delay={BLUR_FADE_DELAY}>
 			<h2 class="text-xl font-bold">{$t.sections.about}</h2>
 		</BlurFade>
-		<BlurFade delay={BLUR_FADE_DELAY * 1.4}>
+		<BlurFade delay={BLUR_FADE_DELAY * 1.5}>
 			<div
 				class="prose max-w-full text-pretty font-sans text-sm text-muted-foreground dark:prose-invert"
 			>
@@ -88,7 +103,7 @@
 				<h2 class="text-xl font-bold">{$t.sections.education}</h2>
 			</BlurFade>
 			{#each DATA.education as edu, id}
-				<BlurFade delay={BLUR_FADE_DELAY * 1.2 + id * 0.05}>
+				<BlurFade delay={BLUR_FADE_DELAY * 1.2 + id * 0.08}>
 					<ResumeCard
 						href={edu.href}
 						logoUrl={edu.logoUrl}
@@ -109,7 +124,7 @@
 			</BlurFade>
 			<div class="flex flex-wrap gap-1">
 				{#each DATA.skills as skill, id}
-					<BlurFade delay={BLUR_FADE_DELAY * id + 0.002}>
+					<BlurFade delay={BLUR_FADE_DELAY * id + 0.008}>
 						<Badge>{skill}</Badge>
 					</BlurFade>
 				{/each}
@@ -137,11 +152,15 @@
 			</BlurFade>
 			<div class="mx-auto grid max-w-[800px] grid-cols-1 gap-3 sm:grid-cols-2">
 				{#each DATA.projects as project, id}
-					<BlurFade delay={BLUR_FADE_DELAY * 1.5 + id * 0.05}>
+					<BlurFade delay={BLUR_FADE_DELAY * 1.5 + id * 0.08}>
 						<ProjectCard
 							href={project.href}
-							title={project.id && $t.projects.items[project.id] ? $t.projects.items[project.id].title : project.title}
-							description={project.id && $t.projects.items[project.id] ? $t.projects.items[project.id].description : project.description}
+							title={project.id && $t.projects.items[project.id]
+								? $t.projects.items[project.id].title
+								: project.title}
+							description={project.id && $t.projects.items[project.id]
+								? $t.projects.items[project.id].description
+								: project.description}
 							dates={project.dates}
 							tags={project.technologies}
 							image={project.image}
@@ -210,7 +229,7 @@
 	</section>
 	<section id="contact">
 		<div class="grid w-full items-center justify-center gap-4 px-4 py-12 text-center md:px-6">
-			<BlurFade delay={BLUR_FADE_DELAY * 2}>
+			<BlurFade delay={BLUR_FADE_DELAY * 2.2}>
 				<div class="space-y-3">
 					<div class="inline-block rounded-lg bg-foreground px-3 py-1 text-sm text-background">
 						{$t.contact.badge}

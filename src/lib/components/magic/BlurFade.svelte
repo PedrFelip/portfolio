@@ -5,7 +5,7 @@
 	export let duration = 0.4;
 	export let delay = 0;
 	export let yOffset = 8;
-	export let inViewMargin = '-20px';
+	export let inViewMargin = '200px';
 	export let blur = '2px';
 	export let id = crypto.randomUUID().slice(0, 6);
 	export let once = true;

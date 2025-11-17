@@ -1,9 +1,10 @@
 export const pt = {
 	// Hero Section
-	hero: {
-		greeting: 'Olá, Sou Pedro Felipe 👋',
-		subtitle: 'Desenvolvedor Backend & Entusiasta DevOps'
-	},
+        hero: {
+                greeting: 'Olá, Sou Pedro Felipe 👋',
+                subtitle: 'Desenvolvedor Backend & Entusiasta DevOps',
+                cta: 'Explorar projetos'
+        },
 
 	// Sections
 	sections: {

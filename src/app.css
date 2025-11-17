@@ -69,10 +69,10 @@
 		transition-duration: 300ms;
 	}
 
-	/* Exceções para elementos que não devem ter transição */
-	*:where([class*='transition-none'], [class*='duration-'], [class*='animate-']) {
-		transition-property: none;
-	}
+        /* Exceções para elementos que não devem ter transição */
+        *:where(.transition-none, .duration-0, .animate-none, [data-theme-transition='none']) {
+                transition-property: none;
+        }
 
 	/* Respeitar preferências de acessibilidade */
 	@media (prefers-reduced-motion: reduce) {

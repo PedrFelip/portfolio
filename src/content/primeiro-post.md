@@ -6,18 +6,22 @@ categories:
   - Blog
 published: true
 ---
+
 ## Hello World dos Blog
+
 Seja bem-vindo ao meu primeiro post no blog!
 
 <br />
 
 ### TypeScript
+
 ```ts
 function main(): void {
-  console.log("Hello, World!");
+	console.log('Hello, World!');
 }
 main();
 ```
+
 <br />
 
 ### Go
@@ -35,6 +39,7 @@ func main() {
 <br />
 
 ### Bash
+
 ```bash
 #!/bin/bash
 echo "Hello, World!"
@@ -43,8 +48,9 @@ echo "Hello, World!"
 <br />
 
 ### Json
+
 ```json
 {
-  "message": "Hello, World!"
+	"message": "Hello, World!"
 }
 ```

@@ -10,7 +10,7 @@ Implementei um **sistema completo de caching** para o seu portfólio Svelte com 
 ✅ **Automático**: Cache funciona sem necessidade de mudanças de código  
 ✅ **Type-Safe**: 100% TypeScript com strict mode  
 ✅ **Testado**: 40+ testes covering todos os cenários  
-✅ **Documentado**: 3 guias completos + inline documentation  
+✅ **Documentado**: 3 guias completos + inline documentation
 
 ---
 
@@ -86,19 +86,20 @@ src/
 import { MemoryCache } from '$lib/cache';
 
 const cache = new MemoryCache({
-  maxSize: 100,              // Max 100 entries
-  defaultTTL: 3600000,       // 1 hour default
-  enabled: true,
-  evictionPolicy: 'LRU'
+	maxSize: 100, // Max 100 entries
+	defaultTTL: 3600000, // 1 hour default
+	enabled: true,
+	evictionPolicy: 'LRU'
 });
 
 // Usage
-cache.set('key', 'value', 7200000);  // 2 hour TTL
-const value = cache.get('key');      // undefined if not found or expired
-console.log(cache.getStats());       // { hits, misses, size, hitRate, evictions }
+cache.set('key', 'value', 7200000); // 2 hour TTL
+const value = cache.get('key'); // undefined if not found or expired
+console.log(cache.getStats()); // { hits, misses, size, hitRate, evictions }
 ```
 
 **Features:**
+
 - ✅ LRU (Least Recently Used) eviction
 - ✅ TTL-based expiration
 - ✅ Statistics tracking (hits, misses, hit rate)
@@ -119,7 +120,7 @@ const posts = await loader.getPosts();
 const post = await loader.getPost('slug-here');
 
 // Invalidate when needed
-loader.invalidateCache();           // Clear all
+loader.invalidateCache(); // Clear all
 loader.invalidatePost('slug-here'); // Clear specific
 
 // Monitor performance
@@ -127,6 +128,7 @@ console.log(loader.getStats());
 ```
 
 **Features:**
+
 - ✅ Automatic post loading with cache
 - ✅ Per-slug caching
 - ✅ Selective invalidation
@@ -145,16 +147,17 @@ manager.invalidate('key');
 manager.invalidateMany(['key1', 'key2']);
 
 // Pattern-based
-manager.invalidatePrefix('user_');           // user_1, user_2, ...
-manager.invalidatePattern(/^post_\d+/);      // Regular expressions
+manager.invalidatePrefix('user_'); // user_1, user_2, ...
+manager.invalidatePattern(/^post_\d+/); // Regular expressions
 
 // Listen to events
 manager.on((event) => {
-  console.log(`Invalidated: ${event.reason}`);
+	console.log(`Invalidated: ${event.reason}`);
 });
 ```
 
 **Features:**
+
 - ✅ Time-based (TTL)
 - ✅ Manual invalidation
 - ✅ Pattern matching
@@ -166,10 +169,10 @@ manager.on((event) => {
 ```typescript
 // Via src/hooks.server.ts - Automatic per-route
 const cacheConfig = [
-  { pattern: /\.(js|css)$/, maxAge: 31536000 },      // 1 year
-  { pattern: /\.(png|jpg)$/, maxAge: 2592000 },      // 30 days
-  { pattern: /^\/api\//, maxAge: 300 },              // 5 min
-  { pattern: /^\/blog\//, maxAge: 3600 },            // 1 hour
+	{ pattern: /\.(js|css)$/, maxAge: 31536000 }, // 1 year
+	{ pattern: /\.(png|jpg)$/, maxAge: 2592000 }, // 30 days
+	{ pattern: /^\/api\//, maxAge: 300 }, // 5 min
+	{ pattern: /^\/blog\//, maxAge: 3600 } // 1 hour
 ];
 ```
 
@@ -177,13 +180,13 @@ const cacheConfig = [
 
 ## 📊 Performance Expectations
 
-| Métrica | Esperado | Alcançado |
-|---------|----------|-----------|
-| TTFB (cached) | < 100ms | ✅ |
-| Hit rate | > 80% | ✅ |
-| Bundle impact | < 5KB | ✅ ~46KB |
-| Memory usage | Reasonable | ✅ |
-| Build time | Normal | ✅ 55.32s |
+| Métrica       | Esperado   | Alcançado |
+| ------------- | ---------- | --------- |
+| TTFB (cached) | < 100ms    | ✅        |
+| Hit rate      | > 80%      | ✅        |
+| Bundle impact | < 5KB      | ✅ ~46KB  |
+| Memory usage  | Reasonable | ✅        |
+| Build time    | Normal     | ✅ 55.32s |
 
 ---
 
@@ -206,13 +209,13 @@ Edite `src/hooks.server.ts` para adicionar rotas customizadas:
 
 ```typescript
 const cacheConfig = [
-  {
-    pattern: /^\/custom-route/,
-    maxAge: 7200,           // 2 hours
-    revalidate: 'must-revalidate',
-    isPublic: true
-  },
-  // ... more configs
+	{
+		pattern: /^\/custom-route/,
+		maxAge: 7200, // 2 hours
+		revalidate: 'must-revalidate',
+		isPublic: true
+	}
+	// ... more configs
 ];
 ```
 
@@ -255,20 +258,26 @@ npm run test -- --coverage
 ## 📖 Documentação
 
 ### 1. Quick Start (5 min read)
+
 **`.specify/memory/CACHE_QUICKSTART.md`**
+
 - Como usar o cache imediatamente
 - Exemplos simples
 - Troubleshooting básico
 
 ### 2. Complete Guide (30 min read)
+
 **`.specify/memory/CACHE_GUIDE.md`**
+
 - Documentação completa com exemplos detalhados
 - API reference
 - Best practices
 - Advanced usage
 
 ### 3. Implementation Plan
+
 **`.specify/memory/plan.md`**
+
 - Visão geral da arquitetura
 - Objetivos e targets
 - Estratégia de cache
@@ -323,16 +332,19 @@ loader.invalidatePost('nome-do-post');
 ## 🎯 Benefícios Principais
 
 ### 1. ⚡ Performance
+
 - TTFB reduzido para < 100ms (cacheado)
 - Menos chamadas de I/O
 - Resposta mais rápida
 
 ### 2. 🔒 Type-Safe
+
 - 100% TypeScript strict mode
 - Interfaces bem definidas
 - Sem `any` types
 
 ### 3. 🧪 Bem Testado
+
 - 40+ testes cobrindo todos cenários
 - Cache hit/miss scenarios
 - TTL expiration
@@ -340,12 +352,14 @@ loader.invalidatePost('nome-do-post');
 - Pattern invalidation
 
 ### 4. 📚 Bem Documentado
+
 - 600+ linhas de documentação
 - Exemplos de código
 - API reference
 - Best practices
 
 ### 5. 🔧 Fácil de Usar
+
 - API simples
 - Automático por padrão
 - Configurável quando necessário
@@ -354,19 +368,19 @@ loader.invalidatePost('nome-do-post');
 
 ## 📋 Implementação Checklist
 
-- [X] Cache layer structure
-- [X] In-memory cache (LRU + TTL)
-- [X] Cache strategies (5 tipos)
-- [X] Invalidation system
-- [X] Content loader
-- [X] SvelteKit integration
-- [X] HTTP headers
-- [X] API caching
-- [X] Blog routes
-- [X] Tests (40+ casos)
-- [X] Documentation
-- [X] Constitution updated
-- [X] Build successful
+- [x] Cache layer structure
+- [x] In-memory cache (LRU + TTL)
+- [x] Cache strategies (5 tipos)
+- [x] Invalidation system
+- [x] Content loader
+- [x] SvelteKit integration
+- [x] HTTP headers
+- [x] API caching
+- [x] Blog routes
+- [x] Tests (40+ casos)
+- [x] Documentation
+- [x] Constitution updated
+- [x] Build successful
 
 ---
 
@@ -422,10 +436,10 @@ loader.invalidateCache();
 ```typescript
 // Reduzir tamanho do cache
 // Em .env:
-PUBLIC_CACHE_MAX_SIZE=50
+PUBLIC_CACHE_MAX_SIZE = 50;
 
 // Ou reduzir TTL:
-PUBLIC_CACHE_TTL_CONTENT=1800  // 30 min em vez de 1 hora
+PUBLIC_CACHE_TTL_CONTENT = 1800; // 30 min em vez de 1 hora
 ```
 
 ---
@@ -471,8 +485,8 @@ import { MemoizationCache } from '$lib/cache';
 const memoizer = new MemoizationCache();
 
 const fibonacci = (n: number): number => {
-  if (n <= 1) return n;
-  return fibonacci(n - 1) + fibonacci(n - 2);
+	if (n <= 1) return n;
+	return fibonacci(n - 1) + fibonacci(n - 2);
 };
 
 const memoized = memoizer.memoize(fibonacci);
@@ -488,8 +502,8 @@ const cache = new MemoryCache();
 const warmer = new WarmingCache(cache);
 
 await warmer.warm([
-  { key: 'config', value: { api: 'https://api.example.com' } },
-  { key: 'version', value: '1.0.0' },
+	{ key: 'config', value: { api: 'https://api.example.com' } },
+	{ key: 'version', value: '1.0.0' }
 ]);
 ```
 

@@ -16,11 +16,13 @@ O **Niri** é um compositor **Wayland** que organiza janelas em um layout que es
 Isso permite que navegue facilmente as colunas de janelas usando **atalhos de teclado**, rolando nas janelas abertas, mantendo o foco e a produtividade. <br />
 Ele é escrito em **Rust**, o que já é um ponto de hype 😅 <br />
 **Links do projeto:** <br />
+
 - [Niri WM](https://github.com/YaLTeR/niri)
 - [Documentação](https://yalter.github.io/niri/Configuration%3A-Introduction.html)
-<br />
+  <br />
 
 ---
+
 ## **Mas oq diferencia ele de outros tiling window managers como hyprland e i3?**
 
 O destaque do **Niri** é o **“scrollable tiling”** <br />
@@ -28,6 +30,7 @@ Um modelo em que o layout não é limitado por uma grade fixa, mas por uma sequ�
 Isso muda completamente a experiência de multitarefa: você pode manter várias janelas abertas **“fora da tela”**, sem bagunçar o layout atual.
 
 ![Niri screenshot](/images/posts/niri/niri-hero.png)
+
 > Perceba que a janela do zed está do lado direito, fora da tela principal, mas ainda acessível via scroll horizontal
 
 <br />
@@ -56,11 +59,13 @@ No **Niri**, as janelas mantêm seus tamanhos originais, e você pode rolar hori
 
 Tem projetos de tiling que são implementadas em DEs como **gnome** e **kde**, como o **PaperWM** e o **Karousel**, respectivamente, que são ótimos projetos para quem quer experimentar o conceito sem sair do ambiente atual.
 Tem o **PaperWM.spoon** para **MacOS**, que traz o conceito de scrollable tiling para o ecossistema da maçã. <br />
+
 > Lembrando que são implementações parciais do conceito, pode não ser tão polido, mas é bom pra testar o conceito.
 
 ## **Configuração do Niri**
 
 ![](/images/posts/niri/overview.png)
+
 > Um Overview tipo do gnome, que mostra as janelas abertas e organizadas, além de mostrar as áreas de trabalho (no meu caso, duas áreas de trabalho)
 
 A configuração do **Niri** é feita através de um arquivo **.kdl (Kotlin Data Language)** que é simples e direto. <br />
@@ -79,7 +84,10 @@ animations { ... }
 window-rule { ... }
 binds { ... }
 ```
+
 ---
+
 ## **Considerações Finais**
+
 O **Niri** é um grande projeto promissor que traz um workflow diferente para o mundo dos tiling window managers. Venho testando ele essa semana e estou gostando bastante do conceito. <br />
 Se você é entusiasta de window managers, vale a pena dar uma olhada! <br />

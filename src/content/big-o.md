@@ -8,6 +8,7 @@ categories:
   - Data Structures
 published: false
 ---
+
 ## **Introdução ao Big-O**
 
 Vamos começar com uma Introdução ao assunto pra ententer melhor o que é Big-O. Mas antes, vamos entender por que?
@@ -17,8 +18,8 @@ Vamos começar com uma Introdução ao assunto pra ententer melhor o que é Big-
 
 Indo direto ao ponto, a **complexidade de um algoritmo** diz respeito a escalabilidade do algoritmo, ou sejam, como esse algoritmo se comporta conforme aumentamos o tamanho da entrada de dados. <br />
 Quando falamos de complexidade, estamos tentando responder:
-> O quão bem (ou mal) esse algoritmo escala quando os dados crescem?
 
+> O quão bem (ou mal) esse algoritmo escala quando os dados crescem?
 
 <br />
 
@@ -52,15 +53,17 @@ Ao medir a performance de um algoritmo, tem como medir o **tempo real** e o **te
 ## **Notação Big-O**
 
 Em definição é:
+
 > A notação Big O é uma notação matemática que descreve o comportamento limitante de uma função quando o argumento tende a um valor específico ou ao infinito. Ela pertence a uma família de notações inventadas por Paul Bachmann, Edmund Landau e outros, coletivamente chamadas de notação Bachmann–Landau ou de notação assintótica
 
 <br />
 
-Ou como ja falamos, descreve a **complexidade**. 
+Ou como ja falamos, descreve a **complexidade**.
 
 <br />
 
 A notação Big-O mede duas coisas:
+
 1. **Complexidade de Tempo:** Quantas operações o algoritmo realiza dependendo do tamanho da entrada.
 2. **Complexidade de Espaço:** Quanta memória extra o algoritmo precisa para funcionar.
 
@@ -69,14 +72,14 @@ Portanto, a memória cresce proporcionalmente a n.
 
 ```ts
 function copiarArray(lista: number[]) {
-  const copia = [];
-  for (let item of lista) {
-    copia.push(item);
-  }
-  return copia;
+	const copia = [];
+	for (let item of lista) {
+		copia.push(item);
+	}
+	return copia;
 }
 ```
 
- **Complexidade espacial: O(n)**
+**Complexidade espacial: O(n)**
 
 ---

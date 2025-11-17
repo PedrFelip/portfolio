@@ -1,132 +1,132 @@
 # Pedro Felipe's Portfolio Constitution{
 
-  "meta": {
+"meta": {
 
-## Core Principles    "name": "Svelte Portfolio Design System",
+## Core Principles "name": "Svelte Portfolio Design System",
 
     "description": "Constituição de design tokens para o portfólio Svelte com Tailwind e Shadcn/UI.",
 
-### I. Component-First Architecture    "version": "1.0.0",
+### I. Component-First Architecture "version": "1.0.0",
 
-Every feature or section of the portfolio starts as a reusable, self-contained Svelte component. Components must be:    "author": "Pedro Felipe"
+Every feature or section of the portfolio starts as a reusable, self-contained Svelte component. Components must be: "author": "Pedro Felipe"
 
-- **Self-contained**: No external state dependencies beyond props and stores  },
+- **Self-contained**: No external state dependencies beyond props and stores },
 
-- **Independently testable**: Each component can be tested in isolation  "tokens": {
+- **Independently testable**: Each component can be tested in isolation "tokens": {
 
-- **Well-documented**: Clear prop interfaces, slots, and event handlers documented    "color": {
+- **Well-documented**: Clear prop interfaces, slots, and event handlers documented "color": {
 
-- **Consistent styling**: All components adhere to the design token system (Tailwind + CSS variables)      "background": {
+- **Consistent styling**: All components adhere to the design token system (Tailwind + CSS variables) "background": {
 
         "light": "hsl(var(--background))",
 
-### II. Design Token Consistency        "dark": "hsl(var(--background))"
+### II. Design Token Consistency "dark": "hsl(var(--background))"
 
-All visual design elements must be defined and managed through the design token system:      },
+All visual design elements must be defined and managed through the design token system: },
 
-- **Single source of truth**: Colors, typography, spacing, and shadows defined in `tailwind.config.js` and CSS variables      "foreground": {
+- **Single source of truth**: Colors, typography, spacing, and shadows defined in `tailwind.config.js` and CSS variables "foreground": {
 
-- **Dark/Light mode support**: All tokens support both light and dark themes via CSS custom properties        "light": "hsl(var(--foreground))",
+- **Dark/Light mode support**: All tokens support both light and dark themes via CSS custom properties "light": "hsl(var(--foreground))",
 
-- **No magic values**: Hardcoded colors, sizes, or spacing are prohibited; use tokens instead        "dark": "hsl(var(--foreground))"
+- **No magic values**: Hardcoded colors, sizes, or spacing are prohibited; use tokens instead "dark": "hsl(var(--foreground))"
 
-- **Shadcn/UI compliance**: Component styling follows Shadcn/UI patterns and conventions      },
+- **Shadcn/UI compliance**: Component styling follows Shadcn/UI patterns and conventions },
 
       "primary": {
 
-### III. Type Safety & Accessibility (Non-Negotiable)        "light": "hsl(var(--primary))",
+### III. Type Safety & Accessibility (Non-Negotiable) "light": "hsl(var(--primary))",
 
-TypeScript must be used throughout the project with strict mode enabled:        "dark": "hsl(var(--primary))"
+TypeScript must be used throughout the project with strict mode enabled: "dark": "hsl(var(--primary))"
 
-- **Full type coverage**: All Svelte components, routes, and utilities must have explicit types      },
+- **Full type coverage**: All Svelte components, routes, and utilities must have explicit types },
 
-- **Accessibility first**: Components must include proper ARIA attributes, semantic HTML, and keyboard navigation      "primary-foreground": {
+- **Accessibility first**: Components must include proper ARIA attributes, semantic HTML, and keyboard navigation "primary-foreground": {
 
-- **A11y testing**: Color contrast must meet WCAG AA standards; focus states must be visible        "light": "hsl(var(--primary-foreground))",
+- **A11y testing**: Color contrast must meet WCAG AA standards; focus states must be visible "light": "hsl(var(--primary-foreground))",
 
-- **Props validation**: Component interfaces must be explicitly typed; no `any` types allowed        "dark": "hsl(var(--primary-foreground))"
+- **Props validation**: Component interfaces must be explicitly typed; no `any` types allowed "dark": "hsl(var(--primary-foreground))"
 
       },
 
-### IV. Content-Driven Development      "secondary": {
+### IV. Content-Driven Development "secondary": {
 
-Blog and portfolio content is managed through structured data files:        "light": "hsl(var(--secondary))",
+Blog and portfolio content is managed through structured data files: "light": "hsl(var(--secondary))",
 
-- **Markdown content**: Blog posts and documentation stored in `src/content/` as `.md` files        "dark": "hsl(var(--secondary))"
+- **Markdown content**: Blog posts and documentation stored in `src/content/` as `.md` files "dark": "hsl(var(--secondary))"
 
-- **Typed content loading**: Content is parsed and typed via `+page.server.ts` route handlers      },
+- **Typed content loading**: Content is parsed and typed via `+page.server.ts` route handlers },
 
-- **SEO optimization**: Each content page must have proper meta tags (title, description, OG tags)      "secondary-foreground": {
+- **SEO optimization**: Each content page must have proper meta tags (title, description, OG tags) "secondary-foreground": {
 
-- **i18n support**: All content strings support Portuguese (pt) and English (en) translations        "light": "hsl(var(--secondary-foreground))",
+- **i18n support**: All content strings support Portuguese (pt) and English (en) translations "light": "hsl(var(--secondary-foreground))",
 
         "dark": "hsl(var(--secondary-foreground))"
 
-### V. Performance & Bundle Optimization      },
+### V. Performance & Bundle Optimization },
 
-The portfolio must maintain high performance standards:      "accent": {
+The portfolio must maintain high performance standards: "accent": {
 
-- **Code splitting**: Routes are code-split automatically via SvelteKit; lazy loading for non-critical components        "light": "hsl(var(--accent))",
+- **Code splitting**: Routes are code-split automatically via SvelteKit; lazy loading for non-critical components "light": "hsl(var(--accent))",
 
-- **Image optimization**: Images use optimized formats; hero images use `BlurFade` or `StarryBackground` for perceived performance        "dark": "hsl(var(--accent))"
+- **Image optimization**: Images use optimized formats; hero images use `BlurFade` or `StarryBackground` for perceived performance "dark": "hsl(var(--accent))"
 
-- **CSS efficiency**: Tailwind CSS purges unused classes; inline critical CSS where necessary      },
+- **CSS efficiency**: Tailwind CSS purges unused classes; inline critical CSS where necessary },
 
-- **Bundle monitoring**: Build size must not exceed 200KB (gzipped); animation libraries kept minimal      "accent-foreground": {
+- **Bundle monitoring**: Build size must not exceed 200KB (gzipped); animation libraries kept minimal "accent-foreground": {
 
         "light": "hsl(var(--accent-foreground))",
 
-## Design & Styling Standards        "dark": "hsl(var(--accent-foreground))"
+## Design & Styling Standards "dark": "hsl(var(--accent-foreground))"
 
       },
 
-### Design System Usage      "muted": {
+### Design System Usage "muted": {
 
-- **Tailwind CSS**: Primary utility framework; all spacing, colors, and responsive design via Tailwind        "light": "hsl(var(--muted))",
+- **Tailwind CSS**: Primary utility framework; all spacing, colors, and responsive design via Tailwind "light": "hsl(var(--muted))",
 
-- **Shadcn/UI components**: Use pre-built `ui/` components (`Button`, `Card`, `Badge`, `Avatar`, etc.) for consistency        "dark": "hsl(var(--muted))"
+- **Shadcn/UI components**: Use pre-built `ui/` components (`Button`, `Card`, `Badge`, `Avatar`, etc.) for consistency "dark": "hsl(var(--muted))"
 
-- **Custom animations**: Magic components (`BlurFade`, `Dock`, `StarryBackground`) reserved for hero sections and highlights      },
+- **Custom animations**: Magic components (`BlurFade`, `Dock`, `StarryBackground`) reserved for hero sections and highlights },
 
-- **Responsive design**: Mobile-first approach; breakpoints: `sm` (640px), `md` (768px), `lg` (1024px), `xl` (1280px)      "muted-foreground": {
+- **Responsive design**: Mobile-first approach; breakpoints: `sm` (640px), `md` (768px), `lg` (1024px), `xl` (1280px) "muted-foreground": {
 
         "light": "hsl(var(--muted-foreground))",
 
-### Color Palette        "dark": "hsl(var(--muted-foreground))"
+### Color Palette "dark": "hsl(var(--muted-foreground))"
 
-- **Primary**: Brand color for CTA buttons and links      },
+- **Primary**: Brand color for CTA buttons and links },
 
-- **Secondary**: Supporting color for secondary actions      "border": {
+- **Secondary**: Supporting color for secondary actions "border": {
 
-- **Accent**: Highlights and decorative elements        "light": "hsl(var(--border))",
+- **Accent**: Highlights and decorative elements "light": "hsl(var(--border))",
 
-- **Muted**: Disabled states, placeholders, subtle text        "dark": "hsl(var(--border))"
+- **Muted**: Disabled states, placeholders, subtle text "dark": "hsl(var(--border))"
 
-- **Destructive**: Error states and dangerous actions      },
+- **Destructive**: Error states and dangerous actions },
 
-- **Background/Foreground**: Page backgrounds and text; mode-aware      "input": {
+- **Background/Foreground**: Page backgrounds and text; mode-aware "input": {
 
         "light": "hsl(var(--input))",
 
-### Typography        "dark": "hsl(var(--input))"
+### Typography "dark": "hsl(var(--input))"
 
-- **Font families**: Inter Variable (sans-serif), JetBrains Mono (code)      },
+- **Font families**: Inter Variable (sans-serif), JetBrains Mono (code) },
 
-- **Font sizes**: xs (0.75rem) → 5xl (3rem); use semantic scales      "ring": {
+- **Font sizes**: xs (0.75rem) → 5xl (3rem); use semantic scales "ring": {
 
-- **Font weights**: Normal (400), Medium (500), Bold (700)        "light": "hsl(var(--ring))",
+- **Font weights**: Normal (400), Medium (500), Bold (700) "light": "hsl(var(--ring))",
 
-- **Line heights**: Tight (1.25), Normal (1.5), Relaxed (1.75)        "dark": "hsl(var(--ring))"
+- **Line heights**: Tight (1.25), Normal (1.5), Relaxed (1.75) "dark": "hsl(var(--ring))"
 
       }
 
-## Development Workflow    },
+## Development Workflow },
 
     "typography": {
 
-### File Organization      "fontFamily": {
+### File Organization "fontFamily": {
 
-```        "sans": "'Inter Variable', sans-serif",
+````"sans": "'Inter Variable', sans-serif",
 
 src/        "mono": "'JetBrains Mono', monospace"
 
@@ -268,14 +268,16 @@ src/        "mono": "'JetBrains Mono', monospace"
 
 </style>}
 
-```
+````
 
 ### Props & Events
+
 - **Props**: Always use TypeScript types; document with JSDoc comments
 - **Events**: Use `dispatch()` for custom events; prefer named events (e.g., `on:select`, `on:close`)
 - **Slots**: Name slots for multiple content areas; document slot usage in comments
 
 ### Testing
+
 - **Unit tests**: Test component logic, props validation, event handling (Vitest recommended)
 - **Visual tests**: Storybook or visual regression tests for UI components
 - **Integration tests**: Test routes, API calls, and multi-component interactions
@@ -284,23 +286,27 @@ src/        "mono": "'JetBrains Mono', monospace"
 ## i18n & Localization
 
 ### Translation Management
+
 - **Translation files**: Separate files for each language (`en.ts`, `pt.ts`) in `src/lib/i18n/`
 - **Fallback language**: English is the fallback if translation is missing
 - **Dynamic language switching**: Use `LanguageToggle` component to switch between pt/en
 - **Content localization**: Blog posts can have language-specific versions via slug convention
 
 ### Language Store
+
 All language state managed via Svelte store; reactive updates across the entire app.
 
 ## Content Management
 
 ### Blog Posts
+
 - **Location**: `src/content/*.md`
 - **Metadata**: YAML front matter with title, date, tags, excerpt
 - **Rendering**: Markdown parsed server-side; route handlers in `+page.server.ts`
 - **Naming**: Kebab-case file names (e.g., `primeiro-post.md`, `niri.md`)
 
 ### Portfolio Data
+
 - **Resume**: Typed data in `src/lib/data/resume.ts`
 - **Projects**: Project metadata in route data or static file
 - **Images**: Optimized images in `static/images/`; use lazy loading where appropriate
@@ -308,11 +314,13 @@ All language state managed via Svelte store; reactive updates across the entire 
 ## Quality Gates
 
 ### Pre-commit Hooks
+
 - ESLint validation
 - TypeScript type checking
 - Prettier formatting (optional, recommended)
 
 ### Before Each Release
+
 - All tests passing
 - No console errors or warnings
 - Bundle size within limits
@@ -321,6 +329,7 @@ All language state managed via Svelte store; reactive updates across the entire 
 - SEO meta tags present
 
 ### Documentation Requirements
+
 - All public components documented (props, events, slots)
 - Complex functions include JSDoc comments
 - README.md kept up-to-date
@@ -329,9 +338,11 @@ All language state managed via Svelte store; reactive updates across the entire 
 ## Governance
 
 ### Constitution Status
+
 This constitution is the **single source of truth** for portfolio development standards. All code must comply with these principles.
 
 ### Amendment Process
+
 1. **Propose**: Create an issue or discussion describing the change
 2. **Discuss**: Get feedback from the development team
 3. **Document**: Update this constitution with new rules and rationale
@@ -339,6 +350,7 @@ This constitution is the **single source of truth** for portfolio development st
 5. **Communicate**: Announce changes to all contributors
 
 ### Exceptions
+
 - Exceptions must be documented in a comment with the reason
 - Exceptions require explicit approval before merging
 - Recurring exceptions indicate a constitution update is needed

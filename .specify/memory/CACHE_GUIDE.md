@@ -27,6 +27,7 @@ The portfolio now includes a comprehensive caching layer to improve performance 
 ## Components
 
 ### MemoryCache
+
 The core caching implementation - an LRU cache with TTL support.
 
 ```typescript
@@ -34,10 +35,10 @@ import { MemoryCache } from '$lib/cache';
 
 // Create a cache instance
 const cache = new MemoryCache({
-  maxSize: 100,           // Max 100 entries
-  defaultTTL: 3600000,    // 1 hour
-  enabled: true,
-  evictionPolicy: 'LRU'   // Least Recently Used
+	maxSize: 100, // Max 100 entries
+	defaultTTL: 3600000, // 1 hour
+	enabled: true,
+	evictionPolicy: 'LRU' // Least Recently Used
 });
 
 // Store value
@@ -48,7 +49,7 @@ const value = cache.get('key'); // 'value' or undefined
 
 // Check existence
 if (cache.has('key')) {
-  // Do something
+	// Do something
 }
 
 // Delete key
@@ -60,6 +61,7 @@ console.log(`Hit rate: ${stats.hitRate.toFixed(2)}`);
 ```
 
 ### CachedContentLoader
+
 Automatically caches blog content with built-in invalidation.
 
 ```typescript
@@ -85,6 +87,7 @@ console.log(loader.getStats());
 ```
 
 ### Cache Invalidation Manager
+
 Handles automatic and manual cache invalidation.
 
 ```typescript
@@ -105,7 +108,7 @@ manager.invalidatePrefix('user_');
 
 // Listen to invalidation events
 manager.on((event) => {
-  console.log(`Cache invalidated: ${event.reason}`);
+	console.log(`Cache invalidated: ${event.reason}`);
 });
 ```
 
@@ -113,14 +116,14 @@ manager.on((event) => {
 
 Cache-Control headers are automatically set based on route patterns:
 
-| Route Pattern | Cache Duration | Details |
-|--------------|-----------------|---------|
-| Static assets | 1 year | JS, CSS, fonts |
-| Images | 30 days | PNG, JPG, WebP, etc. |
-| API endpoints | 5 minutes | `/api/*` |
-| Blog posts | 1 hour | `/blog/*` |
-| Home page | 30 minutes | `/` |
-| HTML pages | 1 hour | All other pages |
+| Route Pattern | Cache Duration | Details              |
+| ------------- | -------------- | -------------------- |
+| Static assets | 1 year         | JS, CSS, fonts       |
+| Images        | 30 days        | PNG, JPG, WebP, etc. |
+| API endpoints | 5 minutes      | `/api/*`             |
+| Blog posts    | 1 hour         | `/blog/*`            |
+| Home page     | 30 minutes     | `/`                  |
+| HTML pages    | 1 hour         | All other pages      |
 
 ## Configuration
 
@@ -143,13 +146,13 @@ Modify cache timing in `src/hooks.server.ts`:
 
 ```typescript
 const cacheConfig = [
-  {
-    pattern: /^\/my-route/,
-    maxAge: 7200,           // 2 hours
-    revalidate: 'must-revalidate',
-    isPublic: true
-  },
-  // ... more configs
+	{
+		pattern: /^\/my-route/,
+		maxAge: 7200, // 2 hours
+		revalidate: 'must-revalidate',
+		isPublic: true
+	}
+	// ... more configs
 ];
 ```
 
@@ -162,13 +165,13 @@ const cacheConfig = [
 import { getContentLoader } from '$lib/cache/content-loader';
 
 export const load: PageLoad = async ({ params }) => {
-  const loader = getContentLoader();
-  const post = await loader.getPost(params.slug);
-  
-  return {
-    post,
-    meta: post?.metadata
-  };
+	const loader = getContentLoader();
+	const post = await loader.getPost(params.slug);
+
+	return {
+		post,
+		meta: post?.metadata
+	};
 };
 ```
 
@@ -189,7 +192,7 @@ import { MemoizationCache } from '$lib/cache';
 const memoizer = new MemoizationCache();
 
 const expensiveFunction = (a: number, b: number) => {
-  return a + b;
+	return a + b;
 };
 
 const memoized = memoizer.memoize(expensiveFunction);
@@ -214,8 +217,8 @@ const warmer = new WarmingCache(cache);
 
 // Pre-populate cache with known values
 await warmer.warm([
-  { key: 'app_version', value: '1.0.0', ttl: 86400000 },
-  { key: 'config', value: { theme: 'dark' }, ttl: 3600000 }
+	{ key: 'app_version', value: '1.0.0', ttl: 86400000 },
+	{ key: 'config', value: { theme: 'dark' }, ttl: 3600000 }
 ]);
 ```
 
@@ -245,21 +248,25 @@ await warmer.warm([
 ## Troubleshooting
 
 ### Cache not working
+
 - Check if caching is enabled: `PUBLIC_CACHE_ENABLED=true`
 - Verify TTL: `cache.getStats()`
 - Check response headers: `Cache-Control` header should be set
 
 ### Stale data served
+
 - Invalidate manually: `loader.invalidateCache()`
 - Check TTL settings - may be too high
 - Use shorter TTL for frequently updated content
 
 ### High memory usage
+
 - Reduce `PUBLIC_CACHE_MAX_SIZE`
 - Lower TTL values
 - Check cache statistics: `cache.getStats()`
 
 ### Cache statistics wrong
+
 - Ensure cache is enabled
 - Call `getStats()` after operations
 - Check for concurrent access issues
@@ -292,6 +299,7 @@ await warmer.warm([
 ### MemoryCache
 
 #### Methods
+
 - `get(key)`: Get cached value
 - `set(key, value, ttl?)`: Store value
 - `has(key)`: Check if key exists and not expired
@@ -306,6 +314,7 @@ await warmer.warm([
 ### CachedContentLoader
 
 #### Methods
+
 - `getPosts()`: Get all posts (cached)
 - `getPost(slug)`: Get specific post (cached)
 - `invalidateCache()`: Clear all cache
@@ -318,6 +327,7 @@ await warmer.warm([
 ### CacheInvalidationManager
 
 #### Methods
+
 - `invalidate(key, reason?)`: Remove single key
 - `invalidateMany(keys, reason?)`: Remove multiple keys
 - `invalidatePattern(pattern, reason?)`: Remove keys matching pattern
@@ -330,12 +340,14 @@ await warmer.warm([
 ### From No Cache to Cached Content Loader
 
 **Before:**
+
 ```typescript
 const paths = import.meta.glob('/src/content/*.md', { eager: true });
 // Manual content loading...
 ```
 
 **After:**
+
 ```typescript
 import { getContentLoader } from '$lib/cache/content-loader';
 

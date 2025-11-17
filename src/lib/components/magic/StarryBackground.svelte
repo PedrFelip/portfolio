@@ -235,7 +235,7 @@
 {#if !isMobile}
 	<canvas
 		bind:this={canvas}
-		class="fixed inset-0 pointer-events-none z-0"
+		class="pointer-events-none fixed inset-0 z-0"
 		style="opacity: {$mode === 'dark' ? '0.6' : '0.7'};"
 	></canvas>
 {/if}

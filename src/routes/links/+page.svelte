@@ -1,7 +1,6 @@
 <script lang="ts">
 	import BlurFade from '$lib/components/magic/BlurFade.svelte';
 	import DotBackground from '$lib/components/magic/DotBackground.svelte';
-	import ShineBorder from '$lib/components/magic/ShineBorder.svelte';
 	import * as Avatar from '$lib/components/ui/avatar';
 	import { DATA } from '$lib/data/resume';
 	import { enabledLinks } from '$lib/data/links';
@@ -36,48 +35,39 @@
 	</section>
 
 	<!-- Links -->
-	<section class="w-full max-w-md space-y-4 px-4">
+	<section class="w-full max-w-md space-y-3 px-4">
 		{#each enabledLinks as link, i}
 			<BlurFade delay={BLUR_FADE_DELAY * (i + 2)}>
 				<a
 					href={link.url}
 					target="_blank"
 					rel="noopener noreferrer"
-					class="block transition-transform hover:scale-105"
+					class="group block rounded-lg border border-border bg-card p-4 transition-all duration-300 hover:border-foreground hover:bg-foreground/5 hover:shadow-md"
 				>
-					<ShineBorder
-						class="w-full min-w-full transition-colors duration-300 {link.color}"
-						borderRadius={12}
-						color={link.shineColors || ['#A07CFE', '#FE8FB5', '#FFBE7B']}
-						duration={10}
-					>
-						<div class="p-6">
-							<div class="flex items-center space-x-4">
-								<div class="flex-shrink-0">
-									<svelte:component this={link.icon} class="h-6 w-6" />
-								</div>
-								<div class="min-w-0 flex-1">
-									<h3 class="text-lg font-semibold">{link.title}</h3>
-									<p class="text-sm text-muted-foreground">{link.description}</p>
-								</div>
-								<div class="flex-shrink-0">
-									<svg
-										class="h-5 w-5 text-muted-foreground"
-										fill="none"
-										stroke="currentColor"
-										viewBox="0 0 24 24"
-									>
-										<path
-											stroke-linecap="round"
-											stroke-linejoin="round"
-											stroke-width="2"
-											d="M9 5l7 7-7 7"
-										/>
-									</svg>
-								</div>
-							</div>
+					<div class="flex items-center space-x-4">
+						<div class="flex-shrink-0">
+							<svelte:component this={link.icon} class="h-6 w-6" />
 						</div>
-					</ShineBorder>
+						<div class="min-w-0 flex-1">
+							<h3 class="text-lg font-semibold">{link.title}</h3>
+							<p class="text-sm text-muted-foreground">{link.description}</p>
+						</div>
+						<div class="flex-shrink-0">
+							<svg
+								class="h-5 w-5 text-muted-foreground transition-all duration-300 group-hover:translate-x-1 group-hover:text-foreground"
+								fill="none"
+								stroke="currentColor"
+								viewBox="0 0 24 24"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M9 5l7 7-7 7"
+								/>
+							</svg>
+						</div>
+					</div>
 				</a>
 			</BlurFade>
 		{/each}

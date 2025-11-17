@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { marked } from '$lib/utils';
 	import Badge from '../ui/badge/badge.svelte';
-	import BorderBeam from '../magic/BorderBeam.svelte';
 
 	let _class = '';
 	export { _class as class };
@@ -14,24 +13,12 @@
 	export let image: string = '';
 	export let video: string = '';
 	export let links: { icon: any; type: string; href: string }[] = [];
-	export let borderBeamColors: { from: string; to: string } = {
-		from: '#A07CFE',
-		to: '#FE8FB5'
-	};
 </script>
 
 <!-- Card -->
 <div
 	class="relative flex h-full flex-col overflow-hidden rounded-lg border bg-card text-card-foreground transition-all duration-300 ease-out hover:shadow-lg"
 >
-	<BorderBeam
-		size={250}
-		duration={15}
-		borderWidth={1}
-		colorFrom={borderBeamColors.from}
-		colorTo={borderBeamColors.to}
-		delay={0}
-	/>
 	{#if video || image}
 		<a href={href || '#'} target="_blank" rel="noopener noreferrer" class="block cursor-pointer">
 			{#if video}

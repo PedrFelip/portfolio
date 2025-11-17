@@ -8,7 +8,7 @@
 	injectSpeedInsights();
 </script>
 
-<ModeWatcher defaultMode="dark" />
+<ModeWatcher defaultMode="dark" disableTransitions={false} />
 <div class="relative min-h-screen bg-background">
 	<DotBackground
 		class="pointer-events-none fixed inset-0 -z-10 [mask-image:radial-gradient(100vmax_circle_at_center,white,transparent)]"

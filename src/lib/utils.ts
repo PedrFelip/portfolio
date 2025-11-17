@@ -229,3 +229,7 @@ export function runAnimationDiagnostics(): void {
 
 	console.groupEnd();
 }
+
+export function cn1(...inputs: any[]) {
+	return inputs.filter(Boolean).join(' ');
+}

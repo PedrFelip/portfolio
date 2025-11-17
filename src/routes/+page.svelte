@@ -1,6 +1,7 @@
 <script lang="ts">
-        import BlurFade from '$lib/components/magic/BlurFade.svelte';
-        import InteractiveHoverButton from '$lib/components/magic/InteractiveHoverButton.svelte';
+	import BlurFade from '$lib/components/magic/BlurFade.svelte';
+	import Terminal from '$lib/components/magic/Terminal.svelte';
+	import InteractiveHoverButton from '$lib/components/magic/InteractiveHoverButton.svelte';
 	import ProjectCard from '$lib/components/portfolio/ProjectCard.svelte';
 	import ResumeCard from '$lib/components/portfolio/ResumeCard.svelte';
 	import * as Avatar from '$lib/components/ui/avatar';
@@ -9,6 +10,21 @@
 	import { t } from '$lib/i18n';
 	import { marked } from '$lib/utils';
 	let BLUR_FADE_DELAY = 0.15;
+
+	const terminalLines = [
+		{ id: '1', text: '$ whoami', type: 'input' as const, delay: 0 },
+		{ id: '2', text: 'pedrofelipe', type: 'output' as const, delay: 400 },
+		{ id: '3', text: '$ echo $ROLE', type: 'input' as const, delay: 800 },
+		{ id: '4', text: 'Backend & DevOps Engineer', type: 'output' as const, delay: 1200 }
+	];
+
+	const handleProjectsClick = () => {
+		document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
+	};
+
+	const handleContactsClick = () => {
+		window.location.href = '/links';
+	};
 </script>
 
 <svelte:head>
@@ -60,13 +76,14 @@
 						class="text-2xl font-bold tracking-tighter sm:text-4xl xl:text-5xl/none"
 						yOffset={8}>{$t.hero.greeting}</BlurFade
 					>
-                                        <BlurFade class="max-w-[600px] text-sm sm:text-base md:text-xl" delay={BLUR_FADE_DELAY}
-                                                >{$t.hero.subtitle}</BlurFade
-                                        >
-                                        <BlurFade delay={BLUR_FADE_DELAY * 1.5}>
-                                                <InteractiveHoverButton class="mt-2" text={$t.hero.cta} type="button" />
-                                        </BlurFade>
-                                </div>
+					<BlurFade class="max-w-[600px] text-sm sm:text-base md:text-xl" delay={BLUR_FADE_DELAY}
+						>{$t.hero.subtitle}</BlurFade
+					>
+					<BlurFade delay={BLUR_FADE_DELAY * 2} class="mt-6 flex gap-4">
+						<InteractiveHoverButton text="Projetos" on:click={handleProjectsClick} />
+						<InteractiveHoverButton text="Contatos" on:click={handleContactsClick} />
+					</BlurFade>
+				</div>
 				<BlurFade delay={BLUR_FADE_DELAY}>
 					<Avatar.Root class="size-20 border sm:size-28">
 						<Avatar.Image alt={DATA.name} src={DATA.avatarUrl} class="object-cover" />
@@ -133,6 +150,16 @@
 				{/each}
 			</div>
 		</div>
+	</section>
+	<section id="terminal" class="w-full space-y-8 py-12">
+		<BlurFade delay={BLUR_FADE_DELAY}>
+			<div class="flex flex-col items-center justify-center space-y-4 text-center"></div>
+		</BlurFade>
+		<BlurFade delay={BLUR_FADE_DELAY * 1.5}>
+			<div class="mx-auto w-full max-w-2xl">
+				<Terminal title="~/pedrofelipe" lines={terminalLines} />
+			</div>
+		</BlurFade>
 	</section>
 	<section id="projects">
 		<div class="w-full space-y-12 py-12">

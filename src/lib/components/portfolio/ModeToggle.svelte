@@ -1,52 +1,79 @@
 <script lang="ts">
     import Sun from "lucide-svelte/icons/sun";
     import Moon from "lucide-svelte/icons/moon";
+    import { onMount } from 'svelte';
 
     import { toggleMode } from "mode-watcher";
     import { Button } from "$lib/components/ui/button/index.js";
 
     let isTransitioning = false;
     let buttonElement: HTMLButtonElement;
+    let supportsViewTransitions = false;
+    let prefersReducedMotion = false;
+    export let debug = false; // Enable debug logging
 
-    // Verifica se o navegador suporta View Transitions API
-    const supportsViewTransitions = typeof document !== 'undefined' &&
-      'startViewTransition' in document;
+    // Debug logging function
+    function logDebug(message: string, data?: any) {
+      if (debug && typeof console !== 'undefined') {
+        console.log(`[ModeToggle] ${message}`, data || '');
+      }
+    }
 
-    // Verifica se o usuário prefere animações reduzidas (acessibilidade)
-    const prefersReducedMotion = typeof window !== 'undefined' &&
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    onMount(() => {
+      // Verifica se o navegador suporta View Transitions API
+      supportsViewTransitions = typeof document !== 'undefined' &&
+        'startViewTransition' in document;
+
+      // Verifica se o usuário prefere animações reduzidas (acessibilidade)
+      prefersReducedMotion = typeof window !== 'undefined' &&
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      logDebug('Browser support check:', {
+        supportsViewTransitions,
+        prefersReducedMotion,
+        userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : 'N/A'
+      });
+    });
 
     async function handleToggle(event: MouseEvent) {
-      if (isTransitioning) return;
+      if (isTransitioning) {
+        logDebug('Toggle blocked: already transitioning');
+        return;
+      }
 
       isTransitioning = true;
+      logDebug('Toggle started', { prefersReducedMotion, supportsViewTransitions });
 
       // Se o usuário prefere animações reduzidas, apenas troca o tema
       if (prefersReducedMotion) {
+        logDebug('Using reduced motion mode');
         toggleMode();
         isTransitioning = false;
         return;
       }
 
       if (supportsViewTransitions) {
-        // Cria efeito ripple circular a partir do botão
-        const x = event.clientX;
-        const y = event.clientY;
-        const endRadius = Math.hypot(
-          Math.max(x, window.innerWidth - x),
-          Math.max(y, window.innerHeight - y)
-        );
-
-        // @ts-ignore - View Transitions API
-        const transition = document.startViewTransition(async () => {
-          toggleMode();
-        });
-
         try {
+          // Cria efeito ripple circular a partir do botão
+          const x = event.clientX;
+          const y = event.clientY;
+          const endRadius = Math.hypot(
+            Math.max(x, window.innerWidth - x),
+            Math.max(y, window.innerHeight - y)
+          );
+
+          logDebug('Starting View Transition animation', { x, y, endRadius });
+
+          // @ts-ignore - View Transitions API
+          const transition = document.startViewTransition(async () => {
+            toggleMode();
+          });
+
           await transition.ready;
+          logDebug('View Transition ready');
 
           // Anima o clip-path em formato circular
-          document.documentElement.animate(
+          const animation = document.documentElement.animate(
             {
               clipPath: [
                 `circle(0px at ${x}px ${y}px)`,
@@ -60,20 +87,27 @@
             }
           );
 
+          logDebug('Clip-path animation started', { duration: 500 });
+
           await transition.finished;
+          logDebug('View Transition completed');
         } catch (error) {
-          console.log('Transition interrupted:', error);
+          console.error('[ModeToggle] Transition error:', error);
+          // Fallback: apenas troca o tema sem animação
+          toggleMode();
         } finally {
           isTransitioning = false;
         }
       } else {
         // Fallback para navegadores sem suporte
+        logDebug('Using fallback animation (no View Transitions API support)');
         document.documentElement.classList.add('theme-transitioning');
         toggleMode();
 
         setTimeout(() => {
           document.documentElement.classList.remove('theme-transitioning');
           isTransitioning = false;
+          logDebug('Fallback animation completed');
         }, 500);
       }
     }

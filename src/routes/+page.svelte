@@ -1,6 +1,5 @@
 <script lang="ts">
 	import BlurFade from '$lib/components/magic/BlurFade.svelte';
-	import GridPattern from '$lib/components/magic/GridPattern.svelte';
 	import ProjectCard from '$lib/components/portfolio/ProjectCard.svelte';
 	import ResumeCard from '$lib/components/portfolio/ResumeCard.svelte';
 	import * as Avatar from '$lib/components/ui/avatar';
@@ -9,20 +8,6 @@
 	import { t } from '$lib/i18n';
 	import { marked } from '$lib/utils';
 	let BLUR_FADE_DELAY = 0.15;
-
-	// Border beam color palettes for different projects (monochromatic/minimal theme)
-	const borderBeamColors = [
-		{ from: '#71717a', to: '#a1a1aa' }, // Zinc 500 to Zinc 400
-		{ from: '#52525b', to: '#71717a' }, // Zinc 600 to Zinc 500
-		{ from: '#a1a1aa', to: '#d4d4d8' }, // Zinc 400 to Zinc 300
-		{ from: '#3f3f46', to: '#52525b' }, // Zinc 700 to Zinc 600
-		{ from: '#71717a', to: '#d4d4d8' }, // Zinc 500 to Zinc 300
-		{ from: '#52525b', to: '#a1a1aa' } // Zinc 600 to Zinc 400
-	];
-
-	function getProjectColors(index: number) {
-		return borderBeamColors[index % borderBeamColors.length];
-	}
 </script>
 
 <svelte:head>
@@ -65,24 +50,6 @@
 	/>
 </svelte:head>
 <main class="relative flex min-h-[100dvh] flex-col space-y-10 overflow-hidden">
-	<GridPattern
-		class="pointer-events-none inset-0 -z-10 [mask-image:radial-gradient(60vmax_circle_at_center,white,transparent)]"
-		width={40}
-		height={40}
-		fillColor="rgb(156 163 175 / 0.3)"
-		squares={[
-			[4, 4],
-			[5, 1],
-			[8, 2],
-			[6, 6],
-			[10, 5],
-			[13, 3],
-			[15, 8],
-			[18, 4],
-			[20, 10],
-			[22, 2]
-		]}
-	/>
 	<section id="hero">
 		<div class="mx-auto w-full max-w-2xl space-y-8">
 			<div class="flex justify-between gap-2">
@@ -198,7 +165,6 @@
 							image={project.image}
 							video={project.video}
 							links={project.links}
-							borderBeamColors={getProjectColors(id)}
 						/>
 					</BlurFade>
 				{/each}

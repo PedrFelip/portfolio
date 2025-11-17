@@ -9,13 +9,15 @@
 </script>
 
 <ModeWatcher defaultMode="dark" />
-<DotBackground
-	class="[mask-image:radial-gradient(200px_circle_at_center,white,transparent)]"
-	fillColor={$mode === 'dark' ? 'rgb(255 255 255 / 0.06)' : 'rgb(0 0 0 / 0.04)'}
-/>
-<div
-	class="relative z-10 mx-auto min-h-screen max-w-2xl bg-background px-4 py-12 font-sans antialiased sm:px-6 sm:py-24"
->
-	<slot></slot>
-	<Navbar />
+<div class="relative min-h-screen bg-background">
+	<DotBackground
+		class="pointer-events-none fixed inset-0 -z-10 [mask-image:radial-gradient(100vmax_circle_at_center,white,transparent)]"
+		fillColor={$mode === 'dark' ? 'rgb(255 255 255 / 0.06)' : 'rgb(0 0 0 / 0.04)'}
+	/>
+	<div
+		class="relative z-10 mx-auto min-h-screen max-w-2xl px-4 py-12 font-sans antialiased sm:px-6 sm:py-24"
+	>
+		<slot></slot>
+		<Navbar />
+	</div>
 </div>

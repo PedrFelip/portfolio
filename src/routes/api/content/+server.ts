@@ -23,12 +23,14 @@ export async function GET() {
 	}
 
 	// Sort by date descending
-	posts = posts.sort((first, second) => new Date(second.date).getTime() - new Date(first.date).getTime());
+	posts = posts.sort(
+		(first, second) => new Date(second.date).getTime() - new Date(first.date).getTime()
+	);
 
 	return json(posts, {
 		headers: {
 			'Cache-Control': 'public, max-age=300, must-revalidate',
-			'Content-Type': 'application/json',
-		},
+			'Content-Type': 'application/json'
+		}
 	});
 }

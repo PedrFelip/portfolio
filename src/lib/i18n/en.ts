@@ -2,10 +2,11 @@ import type { Translation } from './pt';
 
 export const en: Translation = {
 	// Hero Section
-	hero: {
-		greeting: "Hi, I'm Pedro Felipe 👋",
-		subtitle: 'Backend Developer & DevOps Enthusiast'
-	},
+        hero: {
+                greeting: "Hi, I'm Pedro Felipe 👋",
+                subtitle: 'Backend Developer & DevOps Enthusiast',
+                cta: 'Explore projects'
+        },
 
 	// Sections
 	sections: {

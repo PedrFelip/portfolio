@@ -1,5 +1,6 @@
 <script lang="ts">
-	import BlurFade from '$lib/components/magic/BlurFade.svelte';
+        import BlurFade from '$lib/components/magic/BlurFade.svelte';
+        import InteractiveHoverButton from '$lib/components/magic/InteractiveHoverButton.svelte';
 	import ProjectCard from '$lib/components/portfolio/ProjectCard.svelte';
 	import ResumeCard from '$lib/components/portfolio/ResumeCard.svelte';
 	import * as Avatar from '$lib/components/ui/avatar';
@@ -59,10 +60,13 @@
 						class="text-2xl font-bold tracking-tighter sm:text-4xl xl:text-5xl/none"
 						yOffset={8}>{$t.hero.greeting}</BlurFade
 					>
-					<BlurFade class="max-w-[600px] text-sm sm:text-base md:text-xl" delay={BLUR_FADE_DELAY}
-						>{$t.hero.subtitle}</BlurFade
-					>
-				</div>
+                                        <BlurFade class="max-w-[600px] text-sm sm:text-base md:text-xl" delay={BLUR_FADE_DELAY}
+                                                >{$t.hero.subtitle}</BlurFade
+                                        >
+                                        <BlurFade delay={BLUR_FADE_DELAY * 1.5}>
+                                                <InteractiveHoverButton class="mt-2" text={$t.hero.cta} type="button" />
+                                        </BlurFade>
+                                </div>
 				<BlurFade delay={BLUR_FADE_DELAY}>
 					<Avatar.Root class="size-20 border sm:size-28">
 						<Avatar.Image alt={DATA.name} src={DATA.avatarUrl} class="object-cover" />

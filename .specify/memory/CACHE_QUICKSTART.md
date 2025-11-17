@@ -7,6 +7,7 @@ O cache está **ativo por padrão** e funciona automaticamente! Nada para config
 ## ✨ O que foi adicionado
 
 ### 1. **Cache de Conteúdo (Blog Posts)**
+
 Automaticamente cacheado com 1 hora de TTL. Use assim:
 
 ```typescript
@@ -14,13 +15,14 @@ Automaticamente cacheado com 1 hora de TTL. Use assim:
 import { getContentLoader } from '$lib/cache/content-loader';
 
 export const load = async () => {
-  const loader = getContentLoader();
-  const posts = await loader.getPosts(); // Cached!
-  return { posts };
+	const loader = getContentLoader();
+	const posts = await loader.getPosts(); // Cached!
+	return { posts };
 };
 ```
 
 ### 2. **API de Conteúdo**
+
 `GET /api/content` retorna posts com cache de 5 minutos:
 
 ```bash
@@ -29,15 +31,16 @@ curl http://localhost:5173/api/content
 ```
 
 ### 3. **HTTP Cache Headers**
+
 Adicionados automaticamente via `hooks.server.ts`:
 
-| Recurso | Cache | Tempo |
-|---------|-------|-------|
-| Static (JS/CSS) | public, max-age | 1 ano |
-| Imagens | public, max-age | 30 dias |
-| API | public, must-revalidate | 5 min |
-| Blog | public, must-revalidate | 1 hora |
-| Home | public, must-revalidate | 30 min |
+| Recurso         | Cache                   | Tempo   |
+| --------------- | ----------------------- | ------- |
+| Static (JS/CSS) | public, max-age         | 1 ano   |
+| Imagens         | public, max-age         | 30 dias |
+| API             | public, must-revalidate | 5 min   |
+| Blog            | public, must-revalidate | 1 hora  |
+| Home            | public, must-revalidate | 30 min  |
 
 ## 🛠️ Configuração
 
@@ -58,12 +61,12 @@ Edite `src/hooks.server.ts`:
 
 ```typescript
 const cacheConfig = [
-  {
-    pattern: /^\/my-route/,
-    maxAge: 7200,           // 2 hours
-    revalidate: 'must-revalidate',
-    isPublic: true
-  },
+	{
+		pattern: /^\/my-route/,
+		maxAge: 7200, // 2 hours
+		revalidate: 'must-revalidate',
+		isPublic: true
+	}
 ];
 ```
 
@@ -83,21 +86,23 @@ console.log(`Hits: ${stats.hits}, Misses: ${stats.misses}`);
 ## 🔄 Invalidar Cache
 
 ### Manual (após update)
+
 ```typescript
 import { getContentLoader } from '$lib/cache/content-loader';
 
 const loader = getContentLoader();
-loader.invalidateCache();  // Clear all
-loader.invalidatePost('slug-here');  // Clear specific post
+loader.invalidateCache(); // Clear all
+loader.invalidatePost('slug-here'); // Clear specific post
 ```
 
 ### Por Padrão
+
 ```typescript
 import { CacheInvalidationManager } from '$lib/cache';
 import { getGlobalCache } from '$lib/cache/memory-cache';
 
 const manager = new CacheInvalidationManager(getGlobalCache());
-manager.invalidatePrefix('user_');  // Invalida user_1, user_2, etc
+manager.invalidatePrefix('user_'); // Invalida user_1, user_2, etc
 ```
 
 ## 🧪 Testar Cache
@@ -123,14 +128,14 @@ import { MemoizationCache } from '$lib/cache';
 const memoizer = new MemoizationCache();
 
 const expensive = (n: number) => {
-  console.log(`Computing ${n}...`);
-  return n * 2;
+	console.log(`Computing ${n}...`);
+	return n * 2;
 };
 
 const memoized = memoizer.memoize(expensive);
 
-memoized(5);  // Computes
-memoized(5);  // Returns cached result
+memoized(5); // Computes
+memoized(5); // Returns cached result
 ```
 
 ### Warming Cache
@@ -142,8 +147,8 @@ const cache = new MemoryCache();
 const warmer = new WarmingCache(cache);
 
 await warmer.warm([
-  { key: 'config', value: { theme: 'dark' } },
-  { key: 'version', value: '1.0.0' }
+	{ key: 'config', value: { theme: 'dark' } },
+	{ key: 'version', value: '1.0.0' }
 ]);
 ```
 
@@ -155,8 +160,8 @@ import { CacheInvalidationManager } from '$lib/cache';
 const manager = new CacheInvalidationManager(cache);
 
 manager.on((event) => {
-  console.log(`Cache invalidated: ${event.reason}`);
-  console.log(`Keys: ${event.keys.length}`);
+	console.log(`Cache invalidated: ${event.reason}`);
+	console.log(`Keys: ${event.keys.length}`);
 });
 ```
 
@@ -171,6 +176,7 @@ manager.on((event) => {
 ## 🐛 Troubleshooting
 
 ### Cache não está funcionando
+
 ```typescript
 // Verificar se está ativado
 const cache = getGlobalCache();
@@ -178,6 +184,7 @@ console.log(cache.getStats()); // hit rate deve ser > 0
 ```
 
 ### Dados desatualizados
+
 ```typescript
 // Invalidar manualmente
 const loader = getContentLoader();
@@ -185,12 +192,13 @@ loader.invalidateCache();
 ```
 
 ### Memória alta
+
 ```typescript
 // Reduzir tamanho do cache
 const cache = new MemoryCache({ maxSize: 50 });
 
 // Ou desabilitar
-PUBLIC_CACHE_ENABLED=false
+PUBLIC_CACHE_ENABLED = false;
 ```
 
 ## 📖 Mais Info

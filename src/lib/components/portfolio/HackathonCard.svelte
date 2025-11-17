@@ -30,7 +30,7 @@
 			<p class="text-sm text-muted-foreground">{location}</p>
 		{/if}
 		{#if description}
-			<span class="prose dark:prose-invert text-sm text-muted-foreground">
+			<span class="prose text-sm text-muted-foreground dark:prose-invert">
 				{@html marked(description)}
 			</span>
 		{/if}

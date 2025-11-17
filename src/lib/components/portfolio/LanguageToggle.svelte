@@ -11,10 +11,10 @@
 
 <button
 	on:click={toggleLocale}
-	class="inline-flex size-9 sm:size-12 items-center justify-center rounded-full text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring pointer-events-auto cursor-pointer"
+	class="pointer-events-auto inline-flex size-9 cursor-pointer items-center justify-center rounded-full text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring sm:size-12"
 	aria-label="Toggle language"
 	type="button"
 >
-	<Languages class="size-4 sm:size-[18px] pointer-events-none" strokeWidth={1.5} />
+	<Languages class="pointer-events-none size-4 sm:size-[18px]" strokeWidth={1.5} />
 	<span class="sr-only">Toggle language</span>
 </button>

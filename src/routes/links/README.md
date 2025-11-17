@@ -114,6 +114,7 @@ src/
 ## 🚀 Exemplos de Uso
 
 ### Link para WhatsApp
+
 ```typescript
 {
   title: 'WhatsApp',
@@ -126,6 +127,7 @@ src/
 ```
 
 ### Link para Portfolio
+
 ```typescript
 {
   title: 'Portfólio Completo',
@@ -138,6 +140,7 @@ src/
 ```
 
 ### Link para Calendly/Agendamento
+
 ```typescript
 {
   title: 'Agendar Reunião',
@@ -158,16 +161,17 @@ import { Link } from 'lucide-svelte'; // Adicione esta importação
 
 // No objeto DATA, encontre a propriedade navbar:
 navbar: [
-  { href: '/', icon: HomeIcon, label: 'Home' },
-  { href: '/blog', icon: NotebookIcon, label: 'Blog' },
-  { href: '/#projects', icon: CodeIcon, label: 'Projects' },
-  { href: '/link', icon: Link, label: 'Links' } // ← Adicione esta linha
-]
+	{ href: '/', icon: HomeIcon, label: 'Home' },
+	{ href: '/blog', icon: NotebookIcon, label: 'Blog' },
+	{ href: '/#projects', icon: CodeIcon, label: 'Projects' },
+	{ href: '/link', icon: Link, label: 'Links' } // ← Adicione esta linha
+];
 ```
 
 Depois, adicione a tradução no arquivo de i18n:
 
 **`/src/lib/i18n/translations.ts`** (ou arquivo similar):
+
 ```typescript
 navbar: {
   home: 'Home',

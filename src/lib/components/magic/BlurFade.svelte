@@ -19,7 +19,7 @@
 	export { _class as class };
 
 	// Debug logging function
-	function logDebug(message: string, data?: any) {
+	function logDebug(message: string, data?: unknown) {
 		if (debug && typeof console !== 'undefined') {
 			console.log(`[BlurFade ${id}] ${message}`, data || '');
 		}
@@ -38,7 +38,7 @@
 	}
 </script>
 
-<AnimatePresence let:item list={[{ key: id }]}>
+<AnimatePresence list={[{ key: id }]}>
 	<Motion
 		initial="hidden"
 		animate={isInView}

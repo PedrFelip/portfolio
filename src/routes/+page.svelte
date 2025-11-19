@@ -2,6 +2,7 @@
 	import BlurFade from '$lib/components/magic/BlurFade.svelte';
 	import Terminal from '$lib/components/magic/Terminal.svelte';
 	import InteractiveHoverButton from '$lib/components/magic/InteractiveHoverButton.svelte';
+	import DotPattern from '$lib/components/magic/DotPattern.svelte';
 	import ProjectCard from '$lib/components/portfolio/ProjectCard.svelte';
 	import ResumeCard from '$lib/components/portfolio/ResumeCard.svelte';
 	import * as Avatar from '$lib/components/ui/avatar';
@@ -67,6 +68,16 @@
 	/>
 </svelte:head>
 <main class="relative flex min-h-[100dvh] flex-col space-y-10 overflow-hidden">
+	<!-- Dot Pattern Background -->
+	<DotPattern
+		class="absolute inset-0 -z-10 [mask-image:radial-gradient(ellipse_at_center,white_20%,transparent_80%)]"
+		width={20}
+		height={20}
+		cx={1}
+		cy={1}
+		cr={1.5}
+	/>
+
 	<section id="hero">
 		<div class="mx-auto w-full max-w-2xl space-y-8">
 			<div class="flex justify-between gap-2">

@@ -1,10 +1,10 @@
 export const pt = {
 	// Hero Section
-        hero: {
-                greeting: 'Olá, Sou Pedro Felipe 👋',
-                subtitle: 'Desenvolvedor Backend & Entusiasta DevOps',
-                cta: 'Explorar projetos'
-        },
+	hero: {
+		greeting: 'Olá, Sou Pedro Felipe 👋',
+		subtitle: 'Desenvolvedor Backend & Entusiasta DevOps',
+		cta: 'Explorar projetos'
+	},
 
 	// Sections
 	sections: {
@@ -77,7 +77,12 @@ export const pt = {
 	blog: {
 		title: 'Blog',
 		readMore: 'Ler mais',
-		back: 'Voltar'
+		back: 'Voltar',
+		share: 'Compartilhar',
+		shareOn: 'Compartilhar em',
+		copyLink: 'Copiar link',
+		linkCopied: 'Link copiado!',
+		shareVia: 'Compartilhar via'
 	},
 
 	// Common

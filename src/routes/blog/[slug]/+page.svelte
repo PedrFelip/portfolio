@@ -2,6 +2,7 @@
 	import Badge from '$lib/components/ui/badge/badge.svelte';
 	import Button from '$lib/components/ui/button/button.svelte';
 	import Separator from '$lib/components/ui/separator/separator.svelte';
+	import ShareButtons from '$lib/components/ShareButtons.svelte';
 	import { formatDate } from '$lib/utils';
 	import { t } from '$lib/i18n';
 	import { ArrowLeft } from 'lucide-svelte';
@@ -61,8 +62,11 @@
 
 	<!-- Post -->
 	<div
-		class="prose-video prose-ol:my2 prose pb-24 dark:prose-invert prose-h1:my-1 prose-h2:my-1 prose-h3:my-1 prose-p:my-0 prose-a:my-3 prose-blockquote:my-3 prose-figcaption:my-3 prose-pre:my-3 prose-ul:my-3 prose-table:border-b last:prose-table:border-b prose-thead:border prose-thead:bg-zinc-100 prose-th:border prose-td:border-x prose-td:text-center prose-img:mx-auto prose-img:my-3 prose-img:text-center prose-hr:my-3 dark:prose-thead:bg-zinc-900 md:pb-8"
+		class="prose-video prose-ol:my2 prose pb-8 dark:prose-invert prose-h1:my-1 prose-h2:my-1 prose-h3:my-1 prose-p:my-0 prose-a:my-3 prose-blockquote:my-3 prose-figcaption:my-3 prose-pre:my-3 prose-ul:my-3 prose-table:border-b last:prose-table:border-b prose-thead:border prose-thead:bg-zinc-100 prose-th:border prose-td:border-x prose-td:text-center prose-img:mx-auto prose-img:my-3 prose-img:text-center prose-hr:my-3 dark:prose-thead:bg-zinc-900"
 	>
 		<svelte:component this={data.content} />
 	</div>
+
+	<!-- Share Buttons -->
+	<ShareButtons title={data.meta.title} />
 </article>

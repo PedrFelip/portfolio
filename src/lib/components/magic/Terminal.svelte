@@ -15,9 +15,14 @@
 		{ id: '1', text: '$ whoami', type: 'input', delay: 0 },
 		{ id: '2', text: 'Pedro Felipe', type: 'output', delay: 400 },
 		{ id: '3', text: '$ cat skills.txt', type: 'input', delay: 800 },
-		{ id: '4', text: 'Node.js, TypeScript, Go, PostgreSQL, Docker, Nginx...', type: 'output', delay: 1200 },
+		{
+			id: '4',
+			text: 'Node.js, TypeScript, Go, PostgreSQL, Docker, Nginx...',
+			type: 'output',
+			delay: 1200
+		},
 		{ id: '5', text: '$ echo "Let\'s build something amazing"', type: 'input', delay: 1600 },
-		{ id: '6', text: 'Let\'s build something amazing', type: 'output', delay: 2000 }
+		{ id: '6', text: "Let's build something amazing", type: 'output', delay: 2000 }
 	];
 
 	let displayedLines: TerminalLine[] = [];
@@ -45,7 +50,11 @@
 
 	<div class="terminal-body">
 		{#each displayedLines as line (line.id)}
-			<div class="terminal-line" class:input={line.type === 'input'} class:output={line.type === 'output'}>
+			<div
+				class="terminal-line"
+				class:input={line.type === 'input'}
+				class:output={line.type === 'output'}
+			>
 				{#if line.type === 'input'}
 					<span class="prompt">$ </span>
 				{:else if line.type === 'output'}

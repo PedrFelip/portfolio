@@ -67,7 +67,7 @@
 		content="backend developer, devops, node.js, typescript, go, postgresql, docker, linux, api development, cloud infrastructure, pedro felipe"
 	/>
 </svelte:head>
-<main class="relative flex min-h-[100dvh] flex-col space-y-10 overflow-hidden">
+<main class="relative flex min-h-[100dvh] flex-col space-y-12 overflow-hidden px-4 sm:px-6 lg:px-8">
 	<!-- Dot Pattern Background -->
 	<DotPattern
 		class="absolute inset-0 -z-10 [mask-image:radial-gradient(ellipse_at_center,white_20%,transparent_80%)]"
@@ -78,25 +78,25 @@
 		cr={1.5}
 	/>
 
-	<section id="hero">
-		<div class="mx-auto w-full max-w-2xl space-y-8">
-			<div class="flex justify-between gap-2">
+	<section id="hero" class="pt-6 sm:pt-10">
+		<div class="mx-auto w-full max-w-3xl space-y-8">
+			<div class="flex flex-col-reverse items-start gap-6 sm:flex-row sm:items-center sm:justify-between">
 				<div class="flex flex-1 flex-col space-y-1.5">
 					<BlurFade
 						delay={BLUR_FADE_DELAY}
-						class="text-2xl font-bold tracking-tighter sm:text-4xl xl:text-5xl/none"
+						class="text-balance text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl xl:text-6xl/none"
 						yOffset={8}>{$t.hero.greeting}</BlurFade
 					>
-					<BlurFade class="max-w-[600px] text-sm sm:text-base md:text-xl" delay={BLUR_FADE_DELAY}
+					<BlurFade class="max-w-[640px] text-pretty text-sm sm:text-base md:text-lg lg:text-xl" delay={BLUR_FADE_DELAY}
 						>{$t.hero.subtitle}</BlurFade
 					>
-					<BlurFade delay={BLUR_FADE_DELAY * 2} class="mt-6 flex gap-4">
+					<BlurFade delay={BLUR_FADE_DELAY * 2} class="mt-6 flex flex-wrap gap-3">
 						<InteractiveHoverButton text="Projetos" on:click={handleProjectsClick} />
 						<InteractiveHoverButton text="Contatos" on:click={handleContactsClick} />
 					</BlurFade>
 				</div>
-				<BlurFade delay={BLUR_FADE_DELAY}>
-					<Avatar.Root class="size-20 border sm:size-28">
+				<BlurFade delay={BLUR_FADE_DELAY} class="shrink-0">
+					<Avatar.Root class="size-24 border sm:size-28 md:size-32">
 						<Avatar.Image alt={DATA.name} src={DATA.avatarUrl} class="object-cover" />
 						<Avatar.Fallback>{DATA.initials}</Avatar.Fallback>
 					</Avatar.Root>
@@ -104,7 +104,7 @@
 			</div>
 		</div>
 	</section>
-	<section id="about">
+	<section id="about" class="mx-auto w-full max-w-3xl">
 		<BlurFade delay={BLUR_FADE_DELAY}>
 			<h2 class="text-xl font-bold">{$t.sections.about}</h2>
 		</BlurFade>
@@ -128,7 +128,7 @@
 			{/each}
 		</div>
 	</section> -->
-	<section id="education">
+	<section id="education" class="mx-auto w-full max-w-3xl">
 		<div class="flex min-h-0 flex-col gap-y-3">
 			<BlurFade delay={BLUR_FADE_DELAY}>
 				<h2 class="text-xl font-bold">{$t.sections.education}</h2>
@@ -148,7 +148,7 @@
 			{/each}
 		</div>
 	</section>
-	<section id="skills">
+	<section id="skills" class="mx-auto w-full max-w-3xl">
 		<div class="flex min-h-0 flex-col gap-y-3">
 			<BlurFade delay={BLUR_FADE_DELAY}>
 				<h2 class="text-xl font-bold">{$t.sections.skills}</h2>
@@ -162,7 +162,7 @@
 			</div>
 		</div>
 	</section>
-	<section id="terminal" class="w-full space-y-8 py-12">
+	<section id="terminal" class="w-full space-y-8 py-12 px-0">
 		<BlurFade delay={BLUR_FADE_DELAY}>
 			<div class="flex flex-col items-center justify-center space-y-4 text-center"></div>
 		</BlurFade>
@@ -172,7 +172,7 @@
 			</div>
 		</BlurFade>
 	</section>
-	<section id="projects">
+	<section id="projects" class="px-0">
 		<div class="w-full space-y-12 py-12">
 			<BlurFade delay={BLUR_FADE_DELAY}>
 				<div class="flex flex-col items-center justify-center space-y-4 text-center">
@@ -191,7 +191,7 @@
 					</div>
 				</div>
 			</BlurFade>
-			<div class="mx-auto grid max-w-[800px] grid-cols-1 gap-3 sm:grid-cols-2">
+			<div class="mx-auto grid w-full max-w-5xl grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
 				{#each DATA.projects as project, id}
 					<BlurFade delay={BLUR_FADE_DELAY * 1.5 + id * 0.08}>
 						<ProjectCard
@@ -245,8 +245,8 @@
 			</BlurFade>
 		</div>
 	</section> -->
-	<section id="philosophy">
-		<div class="w-full space-y-8 py-12">
+	<section id="philosophy" class="px-0">
+		<div class="w-full space-y-8 py-12 mx-auto max-w-3xl">
 			<BlurFade delay={BLUR_FADE_DELAY}>
 				<div class="flex flex-col items-center justify-center space-y-4 text-center">
 					<div class="space-y-4">
@@ -268,8 +268,8 @@
 			</BlurFade>
 		</div>
 	</section>
-	<section id="contact">
-		<div class="grid w-full items-center justify-center gap-4 px-4 py-12 text-center md:px-6">
+	<section id="contact" class="px-0">
+		<div class="grid w-full items-center justify-center gap-6 px-2 py-12 text-center sm:px-4 md:px-6">
 			<BlurFade delay={BLUR_FADE_DELAY * 2.2}>
 				<div class="space-y-3">
 					<div class="inline-block rounded-lg bg-foreground px-3 py-1 text-sm text-background">

@@ -87,6 +87,7 @@
 
 	function drawStars() {
 		if (!ctx) return;
+		const context = ctx;
 
 		const isDark = $mode === 'dark';
 		const starColor = isDark ? '255, 255, 255' : '40, 40, 80';
@@ -94,24 +95,25 @@
 		stars.forEach((star) => {
 			// Aumentar opacidade no tema claro
 			const adjustedOpacity = isDark ? star.opacity : star.opacity * 1.5;
-			ctx.fillStyle = `rgba(${starColor}, ${adjustedOpacity})`;
-			ctx.beginPath();
-			ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
-			ctx.fill();
+			context.fillStyle = `rgba(${starColor}, ${adjustedOpacity})`;
+			context.beginPath();
+			context.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+			context.fill();
 
 			// Add a subtle glow
 			if (star.opacity > 0.6) {
 				const glowOpacity = isDark ? star.opacity * 0.2 : star.opacity * 0.4;
-				ctx.fillStyle = `rgba(${starColor}, ${glowOpacity})`;
-				ctx.beginPath();
-				ctx.arc(star.x, star.y, star.size * 2, 0, Math.PI * 2);
-				ctx.fill();
+				context.fillStyle = `rgba(${starColor}, ${glowOpacity})`;
+				context.beginPath();
+				context.arc(star.x, star.y, star.size * 2, 0, Math.PI * 2);
+				context.fill();
 			}
 		});
 	}
 
 	function drawShootingStars() {
 		if (!ctx) return;
+		const context = ctx;
 
 		const isDark = $mode === 'dark';
 		const starColor = isDark ? '255, 255, 255' : '30, 30, 70';
@@ -126,14 +128,14 @@
 					: (index / star.tail.length) * point.opacity * 0.8;
 				const tailSize = (index / star.tail.length) * 2;
 
-				ctx.fillStyle = `rgba(${starColor}, ${tailOpacity})`;
-				ctx.beginPath();
-				ctx.arc(point.x, point.y, tailSize, 0, Math.PI * 2);
-				ctx.fill();
+				context.fillStyle = `rgba(${starColor}, ${tailOpacity})`;
+				context.beginPath();
+				context.arc(point.x, point.y, tailSize, 0, Math.PI * 2);
+				context.fill();
 			});
 
 			// Draw shooting star head
-			const gradient = ctx.createLinearGradient(
+			const gradient = context.createLinearGradient(
 				star.x,
 				star.y,
 				star.x - Math.cos(star.angle) * star.length,
@@ -146,15 +148,15 @@
 			gradient.addColorStop(0.5, `rgba(${accentColor}, ${midOpacity})`);
 			gradient.addColorStop(1, `rgba(${starColor}, 0)`);
 
-			ctx.strokeStyle = gradient;
-			ctx.lineWidth = isDark ? 2 : 2.5;
-			ctx.beginPath();
-			ctx.moveTo(star.x, star.y);
-			ctx.lineTo(
+			context.strokeStyle = gradient;
+			context.lineWidth = isDark ? 2 : 2.5;
+			context.beginPath();
+			context.moveTo(star.x, star.y);
+			context.lineTo(
 				star.x - Math.cos(star.angle) * star.length,
 				star.y - Math.sin(star.angle) * star.length
 			);
-			ctx.stroke();
+			context.stroke();
 		});
 	}
 

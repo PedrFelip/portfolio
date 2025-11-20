@@ -16,52 +16,40 @@
 	<meta property="og:title" content={data.meta.title} />
 </svelte:head>
 
-<div class="-mt-10">
+<div class="mb-8 mt-8">
 	<Button
 		href="/blog"
-		style="padding: 0 0px !important; background:transparent; border:none;"
-		class=" mb-2 h-6 border-none bg-transparent text-xs text-muted-foreground outline-none"
+		variant="ghost"
+		class="h-auto p-0 text-xs text-muted-foreground hover:bg-transparent hover:text-foreground"
 	>
-		<svg
-			xmlns="http://www.w3.org/2000/svg"
-			width="14"
-			height="14"
-			viewBox="0 0 24 24"
-			fill="none"
-			stroke="currentColor"
-			stroke-width="1.2"
-			stroke-linecap="round"
-			stroke-linejoin="round"
-			class="lucide lucide-arrow-left mb-px mr-1"
-			><path d="m12 19-7-7 7-7" /><path d="M19 12H5" /></svg
-		>
-		{$t.blog.back}</Button
-	>
+		<ArrowLeft class="mr-2 size-4" />
+		{$t.blog.back}
+	</Button>
 </div>
 <article>
 	<!-- Title -->
-	<hgroup class="mb-1">
-		<h1 class="title max-w-[650px] text-2xl font-medium capitalize tracking-tighter">
+	<hgroup class="mb-8 space-y-4">
+		<h1 class="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
 			{data.meta.title}
 		</h1>
-		<div class="mb-3 mt-2 flex max-w-[650px] items-center justify-between text-sm">
-			<p class="text-sm text-neutral-600 dark:text-neutral-400">
+		<div class="flex items-center justify-between text-sm text-muted-foreground">
+			<p>
 				{formatDate(data.meta.date)}
 			</p>
 		</div>
 	</hgroup>
 
 	<!-- Tags -->
-	<div class="tags mb-2 flex space-x-2">
+	<div class="mb-8 flex flex-wrap gap-2">
 		{#each data.meta.categories as category}
-			<Badge variant="outline" class="rounded-[4px]">{category}</Badge>
+			<Badge variant="secondary" class="rounded-md">{category}</Badge>
 		{/each}
 	</div>
-	<Separator class="mb-4" />
+	<Separator class="mb-8" />
 
 	<!-- Post -->
 	<div
-		class="prose-video prose-ol:my2 prose pb-24 dark:prose-invert prose-h1:my-1 prose-h2:my-1 prose-h3:my-1 prose-p:my-0 prose-a:my-3 prose-blockquote:my-3 prose-figcaption:my-3 prose-pre:my-3 prose-ul:my-3 prose-table:border-b last:prose-table:border-b prose-thead:border prose-thead:bg-zinc-100 prose-th:border prose-td:border-x prose-td:text-center prose-img:mx-auto prose-img:my-3 prose-img:text-center prose-hr:my-3 dark:prose-thead:bg-zinc-900 md:pb-8"
+		class="prose prose-neutral max-w-none dark:prose-invert prose-headings:scroll-m-20 prose-headings:font-semibold prose-headings:tracking-tight prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-xl prose-p:leading-7 prose-blockquote:border-l-2 prose-blockquote:pl-6 prose-blockquote:italic prose-ul:my-6 prose-ul:list-disc prose-ul:pl-6"
 	>
 		<svelte:component this={data.content} />
 	</div>

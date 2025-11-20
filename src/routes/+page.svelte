@@ -191,7 +191,7 @@
 					</div>
 				</div>
 			</BlurFade>
-			<div class="mx-auto grid max-w-[800px] grid-cols-1 gap-3 sm:grid-cols-2">
+			<div class="mx-auto grid w-full max-w-[800px] grid-cols-1 gap-6 sm:grid-cols-2">
 				{#each DATA.projects as project, id}
 					<BlurFade delay={BLUR_FADE_DELAY * 1.5 + id * 0.08}>
 						<ProjectCard

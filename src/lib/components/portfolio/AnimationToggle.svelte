@@ -17,7 +17,9 @@
 </script>
 
 {#if mounted && $prefersReducedMotion}
-	<div class="fixed bottom-4 right-4 z-50 flex items-center gap-2 rounded-lg border bg-background/95 p-2 shadow-lg backdrop-blur supports-[backdrop-filter]:bg-background/60">
+	<div
+		class="fixed bottom-4 right-4 z-50 flex items-center gap-2 rounded-lg border bg-background/95 p-2 shadow-lg backdrop-blur supports-[backdrop-filter]:bg-background/60"
+	>
 		<div class="flex flex-col gap-1 px-2">
 			<p class="text-xs font-medium leading-none">Animações</p>
 			<p class="text-xs text-muted-foreground">

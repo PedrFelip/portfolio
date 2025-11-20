@@ -2,11 +2,11 @@ import type { Translation } from './pt';
 
 export const en: Translation = {
 	// Hero Section
-        hero: {
-                greeting: "Hi, I'm Pedro Felipe 👋",
-                subtitle: 'Backend Developer & DevOps Enthusiast',
-                cta: 'Explore projects'
-        },
+	hero: {
+		greeting: "Hi, I'm Pedro Felipe 👋",
+		subtitle: 'Backend Developer & DevOps Enthusiast',
+		cta: 'Explore projects'
+	},
 
 	// Sections
 	sections: {
@@ -79,7 +79,12 @@ export const en: Translation = {
 	blog: {
 		title: 'Blog',
 		readMore: 'Read more',
-		back: 'Back'
+		back: 'Back',
+		share: 'Share',
+		shareOn: 'Share on',
+		copyLink: 'Copy link',
+		linkCopied: 'Link copied!',
+		shareVia: 'Share via'
 	},
 
 	// Common

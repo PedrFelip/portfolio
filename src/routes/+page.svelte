@@ -286,7 +286,7 @@
 					<div class="flex justify-center pt-4">
 						<ShimmerButton
 							text="Enviar Mensagem"
-							href={`mailto:${DATA.contact.email}`}
+							href={`https://wa.me/${DATA.contact.whatsapp.replace(/\D/g, '')}`}
 							className="shadow-2xl"
 						/>
 					</div>

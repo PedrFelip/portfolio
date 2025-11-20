@@ -61,6 +61,7 @@ export const DATA = {
 	contact: {
 		email: 'hello@example.com',
 		tel: '+123456789',
+		whatsapp: '+556198750612',
 		social: {
 			GitHub: {
 				name: 'GitHub',

@@ -175,16 +175,6 @@
 			</div>
 		</div>
 	</section>
-	<section id="terminal" class="w-full space-y-8 px-0 py-12">
-		<BlurFade delay={BLUR_FADE_DELAY}>
-			<div class="flex flex-col items-center justify-center space-y-4 text-center"></div>
-		</BlurFade>
-		<BlurFade delay={BLUR_FADE_DELAY * 1.5}>
-			<div class="mx-auto w-full max-w-2xl">
-				<Terminal title="~/pedrofelipe" lines={terminalLines} />
-			</div>
-		</BlurFade>
-	</section>
 	<section id="projects" class="px-0">
 		<div class="w-full space-y-12 py-12">
 			<BlurFade delay={BLUR_FADE_DELAY}>

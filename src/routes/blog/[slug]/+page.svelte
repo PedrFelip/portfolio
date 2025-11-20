@@ -59,7 +59,7 @@
 	<div class="mt-6 flex flex-col gap-4">
 		<ShareButtons title={data.meta.title} />
 		<div class="text-xs text-muted-foreground">
-			<p class="leading-relaxed">Compartilhe este post se foi útil. Feedbacks são bem-vindos.</p>
+
 		</div>
 	</div>
 </article>

@@ -1,5 +1,6 @@
-import { Github, Linkedin, Mail, Twitter, Briefcase } from 'lucide-svelte';
+import { Github, Linkedin, Mail, Briefcase } from 'lucide-svelte';
 import type { ComponentType } from 'svelte';
+import XIcon from '$lib/components/icons/XIcon.svelte';
 
 export interface LinkItem {
 	title: string;
@@ -41,12 +42,12 @@ export const socialLinks: LinkItem[] = [
 		enabled: true
 	},
 	{
-		title: 'Twitter / X',
+		title: 'X',
 		description: '',
 		url: 'https://x.com/pedrofelipeek',
-		icon: Twitter,
-		color: 'hover:bg-[#1DA1F2] hover:text-white',
-		shineColors: ['#1DA1F2', '#14171A', '#657786'],
+		icon: XIcon,
+		color: 'hover:bg-[#000000] hover:text-white dark:hover:bg-[#ffffff] dark:hover:text-black',
+		shineColors: ['#000000', '#14171A', '#657786'],
 		enabled: true
 	},
 	// {

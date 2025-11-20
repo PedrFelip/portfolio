@@ -7,9 +7,9 @@ import {
 	Linkedin,
 	Mail,
 	ExternalLink,
-	Youtube,
-	Twitter
+	Youtube
 } from 'lucide-svelte';
+import XIcon from '$lib/components/icons/XIcon.svelte';
 
 import AtomicImg from '$lib/imgs/atomic.png';
 import ShopifyImg from '$lib/imgs/shopify.svg';
@@ -77,7 +77,7 @@ export const DATA = {
 			X: {
 				name: 'X',
 				url: 'https://x.com/pedrofelipeek',
-				icon: Twitter,
+				icon: XIcon,
 				navbar: true
 			},
 			PeerList: {

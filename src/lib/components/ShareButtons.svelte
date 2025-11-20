@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { t } from '$lib/i18n';
 	import { Share2, Mail, Link2, Check } from 'lucide-svelte';
+	import XIcon from '$lib/components/icons/XIcon.svelte';
 	import { onMount } from 'svelte';
 	import { cn } from '$lib/utils';
 
@@ -93,17 +94,13 @@
 			<div
 				class="animate-in fade-in slide-in-from-top-2 mt-2 grid grid-cols-2 gap-2 rounded-lg border bg-card p-3 shadow-sm duration-300"
 			>
-				<!-- Twitter/X -->
+				<!-- X -->
 				<button
 					on:click={shareOnTwitter}
 					class="flex items-center gap-2 rounded-md border bg-background p-3 text-sm transition-all hover:bg-accent hover:text-accent-foreground"
 				>
-					<svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
-						<path
-							d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
-						/>
-					</svg>
-					<span>Twitter/X</span>
+					<XIcon class="h-4 w-4" />
+					<span>X</span>
 				</button>
 
 				<!-- WhatsApp -->

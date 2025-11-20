@@ -6,28 +6,28 @@ categories:
   - Algoritmos
   - Arquitetura de Software
   - Data Structures
-published: true
+published: false
 ---
 
-## **Introdução ao Big-O**
+## Introdução ao Big-O
 
 Vamos começar com uma Introdução ao assunto pra ententer melhor o que é Big-O. Mas antes, vamos entender por que?
 <br />
 
 ### O que é complexidade de algoritmos
 
-Indo direto ao ponto, a **complexidade de um algoritmo** diz respeito a escalabilidade do algoritmo, ou sejam, como esse algoritmo se comporta conforme aumentamos o tamanho da entrada de dados. <br />
+Indo direto ao ponto, a **complexidade de um algoritmo** diz respeito a escalabilidade do algoritmo, ou seja, como esse algoritmo se comporta conforme aumentamos o tamanho da entrada de dados. <br />
 Quando falamos de complexidade, estamos tentando responder:
 
 > O quão bem (ou mal) esse algoritmo escala quando os dados crescem?
 
 <br />
 
-Então esquece que **não** é sobre velocidade ou tempo de excução.
+Então esquece que **não** é sobre velocidade ou tempo de execução.
 
 <br />
 
-é uma forma de analisar eficiência, **independente do hardware ou linguagem de programação.** Até porque faz a menor difenrença um buble sort e um quick sort quando estamos falando de 10 elementos apenas, mas quando falamos de **1 milhão de elementos**, a diferença é **gritante**.
+é uma forma de analisar eficiência, **independente do hardware ou linguagem de programação.** Até porque faz a menor diferença um Bubble Sort e um Quick Sort quando estamos falando de 10 elementos apenas, mas quando falamos de **1 milhão de elementos**, a diferença é **gritante**.
 
 <br />
 <br />
@@ -50,24 +50,20 @@ Ao medir a performance de um algoritmo, tem como medir o **tempo real** e o **te
 
 ---
 
-## **Notação Big-O**
+## Notação Big-O
 
 Em definição é:
 
 > A notação Big O é uma notação matemática que descreve o comportamento limitante de uma função quando o argumento tende a um valor específico ou ao infinito. Ela pertence a uma família de notações inventadas por Paul Bachmann, Edmund Landau e outros, coletivamente chamadas de notação Bachmann–Landau ou de notação assintótica
 
-<br />
-
 Ou como ja falamos, descreve a **complexidade**.
-
-<br />
 
 A notação Big-O mede duas coisas:
 
 1. **Complexidade de Tempo:** Quantas operações o algoritmo realiza dependendo do tamanho da entrada.
 2. **Complexidade de Espaço:** Quanta memória extra o algoritmo precisa para funcionar.
 
-Não vou detalhar muito sobre complexidade de espaço, mas é bom saber que existe. a partir daqui vamos focar na complexidade de tempo. mas como um exemplo sobre complexidade de espaço, o exemplo mais claro é copiar um array. Então se você receber um array de 10 elementos e cria uma copia dele, você está usando O(n) de espaço extra.
+Não vou detalhar muito sobre **complexidade de espaço**, mas é bom saber que existe. A partir daqui vamos focar na **complexidade de tempo**. Mas como um exemplo sobre complexidade de espaço, o exemplo mais claro é copiar um array. Então se você receber um array de 10 elementos e cria uma copia dele, você está usando **O(n)** de espaço extra.
 Portanto, a memória cresce proporcionalmente a n.
 
 ```ts
@@ -79,7 +75,83 @@ function copiarArray(lista: number[]) {
 	return copia;
 }
 ```
-
 **Complexidade espacial: O(n)**
 
+Um detalhe importante que Big-O sempre leva em consideração o **pior caso**.
+
 ---
+
+## Complexidades Mais Importantes
+
+Agora nessa seção vamos detalhar as complexidades mais importantes e usadas em entrevistas técnicas.
+
+### O(1) - Constante
+
+**O(1)** significa que o número de operações necessárias para executar a tarefa não depende de n (o tamanho da entrada).
+
+Por exemplo, uma operação constante pode ser a leitura de um valor em uma tabela hash, ou a leitura de um valor em um array.
+
+```ts
+const x = arr[10];
+```
+
+---
+
+### O(n) — Linear
+
+**O(n)** significa que o número de operações cresce proporcionalmente ao tamanho da entrada n. Se n dobra, o custo (assintoticamente) dobra.
+
+**Percorrer e somar valores (array)**
+
+```ts
+function soma(arr: number[]): number {
+  let total = 0;
+  for (let i = 0; i < arr.length; i++) {
+    total += arr[i];
+  }
+  return total;
+}
+```
+> Cada elemento do array é somado uma vez, portanto, o número de operações é proporcional ao tamanho do array. Assim, a complexidade de tempo é O(n).
+
+**Procurar um elemento (busca linear)**
+
+```ts
+function inclui(arr: number[], alvo: number) {
+  for (let x of arr) {
+    if (x === alvo) return true;
+  }
+  return false;
+}
+```
+> No pior caso você olha todos os n elementos → **O(n)**. (Melhor caso **O(1)** se estiver no primeiro índice) mas big-o sempre leva em consideração o pior caso.
+
+---
+
+### O(n²) - Quadrática
+
+"**O de n ao quadrado**" descreve o algoritmo que cujo o número de operações cresce proporcionalmente ao quadrado do tamanho da entrada.
+
+> Quando você dobra o número de elementos, o número de operações quadruplica. Quando triplica, as operações crescem nove vezes.
+
+Você sabe quando é **O(n²)** quando você vê dois loops aninhados.
+
+```ts
+for (let i = 0; i < n; i++) {
+  for (let j = 0; j < n; j++) {
+    // ...
+  }
+}
+```
+
+Exemplo de algoritmo **O(n²)**:
+  - Bubble Sort
+  - Selection Sort
+  - Insertion Sort
+
+---
+
+### O(log n) - Logarítmica
+
+Essa com certeza é uma das mais importantes e usadas em entrevistas técnicas. E uma das mais legais de entender. <br />
+Recomendação de livro fica para o Entendendo Algoritmos do Aditya Bhargava que tem otimos exemplos e bem ilustado.

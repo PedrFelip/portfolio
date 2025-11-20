@@ -6,7 +6,7 @@ categories:
   - Algoritmos
   - Arquitetura de Software
   - Data Structures
-published: false
+published: true
 ---
 
 ## **Introdução ao Big-O**

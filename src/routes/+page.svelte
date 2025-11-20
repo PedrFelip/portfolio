@@ -9,13 +9,14 @@
 	import Badge from '$lib/components/ui/badge/badge.svelte';
 	import { DATA } from '$lib/data/resume';
 	import { t } from '$lib/i18n';
+	import type { Translation } from '$lib/i18n/pt';
 	import { marked } from '$lib/utils';
 	let BLUR_FADE_DELAY = 0.15;
 
 	const terminalLines = [
-		{ id: '1', text: '$ whoami', type: 'input' as const, delay: 0 },
+		{ id: '1', text: 'whoami', type: 'input' as const, delay: 0 },
 		{ id: '2', text: 'pedrofelipe', type: 'output' as const, delay: 400 },
-		{ id: '3', text: '$ echo $ROLE', type: 'input' as const, delay: 800 },
+		{ id: '3', text: 'echo $ROLE', type: 'input' as const, delay: 800 },
 		{ id: '4', text: 'Backend & DevOps Engineer', type: 'output' as const, delay: 1200 }
 	];
 
@@ -25,6 +26,14 @@
 
 	const handleContactsClick = () => {
 		window.location.href = '/links';
+	};
+
+	const getProjectItem = (t: Translation, id: string) => {
+		const items = t.projects.items as Record<
+			string,
+			{ title: string; description: string } | undefined
+		>;
+		return items[id];
 	};
 </script>
 
@@ -197,14 +206,11 @@
 			<div class="mx-auto grid max-w-[800px] grid-cols-1 gap-3 sm:grid-cols-2">
 				{#each DATA.projects as project, id}
 					<BlurFade delay={BLUR_FADE_DELAY * 1.5 + id * 0.08}>
+						{@const item = project.id ? getProjectItem($t, project.id) : null}
 						<ProjectCard
 							href={project.href}
-							title={project.id && $t.projects.items[project.id]
-								? $t.projects.items[project.id].title
-								: project.title}
-							description={project.id && $t.projects.items[project.id]
-								? $t.projects.items[project.id].description
-								: project.description}
+							title={item ? item.title : project.title}
+							description={item ? item.description : project.description}
 							dates={project.dates}
 							tags={project.technologies}
 							image={project.image}

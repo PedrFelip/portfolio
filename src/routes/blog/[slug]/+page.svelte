@@ -284,9 +284,39 @@
 		margin-bottom: 1.5rem;
 		border-left: 4px solid hsl(var(--primary));
 		background-color: hsl(var(--muted) / 0.5);
-		padding: 0.5rem 1rem;
-		font-style: normal;
+		padding: 1rem 1.5rem;
+		font-style: italic;
 		border-radius: 0.5rem;
+		position: relative;
+		quotes: '"' '"' '' ' ' '';
+	}
+
+	:global(.post-content blockquote::before) {
+		content: open-quote;
+		font-size: 3rem;
+		line-height: 0;
+		position: absolute;
+		left: 0.5rem;
+		top: 0.75rem;
+		color: hsl(var(--primary));
+		opacity: 0.3;
+	}
+
+	:global(.post-content blockquote::after) {
+		content: close-quote;
+		font-size: 3rem;
+		line-height: 0;
+		position: absolute;
+		right: 0.5rem;
+		bottom: -0.5rem;
+		color: hsl(var(--primary));
+		opacity: 0.3;
+	}
+
+	:global(.post-content blockquote p) {
+		margin: 0;
+		position: relative;
+		z-index: 1;
 	}
 
 	/* Inline Code */

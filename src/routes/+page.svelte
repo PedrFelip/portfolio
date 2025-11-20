@@ -2,6 +2,7 @@
 	import BlurFade from '$lib/components/magic/BlurFade.svelte';
 	import Terminal from '$lib/components/magic/Terminal.svelte';
 	import InteractiveHoverButton from '$lib/components/magic/InteractiveHoverButton.svelte';
+	import ShimmerButton from '$lib/components/magic/ShimmerButton.svelte';
 	import DotPattern from '$lib/components/magic/DotPattern.svelte';
 	import ProjectCard from '$lib/components/portfolio/ProjectCard.svelte';
 	import ResumeCard from '$lib/components/portfolio/ResumeCard.svelte';
@@ -104,7 +105,7 @@
 					>
 					<BlurFade delay={BLUR_FADE_DELAY * 2} class="mt-6 flex flex-wrap gap-3">
 						<InteractiveHoverButton text="Projetos" on:click={handleProjectsClick} />
-						<InteractiveHoverButton text="Contatos" on:click={handleContactsClick} />
+						<InteractiveHoverButton text="Blog" on:click={() => (window.location.href = '/blog')} />
 					</BlurFade>
 				</div>
 				<BlurFade delay={BLUR_FADE_DELAY} class="shrink-0">
@@ -292,6 +293,13 @@
 					>
 						{$t.contact.description}
 					</p>
+					<div class="flex justify-center pt-4">
+						<ShimmerButton
+							text="Enviar Mensagem"
+							href={`mailto:${DATA.contact.email}`}
+							className="shadow-2xl"
+						/>
+					</div>
 				</div>
 			</BlurFade>
 		</div>

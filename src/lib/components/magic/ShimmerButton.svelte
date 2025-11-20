@@ -15,6 +15,8 @@
 <svelte:element
 	this={href ? 'a' : 'button'}
 	{href}
+	role={href ? undefined : 'button'}
+	tabindex={href ? undefined : 0}
 	style:--spread="90deg"
 	style:--shimmer-color={shimmerColor}
 	style:--radius={borderRadius}

@@ -286,6 +286,7 @@
 		background-color: hsl(var(--muted) / 0.5);
 		padding: 0.5rem 1rem;
 		font-style: normal;
+		border-radius: 0.5rem;
 	}
 
 	/* Inline Code */

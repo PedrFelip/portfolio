@@ -6,7 +6,7 @@ categories:
   - Algoritmos
   - Arquitetura de Software
   - Data Structures
-published: false
+published: true
 ---
 
 ## Introdução ao Big-O
@@ -29,7 +29,6 @@ Então esquece que **não** é sobre velocidade ou tempo de execução.
 
 é uma forma de analisar eficiência, **independente do hardware ou linguagem de programação.** Até porque faz a menor diferença um Bubble Sort e um Quick Sort quando estamos falando de 10 elementos apenas, mas quando falamos de **1 milhão de elementos**, a diferença é **gritante**.
 
-<br />
 <br />
 
 ### Por que não mede o tempo real?
@@ -155,3 +154,40 @@ Exemplo de algoritmo **O(n²)**:
 
 Essa com certeza é uma das mais importantes e usadas em entrevistas técnicas. E uma das mais legais de entender. <br />
 Recomendação de livro fica para o Entendendo Algoritmos do Aditya Bhargava que tem otimos exemplos e bem ilustado.
+
+O logaritmica cresce muito lentamente conforme n aumenta. <br />
+Quando n dobra, o número de operações aumenta em uma quantidade constante.
+Um exemplo clássico de algoritmo **O(log n)** é a busca binária. Se tem um array ordenado de 1.000.000 elementos, quantas interações você acha que vai precisar para encontrar um elemento?
+
+log₂(1.000.000) ≈ 20
+
+Só 20 passos no pior caso! <br />
+Isso é absurdamente eficiente. Isso por que o Logaritmo cresce muito lentamente.
+
+![](/images/posts/big-o/time-complexity.jpg)
+
+```ts
+function buscaBinaria(arr: number[], alvo: number): number {
+  let esquerda = 0
+  let direita = arr.length - 1
+
+  while (esquerda <= direita) {
+    const meio = Math.floor((esquerda + direita) / 2)
+    if (arr[meio] === alvo) {
+      return meio
+    } else if (arr[meio] < alvo) {
+      esquerda = meio + 1
+    } else {
+      direita = meio - 1
+    }
+  }
+  return null
+}
+```
+> A cada iteração, o algoritmo reduz pela metade o número de elementos restantes a serem verificados. Portanto, o número de operações necessárias é proporcional ao logaritmo do tamanho do array.
+
+---
+
+## Conclusão
+Notação Big-O cai muito em entrevistas técnicas, mas é um conceito fundamental para **qualquer desenvolvedor** que queira entender algoritmos e estruturas de dados.
+Ficou simples o post por conta do assunto ser complexo, mas espero que tenha ajudado a clarear um pouco esse tema!

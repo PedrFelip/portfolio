@@ -1,7 +1,7 @@
 ---
 title: O que é Big-O?
 description: Entenda a notação Big-O e sua importância na análise de algoritmos e estruturas de dados.
-date: '2025-11-17'
+date: '2025-11-22'
 categories:
   - Algoritmos
   - Arquitetura de Software

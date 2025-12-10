@@ -60,7 +60,8 @@ const config = {
 			},
 			animation: {
 				'spin-around': 'spin-around calc(var(--speed) * 2) infinite linear',
-				magicslide: 'magicslide var(--speed) ease-in-out infinite alternate'
+				magicslide: 'magicslide var(--speed) ease-in-out infinite alternate',
+				'shine-pulse': 'shine-pulse var(--shine-pulse-duration) infinite linear'
 			},
 			keyframes: {
 				'spin-around': {
@@ -80,6 +81,17 @@ const config = {
 				magicslide: {
 					to: {
 						transform: 'translate(calc(100cqw - 100%), 0)'
+					}
+				},
+				'shine-pulse': {
+					'0%': {
+						'background-position': '0% 0%'
+					},
+					'50%': {
+						'background-position': '100% 100%'
+					},
+					to: {
+						'background-position': '0% 0%'
 					}
 				}
 			}

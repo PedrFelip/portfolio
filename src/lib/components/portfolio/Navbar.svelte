@@ -13,6 +13,7 @@
 		const navbarLabels: Record<string, string> = {
 			home: $t.navbar.home,
 			blog: $t.navbar.blog,
+			work: $t.navbar.work,
 			projects: $t.navbar.projects
 		};
 		return navbarLabels[key.toLowerCase()] || key;

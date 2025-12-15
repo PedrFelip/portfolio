@@ -129,18 +129,18 @@
 			</div>
 		</BlurFade>
 	</section>
-	<!-- <section id="work">
+	<section id="work" class="mx-auto w-full max-w-3xl">
 		<div class="flex min-h-0 flex-col gap-y-3">
 			<BlurFade delay={BLUR_FADE_DELAY}>
-				<h2 class="text-xl font-bold">Work Experience</h2>
+				<h2 class="text-xl font-bold">{$t.sections.work}</h2>
 			</BlurFade>
 			{#each DATA.work as work, id}
-				<BlurFade delay={BLUR_FADE_DELAY * 1.2 + id * 0.05}>
+				<BlurFade delay={BLUR_FADE_DELAY * 1.2 + id * 0.08}>
 					<ResumeCard {...work} />
 				</BlurFade>
 			{/each}
 		</div>
-	</section> -->
+	</section>
 	<section id="education" class="mx-auto w-full max-w-3xl">
 		<div class="flex min-h-0 flex-col gap-y-3">
 			<BlurFade delay={BLUR_FADE_DELAY}>

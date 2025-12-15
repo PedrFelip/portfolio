@@ -1,6 +1,10 @@
 ---
 title: O que são DTOs (Data Transfer Objects)?
 description: Entenda o papel dos DTOs na arquitetura de software e como eles ajudam a melhorar a comunicação entre diferentes camadas e sistemas.
+tldr:
+  - Explica por que DTOs existem e como evitam expor entidades e lógica de negócio.
+  - Mostra exemplos práticos de Request/Response DTO e fluxo Controller → Service → Repository.
+  - Resume melhores práticas para deixar dados mais seguros e manutenção mais simples.
 date: '2025-11-05'
 categories:
   - DTOs

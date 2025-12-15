@@ -190,6 +190,20 @@
 						{/each}
 					</div>
 				{/if}
+
+				{#if data.meta.tldr && data.meta.tldr.length}
+					<section class="mt-6 rounded-lg border bg-muted/40 p-4">
+						<p class="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">TL;DR</p>
+						<ul class="space-y-2 text-sm text-muted-foreground">
+							{#each data.meta.tldr as item}
+								<li class="flex items-start gap-2">
+									<span class="mt-1 size-1.5 rounded-full bg-primary"></span>
+									<span>{item}</span>
+								</li>
+							{/each}
+						</ul>
+					</section>
+				{/if}
 			</div>
 		</header>
 

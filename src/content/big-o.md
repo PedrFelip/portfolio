@@ -1,6 +1,10 @@
 ---
 title: O que é Big-O?
 description: Entenda a notação Big-O e sua importância na análise de algoritmos e estruturas de dados.
+tldr:
+  - Explica o que é complexidade de tempo e espaço e por que Big-O é independente de hardware.
+  - Mostra as principais classes de complexidade com exemplos comentados.
+  - Destaca a importância do Big-O para entrevistas e decisões de arquitetura.
 date: '2025-11-22'
 categories:
   - Algoritmos

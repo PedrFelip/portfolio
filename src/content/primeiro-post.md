@@ -1,6 +1,9 @@
 ---
 title: Bem-vindo ao Blog
 description: Esse é o primeiro post para estrear .
+tldr:
+  - Resumo rápido do primeiro post do blog e boas-vindas.
+  - Exemplos de Hello World em TypeScript, Go, Bash e JSON.
 date: '2025-10-28'
 categories:
   - Blog

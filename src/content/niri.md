@@ -1,6 +1,10 @@
 ---
 title: Niri um tiling baseado em scroll
 description: Niri WM traz o conceito de scrollable tiling, janelas organizadas verticalmente com navegação fluida, sem perder foco e produtividade.
+tldr:
+  - Introduz o conceito de scrollable tiling e por que o Niri não redimensiona janelas existentes.
+  - Compara a experiência com outros tilers como Hyprland, destacando foco e produtividade.
+  - Resume as principais features e como configurar o compositor via arquivo .kdl.
 date: '2025-11-02'
 categories:
   - NiriWM

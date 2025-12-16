@@ -37,7 +37,7 @@
 </div>
 
 <BlurFade delay={BLUR_FADE_DELAY}>
-	<h1 class="mb-8 text-2xl font-medium tracking-tighter">Blog</h1>
+	<h1 class="font-heading mb-8 text-2xl font-medium tracking-tighter">Blog</h1>
 </BlurFade>
 <!-- Posts -->
 <section>
@@ -47,7 +47,7 @@
 				<BlurFade delay={BLUR_FADE_DELAY * 2 + id * 0.05}>
 					<a class="mb-4 flex flex-col space-y-1" href="/blog/{post.slug}">
 						<div class="flex w-full flex-col">
-							<p class="tracking-tight">{post.title}</p>
+							<p class="font-heading tracking-tight">{post.title}</p>
 							<p class="h-6 text-xs text-muted-foreground">
 								{formatDate(post.date)}
 							</p>

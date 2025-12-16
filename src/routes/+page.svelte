@@ -96,7 +96,7 @@
 				<div class="flex flex-1 flex-col space-y-1.5">
 					<BlurFade
 						delay={BLUR_FADE_DELAY}
-						class="text-balance text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl xl:text-6xl/none"
+						class="font-heading text-balance text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl xl:text-6xl/none"
 						yOffset={8}>{$t.hero.greeting}</BlurFade
 					>
 					<BlurFade
@@ -119,7 +119,7 @@
 	</section>
 	<section id="about" class="mx-auto w-full max-w-3xl">
 		<BlurFade delay={BLUR_FADE_DELAY}>
-			<h2 class="text-xl font-bold">{$t.sections.about}</h2>
+			<h2 class="font-heading text-xl font-bold">{$t.sections.about}</h2>
 		</BlurFade>
 		<BlurFade delay={BLUR_FADE_DELAY * 1.5}>
 			<div
@@ -132,7 +132,7 @@
 	<section id="work" class="mx-auto w-full max-w-3xl">
 		<div class="flex min-h-0 flex-col gap-y-3">
 			<BlurFade delay={BLUR_FADE_DELAY}>
-				<h2 class="text-xl font-bold">{$t.sections.work}</h2>
+				<h2 class="font-heading text-xl font-bold">{$t.sections.work}</h2>
 			</BlurFade>
 			{#each DATA.work as work, id}
 				<BlurFade delay={BLUR_FADE_DELAY * 1.2 + id * 0.08}>
@@ -144,7 +144,7 @@
 	<section id="education" class="mx-auto w-full max-w-3xl">
 		<div class="flex min-h-0 flex-col gap-y-3">
 			<BlurFade delay={BLUR_FADE_DELAY}>
-				<h2 class="text-xl font-bold">{$t.sections.education}</h2>
+				<h2 class="font-heading text-xl font-bold">{$t.sections.education}</h2>
 			</BlurFade>
 			{#each DATA.education as edu, id}
 				<BlurFade delay={BLUR_FADE_DELAY * 1.2 + id * 0.08}>
@@ -164,7 +164,7 @@
 	<section id="skills" class="mx-auto w-full max-w-3xl">
 		<div class="flex min-h-0 flex-col gap-y-3">
 			<BlurFade delay={BLUR_FADE_DELAY}>
-				<h2 class="text-xl font-bold">{$t.sections.skills}</h2>
+				<h2 class="font-heading text-xl font-bold">{$t.sections.skills}</h2>
 			</BlurFade>
 			<div class="flex flex-wrap gap-1">
 				{#each DATA.skills as skill, id}
@@ -183,7 +183,7 @@
 						<div class="inline-block rounded-lg bg-foreground px-3 py-1 text-sm text-background">
 							{$t.projects.badge}
 						</div>
-						<h2 class="text-3xl font-bold tracking-tighter sm:text-5xl">
+						<h2 class="font-heading text-3xl font-bold tracking-tighter sm:text-5xl">
 							{$t.projects.title}
 						</h2>
 						<p
@@ -221,7 +221,7 @@
 						<div class="inline-block rounded-lg bg-foreground px-3 py-1 text-sm text-background">
 							Hackathons
 						</div>
-						<h2 class="text-3xl font-bold tracking-tighter sm:text-5xl">I like building things</h2>
+						<h2 class="font-heading text-3xl font-bold tracking-tighter sm:text-5xl">I like building things</h2>
 						<p
 							class="text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed"
 						>
@@ -250,7 +250,7 @@
 			<BlurFade delay={BLUR_FADE_DELAY}>
 				<div class="flex flex-col items-center justify-center space-y-4 text-center">
 					<div class="space-y-4">
-						<h2 class="text-3xl font-bold tracking-tighter sm:text-5xl">
+						<h2 class="font-heading text-3xl font-bold tracking-tighter sm:text-5xl">
 							{$t.philosophy.title}
 						</h2>
 						<p
@@ -277,7 +277,7 @@
 					<div class="inline-block rounded-lg bg-foreground px-3 py-1 text-sm text-background">
 						{$t.contact.badge}
 					</div>
-					<h2 class="text-3xl font-bold tracking-tight sm:text-5xl">{$t.contact.title}</h2>
+					<h2 class="font-heading text-3xl font-bold tracking-tight sm:text-5xl">{$t.contact.title}</h2>
 					<p
 						class="mx-auto max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed"
 					>

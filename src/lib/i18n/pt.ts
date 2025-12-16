@@ -9,10 +9,17 @@ export const pt = {
 	// Sections
 	sections: {
 		about: 'Sobre',
+		work: 'Experiência',
 		education: 'Educação',
 		skills: 'Habilidades',
 		projects: 'Projetos',
 		contact: 'Contato'
+	},
+
+	// Work
+	work: {
+		intro:
+			"Experiências práticas construindo plataformas backend e infraestrutura para startups, equipes de saúde e iniciativas acadêmicas."
 	},
 
 	// About
@@ -96,6 +103,7 @@ export const pt = {
 	navbar: {
 		home: 'Início',
 		blog: 'Blog',
+		work: 'Experiência',
 		projects: 'Projetos',
 		github: 'GitHub',
 		linkedin: 'LinkedIn',

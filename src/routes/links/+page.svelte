@@ -29,7 +29,7 @@
 			</Avatar.Root>
 
 			<div class="space-y-2 text-center">
-				<h1 class="text-3xl font-bold tracking-tight">{DATA.name}</h1>
+				<h1 class="font-heading text-3xl font-bold tracking-tight">{DATA.name}</h1>
 				<p class="text-muted-foreground">{DATA.description}</p>
 			</div>
 		</BlurFade>
@@ -56,7 +56,7 @@
 								<svelte:component this={link.icon} class="h-6 w-6" />
 							</div>
 							<div class="min-w-0 flex-1">
-								<h3 class="text-lg font-semibold">{link.title}</h3>
+								<h3 class="font-heading text-lg font-semibold">{link.title}</h3>
 								<p class="text-sm text-muted-foreground">{link.description}</p>
 							</div>
 							<div class="flex-shrink-0">

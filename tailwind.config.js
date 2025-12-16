@@ -56,7 +56,8 @@ const config = {
 				sm: 'calc(var(--radius) - 4px)'
 			},
 			fontFamily: {
-				sans: ['Inter var', ...fontFamily.sans]
+				sans: ['IBM Plex Sans', 'Inter var', ...fontFamily.sans],
+				heading: ['Metropolis', ...fontFamily.sans]
 			},
 			animation: {
 				'spin-around': 'spin-around calc(var(--speed) * 2) infinite linear',

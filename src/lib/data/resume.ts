@@ -1,4 +1,5 @@
 import {
+	BriefcaseIcon,
 	CodeIcon,
 	Github,
 	Globe,
@@ -11,15 +12,10 @@ import {
 } from 'lucide-svelte';
 import XIcon from '$lib/components/icons/XIcon.svelte';
 
-import AtomicImg from '$lib/imgs/atomic.png';
-import ShopifyImg from '$lib/imgs/shopify.svg';
-import NvidiaImg from '$lib/imgs/nvidia.png';
-import SplunkImg from '$lib/imgs/splunk.svg';
-import LimeImg from '$lib/imgs/lime.svg';
-import MitreMediaImg from '$lib/imgs/mitremedia.png';
 import UniceplacImg from '$lib/imgs/uniceplac.png';
 import SaudePontualImg from '$lib/imgs/saudepontual.png';
 import PlanItImg from '$lib/imgs/calendario.png';
+import MhGestaoImg from '$lib/imgs/mhgestao.jfif';
 import OportuneImg from '$lib/imgs/oportune.png';
 import PedroFelipeImg from '$lib/imgs/pedrofelipe.png';
 
@@ -40,6 +36,7 @@ export const DATA = {
 		'TypeScript',
 		'Go',
 		'Fastify',
+		'NestJS',
 		'Prisma ORM',
 
 		'PostgreSQL',
@@ -56,6 +53,7 @@ export const DATA = {
 	navbar: [
 		{ href: '/', icon: HomeIcon, label: 'Home' },
 		{ href: '/blog', icon: NotebookIcon, label: 'Blog' },
+		//{ href: '/#work', icon: BriefcaseIcon, label: 'Work' },
 		{ href: '/#projects', icon: CodeIcon, label: 'Projects' }
 	],
 	contact: {
@@ -97,76 +95,16 @@ export const DATA = {
 	},
 	work: [
 		{
-			company: 'Atomic Finance',
-			href: 'https://atomic.finance',
+			company: 'MhGestão',
+			href: 'https://mhgestao.com.br',
 			badges: [],
-			location: 'Remote',
-			title: 'Bitcoin Protocol Engineer',
-			logoUrl: AtomicImg,
-			start: 'May 2021',
-			end: 'Oct 2022',
+			location: 'Brasília, BR',
+			title: 'Estagiário Backend',
+			logoUrl: MhGestaoImg,
+			start: 'Nov 2025',
+			end: 'Present',
 			description:
-				'Implemented the Bitcoin discreet log contract (DLC) protocol specifications as an open source Typescript SDK. Dockerized all microservices and setup production kubernetes cluster. Architected a data lake using AWS S3 and Athena for historical backtesting of bitcoin trading strategies. Built a mobile app using react native and typescript.'
-		},
-		{
-			company: 'Shopify',
-			badges: [],
-			href: 'https://shopify.com',
-			location: 'Remote',
-			title: 'Software Engineer',
-			logoUrl: ShopifyImg,
-			start: 'January 2021',
-			end: 'April 2021',
-			description:
-				'Implemented a custom Kubernetes controller in Go to automate the deployment of MySQL and ProxySQL custom resources in order to enable 2,000+ internal developers to instantly deploy their app databases to production. Wrote several scripts in Go to automate MySQL database failovers while maintaining master-slave replication topologies and keeping Zookeeper nodes consistent with changes.'
-		},
-		{
-			company: 'Nvidia',
-			href: 'https://nvidia.com/',
-			badges: [],
-			location: 'Santa Clara, CA',
-			title: 'Software Engineer',
-			logoUrl: NvidiaImg,
-			start: 'January 2020',
-			end: 'April 2020',
-			description:
-				'Architected and wrote the entire MVP of the GeForce Now Cloud Gaming internal admin and A/B testing dashboard using React, Redux, TypeScript, and Python.'
-		},
-		{
-			company: 'Splunk',
-			href: 'https://splunk.com',
-			badges: [],
-			location: 'San Jose, CA',
-			title: 'Software Engineer',
-			logoUrl: SplunkImg,
-			start: 'January 2019',
-			end: 'April 2019',
-			description:
-				'Co-developed a prototype iOS app with another intern in Swift for the new Splunk Phantom security orchestration product (later publicly demoed and launched at .conf annual conference in Las Vegas). Implemented a realtime service for the iOS app in Django (Python) and C++; serialized data using protobufs transmitted over gRPC resulting in an approximate 500% increase in data throughput.'
-		},
-		{
-			company: 'Lime',
-			href: 'https://li.me/',
-			badges: [],
-			location: 'San Francisco, CA',
-			title: 'Software Engineer',
-			logoUrl: LimeImg,
-			start: 'January 2018',
-			end: 'April 2018',
-			description:
-				'Proposed and implemented an internal ruby API for sending/receiving commands to scooters over LTE networks. Developed a fully automated bike firmware update system to handle asynchronous firmware updates of over 100,000+ scooters worldwide, and provide progress reports in real-time using React, Ruby on Rails, PostgreSQL and AWS EC2 saving hundreds of developer hours.'
-		},
-		{
-			company: 'Mitre Media',
-			href: 'https://mitremedia.com/',
-			badges: [],
-			location: 'Toronto, ON',
-			title: 'Software Engineer',
-			logoUrl: MitreMediaImg,
-			start: 'May 2017',
-			end: 'August 2017',
-			description:
-				'Designed and implemented a robust password encryption and browser cookie storage system in Ruby on Rails. Leveraged the Yahoo finance API to develop the dividend.com equity screener'
+				'Atuação em manutenção de APIs Node.js/Fastify, criação de integrações internas e ajustes contínuos de pipelines CI para serviços core da MhGestão.'
 		}
 	],
 	education: [

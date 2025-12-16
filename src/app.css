@@ -54,9 +54,39 @@
 	}
 	body {
 		@apply overflow-x-hidden bg-background text-foreground;
+		font-family:
+			'IBM Plex Sans',
+			ui-sans-serif,
+			system-ui,
+			-apple-system,
+			Segoe UI,
+			Roboto,
+			Helvetica,
+			Arial,
+			'Apple Color Emoji',
+			'Segoe UI Emoji';
 		transition:
 			background-color 0.3s ease,
 			color 0.3s ease;
+	}
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		font-family:
+			'Metropolis',
+			'IBM Plex Sans',
+			ui-sans-serif,
+			system-ui,
+			-apple-system,
+			Segoe UI,
+			Roboto,
+			Helvetica,
+			Arial,
+			'Apple Color Emoji',
+			'Segoe UI Emoji';
 	}
 }
 

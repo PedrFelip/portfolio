@@ -41,7 +41,7 @@
 	<div class="flex flex-col px-4 pt-4">
 		<div class="space-y-1">
 			<!-- Card Title -->
-			<div class="text-lg font-semibold tracking-tight">{title}</div>
+			<div class="font-heading text-lg font-semibold tracking-tight">{title}</div>
 			<time class="font-sans text-xs text-muted-foreground">{dates}</time>
 			<div class="hidden font-sans text-xs underline print:visible">
 				{link?.replace('https://', '').replace('www.', '').replace('/', '')}

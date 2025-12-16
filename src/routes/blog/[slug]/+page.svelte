@@ -170,7 +170,7 @@
 			<!-- Title & Meta -->
 			<div class="pr-14">
 				<h1
-					class="mb-4 text-3xl font-bold leading-tight tracking-tight sm:text-4xl md:text-5xl lg:text-6xl"
+					class="font-heading mb-4 text-3xl font-bold leading-tight tracking-tight sm:text-4xl md:text-5xl lg:text-6xl"
 				>
 					{data.meta.title}
 				</h1>
@@ -193,7 +193,7 @@
 
 				{#if data.meta.tldr && data.meta.tldr.length}
 					<section class="mt-6 rounded-lg border bg-muted/40 p-4">
-						<p class="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">TL;DR</p>
+						<p class="font-heading mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">TL;DR</p>
 						<ul class="space-y-2 text-sm text-muted-foreground">
 							{#each data.meta.tldr as item}
 								<li class="flex items-start gap-2">

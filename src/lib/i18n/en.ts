@@ -11,10 +11,17 @@ export const en: Translation = {
 	// Sections
 	sections: {
 		about: 'About',
+		work: 'Work Experience',
 		education: 'Education',
 		skills: 'Skills',
 		projects: 'Projects',
 		contact: 'Contact'
+	},
+
+	// Work
+	work: {
+		intro:
+			'Honed backend and platform engineering skills while shipping products for startups, health teams, and academic initiatives.'
 	},
 
 	// About
@@ -98,6 +105,7 @@ export const en: Translation = {
 	navbar: {
 		home: 'Home',
 		blog: 'Blog',
+		work: 'Work',
 		projects: 'Projects',
 		github: 'GitHub',
 		linkedin: 'LinkedIn',

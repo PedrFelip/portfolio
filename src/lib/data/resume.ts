@@ -103,8 +103,7 @@ export const DATA = {
 			logoUrl: MhGestaoImg,
 			start: 'Nov 2025',
 			end: 'Present',
-			description:
-				'Atuação em manutenção de APIs Node.js/Fastify, criação de integrações internas e ajustes contínuos de pipelines CI para serviços core da MhGestão.'
+			description: ''
 		}
 	],
 	education: [

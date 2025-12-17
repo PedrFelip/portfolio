@@ -19,7 +19,11 @@ export const pt = {
 	// Work
 	work: {
 		intro:
-			"Experiências práticas construindo plataformas backend e infraestrutura para startups, equipes de saúde e iniciativas acadêmicas."
+			'Experiências práticas construindo plataformas backend e infraestrutura para startups, equipes de saúde e iniciativas acadêmicas.',
+		experiences: {
+			mhgestao:
+				'Atuação em manutenção de APIs Node.js/Fastify, criação de integrações internas e ajustes contínuos de pipelines CI para serviços core da MhGestão.'
+		}
 	},
 
 	// About

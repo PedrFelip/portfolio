@@ -21,7 +21,11 @@ export const en: Translation = {
 	// Work
 	work: {
 		intro:
-			'Honed backend and platform engineering skills while shipping products for startups, health teams, and academic initiatives.'
+			'Honed backend and platform engineering skills while shipping products for startups, health teams, and academic initiatives.',
+		experiences: {
+			mhgestao:
+				'Worked on maintaining Node.js/Fastify APIs, creating internal integrations and continuous adjustments to CI pipelines for MhGestão core services.'
+		}
 	},
 
 	// About

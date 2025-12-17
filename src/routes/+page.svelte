@@ -36,6 +36,12 @@
 		>;
 		return items[id];
 	};
+
+	const getWorkDescription = (t: Translation, company: string) => {
+		const experiences = t.work.experiences as Record<string, string | undefined>;
+		const key = company.toLowerCase().replace(/[^a-z0-9]/g, '');
+		return experiences[key];
+	};
 </script>
 
 <svelte:head>
@@ -96,7 +102,7 @@
 				<div class="flex flex-1 flex-col space-y-1.5">
 					<BlurFade
 						delay={BLUR_FADE_DELAY}
-						class="font-heading text-balance text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl xl:text-6xl/none"
+						class="text-balance font-heading text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl xl:text-6xl/none"
 						yOffset={8}>{$t.hero.greeting}</BlurFade
 					>
 					<BlurFade
@@ -136,7 +142,8 @@
 			</BlurFade>
 			{#each DATA.work as work, id}
 				<BlurFade delay={BLUR_FADE_DELAY * 1.2 + id * 0.08}>
-					<ResumeCard {...work} />
+					{@const translatedDescription = getWorkDescription($t, work.company)}
+					<ResumeCard {...work} description={translatedDescription || work.description} />
 				</BlurFade>
 			{/each}
 		</div>
@@ -277,7 +284,9 @@
 					<div class="inline-block rounded-lg bg-foreground px-3 py-1 text-sm text-background">
 						{$t.contact.badge}
 					</div>
-					<h2 class="font-heading text-3xl font-bold tracking-tight sm:text-5xl">{$t.contact.title}</h2>
+					<h2 class="font-heading text-3xl font-bold tracking-tight sm:text-5xl">
+						{$t.contact.title}
+					</h2>
 					<p
 						class="mx-auto max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed"
 					>

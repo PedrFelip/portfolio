@@ -96,7 +96,7 @@ export const DATA = {
 	work: [
 		{
 			company: 'MhGestão',
-			href: 'https://mhgestao.com.br',
+			href: 'https://mhgestao.com',
 			badges: [],
 			location: 'Brasília, BR',
 			title: 'Estagiário Backend',

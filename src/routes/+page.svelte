@@ -12,6 +12,29 @@
 	import { t } from '$lib/i18n';
 	import type { Translation } from '$lib/i18n/pt';
 	import { marked } from '$lib/utils';
+	import * as simpleIcons from 'simple-icons';
+
+	function getSkillIcon(skill: string) {
+		const slugMap: Record<string, string> = {
+			'Node.js': 'siNodedotjs',
+			'TypeScript': 'siTypescript',
+			'Go': 'siGo',
+			'Fastify': 'siFastify',
+			'NestJS': 'siNestjs',
+			'Prisma ORM': 'siPrisma',
+			'PostgreSQL': 'siPostgresql',
+			'Docker': 'siDocker',
+			'Nginx': 'siNginx',
+			'Vagrant': 'siVagrant',
+			'OCI': 'siIcloud',
+			'Linux': 'siLinux',
+			'Shell Scripting': 'siGnubash'
+		};
+		const slug = slugMap[skill];
+		const icon = slug && simpleIcons[slug] ? simpleIcons[slug] : null;
+		return icon;
+	}
+
 	let BLUR_FADE_DELAY = 0.15;
 
 	const terminalLines = [
@@ -176,7 +199,14 @@
 			<div class="flex flex-wrap gap-1">
 				{#each DATA.skills as skill, id}
 					<BlurFade delay={BLUR_FADE_DELAY * id + 0.008}>
-						<Badge>{skill}</Badge>
+						<Badge class="flex items-center gap-1">
+							{#if getSkillIcon(skill)}
+								<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+									<path d={getSkillIcon(skill).path} />
+								</svg>
+							{/if}
+							{skill}
+						</Badge>
 					</BlurFade>
 				{/each}
 			</div>

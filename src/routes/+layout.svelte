@@ -3,9 +3,20 @@
 	import DotBackground from '$lib/components/magic/DotBackground.svelte';
 	import '../app.css';
 	import { ModeWatcher, mode } from 'mode-watcher';
-	import { injectSpeedInsights } from '@vercel/speed-insights/sveltekit';
+	import { onMount } from 'svelte';
 
-	injectSpeedInsights();
+	onMount(async () => {
+		if (typeof window === 'undefined') return;
+
+		try {
+			const mod = await import('@vercel/speed-insights/sveltekit');
+			if (mod && typeof mod.injectSpeedInsights === 'function') {
+				mod.injectSpeedInsights();
+			}
+		} catch (err) {
+			console.error('[injectSpeedInsights] dynamic import failed:', err);
+		}
+	});
 </script>
 
 <ModeWatcher defaultMode="dark" disableTransitions={false} />

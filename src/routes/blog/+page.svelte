@@ -73,22 +73,7 @@
 		padding-bottom: var(--size-7);
 	}
 
-	.tldr {
-		list-style: none;
-		padding-left: 0;
-	}
 
-	.tldr li {
-		display: flex;
-		align-items: flex-start;
-		gap: 0.25rem;
-	}
 
-	.snippet {
-		margin-top: 0.5rem;
-		display: -webkit-box;
-		-webkit-line-clamp: 2;
-		-webkit-box-orient: vertical;
-		overflow: hidden;
-	}
+
 </style>

@@ -18,10 +18,11 @@ export async function GET() {
 	let posts: Post[] = [];
 
 	const paths = import.meta.glob('/src/content/*.md', { eager: true });
-	const rawFiles = import.meta.glob('/src/content/*.md', { eager: true, as: 'raw' }) as Record<
-		string,
-		string
-	>;
+	const rawFiles = import.meta.glob('/src/content/*.md', {
+		eager: true,
+		query: '?raw',
+		import: 'default'
+	}) as Record<string, string>;
 
 	for (const path in paths) {
 		const file = paths[path];

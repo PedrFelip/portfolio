@@ -168,7 +168,7 @@ log₂(1.000.000) ≈ 20
 Só 20 passos no pior caso! <br />
 Isso é absurdamente eficiente. Isso por que o Logaritmo cresce muito lentamente.
 
-![](/images/posts/big-o/time-complexity.jpg)
+![Gráfico de complexidade de tempo comparando diferentes notações Big-O](/images/posts/big-o/time-complexity.jpg)
 
 ```ts
 function buscaBinaria(arr: number[], alvo: number): number {

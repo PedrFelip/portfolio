@@ -33,7 +33,7 @@ O destaque do **Niri** é o **“scrollable tiling”** <br />
 Um modelo em que o layout não é limitado por uma grade fixa, mas por uma sequência rolável de colunas.
 Isso muda completamente a experiência de multitarefa: você pode manter várias janelas abertas **“fora da tela”**, sem bagunçar o layout atual.
 
-![Niri screenshot](/images/posts/niri/niri-hero.webp)
+![Niri WM mostrando layout scrollable com janelas organizadas horizontalmente](/images/posts/niri/niri-hero.webp)
 
 > Perceba que a janela do zed está do lado direito, fora da tela principal, mas ainda acessível via scroll horizontal
 
@@ -44,7 +44,7 @@ Isso muda completamente a experiência de multitarefa: você pode manter várias
 No **hyprland**, ao abrir uma nova janela, o espaço disponível é redistribuído entre todas as janelas abertas, o que pode levar a redimensionamentos indesejados e perda de foco. <br />
 No **Niri**, as janelas mantêm seus tamanhos originais, e você pode rolar horizontalmente para acessar janelas adicionais, proporcionando uma experiência mais fluida e focada. <br />
 
-![Hyprland exemplo](/images/posts/niri/hyprland-exemplo.webp)
+![Comparação do Hyprland mostrando redimensionamento automático de janelas](/images/posts/niri/hyprland-exemplo.webp)
 
 > No hyprland, ele redimensiona todas as janelas para caber na tela
 
@@ -68,7 +68,7 @@ Tem o **PaperWM.spoon** para **MacOS**, que traz o conceito de scrollable tiling
 
 ## **Configuração do Niri**
 
-![](/images/posts/niri/overview.webp)
+![Niri Overview mostrando janelas abertas e áreas de trabalho organizadas](/images/posts/niri/overview.webp)
 
 > Um Overview tipo do gnome, que mostra as janelas abertas e organizadas, além de mostrar as áreas de trabalho (no meu caso, duas áreas de trabalho)
 

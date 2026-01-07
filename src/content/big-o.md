@@ -78,6 +78,7 @@ function copiarArray(lista: number[]) {
 	return copia;
 }
 ```
+
 **Complexidade espacial: O(n)**
 
 Um detalhe importante que Big-O sempre leva em consideração o **pior caso**.
@@ -108,25 +109,27 @@ const x = arr[10];
 
 ```ts
 function soma(arr: number[]): number {
-  let total = 0;
-  for (let i = 0; i < arr.length; i++) {
-    total += arr[i];
-  }
-  return total;
+	let total = 0;
+	for (let i = 0; i < arr.length; i++) {
+		total += arr[i];
+	}
+	return total;
 }
 ```
+
 > Cada elemento do array é somado uma vez, portanto, o número de operações é proporcional ao tamanho do array. Assim, a complexidade de tempo é O(n).
 
 **Procurar um elemento (busca linear)**
 
 ```ts
 function inclui(arr: number[], alvo: number) {
-  for (let x of arr) {
-    if (x === alvo) return true;
-  }
-  return false;
+	for (let x of arr) {
+		if (x === alvo) return true;
+	}
+	return false;
 }
 ```
+
 > No pior caso você olha todos os n elementos → **O(n)**. (Melhor caso **O(1)** se estiver no primeiro índice) mas big-o sempre leva em consideração o pior caso.
 
 ---
@@ -141,16 +144,17 @@ Você sabe quando é **O(n²)** quando você vê dois loops aninhados.
 
 ```ts
 for (let i = 0; i < n; i++) {
-  for (let j = 0; j < n; j++) {
-    // ...
-  }
+	for (let j = 0; j < n; j++) {
+		// ...
+	}
 }
 ```
 
 Exemplo de algoritmo **O(n²)**:
-  - Bubble Sort
-  - Selection Sort
-  - Insertion Sort
+
+- Bubble Sort
+- Selection Sort
+- Insertion Sort
 
 ---
 
@@ -172,26 +176,28 @@ Isso é absurdamente eficiente. Isso por que o Logaritmo cresce muito lentamente
 
 ```ts
 function buscaBinaria(arr: number[], alvo: number): number {
-  let esquerda = 0
-  let direita = arr.length - 1
+	let esquerda = 0;
+	let direita = arr.length - 1;
 
-  while (esquerda <= direita) {
-    const meio = Math.floor((esquerda + direita) / 2)
-    if (arr[meio] === alvo) {
-      return meio
-    } else if (arr[meio] < alvo) {
-      esquerda = meio + 1
-    } else {
-      direita = meio - 1
-    }
-  }
-  return null
+	while (esquerda <= direita) {
+		const meio = Math.floor((esquerda + direita) / 2);
+		if (arr[meio] === alvo) {
+			return meio;
+		} else if (arr[meio] < alvo) {
+			esquerda = meio + 1;
+		} else {
+			direita = meio - 1;
+		}
+	}
+	return null;
 }
 ```
+
 > A cada iteração, o algoritmo reduz pela metade o número de elementos restantes a serem verificados. Portanto, o número de operações necessárias é proporcional ao logaritmo do tamanho do array.
 
 ---
 
 ## Conclusão
+
 Notação Big-O cai muito em entrevistas técnicas, mas é um conceito fundamental para **qualquer desenvolvedor** que queira entender algoritmos e estruturas de dados.
 Ficou simples o post por conta do assunto ser complexo, mas espero que tenha ajudado a clarear um pouco esse tema!

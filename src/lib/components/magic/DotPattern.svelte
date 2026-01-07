@@ -8,7 +8,7 @@
 	export let cx: number = 1;
 	export let cy: number = 1;
 	export let cr: number = 1;
-	export let fillColor: string = 'rgb(156 163 175 / 0.4)';
+	export let fillColor: string = 'color-mix(in srgb, var(--muted-foreground), transparent 0%)';
 
 	let className: string = '';
 	export { className as class };
@@ -20,7 +20,7 @@
 <svg
 	aria-hidden="true"
 	class={cn(
-		'pointer-events-none absolute inset-0 h-full w-full fill-neutral-400/30 dark:fill-neutral-400/20',
+		'pointer-events-none absolute inset-0 h-full w-full',
 		className
 	)}
 	{...$$restProps}

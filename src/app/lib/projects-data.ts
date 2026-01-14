@@ -1,8 +1,8 @@
 import type { Project } from "@/types/portfolio";
-import { translations } from "./i18n";
+import { projectsContent } from "./content/projects-content";
 
 export const getProjects = (language: "en" | "pt"): Project[] => {
-  const t = translations[language].projects;
+  const t = projectsContent[language].projects;
 
   return [
     {

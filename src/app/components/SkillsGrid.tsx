@@ -1,5 +1,3 @@
-"use client";
-
 interface SkillCategory {
   category: string;
   items: string[];

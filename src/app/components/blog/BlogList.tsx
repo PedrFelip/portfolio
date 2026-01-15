@@ -2,7 +2,7 @@
 
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
-import { BlogCard } from "@/components/BlogCard";
+import { BlogCard } from "@/components/blog/BlogCard";
 import type { BlogMetadata } from "@/types/portfolio";
 
 interface BlogListProps {

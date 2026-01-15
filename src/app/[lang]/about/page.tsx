@@ -1,73 +1,35 @@
-"use client";
-
-import { useMemo } from "react";
-import { ContactLinks } from "@/components/ContactLinks";
-import { EducationCard } from "@/components/EducationCard";
+import { ContactLinks } from "@/components/about/ContactLinks";
+import { EducationCard } from "@/components/about/EducationCard";
+import { WorkExperienceCard } from "@/components/about/WorkExperienceCard";
+import { Section } from "@/components/common/Section";
+import { SectionHeader } from "@/components/common/SectionHeader";
 import { SkillsGrid } from "@/components/SkillsGrid";
-import { WorkExperienceCard } from "@/components/WorkExperienceCard";
 import {
   getContactLinks,
   getEducation,
   getWorkExperience,
 } from "@/lib/about-data";
-import { useLanguage } from "@/lib/LanguageContext";
+import { aboutContent } from "@/lib/content/about-content";
+import { parseBoldMarkdown } from "@/lib/markdown";
 import { getSkills } from "@/lib/shared-data";
 
-export default function AboutPage() {
-  const { t, language } = useLanguage();
+type Lang = "en" | "pt";
 
-  const workExperience = useMemo(
-    () => getWorkExperience(language as "en" | "pt"),
-    [language],
-  );
+interface AboutPageProps {
+  params: Promise<{ lang: Lang }>;
+}
 
-  const education = useMemo(
-    () => getEducation(language as "en" | "pt"),
-    [language],
-  );
+export default async function AboutPage({ params }: AboutPageProps) {
+  const { lang } = await params;
+  const t = aboutContent[lang];
 
-  const contactLinks = useMemo(
-    () => getContactLinks(language as "en" | "pt"),
-    [language],
-  );
-
-  const skills = useMemo(() => getSkills(language as "en" | "pt"), [language]);
-
-  // Parse markdown bold (**text**) to JSX
-  const parseDescription = (
-    text: string,
-  ): (string | React.JSX.Element)[] | null => {
-    if (!text) return null;
-
-    const parts = text.split(/(\*\*.*?\*\*)/g);
-    const result: (string | React.JSX.Element)[] = [];
-    let keyCounter = 0;
-
-    for (let i = 0; i < parts.length; i++) {
-      const part = parts[i];
-      if (!part) continue;
-
-      if (part.startsWith("**") && part.endsWith("**")) {
-        const content = part.slice(2, -2);
-        result.push(
-          <strong
-            key={`bold-${keyCounter++}`}
-            className="font-semibold text-foreground"
-          >
-            {content}
-          </strong>,
-        );
-      } else {
-        result.push(part);
-      }
-    }
-
-    return result;
-  };
+  const workExperience = getWorkExperience(lang);
+  const education = getEducation(lang);
+  const contactLinks = getContactLinks(lang);
+  const skills = getSkills(lang);
 
   return (
     <div className="min-h-screen">
-      {/* Hero / Intro Section */}
       <section className="mx-auto max-w-4xl px-4 py-12 sm:px-6 sm:py-16 md:py-20 lg:px-8">
         <div className="mb-4 font-mono text-xs uppercase tracking-wider text-muted-foreground">
           {t.about.badge}
@@ -76,92 +38,63 @@ export default function AboutPage() {
           {t.about.title}
         </h1>
         <p className="text-sm sm:text-base leading-relaxed text-muted-foreground">
-          {parseDescription(t.about.description)}
+          {parseBoldMarkdown(t.about.description)}
         </p>
       </section>
 
-      {/* Work Experience Section */}
-      <section className="border-t border-border bg-muted/30 py-12 sm:py-16 md:py-20">
-        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-          <div className="mb-8 sm:mb-12">
-            <div className="mb-2 font-mono text-xs uppercase tracking-wider text-muted-foreground">
-              {t.work.badge}
-            </div>
-            <h2 className="mb-4 text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-foreground">
-              {t.work.title}
-            </h2>
-            <p className="text-sm sm:text-base text-muted-foreground">
-              {t.work.intro}
-            </p>
-          </div>
+      <Section variant="muted" className="py-12 sm:py-16 md:py-20">
+        <div className="mx-auto max-w-4xl">
+          <SectionHeader
+            badge={t.work.badge}
+            title={t.work.title}
+            description={t.work.intro}
+          />
 
-          {/* Timeline */}
           <div className="space-y-0">
             {workExperience.map((experience, index) => (
               <WorkExperienceCard
-                key={experience.company}
+                key={`${experience.company}-${experience.title}`}
                 experience={experience}
                 isLast={index === workExperience.length - 1}
               />
             ))}
           </div>
         </div>
-      </section>
+      </Section>
 
-      {/* Technical Skills Section */}
-      <section className="py-12 sm:py-16 md:py-20">
-        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-          <div className="mb-8 sm:mb-12">
-            <div className="mb-2 font-mono text-xs uppercase tracking-wider text-muted-foreground">
-              {t.skills.badge}
-            </div>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-foreground">
-              {t.skills.title}
-            </h2>
-          </div>
-
+      <Section className="py-12 sm:py-16 md:py-20">
+        <div className="mx-auto max-w-4xl">
+          <SectionHeader badge={t.skills.badge} title={t.skills.title} />
           <SkillsGrid skills={skills} />
         </div>
-      </section>
+      </Section>
 
-      {/* Education Section */}
-      <section className="border-t border-border bg-muted/30 py-12 sm:py-16 md:py-20">
-        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-          <div className="mb-8 sm:mb-12">
-            <div className="mb-2 font-mono text-xs uppercase tracking-wider text-muted-foreground">
-              {t.education.badge}
-            </div>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-foreground">
-              {t.education.title}
-            </h2>
-          </div>
+      <Section variant="muted" className="py-12 sm:py-16 md:py-20">
+        <div className="mx-auto max-w-4xl">
+          <SectionHeader badge={t.education.badge} title={t.education.title} />
 
           <div className="space-y-4">
             {education.map((edu) => (
-              <EducationCard key={edu.school} education={edu} />
+              <EducationCard
+                key={`${edu.school}-${edu.degree}`}
+                education={edu}
+              />
             ))}
           </div>
         </div>
-      </section>
+      </Section>
 
-      {/* Contact Section */}
-      <section className="py-12 sm:py-16 md:py-20">
-        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-          <div className="mb-8 sm:mb-12">
-            <div className="mb-2 font-mono text-xs uppercase tracking-wider text-muted-foreground">
-              {t.contact.badge}
-            </div>
-            <h2 className="mb-4 text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-foreground">
-              {t.contact.title}
-            </h2>
-            <p className="text-sm sm:text-base text-muted-foreground">
-              {t.contact.description}
-            </p>
-          </div>
+      <Section className="py-12 sm:py-16 md:py-20">
+        <div className="mx-auto max-w-4xl">
+          <SectionHeader
+            badge={t.contact.badge}
+            title={t.contact.title}
+            description={t.contact.description}
+          />
 
           <ContactLinks links={contactLinks} />
         </div>
-      </section>
+      </Section>
     </div>
   );
 }

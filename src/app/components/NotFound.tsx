@@ -2,8 +2,8 @@
 
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { Footer } from "@/components/Footer";
-import { Navigation } from "@/components/Navigation";
+import { Footer } from "@/components/layout/Footer";
+import { Navigation } from "@/components/layout/Navigation";
 import { useLanguage } from "@/lib/LanguageContext";
 import { useLocalizedLink } from "@/lib/useLocalizedLink";
 

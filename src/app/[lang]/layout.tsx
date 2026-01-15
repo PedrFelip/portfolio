@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Footer } from "@/components/Footer";
-import { Navigation } from "@/components/Navigation";
+import { Footer } from "@/components/layout/Footer";
+import { Navigation } from "@/components/layout/Navigation";
 import { LanguageProvider } from "@/lib/LanguageContext";
 
 export const metadata: Metadata = {

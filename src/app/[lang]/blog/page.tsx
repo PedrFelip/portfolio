@@ -1,4 +1,4 @@
-import { BlogList } from "@/components/BlogList";
+import { BlogList } from "@/components/blog/BlogList";
 import { getAllPosts } from "@/lib/blog-data";
 import { blogContent } from "@/lib/content/blog-content";
 

@@ -3,16 +3,16 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import rehypeHighlight from "rehype-highlight";
-import { Callout } from "@/components/Callout";
-import { CodeBlockWrapper } from "@/components/CodeBlockWrapper";
-import { Figure } from "@/components/Figure";
+import { Callout } from "@/components/mdx/Callout";
+import { CodeBlockWrapper } from "@/components/mdx/CodeBlockWrapper";
+import { Figure } from "@/components/mdx/Figure";
 import {
   MDXTable,
   MDXTableBody,
   MDXTableCell,
   MDXTableHead,
   MDXTableRow,
-} from "@/components/MDXTable";
+} from "@/components/mdx/MDXTable";
 import { getAllPostSlugs, getPostBySlug } from "@/lib/blog-data";
 import { blogContent } from "@/lib/content/blog-content";
 

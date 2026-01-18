@@ -20,7 +20,7 @@ interface SkillItemProps {
  * (Vercel: rerender-memo)
  */
 const SkillItem = memo(({ skill }: SkillItemProps) => (
-  <span className="rounded border border-border bg-muted px-2.5 sm:px-3 py-1 sm:py-1.5 font-mono text-xs text-muted-foreground transition-colors hover:border-foreground hover:text-foreground">
+  <span className="rounded border border-border bg-muted px-2 py-0.5 font-mono text-xs text-muted-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-foreground hover:text-foreground sm:px-2.5 sm:py-1">
     {skill}
   </span>
 ));
@@ -32,13 +32,18 @@ interface SkillCategoryGroupProps extends SkillCategory {}
 /**
  * SkillCategoryGroup component
  *
+ * Design principles (AGENTS.md):
+ * - 4px grid: consistent spacing throughout
+ * - Symmetrical padding: matching padding on all sides
+ * - Typography: monospace for data (skills)
+ *
  * Memoized to prevent re-renders when skills in a category don't change
  * (Vercel: rerender-memo)
  */
 const SkillCategoryGroup = memo(
   ({ category, items }: SkillCategoryGroupProps) => (
-    <div className="space-y-4">
-      <h3 className="text-base sm:text-lg font-semibold text-foreground">
+    <div className="space-y-3 sm:space-y-4">
+      <h3 className="text-base font-semibold text-foreground sm:text-lg">
         {category}
       </h3>
       <div className="flex flex-wrap gap-2">
@@ -55,6 +60,10 @@ SkillCategoryGroup.displayName = "SkillCategoryGroup";
 /**
  * SkillsSection component
  *
+ * Design principles (AGENTS.md):
+ * - 4px grid: consistent spacing throughout
+ * - Mobile-first: optimized for small screens
+ *
  * Best practices applied:
  * - Memoized to prevent unnecessary re-renders (Vercel: rerender-memo)
  * - Child components (SkillCategoryGroup, SkillItem) are memoized separately
@@ -66,7 +75,7 @@ export const SkillsSection = memo(
     return (
       <Section>
         <SectionHeader badge={badge} title={title} />
-        <div className="grid gap-6 sm:gap-8 md:grid-cols-2">
+        <div className="grid gap-6 md:grid-cols-2">
           {skills.map((skillGroup) => (
             <SkillCategoryGroup
               key={skillGroup.category}

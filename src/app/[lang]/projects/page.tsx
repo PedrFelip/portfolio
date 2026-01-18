@@ -9,6 +9,14 @@ interface ProjectsPageProps {
   params: Promise<{ lang: Lang }>;
 }
 
+/**
+ * ProjectsPage component
+ *
+ * Design principles (AGENTS.md):
+ * - 4px grid: consistent spacing throughout
+ * - Symmetrical padding: matching padding on all sides
+ * - Consistent container: uses Section component for uniform alignment
+ */
 export default async function ProjectsPage({ params }: ProjectsPageProps) {
   const { lang } = await params;
   const t = projectsContent[lang].projects;
@@ -16,21 +24,23 @@ export default async function ProjectsPage({ params }: ProjectsPageProps) {
   const projects = getProjects(lang);
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-24">
-      <SectionHeader
-        badge={t.badge}
-        title={t.title}
-        description={t.description}
-      />
+    <section className="py-12 sm:py-16 lg:py-24">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <SectionHeader
+          badge={t.badge}
+          title={t.title}
+          description={t.description}
+        />
 
-      <ProjectsClient
-        projects={projects}
-        emptyStateLabel={
-          lang === "pt"
-            ? "Nenhum projeto encontrado com essas tecnologias."
-            : "No projects found with those technologies."
-        }
-      />
-    </div>
+        <ProjectsClient
+          projects={projects}
+          emptyStateLabel={
+            lang === "pt"
+              ? "Nenhum projeto encontrado com essas tecnologias."
+              : "No projects found with those technologies."
+          }
+        />
+      </div>
+    </section>
   );
 }

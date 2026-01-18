@@ -47,7 +47,7 @@ export default function ProjectsClient({
         {filteredProjects.map((project, index) => (
           <div
             key={project.id}
-            className="animate-fade-in-up"
+            className="animate-in-up"
             style={{ animationDelay: `${index * 50}ms` }}
           >
             <ProjectCard project={project} />

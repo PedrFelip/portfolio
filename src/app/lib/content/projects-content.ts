@@ -12,6 +12,17 @@ export const projectsContent = {
       description:
         "I've worked on a variety of projects, from simple websites to complex web applications. Here are a few of my favorites.",
       viewAll: "View all projects",
+      links: {
+        code: "Code",
+        demo: "Demo",
+        website: "Website",
+      },
+      filters: {
+        active: (count: number) =>
+          `${count} filter${count > 1 ? "s" : ""} active`,
+        empty: "Filter by technology",
+        clear: "Clear all",
+      },
 
       // Individual Projects
       oportunne: {
@@ -49,6 +60,17 @@ export const projectsContent = {
       description:
         "Trabalhei em uma variedade de projetos, desde sites simples até aplicações web complexas. Aqui estão alguns dos meus favoritos.",
       viewAll: "Ver todos os projetos",
+      links: {
+        code: "Código",
+        demo: "Demo",
+        website: "Website",
+      },
+      filters: {
+        active: (count: number) =>
+          `${count} filtro${count > 1 ? "s" : ""} ativo${count > 1 ? "s" : ""}`,
+        empty: "Filtrar por tecnologia",
+        clear: "Limpar tudo",
+      },
 
       // Individual Projects
       oportunne: {

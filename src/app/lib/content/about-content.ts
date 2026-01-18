@@ -51,12 +51,12 @@ export const aboutContent = {
   pt: {
     // About Section
     about: {
-      badge: "About Me",
-      title: "About Me",
+      badge: "Sobre Mim",
+      title: "Sobre Mim",
       intro:
-        "I am a backend engineer passionate about designing robust and scalable systems.",
+        "Sou um engenheiro backend apaixonado por projetar sistemas robustos e escaláveis.",
       description:
-        "I'm a backend developer passionate about **system design**, **cloud infrastructure**, and **automation**. I build scalable APIs, implement Infrastructure as Code, and design reliable, maintainable systems that support growth. My main stack includes **Node.js**, **TypeScript**, **NestJS**, **PostgreSQL**, **Docker**, and **Linux**. I'm also a long-time Linux user always experimenting with setups and optimizing environments to make development faster and cleaner. I believe in learning by building, continuously improving my craft through hands-on projects and real-world challenges.",
+        "Sou um desenvolvedor backend apaixonado por **system design**, **infraestrutura de cloud** e **automação**. Construo APIs escaláveis, implemento Infraestrutura como Código e projeto sistemas confiáveis e mantíveis que suportam o crescimento. Minha stack principal inclui **Node.js**, **TypeScript**, **NestJS**, **PostgreSQL**, **Docker** e **Linux**. Também sou um usuário de Linux de longa data, sempre experimentando setups e otimizando ambientes para tornar o desenvolvimento mais rápido e limpo. Acredito em aprendizado prático, melhorando continuamente minhas habilidades através de projetos e desafios do mundo real.",
     },
 
     // Work Section

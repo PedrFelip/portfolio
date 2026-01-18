@@ -1,5 +1,7 @@
 "use client";
 
+import { useLanguage } from "@/lib/LanguageContext";
+
 interface FilterTagsProps {
   selectedTags: string[];
   onTagChange: (tags: string[]) => void;
@@ -11,6 +13,8 @@ export function FilterTags({
   onTagChange,
   allTags,
 }: FilterTagsProps) {
+  const { t } = useLanguage();
+  const filterLabels = t.projects.filters;
   const toggleTag = (tag: string) => {
     if (selectedTags.includes(tag)) {
       onTagChange(selectedTags.filter((t) => t !== tag));
@@ -28,8 +32,8 @@ export function FilterTags({
       <div className="flex items-center justify-between">
         <p className="text-xs sm:text-sm font-mono text-muted-foreground">
           {selectedTags.length > 0
-            ? `${selectedTags.length} filter${selectedTags.length > 1 ? "s" : ""} active`
-            : "Filter by technology"}
+            ? filterLabels.active(selectedTags.length)
+            : filterLabels.empty}
         </p>
         {selectedTags.length > 0 && (
           <button
@@ -37,7 +41,7 @@ export function FilterTags({
             onClick={clearAll}
             className="text-xs font-mono text-muted-foreground transition-colors duration-150 hover:text-foreground"
           >
-            Clear all
+            {filterLabels.clear}
           </button>
         )}
       </div>

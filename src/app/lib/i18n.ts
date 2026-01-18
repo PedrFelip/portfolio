@@ -3,6 +3,7 @@ import { blogContent } from "./content/blog-content";
 import { homeContent } from "./content/home-content";
 import { linksContent } from "./content/links-content";
 import { notFoundContent } from "./content/not-found-content";
+import { projectsContent } from "./content/projects-content";
 import { sharedContent } from "./content/shared-content";
 
 export type Language = "en" | "pt";
@@ -25,6 +26,7 @@ export const translations = {
     ...blogContent.en,
     ...linksContent.en,
     ...notFoundContent.en,
+    ...projectsContent.en,
   },
   pt: {
     // Shared UI (navigation, footer, header, common buttons)
@@ -36,6 +38,7 @@ export const translations = {
     ...blogContent.pt,
     ...linksContent.pt,
     ...notFoundContent.pt,
+    ...projectsContent.pt,
   },
 };
 

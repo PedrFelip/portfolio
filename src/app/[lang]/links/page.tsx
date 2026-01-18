@@ -14,7 +14,7 @@ const iconMap = {
 };
 
 export default function LinksPage() {
-  useLanguage();
+  const { t } = useLanguage();
 
   return (
     <>
@@ -24,7 +24,7 @@ export default function LinksPage() {
           Pedro Felipe
         </h1>
         <p className="text-xs sm:text-sm md:text-base text-muted-foreground px-2">
-          Backend Developer
+          {t.links.subtitle}
         </p>
       </div>
 

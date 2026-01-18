@@ -22,7 +22,7 @@ export function NotFound() {
             {/* Error code and title */}
             <div className="space-y-4">
               <div className="font-mono text-xs sm:text-sm text-muted-foreground tracking-widest uppercase">
-                Error 404
+                {t.notFound.errorCode}
               </div>
               <h1 className="text-5xl sm:text-6xl md:text-7xl font-semibold tracking-tight text-foreground leading-tight">
                 {t.notFound.title}
@@ -40,7 +40,7 @@ export function NotFound() {
             {/* Navigation menu */}
             <div className="space-y-3">
               <p className="font-mono text-xs text-muted-foreground/70 uppercase tracking-wide">
-                Quick Navigation
+                {t.notFound.quickNav}
               </p>
               <div className="grid gap-2">
                 {[

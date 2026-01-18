@@ -13,21 +13,41 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const metadataConfig = {
+  en: {
+    title: "Pedro Felipe - Backend Engineer & System Architect",
+    description:
+      "Backend developer passionate about system design, cloud infrastructure, and automation. Building scalable, maintainable systems with Node.js, TypeScript, Go, PostgreSQL, Docker, and Linux.",
+    ogDescription:
+      "Backend developer passionate about system design, cloud infrastructure, and automation. Building scalable, maintainable systems.",
+    twitterDescription:
+      "Backend developer passionate about system design, cloud infrastructure, and automation.",
+  },
+  pt: {
+    title: "Pedro Felipe - Engenheiro Backend & Arquiteto de Sistemas",
+    description:
+      "Desenvolvedor backend apaixonado por design de sistemas, infraestrutura em nuvem e automação. Construindo sistemas escaláveis e mantíveis com Node.js, TypeScript, Go, PostgreSQL, Docker e Linux.",
+    ogDescription:
+      "Desenvolvedor backend apaixonado por design de sistemas, infraestrutura em nuvem e automação. Construindo sistemas escaláveis e mantíveis.",
+    twitterDescription:
+      "Desenvolvedor backend apaixonado por design de sistemas, infraestrutura em nuvem e automação.",
+  },
+};
+
 export const metadata: Metadata = {
-  title: "Pedro Felipe - Backend Engineer & System Architect",
-  description:
-    "Backend developer passionate about system design, cloud infrastructure, and automation. Building scalable, maintainable systems with Node.js, TypeScript, Go, PostgreSQL, Docker, and Linux.",
+  title: metadataConfig.en.title,
+  description: metadataConfig.en.description,
   icons: {
     icon: "/favicon.svg",
   },
   openGraph: {
     type: "website",
     locale: "en_US",
+    alternateLocale: ["pt_BR"],
     url: "https://portfolio.vercel.app",
     siteName: "Pedro Felipe",
-    title: "Pedro Felipe - Backend Engineer & System Architect",
-    description:
-      "Backend developer passionate about system design, cloud infrastructure, and automation. Building scalable, maintainable systems.",
+    title: metadataConfig.en.title,
+    description: metadataConfig.en.ogDescription,
     images: [
       {
         url: "https://portfolio.vercel.app/og-image.png",
@@ -39,10 +59,16 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Pedro Felipe - Backend Engineer & System Architect",
-    description:
-      "Backend developer passionate about system design, cloud infrastructure, and automation.",
+    title: metadataConfig.en.title,
+    description: metadataConfig.en.twitterDescription,
     images: ["https://portfolio.vercel.app/og-image.png"],
+  },
+  alternates: {
+    canonical: "https://portfolio.vercel.app/en",
+    languages: {
+      en: "https://portfolio.vercel.app/en",
+      pt: "https://portfolio.vercel.app/pt",
+    },
   },
 };
 

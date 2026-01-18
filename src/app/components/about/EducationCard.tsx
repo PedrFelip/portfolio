@@ -9,7 +9,7 @@ interface EducationCardProps {
 
 export const EducationCard = ({ education }: EducationCardProps) => {
   return (
-    <div className="rounded-lg border border-border bg-card p-4 sm:p-6 transition-all hover:border-foreground">
+    <div className="rounded-lg border border-border bg-card p-4 sm:p-6 transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-foreground">
       {/* Header */}
       <div className="mb-3">
         {education.href ? (
@@ -17,10 +17,10 @@ export const EducationCard = ({ education }: EducationCardProps) => {
             href={education.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-base sm:text-lg font-semibold text-foreground transition-colors hover:text-primary group"
+            className="inline-flex items-center gap-2 text-base sm:text-lg font-semibold text-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:text-primary group"
           >
             {education.school}
-            <ExternalLink className="h-4 w-4 opacity-0 transition-opacity group-hover:opacity-100" />
+            <ExternalLink className="h-4 w-4 opacity-0 transition-opacity duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:opacity-100" />
           </a>
         ) : (
           <h3 className="text-base sm:text-lg font-semibold text-foreground">

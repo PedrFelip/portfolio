@@ -32,10 +32,10 @@ export const ContactLinks = ({ links }: ContactLinksProps) => {
             href={href}
             target={isEmail ? undefined : "_blank"}
             rel={isEmail ? undefined : "noopener noreferrer"}
-            className="flex flex-col gap-2 rounded-lg border border-border bg-card px-4 py-4 transition-all hover:border-foreground hover:bg-muted group"
+            className="flex flex-col gap-2 rounded-lg border border-border bg-card px-4 py-4 transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-foreground hover:bg-muted group"
           >
             <div className="flex items-center gap-2">
-              <Icon className="h-5 w-5 flex-shrink-0 text-muted-foreground transition-colors group-hover:text-foreground" />
+              <Icon className="h-5 w-5 flex-shrink-0 text-muted-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:text-foreground" />
               <span className="text-sm font-mono font-semibold text-foreground uppercase tracking-wide">
                 {link.label}
               </span>

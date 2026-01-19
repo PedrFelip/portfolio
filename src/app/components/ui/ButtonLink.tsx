@@ -1,43 +1,43 @@
+import type { VariantProps } from "class-variance-authority";
 import Link from "next/link";
 import { memo, type ReactNode } from "react";
+import { Button, type buttonVariants } from "./button";
 
-interface ButtonProps {
+/**
+ * ButtonLink - Link styled as a Button
+ * Uses shadcn Button with asChild pattern for proper Next.js Link integration
+ * @example <ButtonLink href="/projects">View Projects</ButtonLink>
+ */
+
+interface ButtonLinkProps
+  extends Omit<React.ComponentProps<typeof Link>, "href">,
+    VariantProps<typeof buttonVariants> {
   href: string;
-  variant?: "primary" | "secondary";
   children: ReactNode;
-  target?: string;
-  rel?: string;
-  className?: string;
+  variant?:
+    | "default"
+    | "destructive"
+    | "outline"
+    | "secondary"
+    | "ghost"
+    | "link";
+  size?: "default" | "sm" | "lg" | "icon";
 }
 
 export const ButtonLink = memo(
   ({
     href,
-    variant = "primary",
+    variant = "default",
+    size = "default",
     children,
-    target,
-    rel,
-    className = "",
-  }: ButtonProps) => {
-    const baseStyles =
-      "inline-flex items-center justify-center gap-2 rounded border py-2.5 sm:py-3 px-4 sm:px-6 text-xs sm:text-sm font-medium transition-all duration-200 ease-[cubic-bezier(0.25,1,0.5,1)]";
-
-    const variantStyles = {
-      primary:
-        "border-foreground bg-foreground text-background hover:bg-background hover:text-foreground",
-      secondary:
-        "border-border bg-background text-foreground hover:border-foreground hover:bg-muted",
-    };
-
+    ...props
+  }: ButtonLinkProps) => {
     return (
-      <Link
-        href={href}
-        target={target}
-        rel={rel}
-        className={`${baseStyles} ${variantStyles[variant]} ${className}`}
-      >
-        {children}
-      </Link>
+      <Button asChild variant={variant} size={size}>
+        <Link href={href} {...props}>
+          {children}
+        </Link>
+      </Button>
     );
   },
 );

@@ -80,17 +80,17 @@ export const Footer = memo(() => {
 
   const socialLinks = [
     {
-      href: "https://github.com/pdrfelipe",
+      href: "https://github.com/pedrfelip",
       label: "GitHub",
       icon: <Github className="h-4 w-4" />,
     },
     {
-      href: "https://linkedin.com/in/pdrfelipe",
+      href: "https://linkedin.com/in/pedrfelip",
       label: "LinkedIn",
       icon: <Linkedin className="h-4 w-4" />,
     },
     {
-      href: "mailto:pdrfelipe99@gmail.com",
+      href: "mailto:pfsilva190406@gmail.com",
       label: "Email",
       icon: <Mail className="h-4 w-4" />,
     },
@@ -156,7 +156,7 @@ export const Footer = memo(() => {
           <MonoText className="text-muted-foreground">
             © {t.footer.year} Pedro Felipe
           </MonoText>
-          <MonoText className="text-faint">v1.0.0</MonoText>
+          <MonoText className="text-faint">v1.1.3</MonoText>
         </div>
       </div>
     </footer>

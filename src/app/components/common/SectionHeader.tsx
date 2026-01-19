@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { H2, Label, P } from "@/components/ui";
 
 interface SectionHeaderProps {
   badge?: string;
@@ -13,6 +14,7 @@ interface SectionHeaderProps {
  * Design principles (AGENTS.md):
  * - 4px grid: consistent spacing throughout
  * - Typography hierarchy: proper sizing and spacing
+ * - Uses shadcn/ui typography components: H2, P, Label
  *
  * Spacing scale:
  * - mb-8 on mobile (32px)
@@ -28,18 +30,10 @@ export const SectionHeader = ({
   return (
     <div className="mb-8 sm:mb-12">
       {badge && (
-        <div className="mb-3 font-mono text-xs uppercase tracking-wider text-muted-foreground">
-          {badge}
-        </div>
+        <Label className="mb-3 uppercase tracking-wider">{badge}</Label>
       )}
-      <h2 className="mb-4 text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-foreground">
-        {title}
-      </h2>
-      {description && (
-        <p className="max-w-2xl text-sm sm:text-base text-muted-foreground">
-          {description}
-        </p>
-      )}
+      <H2 className="mb-4">{title}</H2>
+      {description && <P className="max-w-2xl">{description}</P>}
       {children}
     </div>
   );

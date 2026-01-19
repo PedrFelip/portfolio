@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { cn } from "@/lib/utils";
 
 interface SectionProps {
   children: ReactNode;
@@ -23,7 +24,7 @@ interface SectionProps {
  */
 export const Section = ({
   children,
-  className = "",
+  className,
   variant = "default",
 }: SectionProps) => {
   const variantStyles = {
@@ -32,7 +33,7 @@ export const Section = ({
   };
 
   return (
-    <section className={`${variantStyles[variant]} ${className}`}>
+    <section className={cn(variantStyles[variant], className)}>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">{children}</div>
     </section>
   );

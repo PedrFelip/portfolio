@@ -3,6 +3,7 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
 import { BlogCard } from "@/components/blog/BlogCard";
+import { P } from "@/components/ui";
 import type { BlogMetadata } from "@/types/portfolio";
 
 interface BlogListProps {
@@ -51,12 +52,8 @@ export function BlogList({
   if (allPosts.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-16 text-center">
-        <p className="text-lg font-medium text-foreground mb-2">
-          {translations.noPosts}
-        </p>
-        <p className="text-sm text-muted-foreground">
-          {translations.noPostsDesc}
-        </p>
+        <P className="font-medium mb-2">{translations.noPosts}</P>
+        <P className="text-muted-foreground">{translations.noPostsDesc}</P>
       </div>
     );
   }

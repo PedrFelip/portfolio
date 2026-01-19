@@ -13,6 +13,7 @@ import {
   MDXTableHead,
   MDXTableRow,
 } from "@/components/mdx/MDXTable";
+import { Badge, H1, H2, H3 } from "@/components/ui";
 import { getAllPostSlugs, getPostBySlug } from "@/lib/blog-data";
 import { blogContent } from "@/lib/content/blog-content";
 
@@ -93,14 +94,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       <MDXTableCell>{children}</MDXTableCell>
     ),
     h2: ({ children }: { children: React.ReactNode }) => (
-      <h2 className="text-xl sm:text-2xl font-semibold tracking-tight text-foreground mb-4 mt-10 border-b border-border pb-2">
-        {children}
-      </h2>
+      <H2 className="mb-4 mt-10 border-b border-border pb-2">{children}</H2>
     ),
     h3: ({ children }: { children: React.ReactNode }) => (
-      <h3 className="text-lg sm:text-xl font-semibold text-foreground mb-3 mt-8">
-        {children}
-      </h3>
+      <H3 className="mb-3 mt-8">{children}</H3>
     ),
   };
 
@@ -118,9 +115,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
         {/* Post Header */}
         <header className="mb-8 sm:mb-12">
-          <h1 className="mb-4 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight text-foreground">
-            {post.title}
-          </h1>
+          <H1 className="mb-4">{post.title}</H1>
 
           {/* Meta Information */}
           <div className="flex flex-wrap items-center gap-4 text-sm font-mono text-muted-foreground border-b border-border pb-6">
@@ -134,12 +129,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           {post.tags.length > 0 && (
             <div className="flex flex-wrap gap-2 mt-6">
               {post.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="rounded border border-border bg-muted px-3 py-1 font-mono text-xs text-muted-foreground"
-                >
-                  {tag}
-                </span>
+                <Badge key={tag}>{tag}</Badge>
               ))}
             </div>
           )}

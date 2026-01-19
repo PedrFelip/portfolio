@@ -4,6 +4,7 @@ import { WorkExperienceCard } from "@/components/about/WorkExperienceCard";
 import { Section } from "@/components/common/Section";
 import { SectionHeader } from "@/components/common/SectionHeader";
 import { SkillsGrid } from "@/components/SkillsGrid";
+import { H1, Label, P } from "@/components/ui";
 import {
   getContactLinks,
   getEducation,
@@ -49,15 +50,11 @@ export default async function AboutPage({ params }: AboutPageProps) {
     <div className="min-h-screen">
       {/* Hero-like Header Section */}
       <Section>
-        <div className="mb-4 font-mono text-xs uppercase tracking-wider text-muted-foreground">
-          {t.about.badge}
-        </div>
-        <h1 className="mb-4 text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-foreground">
-          {t.about.title}
-        </h1>
-        <p className="max-w-2xl text-sm sm:text-base leading-relaxed text-muted-foreground">
+        <Label className="mb-4 uppercase">{t.about.badge}</Label>
+        <H1 className="mb-4">{t.about.title}</H1>
+        <P className="max-w-2xl text-muted-foreground">
           {parseBoldMarkdown(t.about.description)}
-        </p>
+        </P>
       </Section>
 
       <Section variant="muted">

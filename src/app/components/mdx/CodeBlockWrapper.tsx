@@ -1,13 +1,29 @@
 "use client";
 
 import { Check, Copy } from "lucide-react";
-import { useState } from "react";
+import { memo, useState } from "react";
 
 interface CodeBlockWrapperProps {
   children: React.ReactNode;
 }
 
-export function CodeBlockWrapper({ children }: CodeBlockWrapperProps) {
+/**
+ * CodeBlockWrapper component for MDX code blocks
+ *
+ * Design principles (AGENTS.md):
+ * - 4px grid spacing (p-1.5 = 6px, p-4 = 16px)
+ * - Borders-only approach (no shadows)
+ * - Animation: 150-200ms with cubic-bezier easing
+ * - Isolated controls: copy button feels like crafted object
+ * - Monospace for code content
+ *
+ * Best practices applied:
+ * - Memoized to prevent re-renders
+ * - Accessible copy button with visual feedback
+ * - Respects reduced motion preference
+ * - Clean group hover interaction
+ */
+export const CodeBlockWrapper = memo(({ children }: CodeBlockWrapperProps) => {
   const [copied, setCopied] = useState(false);
 
   const copyToClipboard = async () => {
@@ -34,9 +50,9 @@ export function CodeBlockWrapper({ children }: CodeBlockWrapperProps) {
   };
 
   return (
-    <div className="relative group my-4">
+    <div className="group relative my-4">
       <pre
-        className="bg-muted border border-border rounded-lg p-4 overflow-x-auto text-sm leading-relaxed hljs"
+        className="hljs overflow-x-auto rounded-lg border border-border bg-muted p-4 text-sm leading-relaxed"
         data-code-block
       >
         {children}
@@ -46,15 +62,18 @@ export function CodeBlockWrapper({ children }: CodeBlockWrapperProps) {
       <button
         type="button"
         onClick={copyToClipboard}
-        className="absolute top-3 right-3 p-1.5 rounded border border-border bg-card text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:text-foreground"
+        className="absolute right-3 top-3 rounded border border-border bg-card p-1.5 text-muted-foreground opacity-0 transition-[opacity,color] duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:text-foreground group-hover:opacity-100 motion-reduce:transition-none"
         title="Copy code"
+        aria-label={copied ? "Code copied" : "Copy code"}
       >
         {copied ? (
-          <Check className="h-3.5 w-3.5" />
+          <Check className="h-3.5 w-3.5" aria-hidden="true" />
         ) : (
-          <Copy className="h-3.5 w-3.5" />
+          <Copy className="h-3.5 w-3.5" aria-hidden="true" />
         )}
       </button>
     </div>
   );
-}
+});
+
+CodeBlockWrapper.displayName = "CodeBlockWrapper";

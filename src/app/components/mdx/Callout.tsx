@@ -1,6 +1,7 @@
 "use client";
 
 import { AlertCircle, AlertTriangle, CheckCircle, Info } from "lucide-react";
+import { memo } from "react";
 import { cn } from "@/lib/utils";
 
 type CalloutType = "info" | "warning" | "success" | "error";
@@ -41,28 +42,46 @@ const styles: Record<
   },
 };
 
-export function Callout({ type = "info", children, title }: CalloutProps) {
-  const style = styles[type];
+/**
+ * Callout component for MDX content
+ *
+ * Design principles (AGENTS.md):
+ * - 4px grid spacing (gap-3 = 12px, p-3 = 12px, p-4 = 16px)
+ * - Borders-only approach with semantic colors
+ * - Symmetrical padding
+ * - Color for meaning only (status communication)
+ *
+ * Best practices applied:
+ * - Memoized to prevent re-renders
+ * - Semantic color usage for different alert types
+ * - Clean icon + content layout
+ */
+export const Callout = memo(
+  ({ type = "info", children, title }: CalloutProps) => {
+    const style = styles[type];
 
-  return (
-    <div
-      className={cn(
-        "rounded-lg border px-4 py-3 my-4 flex gap-3",
-        style.bg,
-        style.border,
-      )}
-    >
-      <div className={cn("flex-shrink-0 mt-0.5", style.color)}>
-        {style.icon}
-      </div>
-      <div className="flex-1">
-        {title && (
-          <div className={cn("font-semibold mb-1 text-sm", style.color)}>
-            {title}
-          </div>
+    return (
+      <div
+        className={cn(
+          "my-4 flex gap-3 rounded-lg border p-4",
+          style.bg,
+          style.border,
         )}
-        <div className="text-sm text-muted-foreground">{children}</div>
+      >
+        <div className={cn("mt-0.5 flex-shrink-0", style.color)}>
+          {style.icon}
+        </div>
+        <div className="flex-1">
+          {title && (
+            <div className={cn("mb-1 text-sm font-semibold", style.color)}>
+              {title}
+            </div>
+          )}
+          <div className="text-sm text-muted-foreground">{children}</div>
+        </div>
       </div>
-    </div>
-  );
-}
+    );
+  },
+);
+
+Callout.displayName = "Callout";

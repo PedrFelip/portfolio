@@ -44,7 +44,7 @@ export const WorkExperienceCard = memo(
               <div className="mb-2 flex flex-wrap items-start justify-between gap-2">
                 <H3>{experience.title}</H3>
                 <MonoText className="whitespace-nowrap">
-                  {experience.start} → {experience.end}
+                  {experience.start} - {experience.end}
                 </MonoText>
               </div>
 

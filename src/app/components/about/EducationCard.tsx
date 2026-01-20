@@ -25,15 +25,15 @@ interface EducationCardProps {
  */
 export const EducationCard = memo(({ education }: EducationCardProps) => {
   return (
-    <div className="rounded-lg border border-border bg-card p-4 sm:p-6 transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-foreground">
+    <div className="rounded-lg border border-border bg-card p-4 transition-[border-color] duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-foreground sm:p-6 motion-reduce:transition-none">
       {/* Header */}
-      <div className="mb-3">
+      <div className="mb-3 sm:mb-4">
         {education.href ? (
           <a
             href={education.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-base sm:text-lg font-semibold text-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:text-accent group"
+            className="group inline-flex items-center gap-2 text-base font-semibold text-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:text-accent sm:text-lg"
             aria-label={`${education.school} - Visit website`}
           >
             {education.school}
@@ -48,10 +48,10 @@ export const EducationCard = memo(({ education }: EducationCardProps) => {
       </div>
 
       {/* Details */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         <P className="text-muted-foreground">{education.degree}</P>
         <MonoText className="whitespace-nowrap">
-          {education.start} → {education.end}
+          {education.start} - {education.end}
         </MonoText>
       </div>
     </div>

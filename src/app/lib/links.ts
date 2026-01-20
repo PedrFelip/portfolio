@@ -1,7 +1,7 @@
 export interface SocialLink {
   label: string;
   url: string;
-  icon: "portfolio" | "github" | "linkedin" | "twitter" | "email";
+  icon: "portfolio" | "github" | "linkedin" | "x" | "email";
 }
 
 export const socialLinks: SocialLink[] = [
@@ -21,9 +21,9 @@ export const socialLinks: SocialLink[] = [
     icon: "linkedin",
   },
   {
-    label: "X / Twitter",
+    label: "X",
     url: "https://x.com/pedrofelipeek",
-    icon: "twitter",
+    icon: "x",
   },
   {
     label: "Email",

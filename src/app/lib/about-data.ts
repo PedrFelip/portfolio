@@ -72,18 +72,19 @@ export const getEducation = (language: "en" | "pt"): Education[] => {
 };
 
 export const getContactLinks = (_language: "en" | "pt") => {
-  // Filter to get GitHub, LinkedIn, and Email only
+  // Filter to get GitHub, LinkedIn, Twitter, and Email only
   const contactLinks = socialLinks
     .filter(
       (link) =>
         link.icon === "github" ||
         link.icon === "linkedin" ||
+        link.icon === "x" ||
         link.icon === "email",
     )
     .map((link) => ({
       label: link.label,
       url: link.url.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, ""),
-      icon: link.icon as "github" | "linkedin" | "email",
+      icon: link.icon as "github" | "linkedin" | "x" | "email",
     }));
 
   return contactLinks;

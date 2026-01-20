@@ -72,7 +72,7 @@ export const ProjectCard = memo(({ project }: ProjectCardProps) => {
           {displayedTechs.map((tech) => (
             <Badge
               key={tech}
-              className="transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-foreground hover:bg-muted/80"
+              className="transition-[border-color,background-color] duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-foreground hover:bg-muted/80 motion-reduce:transition-none"
             >
               {tech}
             </Badge>
@@ -92,7 +92,10 @@ export const ProjectCard = memo(({ project }: ProjectCardProps) => {
                 rel="noopener noreferrer"
                 className="group/link"
               >
-                <Github className="mr-2 h-3.5 w-3.5 transition-transform duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover/link:scale-110 sm:h-4 sm:w-4" />
+                <Github
+                  className="mr-2 h-3.5 w-3.5 transition-transform duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover/link:scale-110 sm:h-4 sm:w-4"
+                  aria-hidden="true"
+                />
                 {linkLabels.code}
               </Link>
             </Button>
@@ -105,7 +108,10 @@ export const ProjectCard = memo(({ project }: ProjectCardProps) => {
                 rel="noopener noreferrer"
                 className="group/link"
               >
-                <ExternalLink className="mr-2 h-3.5 w-3.5 transition-transform duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover/link:scale-110 sm:h-4 sm:w-4" />
+                <ExternalLink
+                  className="mr-2 h-3.5 w-3.5 transition-transform duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover/link:scale-110 sm:h-4 sm:w-4"
+                  aria-hidden="true"
+                />
                 {linkLabels.demo}
               </Link>
             </Button>
@@ -118,7 +124,10 @@ export const ProjectCard = memo(({ project }: ProjectCardProps) => {
                 rel="noopener noreferrer"
                 className="group/link"
               >
-                <ExternalLink className="mr-2 h-3.5 w-3.5 transition-transform duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover/link:scale-110 sm:h-4 sm:w-4" />
+                <ExternalLink
+                  className="mr-2 h-3.5 w-3.5 transition-transform duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover/link:scale-110 sm:h-4 sm:w-4"
+                  aria-hidden="true"
+                />
                 {linkLabels.website}
               </Link>
             </Button>

@@ -95,6 +95,7 @@ H4.displayName = "H4";
 
 /**
  * P - Body paragraph
+ * Optimized responsive sizing (2 breakpoints for consistency)
  * @example <P>This is a paragraph of body text.</P>
  */
 export const P = React.forwardRef<HTMLParagraphElement, TypographyProps>(
@@ -103,7 +104,7 @@ export const P = React.forwardRef<HTMLParagraphElement, TypographyProps>(
       <Component
         ref={ref}
         className={cn(
-          "text-sm leading-relaxed text-muted-foreground sm:text-base md:text-lg",
+          "text-base leading-relaxed text-muted-foreground md:text-lg",
           className,
         )}
         {...props}

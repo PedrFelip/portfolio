@@ -70,10 +70,10 @@ export const Navigation = memo(() => {
   }, []);
 
   return (
-    <nav className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <nav className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/95">
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-foreground/10 to-transparent" />
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-14 items-center justify-between sm:h-16">
+        <div className="flex h-16 items-center justify-between sm:h-18">
           <Link
             href={getLocalizedLink("/")}
             className="font-mono text-sm font-semibold tracking-tight text-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:text-primary"
@@ -87,26 +87,27 @@ export const Navigation = memo(() => {
               <Link
                 key={link.href}
                 href={getLocalizedLink(link.href)}
-                className={`relative font-mono text-xs font-medium transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] ${
+                className={`relative font-mono text-xs font-medium transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] motion-reduce:transition-none ${
                   isActive(link.href)
                     ? "text-foreground"
                     : "text-muted-foreground hover:text-foreground"
                 }`}
+                aria-current={isActive(link.href) ? "page" : undefined}
               >
                 {link.label}
                 {isActive(link.href) ? (
-                  <span className="absolute -bottom-[18px] left-0 right-0 h-0.5 bg-accent sm:-bottom-[22px]" />
+                  <span className="absolute -bottom-20 left-0 right-0 h-0.5 bg-accent sm:-bottom-24" />
                 ) : null}
               </Link>
             ))}
           </div>
 
           {/* Language Toggle & Mobile Menu Button */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             <button
               type="button"
               onClick={toggleLanguage}
-              className="inline-flex items-center gap-2 rounded border border-border bg-background px-3 py-1.5 font-mono text-xs font-medium text-muted-foreground transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-foreground/50 hover:text-foreground hover:bg-muted/50 active:scale-95"
+              className="inline-flex min-h-[44px] items-center gap-2 rounded border border-border bg-background px-3.5 py-2 font-mono text-xs font-medium text-muted-foreground transition-[border-color,background-color,color,transform] duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-foreground/50 hover:text-foreground hover:bg-muted/50 active:scale-95 motion-reduce:transition-none"
               aria-label={t.nav.language}
             >
               <span>{language === "en" ? "EN" : "PT"}</span>
@@ -115,14 +116,17 @@ export const Navigation = memo(() => {
             <button
               type="button"
               onClick={toggleMenu}
-              className="inline-flex md:hidden items-center rounded border border-border bg-background p-1.5 text-muted-foreground transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-foreground/50 hover:text-foreground hover:bg-muted/50 active:scale-95"
+              className="inline-flex md:hidden min-h-[44px] items-center rounded border border-border bg-background p-2 text-muted-foreground transition-[border-color,background-color,color,transform] duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-foreground/50 hover:text-foreground hover:bg-muted/50 active:scale-95 motion-reduce:transition-none"
               aria-label={t.nav.toggleMenu}
               aria-expanded={isMenuOpen}
             >
               {isMenuOpen ? (
-                <X className="h-5 w-5 transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] rotate-90" />
+                <X
+                  className="h-5 w-5 transition-transform duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] rotate-90"
+                  aria-hidden="true"
+                />
               ) : (
-                <Menu className="h-5 w-5 transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)]" />
+                <Menu className="h-5 w-5" aria-hidden="true" />
               )}
             </button>
           </div>
@@ -131,17 +135,18 @@ export const Navigation = memo(() => {
         {/* Mobile Navigation */}
         {isMenuOpen ? (
           <div className="border-t border-border md:hidden animate-in-down">
-            <div className="flex flex-col py-2">
+            <div className="flex flex-col py-4">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={getLocalizedLink(link.href)}
                   onClick={closeMenu}
-                  className={`px-4 py-3 font-mono text-xs font-medium transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] ${
+                  className={`min-h-[44px] px-4 py-3 font-mono text-xs font-medium transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] ${
                     isActive(link.href)
                       ? "text-foreground bg-muted/60 border-l-2 border-accent"
                       : "text-muted-foreground hover:text-foreground hover:bg-muted/40"
                   }`}
+                  aria-current={isActive(link.href) ? "page" : undefined}
                 >
                   {link.label}
                 </Link>

@@ -71,18 +71,18 @@ export const Hero = memo(
     techStack,
   }: HeroProps) => {
     return (
-      <section className="py-12 sm:py-16 lg:py-24">
+      <section className="py-16 sm:py-20 lg:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           {/* Greeting */}
-          <div className="mb-3 font-mono text-xs text-muted-foreground animate-in-up">
+          <div className="mb-4 font-mono text-sm text-muted-foreground animate-in-up">
             {greeting}
           </div>
 
           {/* Main Title */}
-          <H1 className="mb-4 animate-in-up animate-delay-100">{title}</H1>
+          <H1 className="mb-6 animate-in-up animate-delay-100">{title}</H1>
 
           {/* Subtitle/Description */}
-          <P className="mb-6 max-w-2xl sm:mb-8 animate-in-up animate-delay-150">
+          <P className="mb-8 max-w-2xl sm:mb-10 animate-in-up animate-delay-150">
             {description}
           </P>
 
@@ -91,7 +91,10 @@ export const Hero = memo(
             <Button asChild size="lg">
               <Link href={primaryHref} className="group">
                 {ctaPrimary}
-                <ArrowRight className="ml-2 h-3.5 w-3.5 transition-transform duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:translate-x-0.5 sm:h-4 sm:w-4" />
+                <ArrowRight
+                  className="ml-2 h-3.5 w-3.5 transition-transform duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:translate-x-0.5 sm:h-4 sm:w-4"
+                  aria-hidden="true"
+                />
               </Link>
             </Button>
 

@@ -28,8 +28,8 @@ export const Section = ({
   variant = "default",
 }: SectionProps) => {
   const variantStyles = {
-    default: "py-12 sm:py-16 lg:py-24",
-    muted: "border-t border-border bg-muted/30 py-12 sm:py-16 lg:py-24",
+    default: "py-16 sm:py-20 lg:py-24",
+    muted: "border-t border-border bg-muted/40 py-16 sm:py-20 lg:py-24",
   };
 
   return (

@@ -38,7 +38,7 @@ export const WorkExperienceCard = memo(
 
         {/* Content Card */}
         <div className="flex-1 pb-8 sm:pb-12">
-          <div className="rounded-lg border border-border bg-card p-4 transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-foreground sm:p-6">
+          <div className="rounded-lg border border-border bg-card p-4 transition-[border-color] duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-foreground sm:p-6 motion-reduce:transition-none">
             {/* Header */}
             <div className="mb-3 sm:mb-4">
               <div className="mb-2 flex flex-wrap items-start justify-between gap-2">
@@ -55,9 +55,10 @@ export const WorkExperienceCard = memo(
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:text-foreground"
+                    aria-label={`${experience.company} - Visit website`}
                   >
                     {experience.company}
-                    <ExternalLink className="h-3.5 w-3.5" />
+                    <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
                   </a>
                 ) : (
                   <span className="text-sm font-medium text-muted-foreground">

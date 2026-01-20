@@ -34,9 +34,13 @@ export const EducationCard = memo(({ education }: EducationCardProps) => {
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-base sm:text-lg font-semibold text-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:text-accent group"
+            aria-label={`${education.school} - Visit website`}
           >
             {education.school}
-            <ExternalLink className="h-4 w-4 opacity-0 transition-opacity duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:opacity-100" />
+            <ExternalLink
+              className="h-4 w-4 opacity-0 transition-opacity duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:opacity-100"
+              aria-hidden="true"
+            />
           </a>
         ) : (
           <H3>{education.school}</H3>

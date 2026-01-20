@@ -19,9 +19,11 @@ interface SkillItemProps {
  *
  * Memoized to prevent re-renders for individual skill items
  * (Vercel: rerender-memo)
+ *
+ * Design: 4px grid padding (px-2.5 = 10px, py-1 = 4px)
  */
 const SkillItem = memo(({ skill }: SkillItemProps) => (
-  <span className="rounded border border-border bg-muted px-2 py-0.5 font-mono text-xs text-muted-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-foreground hover:text-foreground sm:px-2.5 sm:py-1">
+  <span className="rounded border border-border bg-muted px-2.5 py-1 font-mono text-xs text-muted-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-foreground hover:text-foreground">
     {skill}
   </span>
 ));

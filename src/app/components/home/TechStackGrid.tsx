@@ -11,8 +11,17 @@ interface TechStackGridProps {
   title?: string;
 }
 
+/**
+ * TechBadge component
+ *
+ * Design principles (AGENTS.md):
+ * - Borders-only depth strategy (no shadows)
+ * - Explicit transitions (no transition: all)
+ * - Respects prefers-reduced-motion
+ * - 4px grid spacing (p-3 = 12px)
+ */
 const TechBadge = memo(({ name, category }: TechStackItem) => (
-  <div className="group relative rounded-lg border border-border bg-card p-3 transition-all duration-200 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-foreground hover:shadow-sm hover:-translate-y-0.5">
+  <div className="group relative rounded-lg border border-border bg-card p-3 transition-[border-color,background-color] duration-200 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-foreground hover:bg-muted/50 motion-reduce:transition-none">
     <div className="font-mono text-xs text-muted-foreground mb-1">
       {category}
     </div>

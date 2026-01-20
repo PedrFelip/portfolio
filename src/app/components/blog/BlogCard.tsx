@@ -1,6 +1,6 @@
 "use client";
 
-import { Calendar } from "lucide-react";
+import { ArrowRight, Calendar } from "lucide-react";
 import Link from "next/link";
 import { memo } from "react";
 import {
@@ -92,12 +92,13 @@ export const BlogCard = memo(({ post }: BlogCardProps) => {
       <CardFooter>
         <Link
           href={`/${language}/blog/${post.slug}`}
-          className="inline-flex items-center text-sm font-medium text-muted-foreground transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:text-foreground"
+          className="group/link inline-flex items-center gap-1 text-sm font-medium text-muted-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:text-foreground"
         >
           {t.blog.readMore}
-          <span className="ml-1 transition-transform duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:translate-x-0.5">
-            →
-          </span>
+          <ArrowRight
+            className="h-3.5 w-3.5 transition-transform duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover/link:translate-x-0.5"
+            aria-hidden="true"
+          />
         </Link>
       </CardFooter>
     </Card>

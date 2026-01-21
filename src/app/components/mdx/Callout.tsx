@@ -17,27 +17,27 @@ const styles: Record<
   { bg: string; border: string; icon: React.ReactNode; color: string }
 > = {
   info: {
-    bg: "bg-blue-950/20",
-    border: "border-blue-700/30",
-    color: "text-blue-300",
+    bg: "bg-[color:var(--callout-info-bg)]",
+    border: "border-[color:var(--callout-info-border)]",
+    color: "text-[color:var(--callout-info-text)]",
     icon: <Info className="h-4 w-4" />,
   },
   warning: {
-    bg: "bg-yellow-950/20",
-    border: "border-yellow-700/30",
-    color: "text-yellow-300",
+    bg: "bg-[color:var(--callout-warning-bg)]",
+    border: "border-[color:var(--callout-warning-border)]",
+    color: "text-[color:var(--callout-warning-text)]",
     icon: <AlertTriangle className="h-4 w-4" />,
   },
   success: {
-    bg: "bg-green-950/20",
-    border: "border-green-700/30",
-    color: "text-green-300",
+    bg: "bg-[color:var(--callout-success-bg)]",
+    border: "border-[color:var(--callout-success-border)]",
+    color: "text-[color:var(--callout-success-text)]",
     icon: <CheckCircle className="h-4 w-4" />,
   },
   error: {
-    bg: "bg-red-950/20",
-    border: "border-red-700/30",
-    color: "text-red-300",
+    bg: "bg-[color:var(--callout-error-bg)]",
+    border: "border-[color:var(--callout-error-border)]",
+    color: "text-[color:var(--callout-error-text)]",
     icon: <AlertCircle className="h-4 w-4" />,
   },
 };

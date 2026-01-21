@@ -87,6 +87,19 @@ html {
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  /* Semantic Colors - Callout/Alert */
+  --callout-info-bg: oklch(0.45 0.05 240 / 10%);
+  --callout-info-border: oklch(0.55 0.08 240 / 30%);
+  --callout-info-text: oklch(0.55 0.08 240);
+  --callout-warning-bg: oklch(0.577 0.245 27.325 / 10%);
+  --callout-warning-border: oklch(0.577 0.245 27.325 / 30%);
+  --callout-warning-text: oklch(0.577 0.245 27.325);
+  --callout-success-bg: oklch(0.5 0.12 142 / 10%);
+  --callout-success-border: oklch(0.5 0.12 142 / 30%);
+  --callout-success-text: oklch(0.5 0.12 142);
+  --callout-error-bg: oklch(0.704 0.191 22.216 / 10%);
+  --callout-error-border: oklch(0.704 0.191 22.216 / 30%);
+  --callout-error-text: oklch(0.704 0.191 22.216);
 }
 
 .dark {
@@ -122,6 +135,19 @@ html {
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+  /* Semantic Colors - Callout/Alert (Dark Mode) */
+  --callout-info-bg: oklch(0.3 0.08 240 / 12%);
+  --callout-info-border: oklch(0.55 0.08 240 / 40%);
+  --callout-info-text: oklch(0.7 0.12 240);
+  --callout-warning-bg: oklch(0.4 0.15 40 / 12%);
+  --callout-warning-border: oklch(0.6 0.18 40 / 40%);
+  --callout-warning-text: oklch(0.75 0.15 40);
+  --callout-success-bg: oklch(0.35 0.12 150 / 12%);
+  --callout-success-border: oklch(0.55 0.15 150 / 40%);
+  --callout-success-text: oklch(0.7 0.15 150);
+  --callout-error-bg: oklch(0.45 0.15 20 / 12%);
+  --callout-error-border: oklch(0.65 0.18 20 / 40%);
+  --callout-error-text: oklch(0.8 0.15 20);
 }
 
 @layer base {

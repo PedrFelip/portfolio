@@ -2,7 +2,7 @@
 
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
-import { BlogCard } from "@/components/blog/BlogCard";
+import { TimelinePost } from "@/components/blog/TimelinePost";
 import { P } from "@/components/ui";
 import type { BlogMetadata } from "@/types/portfolio";
 
@@ -20,6 +20,22 @@ interface BlogListProps {
   };
 }
 
+/**
+ * BlogList component - Timeline Editorial Layout
+ *
+ * Design principles (AGENTS.md):
+ * - Timeline layout with vertical indicator and connecting lines
+ * - 4px grid: consistent spacing throughout
+ * - Pagination with accessible buttons
+ * - Mobile-first: responsive layout
+ * - Borders-only approach: subtle design
+ *
+ * Best practices applied:
+ * - Client component for pagination interactivity
+ * - Smooth scroll behavior on page changes
+ * - Accessible pagination controls
+ * - Clean component composition
+ */
 export function BlogList({
   allPosts,
   postsPerPage,
@@ -51,46 +67,62 @@ export function BlogList({
 
   if (allPosts.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center py-16 text-center">
-        <P className="font-medium mb-2">{translations.noPosts}</P>
-        <P className="text-muted-foreground">{translations.noPostsDesc}</P>
+      <div className="flex flex-col items-center justify-center py-12 sm:py-16 text-center px-4">
+        <P className="font-medium mb-2 text-sm sm:text-base">
+          {translations.noPosts}
+        </P>
+        <P className="text-muted-foreground text-sm sm:text-base">
+          {translations.noPostsDesc}
+        </P>
       </div>
     );
   }
 
   return (
     <>
-      <div className="grid gap-4 sm:gap-5 md:gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mb-8">
-        {currentPosts.map((post) => (
-          <BlogCard key={post.slug} post={post} />
+      {/* Timeline Container */}
+      <div className="w-full max-w-3xl">
+        {currentPosts.map((post, index) => (
+          <TimelinePost
+            key={post.slug}
+            post={post}
+            isLast={index === currentPosts.length - 1 && !hasNextPage}
+          />
         ))}
       </div>
 
       {/* Pagination */}
       {totalPages > 1 && (
-        <div className="flex items-center justify-center gap-4 pt-4 border-t border-border">
+        <div className="mt-8 sm:mt-12 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 pt-6 sm:pt-8 border-t border-border w-full max-w-3xl">
           <button
             type="button"
             onClick={handlePrevPage}
             disabled={!hasPrevPage}
-            className="inline-flex items-center gap-2 rounded-lg border border-border bg-card px-4 py-2 text-sm font-medium text-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:bg-muted disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-card"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg border border-border bg-card px-4 py-2.5 sm:py-2 text-xs sm:text-sm font-medium text-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:bg-muted disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-card"
+            aria-label={translations.previous}
           >
-            <ChevronLeft className="h-4 w-4" />
-            {translations.previous}
+            <ChevronLeft className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+            <span className="hidden sm:inline">{translations.previous}</span>
+            <span className="sm:hidden">Prev</span>
           </button>
 
-          <span className="text-sm text-muted-foreground">
-            {translations.page} {currentPage} {translations.of} {totalPages}
+          <span className="text-xs sm:text-sm text-muted-foreground px-2 font-mono">
+            {translations.page}{" "}
+            <span className="font-semibold text-foreground">{currentPage}</span>{" "}
+            <span className="text-muted-foreground/60">/</span>{" "}
+            <span className="font-medium">{totalPages}</span>
           </span>
 
           <button
             type="button"
             onClick={handleNextPage}
             disabled={!hasNextPage}
-            className="inline-flex items-center gap-2 rounded-lg border border-border bg-card px-4 py-2 text-sm font-medium text-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:bg-muted disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-card"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg border border-border bg-card px-4 py-2.5 sm:py-2 text-xs sm:text-sm font-medium text-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:bg-muted disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-card"
+            aria-label={translations.next}
           >
-            {translations.next}
-            <ChevronRight className="h-4 w-4" />
+            <span className="hidden sm:inline">{translations.next}</span>
+            <span className="sm:hidden">Next</span>
+            <ChevronRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
           </button>
         </div>
       )}

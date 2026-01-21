@@ -39,7 +39,7 @@ const iconMap = {
  */
 export const ContactLinks = memo(({ links }: ContactLinksProps) => {
   return (
-    <div className="grid gap-3 grid-cols-1 sm:gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
       {links.map((link) => {
         const Icon = iconMap[link.icon];
         const isEmail = link.icon === "email";
@@ -51,7 +51,7 @@ export const ContactLinks = memo(({ links }: ContactLinksProps) => {
             href={href}
             target={isEmail ? undefined : "_blank"}
             rel={isEmail ? undefined : "noopener noreferrer"}
-            className="group flex flex-col gap-2 rounded-lg border border-border bg-card p-3 sm:p-4 transition-[border-color,background-color] duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-foreground hover:bg-muted motion-reduce:transition-none"
+            className="group flex flex-col gap-2 rounded-lg border border-border bg-card p-4 sm:p-5 transition-[border-color,background-color] duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-foreground hover:bg-muted motion-reduce:transition-none"
             aria-label={`${link.label}: ${link.url}`}
           >
             <div className="flex items-start sm:items-center gap-2 min-w-0">

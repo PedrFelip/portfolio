@@ -2,7 +2,7 @@
 
 import { Github, Linkedin, Mail } from "lucide-react";
 import Link from "next/link";
-import { memo } from "react";
+import { memo, useMemo } from "react";
 import { Label, MonoText } from "@/components/ui";
 import { X } from "@/components/ui/x-icon";
 import { useLanguage } from "@/lib/LanguageContext";
@@ -65,6 +65,7 @@ SocialLink.displayName = "SocialLink";
  *
  * Best practices applied:
  * - Memoized child components to prevent re-renders
+ * - useMemo for navLinks and socialLinks arrays optimization (Vercel best practice)
  * - Clean component composition
  * - Accessible social links with aria-labels
  */
@@ -72,35 +73,45 @@ export const Footer = memo(() => {
   const { t } = useLanguage();
   const getLocalizedLink = useLocalizedLink();
 
-  const navLinks = [
-    { href: "/", label: t.nav.home },
-    { href: "/about", label: t.nav.about },
-    { href: "/projects", label: t.nav.projects },
-    { href: "/blog", label: t.nav.blog },
-  ];
+  // Memoize navLinks array to prevent array recreation on every render
+  // Vercel best practice: cache arrays when used in maps
+  const navLinks = useMemo(
+    () => [
+      { href: "/", label: t.nav.home },
+      { href: "/about", label: t.nav.about },
+      { href: "/projects", label: t.nav.projects },
+      { href: "/blog", label: t.nav.blog },
+    ],
+    [t.nav.home, t.nav.about, t.nav.projects, t.nav.blog],
+  );
 
-  const socialLinks = [
-    {
-      href: "https://github.com/pedrfelip",
-      label: "GitHub",
-      icon: <Github className="h-4 w-4" />,
-    },
-    {
-      href: "https://linkedin.com/in/pedrfelip",
-      label: "LinkedIn",
-      icon: <Linkedin className="h-4 w-4" />,
-    },
-    {
-      href: "https://x.com/pedrofelipeek",
-      label: "X",
-      icon: <X className="h-4 w-4" />,
-    },
-    {
-      href: "mailto:pfsilva190406@gmail.com",
-      label: "Email",
-      icon: <Mail className="h-4 w-4" />,
-    },
-  ];
+  // Memoize socialLinks array - static links don't depend on t
+  // Only icons and labels are language-agnostic
+  const socialLinks = useMemo(
+    () => [
+      {
+        href: "https://github.com/pedrfelip",
+        label: "GitHub",
+        icon: <Github className="h-4 w-4" />,
+      },
+      {
+        href: "https://linkedin.com/in/pedrfelip",
+        label: "LinkedIn",
+        icon: <Linkedin className="h-4 w-4" />,
+      },
+      {
+        href: "https://x.com/pedrofelipeek",
+        label: "X",
+        icon: <X className="h-4 w-4" />,
+      },
+      {
+        href: "mailto:pfsilva190406@gmail.com",
+        label: "Email",
+        icon: <Mail className="h-4 w-4" />,
+      },
+    ],
+    [],
+  );
 
   return (
     <footer className="border-t border-border bg-card py-6 sm:py-8 lg:py-12">
@@ -162,7 +173,7 @@ export const Footer = memo(() => {
           <MonoText className="text-muted-foreground">
             © {t.footer.year} Pedro Felipe
           </MonoText>
-          <MonoText className="text-faint">v2.6.1</MonoText>
+          <MonoText className="text-faint">v2.8.4</MonoText>
         </div>
       </div>
     </footer>

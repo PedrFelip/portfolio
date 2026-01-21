@@ -18,8 +18,8 @@ interface SkillItemProps {
  * SkillItem component
  *
  * Design principles (AGENTS.md):
- * - Uses standard Badge component for consistency
- * - 4px grid padding maintained by Badge
+ * - Uses standard padding system for consistency
+ * - 4px grid padding maintained (px-2.5 = 10px, py-1 = 4px, responsive)
  * - Borders-only approach with subtle hover
  * - Typography: monospace for skill names
  *
@@ -27,7 +27,7 @@ interface SkillItemProps {
  * (Vercel: rerender-memo)
  */
 const SkillItem = memo(({ skill }: SkillItemProps) => (
-  <span className="rounded border border-border bg-muted px-2.5 py-1 font-mono text-xs text-muted-foreground transition-[border-color,color] duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-foreground hover:text-foreground motion-reduce:transition-none">
+  <span className="rounded border border-border bg-muted px-2.5 sm:px-3 py-1 sm:py-1.5 font-mono text-xs text-muted-foreground transition-[border-color,color] duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-foreground hover:text-foreground motion-reduce:transition-none">
     {skill}
   </span>
 ));

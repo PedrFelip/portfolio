@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { H3 } from "@/components/ui";
 
 interface SkillCategory {
@@ -9,7 +10,14 @@ interface SkillsGridProps {
   skills: SkillCategory[];
 }
 
-export const SkillsGrid = ({ skills }: SkillsGridProps) => {
+/**
+ * SkillsGrid component - Responsive grid of skill categories
+ *
+ * Best practices applied:
+ * - Memoized to prevent re-renders when skills prop doesn't change
+ * - displayName for debugging and performance monitoring
+ */
+export const SkillsGrid = memo(({ skills }: SkillsGridProps) => {
   return (
     <div className="grid gap-6 sm:gap-8 md:grid-cols-2">
       {skills.map((skillGroup) => (
@@ -29,4 +37,6 @@ export const SkillsGrid = ({ skills }: SkillsGridProps) => {
       ))}
     </div>
   );
-};
+});
+
+SkillsGrid.displayName = "SkillsGrid";

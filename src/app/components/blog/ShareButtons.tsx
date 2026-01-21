@@ -120,14 +120,14 @@ export const ShareButtons = memo(
               <>
                 <Share2 className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-accent" />
                 <span className="font-mono text-[10px] sm:text-xs text-accent">
-                  {language === "pt" ? "Copiado!" : "Copied!"}
+                  {t.linkCopied}
                 </span>
               </>
             ) : (
               <>
                 <LinkIcon className="h-3 w-3 sm:h-3.5 sm:w-3.5 transition-transform duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-110" />
                 <span className="font-mono text-[10px] sm:text-xs">
-                  {language === "pt" ? "Copiar" : "Copy"}
+                  {t.copyLink}
                 </span>
               </>
             )}

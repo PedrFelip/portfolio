@@ -34,7 +34,7 @@ interface TimelinePostProps {
  */
 export const TimelinePost = memo(
   ({ post, isLast = false }: TimelinePostProps) => {
-    const { language } = useLanguage();
+    const { language, t } = useLanguage();
 
     // Memoize date formatting to avoid expensive toLocaleDateString() on every render
     // Vercel best practice: cache function results
@@ -121,7 +121,7 @@ export const TimelinePost = memo(
               {/* Read More Indicator with enhanced hover */}
               <div className="inline-flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-medium text-muted-foreground transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:text-accent group-hover:gap-2 sm:group-hover:gap-3">
                 <span className="relative">
-                  Read post
+                  {t.blog.readMore}
                   <span className="absolute -bottom-0.5 left-0 w-0 h-0.5 bg-accent transition-all duration-200 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:w-full" />
                 </span>
                 <ArrowRight className="h-3 w-3 sm:h-3.5 sm:w-3.5 transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:translate-x-1 group-hover:scale-110" />

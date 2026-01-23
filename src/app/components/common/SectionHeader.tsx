@@ -30,6 +30,7 @@ interface SectionHeaderProps {
  * - education: green accent for educational background
  * - expertise: purple accent for technical skills
  * - projects: amber accent for project showcases
+ * - blog: purple accent for blog content
  * - contact: cyan accent for contact/social links
  * - about: slate accent for personal sections
  */

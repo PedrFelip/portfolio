@@ -28,6 +28,8 @@ const badgeVariants = cva(
         // Projects - amber/orange accent
         projects:
           "border border-amber-500/30 bg-amber-500/10 text-amber-400 hover:border-amber-500/50 hover:bg-amber-500/15",
+        // Blog - distinct purple accent
+        blog: "border border-purple-500/30 bg-purple-500/10 text-purple-400 hover:border-purple-500/50 hover:bg-purple-500/15",
         // Contact - cyan accent
         contact:
           "border border-cyan-500/30 bg-cyan-500/10 text-cyan-400 hover:border-cyan-500/50 hover:bg-cyan-500/15",

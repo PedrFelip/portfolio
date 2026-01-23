@@ -79,11 +79,19 @@ export const TimelinePost = memo(
             {/* Hover border wrapper */}
             <div className="relative rounded-lg border border-transparent p-3 sm:p-4 lg:p-5 -ml-3 sm:-ml-4 lg:-ml-5 transition-all duration-200 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:border-border group-hover:bg-muted/30">
               {/* Date */}
-              <div className="mb-2 sm:mb-3 flex items-center gap-1.5 sm:gap-2">
+              <div className="mb-2 sm:mb-3 flex items-center gap-2 sm:gap-3">
                 <Calendar className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-muted-foreground transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:text-accent group-hover:scale-110" />
                 <MonoText className="text-[10px] sm:text-xs text-muted-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:text-accent">
                   <time dateTime={post.date}>{formattedDate}</time>
                 </MonoText>
+                {post.readingTime && (
+                  <>
+                    <span className="text-muted-foreground/60">•</span>
+                    <MonoText className="text-[10px] sm:text-xs text-muted-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:text-accent">
+                      {post.readingTime} {t.blog.readingTime}
+                    </MonoText>
+                  </>
+                )}
               </div>
 
               {/* Title */}

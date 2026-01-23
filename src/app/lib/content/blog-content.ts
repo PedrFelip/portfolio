@@ -5,6 +5,7 @@
 export const blogContent = {
   en: {
     blog: {
+      badge: "Blog",
       title: "Blog",
       subtitle: "Insights on backend engineering, system design, and DevOps",
       readMore: "Read more",
@@ -22,10 +23,12 @@ export const blogContent = {
       next: "Next",
       allTags: "All tags",
       onThisPage: "On This Page",
+      readingTime: "min read",
     },
   },
   pt: {
     blog: {
+      badge: "Blog",
       title: "Blog",
       subtitle:
         "Insights sobre engenharia backend, design de sistemas e DevOps",
@@ -44,6 +47,7 @@ export const blogContent = {
       next: "Próximo",
       allTags: "Todas as tags",
       onThisPage: "Nesta página",
+      readingTime: "min de leitura",
     },
   },
 };

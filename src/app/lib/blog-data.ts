@@ -112,10 +112,17 @@ export const getAllPosts = cache((): BlogMetadata[] => {
       const post = getPostBySlug(slug);
       if (!post) return null;
 
+      const readingTime = calculateReadingTime(post.content);
+
       // Return only metadata for list view
-      // biome-ignore lint/correctness/noUnusedVariables: intentionally extracting content to exclude from metadata
-      const { content, ...metadata } = post;
-      return metadata;
+      return {
+        slug: post.slug,
+        title: post.title,
+        date: post.date,
+        excerpt: post.excerpt,
+        tags: post.tags,
+        readingTime,
+      } as BlogMetadata;
     })
     .filter((post): post is BlogMetadata => post !== null)
     .sort((a, b) => {
@@ -175,4 +182,16 @@ export function getAllTags(): string[] {
   }
 
   return Array.from(tags).sort();
+}
+
+/**
+ * Calculate reading time for blog content
+ * Average reading speed: 200-250 words per minute
+ * Uses 225 as the average
+ */
+export function calculateReadingTime(content: string): number {
+  const wordCount = content
+    .split(/\s+/)
+    .filter((word) => word.length > 0).length;
+  return Math.max(1, Math.ceil(wordCount / 225));
 }

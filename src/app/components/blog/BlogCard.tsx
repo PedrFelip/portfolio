@@ -68,11 +68,17 @@ export const BlogCard = memo(({ post }: BlogCardProps) => {
           <H3 className="mb-2 line-clamp-2">{post.title}</H3>
         </Link>
 
-        <div className="flex items-center gap-1.5 tabular-nums">
+        <div className="flex items-center gap-2 sm:gap-3 tabular-nums">
           <Calendar className="h-3.5 w-3.5 transition-transform duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-110" />
           <MonoText>
             <time dateTime={post.date}>{formattedDate}</time>
           </MonoText>
+          {post.readingTime && (
+            <>
+              <span className="text-muted-foreground/60">•</span>
+              <MonoText>{post.readingTime} min</MonoText>
+            </>
+          )}
         </div>
       </CardHeader>
 

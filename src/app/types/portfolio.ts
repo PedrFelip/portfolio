@@ -102,39 +102,17 @@ export interface Education {
 }
 
 /**
- * Blog post with rendered content
- *
- * Represents a complete blog post including content.
- *
- * @property slug - URL slug for the post
- * @property title - Post title
- * @property date - Publication date
- * @property excerpt - Short description
- * @property tags - Array of post tags
- * @property content - Full post content (rendered HTML)
- * @property headings - Optional extracted headings for TOC
- */
-export interface BlogPost {
-  slug: string;
-  title: string;
-  date: string;
-  excerpt: string;
-  tags: string[];
-  content: string;
-  headings?: Heading[];
-}
-
-/**
- * Blog post metadata without content
+ * Blog metadata for list and card views
  *
  * Lightweight version of BlogPost used in lists.
  * Prevents loading full content for list views.
  *
- * @property slug - URL slug for the post
+ * @property slug - URL-safe post identifier
  * @property title - Post title
  * @property date - Publication date
  * @property excerpt - Short description
  * @property tags - Array of post tags
+ * @property readingTime - Estimated reading time in minutes
  */
 export interface BlogMetadata {
   slug: string;
@@ -142,6 +120,7 @@ export interface BlogMetadata {
   date: string;
   excerpt: string;
   tags: string[];
+  readingTime?: number;
 }
 
 /**
@@ -157,6 +136,24 @@ export interface Heading {
   level: 2 | 3;
   text: string;
   id: string;
+}
+
+/**
+ * Full blog post with content
+ *
+ * Used when displaying a single blog post in detail.
+ *
+ * @property slug - URL slug for the post
+ * @property title - Post title
+ * @property date - Publication date
+ * @property excerpt - Short description
+ * @property tags - Array of post tags
+ * @property content - Full MDX/Markdown content
+ * @property headings - Array of headings extracted from content
+ */
+export interface BlogPost extends BlogMetadata {
+  content: string;
+  headings?: Heading[];
 }
 
 /**

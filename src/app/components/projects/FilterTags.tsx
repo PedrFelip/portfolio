@@ -1,6 +1,6 @@
 "use client";
 
-import { memo } from "react";
+import { memo, useCallback } from "react";
 import { MonoText } from "@/components/ui";
 import { useLanguage } from "@/lib/LanguageContext";
 import { cn } from "@/lib/utils";
@@ -31,17 +31,20 @@ export const FilterTags = memo(
     const { t } = useLanguage();
     const filterLabels = t.projects.filters;
 
-    const toggleTag = (tag: string) => {
-      if (selectedTags.includes(tag)) {
-        onTagChange(selectedTags.filter((t) => t !== tag));
-      } else {
-        onTagChange([...selectedTags, tag]);
-      }
-    };
+    const toggleTag = useCallback(
+      (tag: string) => {
+        if (selectedTags.includes(tag)) {
+          onTagChange(selectedTags.filter((t) => t !== tag));
+        } else {
+          onTagChange([...selectedTags, tag]);
+        }
+      },
+      [selectedTags, onTagChange],
+    );
 
-    const clearAll = () => {
+    const clearAll = useCallback(() => {
       onTagChange([]);
-    };
+    }, [onTagChange]);
 
     return (
       <div className="space-y-3">

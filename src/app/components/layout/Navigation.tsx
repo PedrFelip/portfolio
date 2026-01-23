@@ -1,9 +1,9 @@
 "use client";
 
-import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { memo, useCallback, useMemo, useState, useTransition } from "react";
+import { Menu, X } from "@/components/ui/icons";
 import { useLanguage } from "@/lib/LanguageContext";
 import { useLocalizedLink } from "@/lib/useLocalizedLink";
 
@@ -45,7 +45,7 @@ export const Navigation = memo(() => {
       { href: "/projects", label: t.nav.projects },
       { href: "/blog", label: t.nav.blog },
     ],
-    [t],
+    [t.nav.home, t.nav.about, t.nav.projects, t.nav.blog],
   );
 
   const isActive = useCallback(

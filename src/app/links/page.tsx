@@ -1,7 +1,13 @@
-import { ArrowRight, Github, Home, Linkedin, Mail } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Badge, H1, MonoText, P } from "@/components/ui";
+import {
+  ArrowRight,
+  Github,
+  Home,
+  Linkedin,
+  Mail,
+} from "@/components/ui/icons";
 import { X } from "@/components/ui/x-icon";
 
 export const metadata: Metadata = {

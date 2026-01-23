@@ -1,8 +1,8 @@
 "use client";
 
-import { Github, Linkedin, Mail } from "lucide-react";
 import { memo } from "react";
 import { Label, MonoText } from "@/components/ui";
+import { Github, Linkedin, Mail } from "@/components/ui/icons";
 import { X } from "@/components/ui/x-icon";
 
 interface ContactLink {

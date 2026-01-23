@@ -1,9 +1,9 @@
 "use client";
 
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { TimelinePost } from "@/components/blog/TimelinePost";
 import { P } from "@/components/ui";
+import { ChevronLeft, ChevronRight } from "@/components/ui/icons";
 import type { BlogMetadata } from "@/types/portfolio";
 
 interface BlogListProps {
@@ -51,19 +51,19 @@ export function BlogList({
   const hasNextPage = currentPage < totalPages;
   const hasPrevPage = currentPage > 1;
 
-  const handlePrevPage = () => {
+  const handlePrevPage = useCallback(() => {
     if (hasPrevPage) {
       setCurrentPage((prev) => prev - 1);
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
-  };
+  }, [hasPrevPage]);
 
-  const handleNextPage = () => {
+  const handleNextPage = useCallback(() => {
     if (hasNextPage) {
       setCurrentPage((prev) => prev + 1);
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
-  };
+  }, [hasNextPage]);
 
   if (allPosts.length === 0) {
     return (

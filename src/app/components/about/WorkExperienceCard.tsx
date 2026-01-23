@@ -1,8 +1,8 @@
 "use client";
 
-import { ExternalLink } from "lucide-react";
 import { memo } from "react";
 import { H3, MonoText } from "@/components/ui";
+import { ExternalLink } from "@/components/ui/icons";
 import type { WorkExperience } from "@/types/portfolio";
 
 interface WorkExperienceCardProps {

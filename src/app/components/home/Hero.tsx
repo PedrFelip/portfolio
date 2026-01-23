@@ -1,7 +1,7 @@
-import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { memo } from "react";
 import { Badge, Button, H1, P } from "@/components/ui";
+import { ArrowRight } from "@/components/ui/icons";
 
 interface HeroProps {
   greeting: string;

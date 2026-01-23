@@ -1,7 +1,7 @@
 "use client";
 
-import { Check, Copy } from "lucide-react";
 import { memo, useState, useTransition } from "react";
+import { Check, Copy } from "@/components/ui/icons";
 
 interface CodeBlockProps {
   children: React.ReactNode;

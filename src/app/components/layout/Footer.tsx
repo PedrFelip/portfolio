@@ -1,9 +1,9 @@
 "use client";
 
-import { Github, Linkedin, Mail } from "lucide-react";
 import Link from "next/link";
 import { memo, useMemo } from "react";
 import { Label, MonoText } from "@/components/ui";
+import { Github, Linkedin, Mail } from "@/components/ui/icons";
 import { X } from "@/components/ui/x-icon";
 import { useLanguage } from "@/lib/LanguageContext";
 import { useLocalizedLink } from "@/lib/useLocalizedLink";

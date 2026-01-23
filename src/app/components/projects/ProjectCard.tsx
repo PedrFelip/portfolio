@@ -1,6 +1,5 @@
 "use client";
 
-import { ExternalLink, Github } from "lucide-react";
 import Link from "next/link";
 import { memo } from "react";
 import {
@@ -14,6 +13,7 @@ import {
   MonoText,
   P,
 } from "@/components/ui";
+import { ExternalLink, Github } from "@/components/ui/icons";
 import { useLanguage } from "@/lib/LanguageContext";
 import type { Project } from "@/types/portfolio";
 

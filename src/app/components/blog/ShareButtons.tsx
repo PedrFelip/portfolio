@@ -1,8 +1,14 @@
 "use client";
 
-import { Linkedin, Link as LinkIcon, Mail, Share2, X } from "lucide-react";
 import { memo, useMemo, useState, useTransition } from "react";
 import { MonoText } from "@/components/ui";
+import {
+  Linkedin,
+  Link2 as LinkIcon,
+  Mail,
+  Share2,
+  X,
+} from "@/components/ui/icons";
 import { blogContent } from "@/lib/content/blog-content";
 import { useLanguage } from "@/lib/LanguageContext";
 

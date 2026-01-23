@@ -1,7 +1,12 @@
 "use client";
 
-import { AlertCircle, AlertTriangle, CheckCircle, Info } from "lucide-react";
 import { memo } from "react";
+import {
+  AlertCircle,
+  AlertTriangle,
+  CheckCircle,
+  Info,
+} from "@/components/ui/icons";
 import { cn } from "@/lib/utils";
 
 type CalloutType = "info" | "warning" | "success" | "error";

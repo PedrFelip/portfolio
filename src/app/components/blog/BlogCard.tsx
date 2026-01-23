@@ -1,6 +1,5 @@
 "use client";
 
-import { ArrowRight, Calendar } from "lucide-react";
 import Link from "next/link";
 import { memo, useMemo } from "react";
 import {
@@ -13,6 +12,7 @@ import {
   MonoText,
   P,
 } from "@/components/ui";
+import { ArrowRight, Calendar } from "@/components/ui/icons";
 import { useLanguage } from "@/lib/LanguageContext";
 import type { BlogMetadata } from "@/types/portfolio";
 

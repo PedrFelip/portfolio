@@ -1,8 +1,9 @@
-import { ArrowLeft, Calendar } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import rehypeHighlight from "rehype-highlight";
+import { ArrowLeft, Calendar } from "@/components/ui/icons";
+import "highlight.js/styles/github-dark.css";
 import { ShareButtons } from "@/components/blog/ShareButtons";
 import { TableOfContents } from "@/components/blog/TableOfContents";
 import { Callout } from "@/components/mdx/Callout";

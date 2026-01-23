@@ -18,7 +18,7 @@ export const homeContent = {
 
     // Projects Section (labels only, data in projects-data.ts)
     projects: {
-      badge: "My Projects",
+      badge: "Projects",
       title: "Featured Projects",
       subtitle: "Check out my latest work",
       description:
@@ -28,7 +28,7 @@ export const homeContent = {
 
     // Skills Section (labels only, data in shared-data.ts)
     skills: {
-      badge: "Expertise",
+      badge: "Skills",
       title: "Core Technical Skills",
       backend: "Backend",
       databases: "Databases",
@@ -59,7 +59,7 @@ export const homeContent = {
 
     // Projects Section (labels only, data in projects-data.ts)
     projects: {
-      badge: "Meus Projetos",
+      badge: "Projetos",
       title: "Projetos em Destaque",
       subtitle: "Confira meu trabalho mais recente",
       description:
@@ -69,7 +69,7 @@ export const homeContent = {
 
     // Skills Section (labels only, data in shared-data.ts)
     skills: {
-      badge: "Expertise",
+      badge: "Habilidades",
       title: "Habilidades Técnicas Principais",
       backend: "Backend",
       databases: "Bancos de Dados",

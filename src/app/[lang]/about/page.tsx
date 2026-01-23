@@ -60,6 +60,7 @@ export default async function AboutPage({ params }: AboutPageProps) {
       <Section variant="muted">
         <SectionHeader
           badge={t.work.badge}
+          badgeVariant="work"
           title={t.work.title}
           description={t.work.intro}
         />
@@ -76,12 +77,20 @@ export default async function AboutPage({ params }: AboutPageProps) {
       </Section>
 
       <Section>
-        <SectionHeader badge={t.skills.badge} title={t.skills.title} />
+        <SectionHeader
+          badge={t.skills.badge}
+          badgeVariant="expertise"
+          title={t.skills.title}
+        />
         <SkillsGrid skills={skills} />
       </Section>
 
       <Section variant="muted">
-        <SectionHeader badge={t.education.badge} title={t.education.title} />
+        <SectionHeader
+          badge={t.education.badge}
+          badgeVariant="education"
+          title={t.education.title}
+        />
 
         <div className="space-y-4">
           {education.map((edu) => (
@@ -96,6 +105,7 @@ export default async function AboutPage({ params }: AboutPageProps) {
       <Section>
         <SectionHeader
           badge={t.contact.badge}
+          badgeVariant="contact"
           title={t.contact.title}
           description={t.contact.description}
         />

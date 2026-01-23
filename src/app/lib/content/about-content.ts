@@ -7,7 +7,7 @@ export const aboutContent = {
   en: {
     // About Section
     about: {
-      badge: "About Me",
+      badge: "About",
       title: "About Me",
       intro:
         "I am a backend engineer passionate about designing robust and scalable systems.",
@@ -17,7 +17,7 @@ export const aboutContent = {
 
     // Work Section
     work: {
-      badge: "Work Experience",
+      badge: "Experience",
       title: "Work Experience",
       present: "Present",
       intro:
@@ -32,7 +32,7 @@ export const aboutContent = {
 
     // Contact Section
     contact: {
-      badge: "Get in Touch",
+      badge: "Contact",
       title: "Let's Connect",
       description:
         "Feel free to reach out through any of these channels. I'm always open to discussing new projects, technical challenges, or collaboration opportunities.",
@@ -40,7 +40,7 @@ export const aboutContent = {
 
     // Skills Section (labels only, data in shared-data.ts)
     skills: {
-      badge: "Expertise",
+      badge: "Skills",
       title: "Core Technical Skills",
       backend: "Backend",
       databases: "Databases",
@@ -51,7 +51,7 @@ export const aboutContent = {
   pt: {
     // About Section
     about: {
-      badge: "Sobre Mim",
+      badge: "Sobre",
       title: "Sobre Mim",
       intro:
         "Sou um engenheiro backend apaixonado por projetar sistemas robustos e escaláveis.",
@@ -84,7 +84,7 @@ export const aboutContent = {
 
     // Skills Section (labels only, data in shared-data.ts)
     skills: {
-      badge: "Expertise",
+      badge: "Habilidades",
       title: "Habilidades Técnicas Principais",
       backend: "Backend",
       databases: "Bancos de Dados",

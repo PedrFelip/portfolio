@@ -6,7 +6,7 @@
 export const projectsContent = {
   en: {
     projects: {
-      badge: "My Projects",
+      badge: "Projects",
       title: "Featured Projects",
       subtitle: "Check out my latest work",
       description:
@@ -54,7 +54,7 @@ export const projectsContent = {
   },
   pt: {
     projects: {
-      badge: "Meus Projetos",
+      badge: "Projetos",
       title: "Projetos em Destaque",
       subtitle: "Confira meu trabalho mais recente",
       description:

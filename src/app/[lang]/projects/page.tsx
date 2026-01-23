@@ -28,6 +28,7 @@ export default async function ProjectsPage({ params }: ProjectsPageProps) {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeader
           badge={t.badge}
+          badgeVariant="projects"
           title={t.title}
           description={t.description}
         />

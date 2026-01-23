@@ -34,7 +34,12 @@ export const FeaturedProjectsSection = memo(
   }: FeaturedProjectsSectionProps) => {
     return (
       <Section variant="muted">
-        <SectionHeader badge={badge} title={title} description={description} />
+        <SectionHeader
+          badge={badge}
+          badgeVariant="projects"
+          title={title}
+          description={description}
+        />
 
         <div className="grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
           {projects.map((project) => (

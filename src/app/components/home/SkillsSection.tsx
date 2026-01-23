@@ -80,7 +80,7 @@ export const SkillsSection = memo(
   ({ skills, badge, title }: SkillsSectionProps) => {
     return (
       <Section>
-        <SectionHeader badge={badge} title={title} />
+        <SectionHeader badge={badge} badgeVariant="expertise" title={title} />
         <div className="grid gap-6 md:grid-cols-2">
           {skills.map((skillGroup) => (
             <SkillCategoryGroup

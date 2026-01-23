@@ -35,18 +35,28 @@ interface SocialLinkProps {
   href: string;
   label: string;
   icon: React.ReactNode;
+  platform: "github" | "linkedin" | "x" | "email";
 }
+
+// Brand color mappings for social platforms
+const socialColorMap = {
+  github:
+    "hover:border-purple-500/50 hover:bg-purple-500/10 hover:text-purple-400",
+  linkedin: "hover:border-blue-600/50 hover:bg-blue-600/10 hover:text-blue-500",
+  x: "hover:border-slate-400/50 hover:bg-slate-500/10 hover:text-slate-300",
+  email: "hover:border-red-500/50 hover:bg-red-500/10 hover:text-red-400",
+};
 
 /**
  * SocialLink component - External social/contact link
  */
-const SocialLink = memo(({ href, label, icon }: SocialLinkProps) => (
+const SocialLink = memo(({ href, label, icon, platform }: SocialLinkProps) => (
   <a
     href={href}
     target="_blank"
     rel="noopener noreferrer"
     aria-label={label}
-    className="flex items-center justify-center rounded border border-border bg-background p-2 text-muted-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-foreground hover:text-foreground"
+    className={`flex items-center justify-center rounded border border-border bg-background p-2 text-muted-foreground transition-colors duration-200 ease-[cubic-bezier(0.25,1,0.5,1)] ${socialColorMap[platform]}`}
   >
     {icon}
   </a>
@@ -93,21 +103,25 @@ export const Footer = memo(() => {
         href: "https://github.com/pedrfelip",
         label: "GitHub",
         icon: <Github className="h-4 w-4" />,
+        platform: "github" as const,
       },
       {
         href: "https://linkedin.com/in/pedrfelip",
         label: "LinkedIn",
         icon: <Linkedin className="h-4 w-4" />,
+        platform: "linkedin" as const,
       },
       {
         href: "https://x.com/pedrofelipeek",
         label: "X",
         icon: <X className="h-4 w-4" />,
+        platform: "x" as const,
       },
       {
         href: "mailto:pfsilva190406@gmail.com",
         label: "Email",
         icon: <Mail className="h-4 w-4" />,
+        platform: "email" as const,
       },
     ],
     [],
@@ -157,6 +171,7 @@ export const Footer = memo(() => {
                   href={link.href}
                   label={link.label}
                   icon={link.icon}
+                  platform={link.platform}
                 />
               ))}
             </div>

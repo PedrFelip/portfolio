@@ -56,6 +56,35 @@ const iconMap = {
   email: Mail,
 };
 
+// Color map for each social platform
+const colorMap = {
+  portfolio: {
+    bg: "group-hover:bg-blue-500/10",
+    border: "group-hover:border-blue-500/50",
+    text: "group-hover:text-blue-400",
+  },
+  github: {
+    bg: "group-hover:bg-purple-500/10",
+    border: "group-hover:border-purple-500/50",
+    text: "group-hover:text-purple-400",
+  },
+  linkedin: {
+    bg: "group-hover:bg-blue-600/10",
+    border: "group-hover:border-blue-600/50",
+    text: "group-hover:text-blue-500",
+  },
+  x: {
+    bg: "group-hover:bg-slate-500/10",
+    border: "group-hover:border-slate-400/50",
+    text: "group-hover:text-slate-300",
+  },
+  email: {
+    bg: "group-hover:bg-red-500/10",
+    border: "group-hover:border-red-500/50",
+    text: "group-hover:text-red-400",
+  },
+};
+
 /**
  * LinksPage component (Linktree-style)
  *
@@ -86,6 +115,7 @@ export default function LinksPage() {
         <div className="flex flex-col gap-2 sm:gap-3">
           {socialLinks.map((link) => {
             const Icon = iconMap[link.icon];
+            const colors = colorMap[link.icon];
             const isExternal = link.icon !== "portfolio";
 
             const LinkComponent = isExternal ? "a" : Link;
@@ -102,11 +132,11 @@ export default function LinksPage() {
                 key={link.label}
                 {...linkProps}
                 aria-label={`Visit ${link.label}`}
-                className="group flex items-center gap-3 rounded-lg border border-border bg-card p-3 sm:p-4 transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-foreground hover:bg-muted"
+                className={`group flex items-center gap-3 rounded-lg border border-border bg-card p-3 sm:p-4 transition-all duration-200 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-foreground hover:bg-muted ${colors.bg} ${colors.border}`}
               >
                 {/* Icon */}
                 <Icon
-                  className="h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0 text-muted-foreground transition-colors duration-150 group-hover:text-foreground"
+                  className={`h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0 text-muted-foreground transition-colors duration-200 group-hover:text-foreground ${colors.text}`}
                   strokeWidth={1.5}
                   aria-hidden="true"
                 />
@@ -123,7 +153,7 @@ export default function LinksPage() {
 
                 {/* Arrow */}
                 <ArrowRight
-                  className="h-4 w-4 flex-shrink-0 text-muted-foreground transition-all duration-150 group-hover:translate-x-0.5 group-hover:text-foreground"
+                  className={`h-4 w-4 flex-shrink-0 text-muted-foreground transition-all duration-200 group-hover:translate-x-0.5 group-hover:text-foreground ${colors.text}`}
                   strokeWidth={1.5}
                   aria-hidden="true"
                 />

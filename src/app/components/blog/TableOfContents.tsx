@@ -1,6 +1,13 @@
 "use client";
 
-import { memo, startTransition, useEffect, useRef, useState } from "react";
+import {
+  memo,
+  startTransition,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { MonoText } from "@/components/ui/typography";
 import { blogContent } from "@/lib/content/blog-content";
 import { useLanguage } from "@/lib/LanguageContext";
@@ -10,120 +17,238 @@ interface TableOfContentsProps {
   headings: Heading[];
 }
 
-const HEADER_HEIGHT = 88;
-const TOP_THRESHOLD = 150;
+const HEADER_HEIGHT = 100; // Offset for fixed header + some padding
 
-function useLatest<T>(value: T) {
-  const ref = useRef(value);
-  ref.current = value;
-  return ref;
-}
-
+/**
+ * TableOfContents component with improved scroll spy
+ *
+ * Best Practices Applied:
+ * - Passive event listeners for scroll performance (Vercel 4.2)
+ * - startTransition for non-urgent state updates (Vercel 5.7)
+ * - URL hash synchronization on initial load
+ * - MutationObserver for dynamic DOM content
+ * - Lazy state initialization (Vercel 5.6)
+ */
 export const TableOfContents = memo(({ headings }: TableOfContentsProps) => {
-  const [activeId, setActiveId] = useState<string>("");
+  const [activeId, setActiveId] = useState<string>(() =>
+    headings.length > 0 ? headings[0].id : "",
+  );
   const [isScrolling, setIsScrolling] = useState(false);
   const { language } = useLanguage();
   const t = blogContent[language].blog;
-  const activeIdRef = useLatest(activeId);
 
+  // Refs
+  const tickingRef = useRef(false);
+  const headingPositionsRef = useRef<Map<string, number>>(new Map());
+  const isScrollingRef = useRef(false);
+
+  // Sync isScrolling ref with state
   useEffect(() => {
-    const headingElements = new Map<string, HTMLElement>();
+    isScrollingRef.current = isScrolling;
+  }, [isScrolling]);
+
+  /**
+   * Update cached heading positions
+   * Called on mount, resize, and when headings change
+   */
+  const updateHeadingPositions = useCallback(() => {
+    const positions = new Map<string, number>();
 
     for (const { id } of headings) {
       const element = document.getElementById(id);
       if (element) {
-        headingElements.set(id, element);
+        const rect = element.getBoundingClientRect();
+        positions.set(id, rect.top + window.scrollY);
       }
     }
 
-    if (headingElements.size === 0) return;
+    headingPositionsRef.current = positions;
+  }, [headings]);
 
-    let ticking = false;
+  /**
+   * Find active heading based on scroll position
+   * Active heading is the last one that passed the header offset
+   */
+  const findActiveHeading = useCallback((): string => {
+    if (headings.length === 0) return "";
 
-    const updateActiveHeading = () => {
-      const currentScrollY = window.scrollY;
+    const scrollY = window.scrollY;
+    const triggerOffset = scrollY + HEADER_HEIGHT;
 
-      if (currentScrollY < TOP_THRESHOLD && headingElements.size > 0) {
-        const firstHeadingId = Array.from(headingElements.keys())[0];
-        if (firstHeadingId && firstHeadingId !== activeIdRef.current) {
-          startTransition(() => setActiveId(firstHeadingId));
-        }
-        ticking = false;
-        return;
+    let activeHeadingId = headings[0].id;
+
+    // Find the last heading that is above the trigger offset
+    for (const heading of headings) {
+      const position = headingPositionsRef.current.get(heading.id);
+      if (position === undefined) continue;
+
+      // If this heading is above the trigger point, it's a candidate
+      if (position <= triggerOffset) {
+        activeHeadingId = heading.id;
+      } else {
+        // We've passed the trigger point, stop here
+        break;
       }
+    }
 
-      const viewportCenter =
-        currentScrollY + HEADER_HEIGHT + window.innerHeight / 2;
-      let closestHeadingId = "";
-      let minDistance = Infinity;
+    return activeHeadingId;
+  }, [headings]);
 
-      for (const [id, element] of headingElements) {
-        const rect = element.getBoundingClientRect();
-        const elementTop = currentScrollY + rect.top;
-        const distance = Math.abs(elementTop - viewportCenter);
+  /**
+   * Handle scroll events with RAF throttling
+   */
+  useEffect(() => {
+    if (headings.length === 0) return;
 
-        if (distance < minDistance) {
-          minDistance = distance;
-          closestHeadingId = id;
-        }
-      }
-
-      if (closestHeadingId && closestHeadingId !== activeIdRef.current) {
-        startTransition(() => setActiveId(closestHeadingId));
-      }
-
-      ticking = false;
-    };
+    // Initial position calculation
+    updateHeadingPositions();
 
     const handleScroll = () => {
-      if (!ticking) {
-        requestAnimationFrame(updateActiveHeading);
-        ticking = true;
+      if (isScrollingRef.current || tickingRef.current) return;
+
+      tickingRef.current = true;
+
+      requestAnimationFrame(() => {
+        const newActiveId = findActiveHeading();
+
+        if (newActiveId && newActiveId !== activeId) {
+          startTransition(() => {
+            setActiveId(newActiveId);
+          });
+        }
+
+        tickingRef.current = false;
+      });
+    };
+
+    // Passive listener for better performance
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    // Recalculate positions on resize
+    const handleResize = () => {
+      updateHeadingPositions();
+      // Re-check active heading after resize
+      const newActiveId = findActiveHeading();
+      if (newActiveId !== activeId) {
+        startTransition(() => setActiveId(newActiveId));
       }
     };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-
-    updateActiveHeading();
+    window.addEventListener("resize", handleResize, { passive: true });
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleResize);
     };
-  }, [headings, activeIdRef]);
+  }, [headings, findActiveHeading, updateHeadingPositions, activeId]);
 
-  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
-    e.preventDefault();
-    const element = document.getElementById(id);
-    if (!element) return;
+  /**
+   * Setup MutationObserver to handle dynamically added content
+   * Re-calculates positions when DOM changes (e.g., images loading)
+   */
+  useEffect(() => {
+    if (headings.length === 0) return;
 
-    setIsScrolling(true);
-
-    element.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
-
-    const handleScrollEnd = () => {
-      setIsScrolling(false);
-      window.removeEventListener("scrollend", handleScrollEnd);
+    const handleMutations = () => {
+      // Small delay to let layout settle
+      requestAnimationFrame(() => {
+        updateHeadingPositions();
+      });
     };
 
-    window.addEventListener("scrollend", handleScrollEnd, { passive: true });
+    const observer = new MutationObserver(handleMutations);
 
-    const timeoutId = setTimeout(() => {
-      setIsScrolling(false);
-      window.removeEventListener("scrollend", handleScrollEnd);
-    }, 1000);
+    // Observe the article container for changes
+    const article = document.querySelector("article");
+    if (article) {
+      observer.observe(article, {
+        childList: true,
+        subtree: true,
+        attributes: true, // Watch for attribute changes (like images loading)
+        attributeFilter: ["src", "class"],
+      });
+    }
 
-    const handleScrollCleanup = () => {
-      window.removeEventListener("scrollend", handleScrollEnd);
-      clearTimeout(timeoutId);
+    // Also recalculate when images load
+    const handleImageLoad = () => {
+      updateHeadingPositions();
     };
 
-    window.addEventListener("scrollend", handleScrollCleanup, {
-      passive: true,
-    });
-  };
+    window.addEventListener("load", handleImageLoad);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("load", handleImageLoad);
+    };
+  }, [headings, updateHeadingPositions]);
+
+  /**
+   * Sync with URL hash on initial load
+   */
+  useEffect(() => {
+    const hash = window.location.hash.slice(1);
+    if (hash) {
+      const targetHeading = headings.find((h) => h.id === hash);
+      if (targetHeading) {
+        setActiveId(hash);
+
+        // Scroll to element after a short delay to ensure DOM is ready
+        requestAnimationFrame(() => {
+          const element = document.getElementById(hash);
+          if (element) {
+            const rect = element.getBoundingClientRect();
+            const scrollTop = window.scrollY + rect.top - HEADER_HEIGHT + 20;
+            window.scrollTo({ top: scrollTop, behavior: "instant" });
+          }
+        });
+      }
+    }
+  }, [headings]);
+
+  /**
+   * Handle click on TOC link
+   */
+  const handleClick = useCallback(
+    (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+      e.preventDefault();
+      const element = document.getElementById(id);
+      if (!element) return;
+
+      setIsScrolling(true);
+
+      // Update URL hash
+      window.history.pushState(null, "", `#${id}`);
+
+      // Calculate scroll position with offset
+      const rect = element.getBoundingClientRect();
+      const scrollTop = window.scrollY + rect.top - HEADER_HEIGHT + 20;
+
+      window.scrollTo({
+        top: scrollTop,
+        behavior: "smooth",
+      });
+
+      // Set active immediately
+      startTransition(() => setActiveId(id));
+
+      // Reset scrolling state after animation
+      const handleScrollEnd = () => {
+        setIsScrolling(false);
+        updateHeadingPositions(); // Recalculate after scroll
+      };
+
+      window.addEventListener("scrollend", handleScrollEnd, {
+        passive: true,
+        once: true,
+      });
+
+      // Fallback timeout
+      setTimeout(() => {
+        setIsScrolling(false);
+      }, 1000);
+    },
+    [updateHeadingPositions],
+  );
 
   if (headings.length === 0) return null;
 

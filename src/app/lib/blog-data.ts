@@ -23,14 +23,37 @@ export function slugify(text: string): string {
 }
 
 /**
+ * Creates a deduplicated slugifier for consistent ID generation
+ * Returns a function that generates unique IDs by appending numeric suffixes
+ *
+ * Best Practice 7.11 - Use Set/Map for O(1) Lookups
+ * Ensures TOC headings and rendered headings have matching IDs
+ */
+export function createDedupedSlugifier(): (text: string) => string {
+  const idCounts = new Map<string, number>();
+
+  return (text: string): string => {
+    const baseId = slugify(text);
+    const count = idCounts.get(baseId) || 0;
+    const id = count > 0 ? `${baseId}-${count}` : baseId;
+    idCounts.set(baseId, count + 1);
+    return id;
+  };
+}
+
+/**
  * Extract headings from markdown content
  * Returns array of heading objects with level, text, and id
  * Improved regex to handle H2 (##) and H3 (###) across multiline content
  * H1 (#) não é incluído pois geralmente é o título da página
+ *
+ * Best Practice 7.11 - Use Set/Map for O(1) Lookups
+ * Uses Set to track duplicate IDs and append numeric suffixes
  */
 export function extractHeadings(content: string): Heading[] {
   const headingRegex = /^(#{2,3})\s+(.+?)$/gm;
   const headings: Heading[] = [];
+  const idCounts = new Map<string, number>(); // Track ID occurrences for deduplication
   let match: RegExpExecArray | null = null;
 
   // biome-ignore lint/suspicious/noAssignInExpressions: regex exec pattern requires assignment in loop
@@ -43,7 +66,16 @@ export function extractHeadings(content: string): Heading[] {
       .replace(/__(.+?)__/g, "$1") // Remove underline bold but keep text
       .replace(/_(.+?)_/g, "$1") // Remove underline italic but keep text
       .trim();
-    const id = slugify(text);
+
+    const baseId = slugify(text);
+    let id = baseId;
+
+    // Deduplicate IDs by appending numeric suffix (best practice: O(1) lookup with Map)
+    const count = idCounts.get(baseId) || 0;
+    if (count > 0) {
+      id = `${baseId}-${count}`;
+    }
+    idCounts.set(baseId, count + 1);
 
     headings.push({ level, text, id });
   }

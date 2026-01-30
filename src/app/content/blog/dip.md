@@ -6,7 +6,7 @@ categories:
 published: true
 ---
 
-
+## Introdução
 O **Princípio da Inversão de Dependência (DIP)** é o D de SOLID. Ele vai ser o meu primeiro post sobre SOLID, e um dos mais importantes princípios de design de software. Provavelmente o mais mal compreendido.
 
 O DIP estabelece duas regras principais:
@@ -81,7 +81,7 @@ A dependência "natural" é do módulo de **alto nível** para o módulo de **ba
 Mas o **DIP inverte essa dependência**. Ambos os módulos devem depender de **abstrações**. Ou seja, o módulo de alto nível não deve conhecer os detalhes do módulo de baixo nível, e vice-versa.
 
 
-![Fluxo da dependencia](/images/posts/dip/dip.webp) 
+![Fluxo da dependencia](/images/posts/dip/dip.webp)
 
 ### Exemplo no sistema de pagamentos fictício
 

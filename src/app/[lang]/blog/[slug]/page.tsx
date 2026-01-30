@@ -17,7 +17,7 @@ import {
   MDXTableRow,
 } from "@/components/mdx/MDXTable";
 import { Badge, H1, H2, H3 } from "@/components/ui";
-import { getAllPostSlugs, getPostBySlug, slugify } from "@/lib/blog-data";
+import { getAllPostSlugs, getPostBySlug } from "@/lib/blog-data";
 import { blogContent } from "@/lib/content/blog-content";
 
 interface BlogPostPageProps {
@@ -28,39 +28,15 @@ interface BlogPostPageProps {
 }
 
 /**
- * Extract text content from React children
- * Handles nested React elements (e.g., <strong>, <em>)
- * Best Practice 7.2 - Build Index Maps for Repeated Lookups
- */
-function extractTextContent(children: React.ReactNode): string {
-  if (typeof children === "string" || typeof children === "number") {
-    return String(children);
-  }
-
-  if (Array.isArray(children)) {
-    return children.map(extractTextContent).join("");
-  }
-
-  if (children && typeof children === "object" && "children" in children) {
-    const childrenValue = (children as { children?: React.ReactNode }).children;
-    if (childrenValue) {
-      return extractTextContent(childrenValue);
-    }
-  }
-
-  return "";
-}
-
-/**
  * MDX Components - Performance Optimization
  *
  * Best practices:
- * - Defined outside of component to prevent re-creation
+ * - Static components defined outside to prevent re-creation
+ * - Heading components created inside page component to access deduplicated IDs
  * - Improves React reconciliation and rendering performance
- * - Components maintain stable references across renders
- * - Reduces unnecessary re-renders in MDX content
+ * - Ensures TOC and rendered headings have matching IDs (Vercel 3.2 - Avoid Duplicate Serialization)
  */
-const MDX_COMPONENTS = {
+const STATIC_MDX_COMPONENTS = {
   pre: ({ children }: { children: React.ReactNode }) => (
     <CodeBlockWrapper>{children}</CodeBlockWrapper>
   ),
@@ -92,44 +68,6 @@ const MDX_COMPONENTS = {
   td: ({ children }: { children: React.ReactNode }) => (
     <MDXTableCell>{children}</MDXTableCell>
   ),
-  h1: ({ children }: { children: React.ReactNode }) => {
-    const id = slugify(String(children));
-    return (
-      <H1
-        id={id}
-        className="mb-6 mt-12 text-2xl sm:text-3xl md:text-4xl transition-all duration-300"
-      >
-        {children}
-      </H1>
-    );
-  },
-  h2: ({ children }: { children: React.ReactNode }) => {
-    const text = extractTextContent(children);
-    const id = slugify(text);
-    return (
-      <H2
-        id={id}
-        className="group relative mb-4 mt-10 border-b border-border pb-2 transition-all duration-200 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-accent"
-      >
-        <span className="relative">
-          {children}
-          <span className="absolute -left-4 top-0 bottom-0 w-1 bg-accent rounded-full opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
-        </span>
-      </H2>
-    );
-  },
-  h3: ({ children }: { children: React.ReactNode }) => {
-    const text = extractTextContent(children);
-    const id = slugify(text);
-    return (
-      <H3
-        id={id}
-        className="group relative mb-3 mt-8 transition-all duration-200 ease-[cubic-bezier(0.25,1,0.5,1)] hover:text-accent"
-      >
-        {children}
-      </H3>
-    );
-  },
 } as const;
 
 /**
@@ -170,6 +108,63 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   if (!post) {
     notFound();
   }
+
+  // Heading ID assignment based on order - ensures TOC and rendered headings match perfectly
+  // Uses sequential index to get ID from post.headings array (more reliable than text matching)
+  const headingsList = post.headings || [];
+  let headingIndex = 0;
+
+  const getNextHeadingId = (): string => {
+    if (headingIndex < headingsList.length) {
+      const id = headingsList[headingIndex].id;
+      headingIndex++;
+      return id;
+    }
+    // Fallback - should never happen
+    return `heading-${headingIndex++}`;
+  };
+
+  // MDX Components with sequential ID assignment
+  // Each heading component gets the next ID from the headings array in order
+  const MDX_COMPONENTS = {
+    ...STATIC_MDX_COMPONENTS,
+    h1: ({ children }: { children: React.ReactNode }) => {
+      const id = getNextHeadingId();
+      return (
+        <H1
+          id={id}
+          className="mb-6 mt-12 text-2xl sm:text-3xl md:text-4xl transition-all duration-300"
+        >
+          {children}
+        </H1>
+      );
+    },
+    h2: ({ children }: { children: React.ReactNode }) => {
+      const id = getNextHeadingId();
+      return (
+        <H2
+          id={id}
+          className="group relative mb-4 mt-10 border-b border-border pb-2 transition-all duration-200 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-accent"
+        >
+          <span className="relative">
+            {children}
+            <span className="absolute -left-4 top-0 bottom-0 w-1 bg-accent rounded-full opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
+          </span>
+        </H2>
+      );
+    },
+    h3: ({ children }: { children: React.ReactNode }) => {
+      const id = getNextHeadingId();
+      return (
+        <H3
+          id={id}
+          className="group relative mb-3 mt-8 transition-all duration-200 ease-[cubic-bezier(0.25,1,0.5,1)] hover:text-accent"
+        >
+          {children}
+        </H3>
+      );
+    },
+  };
 
   // Format date
   const formattedDate = new Date(post.date).toLocaleDateString(

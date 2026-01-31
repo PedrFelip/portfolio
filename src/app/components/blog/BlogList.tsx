@@ -98,7 +98,7 @@ export function BlogList({
             type="button"
             onClick={handlePrevPage}
             disabled={!hasPrevPage}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg border border-border bg-card px-4 py-3 sm:py-2 text-xs sm:text-sm font-medium text-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:bg-muted disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-card"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-md border border-border bg-card px-4 py-3 sm:py-2 text-xs sm:text-sm font-medium text-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:bg-muted disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-card"
             aria-label={translations.previous}
           >
             <ChevronLeft className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
@@ -117,7 +117,7 @@ export function BlogList({
             type="button"
             onClick={handleNextPage}
             disabled={!hasNextPage}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg border border-border bg-card px-4 py-3 sm:py-2 text-xs sm:text-sm font-medium text-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:bg-muted disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-card"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-md border border-border bg-card px-4 py-3 sm:py-2 text-xs sm:text-sm font-medium text-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:bg-muted disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-card"
             aria-label={translations.next}
           >
             <span className="hidden sm:inline">{translations.next}</span>

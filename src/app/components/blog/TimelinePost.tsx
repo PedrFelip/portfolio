@@ -52,7 +52,7 @@ export const TimelinePost = memo(
     );
 
     return (
-      <div className="group relative flex gap-4 sm:gap-6 lg:gap-8 pb-8 sm:pb-12 lg:pb-16 last:pb-0">
+      <div className="group relative flex gap-4 sm:gap-6 lg:gap-8 pb-8 sm:pb-12 last:pb-0">
         {/* Timeline Indicator */}
         <div className="flex flex-col items-center flex-shrink-0">
           {/* Dot with pulse effect */}
@@ -106,7 +106,7 @@ export const TimelinePost = memo(
 
               {/* Tags */}
               {post.tags.length > 0 && (
-                <div className="mb-3 sm:mb-4 flex flex-wrap gap-2 sm:gap-2">
+                <div className="mb-3 sm:mb-4 flex flex-wrap gap-2">
                   {post.tags.slice(0, 3).map((tag, index) => (
                     <Badge
                       key={tag}
@@ -127,7 +127,7 @@ export const TimelinePost = memo(
               )}
 
               {/* Read More Indicator with enhanced hover */}
-              <div className="inline-flex items-center gap-2 sm:gap-2 text-xs sm:text-sm font-medium text-muted-foreground transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:text-accent group-hover:gap-2 sm:group-hover:gap-3">
+              <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-medium text-muted-foreground transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:text-accent sm:group-hover:gap-3">
                 <span className="relative">
                   {t.blog.readMore}
                   <span className="absolute -bottom-0.5 left-0 w-0 h-0.5 bg-accent transition-all duration-200 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:w-full" />

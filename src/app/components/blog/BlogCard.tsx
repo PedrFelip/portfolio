@@ -58,14 +58,14 @@ export const BlogCard = memo(({ post }: BlogCardProps) => {
   );
 
   return (
-    <Card className="group flex h-full flex-col">
+    <Card className="group flex h-full flex-col p-3 sm:p-4">
       {/* Header */}
-      <CardHeader>
+      <CardHeader className="p-0 mb-3 sm:mb-4">
         <Link
           href={`/${language}/blog/${post.slug}`}
           className="block hover:opacity-80 transition-opacity duration-150"
         >
-          <H3 className="mb-2 line-clamp-2">{post.title}</H3>
+          <H3 className="mb-2 sm:mb-3 line-clamp-2">{post.title}</H3>
         </Link>
 
         <div className="flex items-center gap-2 sm:gap-3 tabular-nums">
@@ -83,8 +83,10 @@ export const BlogCard = memo(({ post }: BlogCardProps) => {
       </CardHeader>
 
       {/* Content: Excerpt + Tags */}
-      <CardContent className="flex-grow space-y-4">
-        <P className="leading-relaxed line-clamp-3">{post.excerpt}</P>
+      <CardContent className="flex-grow space-y-3 sm:space-y-4 p-0">
+        <P className="leading-relaxed text-sm sm:text-base line-clamp-2 sm:line-clamp-3">
+          {post.excerpt}
+        </P>
 
         {post.tags.length > 0 && (
           <div className="flex flex-wrap gap-2">
@@ -101,10 +103,10 @@ export const BlogCard = memo(({ post }: BlogCardProps) => {
       </CardContent>
 
       {/* Read More Link - always pushed to bottom */}
-      <CardFooter>
+      <CardFooter className="p-0">
         <Link
           href={`/${language}/blog/${post.slug}`}
-          className="group/link inline-flex items-center gap-1 text-sm font-medium text-muted-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:text-foreground"
+          className="group/link inline-flex items-center gap-1 sm:gap-2 text-xs sm:text-sm font-medium text-muted-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:text-foreground"
         >
           {t.blog.readMore}
           <ArrowRight

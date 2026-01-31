@@ -243,8 +243,8 @@ export const TableOfContents = memo(({ headings }: TableOfContentsProps) => {
               ${isH3 ? "pl-5 sm:pl-6" : "pl-3 sm:pl-4"}
               ${
                 isActive
-                  ? "text-accent font-medium border-l-2 border-accent -ml-[1px]"
-                  : "text-muted-foreground hover:text-foreground border-l-2 border-transparent -ml-[1px] hover:border-border"
+                  ? "text-accent font-medium border-l border-accent -ml-[1px]"
+                  : "text-muted-foreground hover:text-foreground border-l border-transparent -ml-[1px] hover:border-border"
               }
               ${isScrolling && activeId === heading.id ? "animate-pulse" : ""}
             `}

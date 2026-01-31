@@ -26,7 +26,7 @@ interface TableCellProps {
 
 export function MDXTable({ children }: TableProps) {
   return (
-    <div className="overflow-x-auto my-4 rounded-lg border border-border">
+    <div className="overflow-x-auto my-4 rounded-md border border-border">
       <table className="w-full text-sm">{children}</table>
     </div>
   );
@@ -60,7 +60,7 @@ export function MDXTableCell({ children, isHeader }: TableCellProps) {
   return (
     <td
       className={cn(
-        "px-4 py-3",
+        "px-3 py-3",
         isHeader
           ? "font-semibold text-foreground text-xs uppercase tracking-wider"
           : "text-muted-foreground",

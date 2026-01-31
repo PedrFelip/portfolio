@@ -45,7 +45,7 @@ export const CodeBlock = memo(({ children, className }: CodeBlockProps) => {
   };
 
   return (
-    <div className="group relative mb-4 mt-4 rounded-lg border border-border bg-muted">
+    <div className="group relative mb-4 mt-4 rounded-md border border-border bg-muted">
       <button
         type="button"
         onClick={copyToClipboard}

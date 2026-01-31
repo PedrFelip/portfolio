@@ -54,7 +54,7 @@ export const CodeBlockWrapper = memo(({ children }: CodeBlockWrapperProps) => {
     <div className="group relative my-4">
       <pre
         ref={preRef}
-        className="hljs overflow-x-auto rounded-lg border border-border bg-muted p-4 text-sm leading-relaxed"
+        className="hljs overflow-x-auto rounded-md border border-border bg-muted p-4 text-sm leading-relaxed"
       >
         {children}
       </pre>

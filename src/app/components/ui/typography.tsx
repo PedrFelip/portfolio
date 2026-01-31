@@ -198,7 +198,10 @@ export const MonoText = React.forwardRef<HTMLSpanElement, TypographyProps>(
     return (
       <Component
         ref={ref}
-        className={cn("font-mono text-xs tabular-nums", className)}
+        className={cn(
+          "font-mono text-[10px] sm:text-xs tabular-nums",
+          className,
+        )}
         {...props}
       />
     );
@@ -233,7 +236,7 @@ export const Blockquote = React.forwardRef<HTMLQuoteElement, TypographyProps>(
       <Component
         ref={ref}
         className={cn(
-          "mt-6 border-l-4 border-border pl-4 italic text-muted-foreground",
+          "mt-6 border-l border-border pl-4 italic text-muted-foreground",
           className,
         )}
         {...props}

@@ -68,7 +68,7 @@ export const Callout = memo(
     return (
       <div
         className={cn(
-          "my-4 flex gap-3 rounded-lg border p-4",
+          "my-4 flex gap-3 rounded-md border p-4",
           style.bg,
           style.border,
         )}

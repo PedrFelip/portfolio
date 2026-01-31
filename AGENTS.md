@@ -159,6 +159,16 @@ import { Button, Card, H1, P } from '@/components/ui'
 
 ---
 
+## Design Direction
+
+Design inspirations that guide the visual language:
+- **[opencode.ai](https://opencode.ai)** - Clean, technical interface with borders-only depth, monospace for data, subtle micro-interactions (150ms), minimal shadows, and gray-first color palette with sparing accent use
+- **GitHub** - Developer-centric dark theme, tabular data presentation, status-based color usage
+- **Linear** - Precision spacing, subtle borders, 0.5px border approach
+- **Vercel** - Clean typography, technical clarity, minimal decoration
+
+---
+
 ## Design System & UI Guidelines
 
 ### The 4px Grid

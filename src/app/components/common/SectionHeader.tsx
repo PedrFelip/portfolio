@@ -47,7 +47,7 @@ export const SectionHeader = ({
       {badge && (
         <Badge
           variant={badgeVariant}
-          className="mb-3 uppercase tracking-wider text-xs font-medium"
+          className="mb-3 uppercase tracking-wider text-[10px] sm:text-xs font-medium"
         >
           {badge}
         </Badge>

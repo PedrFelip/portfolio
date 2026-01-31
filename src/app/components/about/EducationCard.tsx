@@ -25,7 +25,7 @@ interface EducationCardProps {
  */
 export const EducationCard = memo(({ education }: EducationCardProps) => {
   return (
-    <div className="rounded-lg border border-border bg-card p-4 transition-[border-color] duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-foreground sm:p-6 motion-reduce:transition-none">
+    <div className="rounded-md border border-border bg-card p-4 transition-[border-color] duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-foreground sm:p-6 motion-reduce:transition-none">
       {/* Header */}
       <div className="mb-3 sm:mb-4">
         {education.href ? (

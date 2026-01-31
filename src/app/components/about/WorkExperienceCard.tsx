@@ -32,13 +32,13 @@ export const WorkExperienceCard = memo(
       <div className="relative flex gap-4 sm:gap-6 group">
         {/* Timeline Dot and Line */}
         <div className="flex flex-col items-center">
-          <div className="mt-2 h-3 w-3 rounded-full border-2 border-foreground bg-background transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:bg-foreground" />
+          <div className="mt-2 h-3 w-3 rounded-full border border-foreground bg-background transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:bg-foreground" />
           {!isLast && <div className="w-0.5 flex-1 bg-border mt-2" />}
         </div>
 
         {/* Content Card */}
         <div className="flex-1 pb-8 sm:pb-12">
-          <div className="rounded-lg border border-border bg-card p-4 transition-[border-color] duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-foreground sm:p-6 motion-reduce:transition-none">
+          <div className="rounded-md border border-border bg-card p-4 transition-[border-color] duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-foreground sm:p-6 motion-reduce:transition-none">
             {/* Header */}
             <div className="mb-3 sm:mb-4">
               <div className="mb-2 flex flex-wrap items-start justify-between gap-2">

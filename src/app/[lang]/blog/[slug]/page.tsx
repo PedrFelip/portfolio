@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
@@ -136,6 +137,70 @@ export const revalidate = 86400;
 
 // Enable incremental static regeneration for new posts
 export const dynamicParams = true;
+
+/**
+ * Generate metadata for each blog post
+ * Creates Open Graph and Twitter Card metadata for social sharing
+ */
+export async function generateMetadata({
+  params,
+}: BlogPostPageProps): Promise<Metadata> {
+  const { slug, lang } = await params;
+  const post = getPostBySlug(slug);
+
+  if (!post) {
+    return {};
+  }
+
+  const baseUrl =
+    process.env.NEXT_PUBLIC_SITE_URL || "https://portfolio.vercel.app";
+  const postUrl = `${baseUrl}/${lang}/blog/${slug}`;
+
+  const metadataConfig = {
+    en: {
+      title: `${post.title} | Pedro Felipe`,
+      description: post.excerpt,
+      siteName: "Pedro Felipe Portfolio",
+    },
+    pt: {
+      title: `${post.title} | Pedro Felipe`,
+      description: post.excerpt,
+      siteName: "Portfólio Pedro Felipe",
+    },
+  };
+
+  const config = metadataConfig[lang];
+
+  return {
+    title: config.title,
+    description: config.description,
+    alternates: {
+      canonical: postUrl,
+      languages: {
+        en: `${baseUrl}/en/blog/${slug}`,
+        pt: `${baseUrl}/pt/blog/${slug}`,
+      },
+    },
+    openGraph: {
+      type: "article",
+      locale: lang === "pt" ? "pt_BR" : "en_US",
+      alternateLocale: lang === "pt" ? "en_US" : "pt_BR",
+      url: postUrl,
+      title: config.title,
+      description: config.description,
+      siteName: config.siteName,
+      publishedTime: post.date,
+      authors: ["Pedro Felipe"],
+    },
+    twitter: {
+      card: "summary",
+      title: config.title,
+      description: config.description,
+      creator: "@pedrofelipe",
+    },
+  };
+}
+
 export async function generateStaticParams() {
   const slugs = getAllPostSlugs();
   const langs = ["en", "pt"];

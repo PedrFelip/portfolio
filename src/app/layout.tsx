@@ -39,6 +39,7 @@ export const metadata: Metadata = {
   description: metadataConfig.en.description,
   icons: {
     icon: "/favicon.svg",
+    apple: "/favicon.svg",
   },
   openGraph: {
     type: "website",
@@ -48,20 +49,11 @@ export const metadata: Metadata = {
     siteName: "Pedro Felipe",
     title: metadataConfig.en.title,
     description: metadataConfig.en.ogDescription,
-    images: [
-      {
-        url: "https://portfolio.vercel.app/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Pedro Felipe Portfolio",
-      },
-    ],
   },
   twitter: {
-    card: "summary_large_image",
+    card: "summary",
     title: metadataConfig.en.title,
     description: metadataConfig.en.twitterDescription,
-    images: ["https://portfolio.vercel.app/og-image.png"],
   },
   alternates: {
     canonical: "https://portfolio.vercel.app/en",

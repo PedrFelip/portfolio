@@ -58,7 +58,7 @@ export const BlogCard = memo(({ post }: BlogCardProps) => {
   );
 
   return (
-    <Card className="group flex h-full flex-col p-3 sm:p-4">
+    <Card className="group flex h-full flex-col p-3 sm:p-4 hover-lift-subtle">
       {/* Header */}
       <CardHeader className="p-0 mb-3 sm:mb-4">
         <Link
@@ -69,7 +69,7 @@ export const BlogCard = memo(({ post }: BlogCardProps) => {
         </Link>
 
         <div className="flex items-center gap-2 sm:gap-3 tabular-nums">
-          <Calendar className="h-3.5 w-3.5 transition-transform duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-110" />
+          <Calendar className="h-3.5 w-3.5 icon-hover-rotate group-hover:scale-110 group-hover:-rotate-12" />
           <MonoText>
             <time dateTime={post.date}>{formattedDate}</time>
           </MonoText>
@@ -93,7 +93,7 @@ export const BlogCard = memo(({ post }: BlogCardProps) => {
             {post.tags.map((tag) => (
               <Badge
                 key={tag}
-                className="transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-foreground hover:bg-muted/60"
+                className="transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-foreground hover:bg-muted/60 badge-hover"
               >
                 {tag}
               </Badge>
@@ -106,11 +106,11 @@ export const BlogCard = memo(({ post }: BlogCardProps) => {
       <CardFooter className="p-0">
         <Link
           href={`/${language}/blog/${post.slug}`}
-          className="group/link inline-flex items-center gap-1 sm:gap-2 text-xs sm:text-sm font-medium text-muted-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:text-foreground"
+          className="group/link link-underline inline-flex items-center gap-1 sm:gap-2 text-xs sm:text-sm font-medium text-muted-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:text-foreground"
         >
           {t.blog.readMore}
           <ArrowRight
-            className="h-3.5 w-3.5 transition-transform duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover/link:translate-x-0.5"
+            className="h-3.5 w-3.5 icon-hover-slide group-hover/link:translate-x-0.5"
             aria-hidden="true"
           />
         </Link>

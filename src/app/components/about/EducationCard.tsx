@@ -25,7 +25,7 @@ interface EducationCardProps {
  */
 export const EducationCard = memo(({ education }: EducationCardProps) => {
   return (
-    <div className="rounded-md border border-border bg-card p-4 transition-[border-color] duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-foreground sm:p-6 motion-reduce:transition-none">
+    <div className="rounded-md border border-border bg-card p-4 transition-[border-color,transform] duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-foreground/60 hover:scale-[1.01] sm:p-6 motion-reduce:transition-none">
       {/* Header */}
       <div className="mb-3 sm:mb-4">
         {education.href ? (
@@ -38,7 +38,7 @@ export const EducationCard = memo(({ education }: EducationCardProps) => {
           >
             {education.school}
             <ExternalLink
-              className="h-4 w-4 opacity-0 transition-opacity duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:opacity-100"
+              className="h-4 w-4 icon-hover-slide opacity-0 group-hover:opacity-100"
               aria-hidden="true"
             />
           </a>
@@ -50,7 +50,7 @@ export const EducationCard = memo(({ education }: EducationCardProps) => {
       {/* Details */}
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         <P className="text-muted-foreground">{education.degree}</P>
-        <MonoText className="whitespace-nowrap">
+        <MonoText className="whitespace-nowrap transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:text-accent">
           {education.start} - {education.end}
         </MonoText>
       </div>

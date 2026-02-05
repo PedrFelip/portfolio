@@ -16,7 +16,7 @@ import {
   Mail,
   Share2,
 } from "@/components/ui/icons";
-import { X } from "@/components/ui/x-icon";
+import { XIcon } from "@/components/ui/x-icon";
 import { blogContent } from "@/lib/content/blog-content";
 import { useLanguage } from "@/lib/LanguageContext";
 
@@ -117,7 +117,7 @@ export const ShareButtons = memo(
             className="group inline-flex items-center gap-1 sm:gap-2 rounded-lg border border-border bg-card px-2 sm:px-3 py-2 sm:py-2 text-sm text-muted-foreground transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-accent hover:bg-accent/10 hover:text-accent"
             aria-label={`${t.shareOn} X (Twitter)`}
           >
-            <X className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-muted-foreground transition-transform duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-110 group-hover:text-accent" />
+            <XIcon className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-muted-foreground transition-transform duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-110 group-hover:text-accent" />
             <span className="font-mono text-[10px] sm:text-xs">X</span>
           </a>
 

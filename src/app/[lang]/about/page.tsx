@@ -62,7 +62,6 @@ export default async function AboutPage({ params }: AboutPageProps) {
           badge={t.work.badge}
           badgeVariant="work"
           title={t.work.title}
-          description={t.work.intro}
         />
 
         <div className="space-y-0">

@@ -33,4 +33,5 @@ export {
   Mail,
   Menu,
   Share2,
+  X,
 } from "lucide-react";

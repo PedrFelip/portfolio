@@ -48,7 +48,7 @@ export const ProjectCard = memo(({ project }: ProjectCardProps) => {
   const remainingTechs = techCount > 6 ? techCount - 6 : 0;
 
   return (
-    <Card className="group flex h-full flex-col">
+    <Card className="group flex h-full flex-col hover-lift-subtle">
       {/* Header: Title + Dates */}
       <CardHeader>
         <div className="flex flex-col gap-2 sm:gap-2 sm:flex-row sm:items-start sm:justify-between">
@@ -72,7 +72,7 @@ export const ProjectCard = memo(({ project }: ProjectCardProps) => {
           {displayedTechs.map((tech) => (
             <Badge
               key={tech}
-              className="transition-[border-color,background-color] duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-foreground hover:bg-muted/60 motion-reduce:transition-none"
+              className="transition-[border-color,background-color] duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-foreground hover:bg-muted/60 badge-hover motion-reduce:transition-none"
             >
               {tech}
             </Badge>
@@ -93,7 +93,7 @@ export const ProjectCard = memo(({ project }: ProjectCardProps) => {
                 className="group/link"
               >
                 <Github
-                  className="mr-2 h-3.5 w-3.5 transition-transform duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover/link:scale-110 sm:h-4 sm:w-4"
+                  className="mr-2 h-3.5 w-3.5 icon-hover-rotate group-hover/icon:scale-110 sm:h-4 sm:w-4"
                   aria-hidden="true"
                 />
                 {linkLabels.code}
@@ -109,7 +109,7 @@ export const ProjectCard = memo(({ project }: ProjectCardProps) => {
                 className="group/link"
               >
                 <ExternalLink
-                  className="mr-2 h-3.5 w-3.5 transition-transform duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover/link:scale-110 sm:h-4 sm:w-4"
+                  className="mr-2 h-3.5 w-3.5 icon-hover-rotate group-hover/icon:scale-110 sm:h-4 sm:w-4"
                   aria-hidden="true"
                 />
                 {linkLabels.demo}
@@ -125,7 +125,7 @@ export const ProjectCard = memo(({ project }: ProjectCardProps) => {
                 className="group/link"
               >
                 <ExternalLink
-                  className="mr-2 h-3.5 w-3.5 transition-transform duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover/link:scale-110 sm:h-4 sm:w-4"
+                  className="mr-2 h-3.5 w-3.5 icon-hover-rotate group-hover/icon:scale-110 sm:h-4 sm:w-4"
                   aria-hidden="true"
                 />
                 {linkLabels.website}

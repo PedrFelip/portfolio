@@ -9,7 +9,7 @@ import {
   Linkedin,
   Mail,
 } from "@/components/ui/icons";
-import { X } from "@/components/ui/x-icon";
+import { XIcon } from "@/components/ui/x-icon";
 
 export const metadata: Metadata = {
   title: "Pedro Felipe - Links",
@@ -53,7 +53,7 @@ const iconMap = {
   portfolio: Home,
   github: Github,
   linkedin: Linkedin,
-  x: X,
+  x: XIcon,
   email: Mail,
 };
 

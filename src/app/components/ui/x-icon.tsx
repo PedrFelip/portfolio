@@ -1,14 +1,14 @@
 import { forwardRef } from "react";
 
 /**
- * X Icon component - Official X (formerly Twitter) logo
+ * XIcon component - Official X (formerly Twitter) logo
  *
  * Design principles (AGENTS.md):
  * - Uses official X SVG path
  * - Consistent with lucide-react icon API
  * - Supports all standard icon props
  */
-export const X = forwardRef<SVGSVGElement, React.SVGProps<SVGSVGElement>>(
+export const XIcon = forwardRef<SVGSVGElement, React.SVGProps<SVGSVGElement>>(
   ({ className, ...props }, ref) => (
     <svg
       ref={ref}
@@ -23,4 +23,4 @@ export const X = forwardRef<SVGSVGElement, React.SVGProps<SVGSVGElement>>(
   ),
 );
 
-X.displayName = "X";
+XIcon.displayName = "XIcon";

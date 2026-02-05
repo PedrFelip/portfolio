@@ -20,8 +20,6 @@ export const aboutContent = {
       badge: "Experience",
       title: "Work Experience",
       present: "Present",
-      intro:
-        "Honed backend and platform engineering skills while shipping products for startups, health teams, and academic initiatives.",
     },
 
     // Education Section
@@ -64,8 +62,6 @@ export const aboutContent = {
       badge: "Experiência",
       title: "Experiência Profissional",
       present: "Presente",
-      intro:
-        "Experiências práticas construindo plataformas backend e infraestrutura para startups, equipes de saúde e iniciativas acadêmicas.",
     },
 
     // Education Section

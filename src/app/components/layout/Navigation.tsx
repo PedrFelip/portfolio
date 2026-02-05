@@ -3,8 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { memo, useCallback, useMemo, useState, useTransition } from "react";
-import { Menu } from "@/components/ui/icons";
-import { X } from "@/components/ui/x-icon";
+import { Menu, X } from "@/components/ui/icons";
 import { useLanguage } from "@/lib/LanguageContext";
 import { useLocalizedLink } from "@/lib/useLocalizedLink";
 

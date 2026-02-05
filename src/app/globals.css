@@ -313,6 +313,99 @@ html {
     animation-delay: 500ms;
   }
 
+  /* Hover Utilities - Phase 1: Card Components
+   * All animations use 150ms cubic-bezier(0.25, 1, 0.5, 1)
+   */
+
+  .hover-lift-subtle {
+    transition:
+      transform 150ms cubic-bezier(0.25, 1, 0.5, 1),
+      box-shadow 150ms cubic-bezier(0.25, 1, 0.5, 1),
+      border-color 150ms cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .hover-lift-subtle:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 4px 20px -4px oklch(var(--accent) / 0.15);
+    border-color: oklch(var(--foreground) / 0.2);
+  }
+
+  .icon-hover-rotate {
+    transition: transform 150ms cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .icon-hover-rotate:hover {
+    transform: scale(1.1) rotate(3deg);
+  }
+
+  .icon-hover-slide {
+    transition: transform 150ms cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .icon-hover-slide:hover {
+    transform: translateX(2px);
+  }
+
+  .badge-hover {
+    transition:
+      transform 150ms cubic-bezier(0.25, 1, 0.5, 1),
+      filter 150ms cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .badge-hover:hover {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+  }
+
+  .timeline-dot-hover {
+    transition:
+      transform 150ms cubic-bezier(0.25, 1, 0.5, 1),
+      box-shadow 150ms cubic-bezier(0.25, 1, 0.5, 1),
+      background-color 150ms cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .timeline-dot-hover:hover {
+    transform: scale(1.25);
+    box-shadow: 0 0 10px oklch(var(--foreground) / 0.3);
+    background-color: oklch(var(--foreground));
+  }
+
+  /* Link Underline Animation */
+  .link-underline {
+    position: relative;
+    text-decoration: none;
+  }
+
+  .link-underline::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: oklch(var(--foreground));
+    transition: width 150ms cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .link-underline:hover::after {
+    width: 100%;
+  }
+
+  /* Keyframe Animations */
+  @keyframes float-idle {
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-2px);
+    }
+  }
+
+  .animate-float-idle {
+    animation: float-idle 3s ease-in-out infinite;
+  }
+
   /* Blog Post Markdown Styles */
   .prose {
     @apply text-foreground;

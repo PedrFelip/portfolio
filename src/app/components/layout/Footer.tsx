@@ -4,7 +4,7 @@ import Link from "next/link";
 import { memo, useMemo } from "react";
 import { Label, MonoText } from "@/components/ui";
 import { Github, Linkedin, Mail } from "@/components/ui/icons";
-import { X } from "@/components/ui/x-icon";
+import { XIcon } from "@/components/ui/x-icon";
 import { useLanguage } from "@/lib/LanguageContext";
 import { useLocalizedLink } from "@/lib/useLocalizedLink";
 
@@ -38,7 +38,6 @@ interface SocialLinkProps {
   platform: "github" | "linkedin" | "x" | "email";
 }
 
-// Brand color mappings for social platforms
 const socialColorMap = {
   github:
     "hover:border-purple-500/50 hover:bg-purple-500/10 hover:text-purple-400",
@@ -99,31 +98,31 @@ export const Footer = memo(() => {
   // Memoize socialLinks array - static links don't depend on props/state
   // Vercel best practice: js-cache-function-results (cache static data)
   // Empty dependency array is correct since these URLs never change
-  const socialLinks = useMemo(
+  const socialLinks: SocialLinkProps[] = useMemo(
     () => [
       {
         href: "https://github.com/pedrfelip",
         label: "GitHub",
         icon: <Github className="h-4 w-4" />,
-        platform: "github" as const,
+        platform: "github",
       },
       {
         href: "https://linkedin.com/in/pedrfelip",
         label: "LinkedIn",
         icon: <Linkedin className="h-4 w-4" />,
-        platform: "linkedin" as const,
+        platform: "linkedin",
       },
       {
         href: "https://x.com/pedrofelipeek",
         label: "X",
-        icon: <X className="h-4 w-4" />,
-        platform: "x" as const,
+        icon: <XIcon className="h-4 w-4" />,
+        platform: "x",
       },
       {
         href: "mailto:pfsilva190406@gmail.com",
         label: "Email",
         icon: <Mail className="h-4 w-4" />,
-        platform: "email" as const,
+        platform: "email",
       },
     ],
     [],
@@ -191,7 +190,7 @@ export const Footer = memo(() => {
             © {t.footer.year} Pedro Felipe
           </MonoText>
           <MonoText className="text-xs sm:text-sm text-faint">
-            v2.16.42
+            v2.16.43
           </MonoText>
         </div>
       </div>

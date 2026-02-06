@@ -17,6 +17,12 @@ interface HeroProps {
   primaryHref: string;
   secondaryHref: string;
   techStack: readonly string[];
+  keywords: string[];
+  badge: {
+    label: string;
+    percentage: number;
+    status: string;
+  };
 }
 
 /**
@@ -51,16 +57,9 @@ export const Hero = memo(
     primaryHref,
     secondaryHref,
     techStack,
+    keywords,
+    badge,
   }: HeroProps) => {
-    const keywords = [
-      "Backend",
-      "DevOps",
-      "Engineer",
-      "Infrastructure",
-      "API",
-      "System",
-    ];
-
     return (
       <Section>
         <div className="grid gap-8 md:grid-cols-2 lg:gap-12 items-center">
@@ -96,9 +95,9 @@ export const Hero = memo(
 
             {/* Code Quality Badge */}
             <CodeQualityBadge
-              label="TypeScript"
-              percentage={100}
-              status="success"
+              label={badge.label}
+              percentage={badge.percentage}
+              status={badge.status as "success" | "warning" | "neutral"}
             />
           </div>
 

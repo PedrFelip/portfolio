@@ -6,6 +6,11 @@
 export const homePt = {
   hero: {
     greeting: "Olá, Sou Pedro Felipe",
+    greetingTexts: [
+      "Olá, Sou Pedro Felipe",
+      "Engenheiro Backend",
+      "Entusiasta DevOps",
+    ],
     title: "Engenheiro Backend & Entusiasta DevOps",
     subtitle: "Desenvolvedor Backend & Entusiasta DevOps",
     description:

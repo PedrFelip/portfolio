@@ -6,6 +6,12 @@
 export const homeEn = {
   hero: {
     greeting: "Hi, I'm Pedro Felipe",
+    greetingTexts: [
+      "Hi, I'm Pedro Felipe",
+      "a Backend Engineer",
+      "a DevOps Enthusiast",
+      "real scale systems",
+    ],
     title: "Backend Engineer & DevOps Enthusiast",
     subtitle: "Backend Developer & DevOps Enthusiast",
     description:

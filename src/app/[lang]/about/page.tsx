@@ -10,9 +10,15 @@ import {
   getEducation,
   getWorkExperience,
 } from "@/lib/about-data";
-import { aboutContent } from "@/lib/content/about-content";
+import { aboutEn } from "@/lib/content/about.en";
+import { aboutPt } from "@/lib/content/about.pt";
 import { parseBoldMarkdown } from "@/lib/markdown";
 import { getSkills } from "@/lib/shared-data";
+
+const aboutContent = {
+  en: aboutEn,
+  pt: aboutPt,
+};
 
 type Lang = "en" | "pt";
 

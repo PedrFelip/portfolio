@@ -1,7 +1,13 @@
 import { SectionHeader } from "@/components/common/SectionHeader";
-import { projectsContent } from "@/lib/content/projects-content";
+import { projectsEn } from "@/lib/content/projects.en";
+import { projectsPt } from "@/lib/content/projects.pt";
 import { getProjects } from "@/lib/projects-data";
 import ProjectsClient from "./ProjectsClient";
+
+const projectsContent = {
+  en: projectsEn,
+  pt: projectsPt,
+};
 
 type Lang = "en" | "pt";
 
@@ -35,11 +41,7 @@ export default async function ProjectsPage({ params }: ProjectsPageProps) {
 
         <ProjectsClient
           projects={projects}
-          emptyStateLabel={
-            lang === "pt"
-              ? "Nenhum projeto encontrado com essas tecnologias."
-              : "No projects found with those technologies."
-          }
+          emptyStateLabel={t.filters.noResults}
         />
       </div>
     </section>

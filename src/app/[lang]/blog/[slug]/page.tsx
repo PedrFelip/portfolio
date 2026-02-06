@@ -19,8 +19,14 @@ import {
 } from "@/components/mdx/MDXTable";
 import { Badge, H1, H2, H3 } from "@/components/ui";
 import { getAllPostSlugs, getPostBySlug } from "@/lib/blog-data";
-import { blogContent } from "@/lib/content/blog-content";
+import { blogEn } from "@/lib/content/blog.en";
+import { blogPt } from "@/lib/content/blog.pt";
 import type { Heading } from "@/types/portfolio";
+
+const blogContent = {
+  en: blogEn,
+  pt: blogPt,
+};
 
 interface BlogPostPageProps {
   params: Promise<{

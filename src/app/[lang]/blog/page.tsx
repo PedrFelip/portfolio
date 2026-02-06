@@ -1,7 +1,13 @@
 import { BlogList } from "@/components/blog/BlogList";
 import { SectionHeader } from "@/components/common/SectionHeader";
 import { getAllPosts } from "@/lib/blog-data";
-import { blogContent } from "@/lib/content/blog-content";
+import { blogEn } from "@/lib/content/blog.en";
+import { blogPt } from "@/lib/content/blog.pt";
+
+const blogContent = {
+  en: blogEn,
+  pt: blogPt,
+};
 
 interface BlogPageProps {
   params: Promise<{

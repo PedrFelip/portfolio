@@ -245,15 +245,15 @@ export const TableOfContents = memo(({ headings }: TableOfContentsProps) => {
             href={`#${heading.id}`}
             onClick={(e) => handleClick(e, heading.id)}
             className={`
-              relative block py-1 sm:py-2 text-xs sm:text-sm transition-all duration-200
+              relative block py-1 md:py-2 text-xs md:text-sm transition-all duration-200
               ease-[cubic-bezier(0.25,1,0.5,1)]
-              ${isH3 ? "pl-5 sm:pl-6" : "pl-3 sm:pl-4"}
+              ${isH3 ? "pl-5 md:pl-6" : "pl-3 md:pl-4"}
               ${
                 isActive
                   ? "text-accent font-medium border-l border-accent -ml-[1px]"
                   : "text-muted-foreground hover:text-foreground border-l border-transparent -ml-[1px] hover:border-border"
               }
-              ${isScrolling && activeId === heading.id ? "animate-pulse" : ""}
+                ${isScrolling && activeId === heading.id ? "animate-pulse" : ""}
             `}
           >
             {heading.text}
@@ -266,12 +266,12 @@ export const TableOfContents = memo(({ headings }: TableOfContentsProps) => {
   if (headings.length === 0) return null;
 
   return (
-    <nav className="space-y-1.5 sm:space-y-2">
-      <MonoText className="text-[10px] sm:text-xs uppercase tracking-wide text-muted-foreground mb-3 sm:mb-4">
+    <nav className="space-y-1.5 md:space-y-2">
+      <MonoText className="text-[10px] md:text-xs uppercase tracking-wide text-muted-foreground mb-3 md:mb-4">
         {t.onThisPage}
       </MonoText>
 
-      <ul className="space-y-1 sm:space-y-2 border-l border-border">
+      <ul className="space-y-1 md:space-y-2 border-l border-border">
         {renderedHeadings}
       </ul>
     </nav>

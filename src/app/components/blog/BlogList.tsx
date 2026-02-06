@@ -67,11 +67,11 @@ export function BlogList({
 
   if (allPosts.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center py-12 sm:py-16 text-center px-4">
-        <P className="font-medium mb-2 text-sm sm:text-base">
+      <div className="flex flex-col items-center justify-center py-12 md:py-16 text-center px-4">
+        <P className="font-medium mb-2 text-sm md:text-base">
           {translations.noPosts}
         </P>
-        <P className="text-muted-foreground text-sm sm:text-base">
+        <P className="text-muted-foreground text-sm md:text-base">
           {translations.noPostsDesc}
         </P>
       </div>
@@ -93,20 +93,20 @@ export function BlogList({
 
       {/* Pagination */}
       {totalPages > 1 && (
-        <div className="mt-8 sm:mt-12 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 pt-6 sm:pt-8 border-t border-border w-full max-w-3xl">
+        <div className="mt-8 md:mt-12 flex flex-col md:flex-row items-center justify-center gap-3 md:gap-4 pt-6 md:pt-8 border-t border-border w-full max-w-3xl">
           <button
             type="button"
             onClick={handlePrevPage}
             disabled={!hasPrevPage}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-md border border-border bg-card px-4 py-3 sm:py-2 text-xs sm:text-sm font-medium text-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:bg-muted disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-card"
+            className="w-full md:w-auto inline-flex items-center justify-center gap-2 rounded-md border border-border bg-card px-4 py-3 md:py-2 text-xs md:text-sm font-medium text-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:bg-muted disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-card"
             aria-label={translations.previous}
           >
-            <ChevronLeft className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-            <span className="hidden sm:inline">{translations.previous}</span>
-            <span className="sm:hidden">Prev</span>
+            <ChevronLeft className="h-3.5 w-3.5 md:h-4 md:w-4" />
+            <span className="hidden md:inline">{translations.previous}</span>
+            <span className="md:hidden">Prev</span>
           </button>
 
-          <span className="text-xs sm:text-sm text-muted-foreground px-2 font-mono">
+          <span className="text-xs md:text-sm text-muted-foreground px-2 font-mono">
             {translations.page}{" "}
             <span className="font-semibold text-foreground">{currentPage}</span>{" "}
             <span className="text-muted-foreground/60">/</span>{" "}
@@ -117,12 +117,12 @@ export function BlogList({
             type="button"
             onClick={handleNextPage}
             disabled={!hasNextPage}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-md border border-border bg-card px-4 py-3 sm:py-2 text-xs sm:text-sm font-medium text-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:bg-muted disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-card"
+            className="w-full md:w-auto inline-flex items-center justify-center gap-2 rounded-md border border-border bg-card px-4 py-3 md:py-2 text-xs md:text-sm font-medium text-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:bg-muted disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-card"
             aria-label={translations.next}
           >
-            <span className="hidden sm:inline">{translations.next}</span>
-            <span className="sm:hidden">Next</span>
-            <ChevronRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+            <span className="hidden md:inline">{translations.next}</span>
+            <span className="md:hidden">Next</span>
+            <ChevronRight className="h-3.5 w-3.5 md:h-4 md:w-4" />
           </button>
         </div>
       )}

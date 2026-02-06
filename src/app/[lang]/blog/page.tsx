@@ -1,4 +1,5 @@
 import { BlogList } from "@/components/blog/BlogList";
+import { Section } from "@/components/common/Section";
 import { SectionHeader } from "@/components/common/SectionHeader";
 import { getAllPosts } from "@/lib/blog-data";
 import { blogEn } from "@/lib/content/blog.en";
@@ -41,8 +42,8 @@ export default async function BlogPage({ params }: BlogPageProps) {
   const postsPerPage = 8;
 
   return (
-    <section className="py-16 sm:py-20 lg:py-24">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen">
+      <Section>
         <div className="max-w-3xl">
           <SectionHeader
             badge={t.badge}
@@ -65,7 +66,7 @@ export default async function BlogPage({ params }: BlogPageProps) {
             next: t.next,
           }}
         />
-      </div>
-    </section>
+      </Section>
+    </div>
   );
 }

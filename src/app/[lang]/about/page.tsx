@@ -3,7 +3,7 @@ import { EducationCard } from "@/components/about/EducationCard";
 import { WorkExperienceCard } from "@/components/about/WorkExperienceCard";
 import { Section } from "@/components/common/Section";
 import { SectionHeader } from "@/components/common/SectionHeader";
-import { SkillsGrid } from "@/components/SkillsGrid";
+import { SkillsSection } from "@/components/home/SkillsSection";
 import { H1, Label, P } from "@/components/ui";
 import {
   getContactLinks,
@@ -81,14 +81,11 @@ export default async function AboutPage({ params }: AboutPageProps) {
         </div>
       </Section>
 
-      <Section>
-        <SectionHeader
-          badge={t.skills.badge}
-          badgeVariant="expertise"
-          title={t.skills.title}
-        />
-        <SkillsGrid skills={skills} />
-      </Section>
+      <SkillsSection
+        skills={skills}
+        badge={t.skills.badge}
+        title={t.skills.title}
+      />
 
       <Section variant="muted">
         <SectionHeader

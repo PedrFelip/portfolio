@@ -68,7 +68,7 @@ html {
   --muted: oklch(0.97 0 0);
   --muted-foreground: oklch(0.556 0 0);
   --faint: oklch(0.75 0 0);
-  --accent: oklch(0.55 0.08 240);
+  --accent: oklch(0.55 0.12 240);
   --accent-foreground: oklch(0.205 0 0);
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.922 0 0);
@@ -116,7 +116,7 @@ html {
   --muted: oklch(0.269 0 0);
   --muted-foreground: oklch(0.708 0 0);
   --faint: oklch(0.45 0 0);
-  --accent: oklch(0.65 0.1 240);
+  --accent: oklch(0.65 0.15 240);
   --accent-foreground: oklch(0.985 0 0);
   --destructive: oklch(0.704 0.191 22.216);
   --border: oklch(1 0 0 / 10%);
@@ -391,6 +391,103 @@ html {
     width: 100%;
   }
 
+  /* Code Editor Utilities - AGENTS.md Design Principles
+   * - 4px grid: consistent spacing throughout
+   * - Monospace for data/code
+   * - 150-250ms animations with cubic-bezier easing
+   * - Color for meaning only (syntax highlighting)
+   */
+
+  /* Blink Cursor Animation */
+  @keyframes blink-cursor {
+    0%,
+    50% {
+      opacity: 1;
+    }
+    51%,
+    100% {
+      opacity: 0;
+    }
+  }
+
+  .animate-blink-cursor {
+    animation: blink-cursor 1s step-end infinite;
+  }
+
+  /* Code Block Container */
+  .code-block {
+    font-family:
+      "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono", "Lucida Console",
+      Monaco, monospace;
+    line-height: 1.6;
+    font-size: 13px;
+  }
+
+  /* Code Line Numbers */
+  .line-number {
+    color: oklch(var(--muted-foreground) / 0.4);
+    text-align: right;
+    padding-right: 16px;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  /* IDE-like Selection Hover */
+  .code-line {
+    transition: background-color 150ms cubic-bezier(0.25, 1, 0.5, 1);
+    border-radius: 2px;
+  }
+
+  .code-line:hover {
+    background-color: oklch(var(--muted) / 0.6);
+  }
+
+  /* Syntax Highlighting Colors */
+  .syntax-keyword {
+    color: #79c0ff;
+  }
+
+  .syntax-type {
+    color: #d2a8ff;
+  }
+
+  .syntax-string {
+    color: #a5d6ff;
+  }
+
+  .syntax-function {
+    color: #d2a8ff;
+  }
+
+  .syntax-punctuation {
+    color: #8b949e;
+  }
+
+  .syntax-number {
+    color: #79c0ff;
+  }
+
+  /* Additional Stagger Delays */
+  .animate-delay-350 {
+    animation-delay: 350ms;
+  }
+
+  .animate-delay-450 {
+    animation-delay: 450ms;
+  }
+
+  .animate-delay-550 {
+    animation-delay: 550ms;
+  }
+
+  .animate-delay-600 {
+    animation-delay: 600ms;
+  }
+
+  .animate-delay-700 {
+    animation-delay: 700ms;
+  }
+
   /* Keyframe Animations */
   @keyframes float-idle {
     0%,
@@ -534,7 +631,7 @@ html {
 }
 
 .hljs-keyword {
-  color: #ff7b72;
+  color: #82b1ff;
 }
 
 .hljs-function {
@@ -546,9 +643,9 @@ html {
 }
 
 .hljs-type {
-  color: #f0883e;
+  color: #b8a0ff;
 }
 
 .hljs-built_in {
-  color: #f0883e;
+  color: #b8a0ff;
 }

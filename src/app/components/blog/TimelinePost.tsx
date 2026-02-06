@@ -57,15 +57,15 @@ export const TimelinePost = memo(
       <TimelineItem isLast={isLast}>
         <TimelineCardWrapper>
           {/* Date Row */}
-          <div className="mb-2 sm:mb-3 flex items-center gap-2 sm:gap-3">
-            <Calendar className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-muted-foreground transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:text-accent group-hover:scale-110" />
-            <MonoText className="text-[10px] sm:text-xs text-muted-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:text-accent">
+          <div className="mb-2 md:mb-3 flex items-center gap-2 md:gap-3">
+            <Calendar className="h-3 w-3 md:h-3.5 md:w-3.5 text-muted-foreground transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:text-accent group-hover:scale-110" />
+            <MonoText className="text-[10px] md:text-xs text-muted-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:text-accent">
               <time dateTime={post.date}>{formattedDate}</time>
             </MonoText>
             {post.readingTime && (
               <>
                 <span className="text-muted-foreground/60">•</span>
-                <MonoText className="text-[10px] sm:text-xs text-muted-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:text-accent">
+                <MonoText className="text-[10px] md:text-xs text-muted-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:text-accent">
                   {post.readingTime} {t.blog.readingTime}
                 </MonoText>
               </>
@@ -74,23 +74,23 @@ export const TimelinePost = memo(
 
           {/* Title */}
           <Link href={`/${language}/blog/${post.slug}`} className="block">
-            <H3 className="mb-2 sm:mb-3 text-base sm:text-lg lg:text-xl leading-snug transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:text-accent line-clamp-2">
+            <H3 className="mb-2 md:mb-3 text-base md:text-lg lg:text-xl leading-snug transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:text-accent line-clamp-2">
               {post.title}
             </H3>
           </Link>
 
           {/* Excerpt */}
-          <P className="mb-3 sm:mb-4 text-sm sm:text-base text-muted-foreground leading-relaxed line-clamp-2 sm:line-clamp-3 transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:text-foreground/90">
+          <P className="mb-3 md:mb-4 text-sm md:text-base text-muted-foreground leading-relaxed line-clamp-2 md:line-clamp-3 transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:text-foreground/90">
             {post.excerpt}
           </P>
 
           {/* Tags */}
           {post.tags.length > 0 && (
-            <div className="mb-3 sm:mb-4 flex flex-wrap gap-2">
+            <div className="mb-3 md:mb-4 flex flex-wrap gap-2">
               {post.tags.slice(0, 3).map((tag, index) => (
                 <Badge
                   key={tag}
-                  className="text-[10px] sm:text-xs transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-accent hover:bg-accent/10 hover:text-accent"
+                  className="text-[10px] md:text-xs transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-accent hover:bg-accent/10 hover:text-accent"
                   style={{
                     transitionDelay: `${index * 30}ms`,
                   }}
@@ -99,7 +99,7 @@ export const TimelinePost = memo(
                 </Badge>
               ))}
               {post.tags.length > 3 && (
-                <Badge className="text-[10px] sm:text-xs" variant="outline">
+                <Badge className="text-[10px] md:text-xs" variant="outline">
                   +{post.tags.length - 3}
                 </Badge>
               )}
@@ -109,13 +109,13 @@ export const TimelinePost = memo(
           {/* Read More Indicator with enhanced hover */}
           <Link
             href={`/${language}/blog/${post.slug}`}
-            className="inline-flex items-center gap-2 text-xs sm:text-sm font-medium text-muted-foreground transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:text-accent sm:group-hover:gap-3"
+            className="inline-flex items-center gap-2 text-xs md:text-sm font-medium text-muted-foreground transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:text-accent md:group-hover:gap-3"
           >
             <span className="relative">
               {t.blog.readMore}
               <span className="absolute -bottom-0.5 left-0 w-0 h-0.5 bg-accent transition-all duration-200 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:w-full" />
             </span>
-            <ArrowRight className="h-3 w-3 sm:h-3.5 sm:w-3.5 transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:translate-x-1 group-hover:scale-110" />
+            <ArrowRight className="h-3 w-3 md:h-3.5 md:w-3.5 transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:translate-x-1 group-hover:scale-110" />
           </Link>
         </TimelineCardWrapper>
       </TimelineItem>

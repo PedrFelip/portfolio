@@ -50,7 +50,7 @@ export default function Home() {
         ctaSecondary={t.hero.ctaSecondary}
         primaryHref={getLocalizedLink("/projects")}
         secondaryHref={getLocalizedLink("/about")}
-        techStack={[...HOME_TECH_STACK]}
+        techStack={HOME_TECH_STACK}
       />
 
       {/* Featured Projects Section */}

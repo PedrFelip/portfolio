@@ -83,8 +83,8 @@ export const BlogCard = memo(({ post }: BlogCardProps) => {
       </CardHeader>
 
       {/* Content: Excerpt + Tags */}
-      <CardContent className="flex-grow space-y-3 sm:space-y-4 p-0">
-        <P className="leading-relaxed text-sm sm:text-base line-clamp-2 sm:line-clamp-3">
+      <CardContent className="flex-grow space-y-3 md:space-y-4 p-0">
+        <P className="leading-relaxed text-sm md:text-base line-clamp-2 md:line-clamp-3">
           {post.excerpt}
         </P>
 
@@ -93,7 +93,7 @@ export const BlogCard = memo(({ post }: BlogCardProps) => {
             {post.tags.map((tag) => (
               <Badge
                 key={tag}
-                className="transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-foreground hover:bg-muted/60 badge-hover"
+                className="transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-accent hover:bg-accent/10 hover:text-accent badge-hover"
               >
                 {tag}
               </Badge>
@@ -106,7 +106,7 @@ export const BlogCard = memo(({ post }: BlogCardProps) => {
       <CardFooter className="p-0">
         <Link
           href={`/${language}/blog/${post.slug}`}
-          className="group/link link-underline inline-flex items-center gap-1 sm:gap-2 text-xs sm:text-sm font-medium text-muted-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:text-foreground"
+          className="group/link link-underline inline-flex items-center gap-1 md:gap-2 text-xs md:text-sm font-medium text-muted-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:text-foreground"
         >
           {t.blog.readMore}
           <ArrowRight

@@ -1,6 +1,11 @@
 import Link from "next/link";
 import { memo } from "react";
-import { Badge, Button, H1, P } from "@/components/ui";
+import { Section } from "@/components/common/Section";
+import { CodeBlockTechStack } from "@/components/home/CodeBlockTechStack";
+import { CodeQualityBadge } from "@/components/home/CodeQualityBadge";
+import { SyntaxHighlightedH1 } from "@/components/home/SyntaxHighlightedH1";
+import { TypeAnnotatedGreeting } from "@/components/home/TypeAnnotatedGreeting";
+import { Button, P } from "@/components/ui";
 import { ArrowRight } from "@/components/ui/icons";
 
 interface HeroProps {
@@ -11,53 +16,30 @@ interface HeroProps {
   ctaSecondary: string;
   primaryHref: string;
   secondaryHref: string;
-  techStack: string[];
+  techStack: readonly string[];
 }
-
-/**
- * TechBadge component
- *
- * Memoized to prevent re-renders when techStack array changes reference
- * (Vercel: rerender-memo - Extract expensive work into memoized components)
- *
- * Refactored to use shadcn/ui Badge component with custom animation styles
- */
-interface TechBadgeProps {
-  tech: string;
-  index: number;
-}
-
-const TechBadge = memo(({ tech, index }: TechBadgeProps) => (
-  <Badge
-    className="transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-foreground hover:bg-muted/60"
-    style={{ animationDelay: `${index * 50}ms` }}
-  >
-    {tech}
-  </Badge>
-));
-
-TechBadge.displayName = "TechBadge";
 
 /**
  * Hero section component
  *
- * Fully memoized with proper prop typing to prevent unnecessary re-renders
- * when parent component updates (Vercel: rerender-memo)
+ * Two-column layout with code-editor style:
+ * - Left: Type-annotated greeting, syntax-highlighted title, description, CTAs, quality badge
+ * - Right: Code block with tech stack imports and line numbers
  *
  * Design principles (AGENTS.md):
  * - 4px grid: all spacing follows base grid
  * - Symmetrical padding: consistent padding throughout
  * - Typography hierarchy: proper sizing and spacing
  * - Animation: 150-250ms with cubic-bezier easing
- * - Mobile-first: optimized for small screens
- * - Consistent spacing: matches Section component padding EXACTLY
+ * - Mobile-first: single column on mobile, two columns on desktop
+ * - Code-editor personality: monospace, syntax highlighting, line numbers
  *
  * Best practices applied:
  * - Memoized to prevent re-renders when props don't change
- * - Child components (TechBadge) are memoized separately
+ * - Child components are memoized separately
  * - displayName for DevTools debugging
  * - Proper TypeScript interfaces for all props
- * - Uses shadcn/ui components: H1, P, Badge, Button
+ * - Uses shadcn/ui components: Button, P
  */
 export const Hero = memo(
   ({
@@ -70,47 +52,62 @@ export const Hero = memo(
     secondaryHref,
     techStack,
   }: HeroProps) => {
+    const keywords = [
+      "Backend",
+      "DevOps",
+      "Engineer",
+      "Infrastructure",
+      "API",
+      "System",
+    ];
+
     return (
-      <section className="py-12 sm:py-16 md:py-20 lg:py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          {/* Greeting */}
-          <div className="mb-4 font-mono text-sm text-muted-foreground animate-in-up">
-            {greeting}
+      <Section>
+        <div className="grid gap-8 md:grid-cols-2 lg:gap-12">
+          {/* Left Column: Main Content */}
+          <div className="flex flex-col justify-center">
+            {/* Type-Annotated Greeting */}
+            <TypeAnnotatedGreeting greeting={greeting} />
+
+            {/* Syntax-Highlighted Title */}
+            <SyntaxHighlightedH1 title={title} keywords={keywords} />
+
+            {/* Description */}
+            <P className="mb-8 max-w-2xl animate-in-up animate-delay-150">
+              {description}
+            </P>
+
+            {/* CTAs */}
+            <div className="mb-4 flex flex-col gap-3 sm:mb-6 sm:flex-row sm:gap-4 sm:items-center animate-in-up animate-delay-200">
+              <Button asChild size="lg">
+                <Link href={primaryHref} className="group">
+                  {ctaPrimary}
+                  <ArrowRight
+                    className="ml-2 h-3.5 w-3.5 transition-transform duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:translate-x-0.5 sm:h-4 sm:w-4"
+                    aria-hidden="true"
+                  />
+                </Link>
+              </Button>
+
+              <Button asChild variant="outline" size="lg">
+                <Link href={secondaryHref}>{ctaSecondary}</Link>
+              </Button>
+            </div>
+
+            {/* Code Quality Badge */}
+            <CodeQualityBadge
+              label="TypeScript"
+              percentage={100}
+              status="success"
+            />
           </div>
 
-          {/* Main Title */}
-          <H1 className="mb-6 animate-in-up animate-delay-100">{title}</H1>
-
-          {/* Subtitle/Description */}
-          <P className="mb-8 max-w-2xl sm:mb-10 animate-in-up animate-delay-150">
-            {description}
-          </P>
-
-          {/* CTAs */}
-          <div className="mb-8 flex flex-col gap-3 sm:mb-10 sm:flex-row sm:gap-4 sm:items-center animate-in-up animate-delay-200">
-            <Button asChild size="lg">
-              <Link href={primaryHref} className="group">
-                {ctaPrimary}
-                <ArrowRight
-                  className="ml-2 h-3.5 w-3.5 transition-transform duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:translate-x-0.5 sm:h-4 sm:w-4"
-                  aria-hidden="true"
-                />
-              </Link>
-            </Button>
-
-            <Button asChild variant="outline" size="lg">
-              <Link href={secondaryHref}>{ctaSecondary}</Link>
-            </Button>
-          </div>
-
-          {/* Tech Stack Badge */}
-          <div className="flex flex-wrap gap-2 animate-in-up animate-delay-250">
-            {techStack.map((tech, index) => (
-              <TechBadge key={tech} tech={tech} index={index} />
-            ))}
+          {/* Right Column: Code Block */}
+          <div className="flex items-start">
+            <CodeBlockTechStack techStack={techStack} />
           </div>
         </div>
-      </section>
+      </Section>
     );
   },
 );

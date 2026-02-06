@@ -1,3 +1,4 @@
+import { Section } from "@/components/common/Section";
 import { SectionHeader } from "@/components/common/SectionHeader";
 import { projectsEn } from "@/lib/content/projects.en";
 import { projectsPt } from "@/lib/content/projects.pt";
@@ -30,8 +31,8 @@ export default async function ProjectsPage({ params }: ProjectsPageProps) {
   const projects = getProjects(lang);
 
   return (
-    <section className="py-12 sm:py-16 lg:py-24">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen">
+      <Section>
         <SectionHeader
           badge={t.badge}
           badgeVariant="projects"
@@ -43,7 +44,7 @@ export default async function ProjectsPage({ params }: ProjectsPageProps) {
           projects={projects}
           emptyStateLabel={t.filters.noResults}
         />
-      </div>
-    </section>
+      </Section>
+    </div>
   );
 }

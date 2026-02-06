@@ -37,7 +37,7 @@ export const CodeBlockTechStack = memo(
     return (
       <div className="code-block animate-in-left animate-delay-500">
         <div className="rounded-lg border border-border bg-muted/40 p-4 sm:p-6">
-          <div className="flex">
+          <div className="flex leading-[1.6]">
             {/* Line Numbers Column */}
             <div className="mr-4 select-none tabular-nums hidden sm:block">
               {Array.from({ length: totalLines }, (_, i) => {
@@ -46,7 +46,6 @@ export const CodeBlockTechStack = memo(
                   <div
                     key={`line-number-${lineNumber}`}
                     className="line-number text-xs sm:text-sm"
-                    style={{ lineHeight: "1.6" }}
                   >
                     {lineNumber}
                   </div>
@@ -58,7 +57,7 @@ export const CodeBlockTechStack = memo(
             <div className="flex-1">
               {/* Import statement line */}
               <div
-                className="code-line mb-2 text-xs sm:text-sm"
+                className="code-line text-xs sm:text-sm"
                 style={{ animationDelay: "500ms" }}
               >
                 <span className="text-muted-foreground">import</span>
@@ -80,7 +79,7 @@ export const CodeBlockTechStack = memo(
 
               {/* Closing brace with from statement */}
               <div
-                className="code-line mt-2 text-xs sm:text-sm"
+                className="code-line text-xs sm:text-sm"
                 style={{ animationDelay: `${550 + techStack.length * 50}ms` }}
               >
                 <span className="syntax-punctuation">{`} `}</span>

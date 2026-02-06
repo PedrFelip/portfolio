@@ -63,9 +63,9 @@ export const Hero = memo(
 
     return (
       <Section>
-        <div className="grid gap-8 md:grid-cols-2 lg:gap-12">
+        <div className="grid gap-8 md:grid-cols-2 lg:gap-12 items-center">
           {/* Left Column: Main Content */}
-          <div className="flex flex-col justify-center">
+          <div className="flex flex-col">
             {/* Type-Annotated Greeting */}
             <TypeAnnotatedGreeting greeting={greeting} />
 
@@ -103,7 +103,7 @@ export const Hero = memo(
           </div>
 
           {/* Right Column: Code Block */}
-          <div className="flex items-start">
+          <div className="flex items-center justify-center">
             <CodeBlockTechStack techStack={techStack} />
           </div>
         </div>

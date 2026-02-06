@@ -27,8 +27,7 @@ export const TypeAnnotatedGreeting = memo(
       <div className="mb-8 sm:mb-12 animate-in-up code-block">
         <div className="inline-flex flex-wrap items-baseline gap-2 text-sm sm:text-base">
           <span className="text-muted-foreground">const</span>
-          <span className="syntax-keyword">greeting</span>
-          <span className="syntax-punctuation">:</span>
+          <span className="syntax-keyword">greeting:</span>
           <span className="syntax-type">string</span>
           <span className="syntax-punctuation">=</span>
           <span className="syntax-string">"{greeting}"</span>

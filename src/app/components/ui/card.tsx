@@ -7,7 +7,7 @@ function Card({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="card"
       className={cn(
-        "bg-card text-card-foreground flex flex-col rounded-md border border-border p-3 sm:p-4 md:p-6 transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-foreground",
+        "bg-card text-card-foreground flex flex-col rounded-md border border-border p-3 sm:p-4 md:p-6 transition-[border-color,transform,box-shadow] duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-foreground touch-manipulation",
         className,
       )}
       {...props}
@@ -73,7 +73,7 @@ function CardFooter({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="card-footer"
       className={cn(
-        "mt-auto flex flex-wrap items-center gap-2 pt-2 sm:pt-3",
+        "mt-auto flex flex-wrap items-center gap-3 pt-2 sm:pt-3",
         className,
       )}
       {...props}

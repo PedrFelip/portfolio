@@ -30,13 +30,13 @@ const NavLinkItem = memo(
     variant = "desktop",
   }: NavLinkItemProps) => {
     const baseClasses =
-      "font-mono text-xs font-medium transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] motion-reduce:transition-none";
+      "font-mono text-xs font-medium transition-[color,background-color,opacity] duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] motion-reduce:transition-none touch-manipulation";
 
     const variantClasses = {
       desktop:
-        "relative focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset focus-visible:ring-offset-2",
+        "relative focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset focus-visible:ring-offset-2 active:opacity-80",
       mobile:
-        "min-h-[44px] px-4 py-3 relative focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+        "min-h-[44px] px-4 py-3 relative focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 active:opacity-80 active:bg-muted/80",
     };
 
     const stateClasses = isActive
@@ -111,7 +111,7 @@ export const Navigation = memo(() => {
         <div className="flex h-16 items-center justify-between md:h-20">
           <Link
             href={getLocalizedLink("/")}
-            className="font-mono text-sm font-semibold tracking-tight text-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            className="font-mono text-sm font-semibold tracking-tight text-foreground transition-[color,opacity] duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:text-accent active:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background touch-manipulation"
           >
             Pedro Felipe
           </Link>
@@ -144,7 +144,7 @@ export const Navigation = memo(() => {
 
             <Button
               variant="ghost"
-              className="md:hidden min-h-[44px] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              className="md:hidden min-h-[44px] active:scale-95 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               onClick={toggleMenu}
               aria-label={t.nav.toggleMenu}
               aria-expanded={isMenuOpen}
@@ -167,7 +167,7 @@ export const Navigation = memo(() => {
         {/* Mobile Navigation */}
         {isMenuOpen ? (
           <div className="border-t border-border md:hidden animate-in-down">
-            <div className="flex flex-col py-4">
+            <div className="flex flex-col py-4 gap-1">
               {navLinks.map((link) => (
                 <NavLinkItem
                   key={link.href}

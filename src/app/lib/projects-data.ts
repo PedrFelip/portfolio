@@ -31,7 +31,7 @@ export const getProjects = cache((language: "en" | "pt"): Project[] => {
       links: {
         github: "https://github.com/PedrFelip/oportune",
       },
-      dates: language === "pt" ? "2024 - Presente" : "2024 - Present",
+      dates: language === "pt" ? "Ago 2025 - Dez 2025" : "Aug 2025 - Dec 2025",
       active: true,
       featured: true,
     },

@@ -23,7 +23,7 @@ const FooterLink = memo(
       href={href}
       target={external ? "_blank" : undefined}
       rel={external ? "noopener noreferrer" : undefined}
-      className="text-sm text-muted-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:text-foreground"
+      className="text-sm text-muted-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
     >
       {children}
     </Link>
@@ -55,7 +55,7 @@ const SocialLink = memo(({ href, label, icon, platform }: SocialLinkProps) => (
     target="_blank"
     rel="noopener noreferrer"
     aria-label={label}
-    className={`flex items-center justify-center rounded border border-border bg-background p-2 text-muted-foreground transition-colors duration-200 ease-[cubic-bezier(0.25,1,0.5,1)] ${socialColorMap[platform]}`}
+    className={`flex items-center justify-center rounded border border-border bg-background p-2 text-muted-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] ${socialColorMap[platform]} focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background`}
   >
     {icon}
   </a>
@@ -92,7 +92,7 @@ export const Footer = memo(() => {
       { href: "/projects", label: t.nav.projects },
       { href: "/blog", label: t.nav.blog },
     ],
-    [t.nav.home, t.nav.about, t.nav.projects, t.nav.blog],
+    [t.nav],
   );
 
   // Memoize socialLinks array - static links don't depend on props/state
@@ -137,7 +137,7 @@ export const Footer = memo(() => {
           <div className="sm:col-span-2 lg:col-span-1">
             <Link
               href={getLocalizedLink("/")}
-              className="font-mono text-sm font-semibold tracking-tight text-foreground transition-colors duration-150 hover:text-accent"
+              className="font-mono text-sm font-semibold tracking-tight text-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
               Pedro Felipe
             </Link>

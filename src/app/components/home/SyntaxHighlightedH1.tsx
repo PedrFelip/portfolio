@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useMemo } from "react";
 
 interface SyntaxHighlightedH1Props {
   title: string;
@@ -23,18 +23,24 @@ interface SyntaxHighlightedH1Props {
  * - Memoized to prevent re-renders
  * - Case-insensitive keyword matching
  * - Clean visual hierarchy
+ * - Vercel: js-hoist-regexp - regex memoized with keywords to avoid recreation
  */
 export const SyntaxHighlightedH1 = memo(
   ({ title, keywords }: SyntaxHighlightedH1Props) => {
-    const highlightKeywords = (text: string, keys: string[]) => {
-      if (keys.length === 0) return text;
+    const keywordRegex = useMemo(() => {
+      return keywords.length > 0
+        ? new RegExp(`(${keywords.join("|")})`, "gi")
+        : null;
+    }, [keywords]);
 
-      const regex = new RegExp(`(${keys.join("|")})`, "gi");
-      const parts = text.split(regex);
+    const highlightKeywords = (text: string) => {
+      if (!keywordRegex) return text;
+
+      const parts = text.split(keywordRegex);
 
       let keywordCount = 0;
       return parts.map((part) => {
-        if (keys.some((key) => key.toLowerCase() === part.toLowerCase())) {
+        if (keywords.some((key) => key.toLowerCase() === part.toLowerCase())) {
           keywordCount += 1;
           return (
             <span key={`keyword-${keywordCount}`} className="syntax-keyword">
@@ -49,7 +55,7 @@ export const SyntaxHighlightedH1 = memo(
 
     return (
       <h1 className="mb-4 text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight animate-in-up animate-delay-100">
-        {highlightKeywords(title, keywords)}
+        {highlightKeywords(title)}
       </h1>
     );
   },

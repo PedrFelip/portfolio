@@ -32,7 +32,7 @@ export default async function ProjectsPage({ params }: ProjectsPageProps) {
 
   return (
     <div className="min-h-screen">
-      <Section>
+      <Section variant="muted">
         <SectionHeader
           badge={t.badge}
           badgeVariant="projects"

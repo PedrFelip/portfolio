@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { memo, useCallback, useMemo, useState, useTransition } from "react";
+import { Button } from "@/components/ui";
 import { Menu, X } from "@/components/ui/icons";
 import { useLanguage } from "@/lib/LanguageContext";
 import { useLocalizedLink } from "@/lib/useLocalizedLink";
@@ -12,25 +13,57 @@ interface NavLink {
   label: string;
 }
 
-/**
- * Navigation component
- *
- * Design principles (AGENTS.md):
- * - 4px grid: consistent spacing throughout
- * - Symmetrical padding: matching padding on all sides
- * - Borders-only approach: subtle borders, no heavy shadows
- * - Typography: monospace for navigation items
- * - Animation: 150-250ms with cubic-bezier easing
- * - Mobile-first: optimized hamburger menu for small screens
- *
- * Vercel best practices applied:
- * - Memoization to avoid unnecessary re-renders (rerender-memo)
- * - useMemo to avoid recreating navLinks array each render (rerender-hoist-jsx)
- * - useCallback for handlers passed to children (rerender-dependencies)
- * - Derived state subscriptions for isActive (rerender-derived-state)
- * - Lazy state init for expensive values (rerender-lazy-state-init)
- * - Hoist static JSX patterns (rendering-hoist-jsx)
- */
+interface NavLinkItemProps {
+  label: string;
+  isActive: boolean;
+  localizedHref: string;
+  onClick?: () => void;
+  variant?: "desktop" | "mobile";
+}
+
+const NavLinkItem = memo(
+  ({
+    label,
+    isActive,
+    localizedHref,
+    onClick,
+    variant = "desktop",
+  }: NavLinkItemProps) => {
+    const baseClasses =
+      "font-mono text-xs font-medium transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] motion-reduce:transition-none";
+
+    const variantClasses = {
+      desktop:
+        "relative focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset focus-visible:ring-offset-2",
+      mobile:
+        "min-h-[44px] px-4 py-3 relative focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+    };
+
+    const stateClasses = isActive
+      ? "text-foreground bg-muted/60"
+      : "text-muted-foreground hover:text-foreground hover:bg-muted/60";
+
+    const indicatorClasses = `absolute h-0.5 bg-accent ${
+      variant === "desktop"
+        ? "left-0 right-0 -bottom-2 sm:-bottom-4"
+        : "bottom-3 left-4 right-4"
+    }`;
+
+    return (
+      <Link
+        href={localizedHref}
+        onClick={onClick}
+        className={`${baseClasses} ${variantClasses[variant]} ${stateClasses}`}
+        aria-current={isActive ? "page" : undefined}
+      >
+        {label}
+        {isActive && <span className={indicatorClasses} />}
+      </Link>
+    );
+  },
+);
+NavLinkItem.displayName = "NavLinkItem";
+
 export const Navigation = memo(() => {
   const pathname = usePathname();
   const { language, setLanguage, t } = useLanguage();
@@ -45,7 +78,7 @@ export const Navigation = memo(() => {
       { href: "/projects", label: t.nav.projects },
       { href: "/blog", label: t.nav.blog },
     ],
-    [t.nav.home, t.nav.about, t.nav.projects, t.nav.blog],
+    [t.nav],
   );
 
   const isActive = useCallback(
@@ -73,54 +106,46 @@ export const Navigation = memo(() => {
   }, []);
 
   return (
-    <nav className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/95">
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-foreground/10 to-transparent" />
+    <nav className="sticky top-0 z-50 border-b border-border/50 bg-background">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between md:h-18">
+        <div className="flex h-16 items-center justify-between md:h-20">
           <Link
             href={getLocalizedLink("/")}
-            className="font-mono text-sm font-semibold tracking-tight text-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:text-accent"
+            className="font-mono text-sm font-semibold tracking-tight text-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           >
             Pedro Felipe
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden items-center gap-8 md:flex">
+          <div className="hidden items-center gap-6 md:flex">
             {navLinks.map((link) => (
-              <Link
+              <NavLinkItem
                 key={link.href}
-                href={getLocalizedLink(link.href)}
-                className={`relative font-mono text-xs font-medium transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] motion-reduce:transition-none ${
-                  isActive(link.href)
-                    ? "text-foreground"
-                    : "text-muted-foreground hover:text-foreground"
-                }`}
-                aria-current={isActive(link.href) ? "page" : undefined}
-              >
-                {link.label}
-                {isActive(link.href) ? (
-                  <span className="absolute -bottom-20 left-0 right-0 h-0.5 bg-accent sm:-bottom-24" />
-                ) : null}
-              </Link>
+                label={link.label}
+                isActive={isActive(link.href)}
+                localizedHref={getLocalizedLink(link.href)}
+                variant="desktop"
+              />
             ))}
           </div>
 
           {/* Language Toggle & Mobile Menu Button */}
-          <div className="flex items-center gap-3">
-            <button
-              type="button"
+          <div className="flex items-center gap-4">
+            <Button
+              variant="nav"
               onClick={toggleLanguage}
               disabled={isPending}
-              className="inline-flex min-h-[44px] items-center gap-2 rounded border border-border bg-background px-3 py-2 font-mono text-xs font-medium text-muted-foreground transition-[border-color,background-color,color,transform,opacity] duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-foreground/50 hover:text-foreground hover:bg-muted/60 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed motion-reduce:transition-none"
-              aria-label={t.nav.language}
+              aria-label={`Switch language to ${
+                language === "en" ? "Portuguese" : "English"
+              }`}
             >
               <span>{language === "en" ? "EN" : "PT"}</span>
-            </button>
+            </Button>
 
-            <button
-              type="button"
+            <Button
+              variant="ghost"
+              className="md:hidden min-h-[44px] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               onClick={toggleMenu}
-              className="inline-flex md:hidden min-h-[44px] items-center rounded border border-border bg-background p-2 text-muted-foreground transition-[border-color,background-color,color,transform] duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-foreground/50 hover:text-foreground hover:bg-muted/60 active:scale-95 motion-reduce:transition-none"
               aria-label={t.nav.toggleMenu}
               aria-expanded={isMenuOpen}
             >
@@ -130,9 +155,12 @@ export const Navigation = memo(() => {
                   aria-hidden="true"
                 />
               ) : (
-                <Menu className="h-5 w-5" aria-hidden="true" />
+                <Menu
+                  className="h-5 w-5 transition-transform duration-150 ease-[cubic-bezier(0.25,1,0.5,1)]"
+                  aria-hidden="true"
+                />
               )}
-            </button>
+            </Button>
           </div>
         </div>
 
@@ -141,19 +169,14 @@ export const Navigation = memo(() => {
           <div className="border-t border-border md:hidden animate-in-down">
             <div className="flex flex-col py-4">
               {navLinks.map((link) => (
-                <Link
+                <NavLinkItem
                   key={link.href}
-                  href={getLocalizedLink(link.href)}
+                  label={link.label}
+                  isActive={isActive(link.href)}
+                  localizedHref={getLocalizedLink(link.href)}
                   onClick={closeMenu}
-                  className={`min-h-[44px] px-4 py-3 font-mono text-xs font-medium transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] ${
-                    isActive(link.href)
-                      ? "text-foreground bg-muted/60 border-l-2 border-accent"
-                      : "text-muted-foreground hover:text-foreground hover:bg-muted/60"
-                  }`}
-                  aria-current={isActive(link.href) ? "page" : undefined}
-                >
-                  {link.label}
-                </Link>
+                  variant="mobile"
+                />
               ))}
             </div>
           </div>

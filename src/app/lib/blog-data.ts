@@ -197,8 +197,9 @@ export function getPaginatedPosts(page = 1): {
  * Get posts by tag
  */
 export function getPostsByTag(tag: string): BlogMetadata[] {
+  const normalizedTag = tag.toLowerCase();
   return getAllPosts().filter((post) =>
-    post.tags.map((t) => t.toLowerCase()).includes(tag.toLowerCase()),
+    post.tags.some((t) => t.toLowerCase() === normalizedTag),
   );
 }
 

@@ -1,7 +1,14 @@
+import { cache } from "react";
 import type { Project } from "@/types/portfolio";
-import { projectsContent } from "./content/projects-content";
+import { projectsEn } from "./content/projects.en";
+import { projectsPt } from "./content/projects.pt";
 
-export const getProjects = (language: "en" | "pt"): Project[] => {
+const projectsContent = {
+  en: projectsEn,
+  pt: projectsPt,
+};
+
+export const getProjects = cache((language: "en" | "pt"): Project[] => {
   const t = projectsContent[language].projects;
 
   return [
@@ -98,11 +105,11 @@ export const getProjects = (language: "en" | "pt"): Project[] => {
       featured: false,
     },
   ];
-};
+});
 
-export const getFeaturedProjects = (language: "en" | "pt"): Project[] => {
+export const getFeaturedProjects = cache((language: "en" | "pt"): Project[] => {
   return getProjects(language).filter((p) => p.featured);
-};
+});
 
 // Legacy exports for backward compatibility
 export const projects = getProjects("en");

@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { translations } from "./i18n";
 
 export interface SkillGroup {
@@ -5,7 +6,7 @@ export interface SkillGroup {
   items: string[];
 }
 
-export const getSkills = (language: "en" | "pt"): SkillGroup[] => {
+export const getSkills = cache((language: "en" | "pt"): SkillGroup[] => {
   const t = translations[language];
   return [
     {
@@ -25,9 +26,9 @@ export const getSkills = (language: "en" | "pt"): SkillGroup[] => {
       items: ["Git", "REST APIs", "System Design"],
     },
   ];
-};
+});
 
 // Alias for consistency with home-data usage
-export const getHomeSkills = (language: "en" | "pt"): SkillGroup[] => {
+export const getHomeSkills = cache((language: "en" | "pt"): SkillGroup[] => {
   return getSkills(language);
-};
+});

@@ -1,10 +1,17 @@
-import { aboutContent } from "./content/about-content";
-import { blogContent } from "./content/blog-content";
-import { homeContent } from "./content/home-content";
-import { linksContent } from "./content/links-content";
-import { notFoundContent } from "./content/not-found-content";
-import { projectsContent } from "./content/projects-content";
-import { sharedContent } from "./content/shared-content";
+import { aboutEn } from "./content/about.en";
+import { aboutPt } from "./content/about.pt";
+import { blogEn } from "./content/blog.en";
+import { blogPt } from "./content/blog.pt";
+import { homeEn } from "./content/home.en";
+import { homePt } from "./content/home.pt";
+import { linksEn } from "./content/links.en";
+import { linksPt } from "./content/links.pt";
+import { notFoundEn } from "./content/not-found.en";
+import { notFoundPt } from "./content/not-found.pt";
+import { projectsEn } from "./content/projects.en";
+import { projectsPt } from "./content/projects.pt";
+import { sharedEn } from "./content/shared.en";
+import { sharedPt } from "./content/shared.pt";
 
 export type Language = "en" | "pt";
 
@@ -17,28 +24,22 @@ export const DEFAULT_LANGUAGE: Language = "en";
 
 export const translations = {
   en: {
-    // Shared UI (navigation, footer, header, common buttons)
-    ...sharedContent.en,
-
-    // Page-specific content
-    ...homeContent.en,
-    ...aboutContent.en,
-    ...blogContent.en,
-    ...linksContent.en,
-    ...notFoundContent.en,
-    ...projectsContent.en,
+    ...sharedEn,
+    ...homeEn,
+    ...aboutEn,
+    ...blogEn,
+    ...linksEn,
+    ...notFoundEn,
+    ...projectsEn,
   },
   pt: {
-    // Shared UI (navigation, footer, header, common buttons)
-    ...sharedContent.pt,
-
-    // Page-specific content
-    ...homeContent.pt,
-    ...aboutContent.pt,
-    ...blogContent.pt,
-    ...linksContent.pt,
-    ...notFoundContent.pt,
-    ...projectsContent.pt,
+    ...sharedPt,
+    ...homePt,
+    ...aboutPt,
+    ...blogPt,
+    ...linksPt,
+    ...notFoundPt,
+    ...projectsPt,
   },
 };
 

@@ -4,7 +4,7 @@ import { WorkExperienceCard } from "@/components/about/WorkExperienceCard";
 import { Section } from "@/components/common/Section";
 import { SectionHeader } from "@/components/common/SectionHeader";
 import { SkillsSection } from "@/components/home/SkillsSection";
-import { H1, Label, P } from "@/components/ui";
+import { P } from "@/components/ui";
 import {
   getContactLinks,
   getEducation,
@@ -54,10 +54,12 @@ export default async function AboutPage({ params }: AboutPageProps) {
 
   return (
     <div className="min-h-screen">
-      {/* Hero-like Header Section */}
       <Section>
-        <Label className="mb-4 uppercase">{t.about.badge}</Label>
-        <H1 className="mb-4">{t.about.title}</H1>
+        <SectionHeader
+          badge={t.about.badge}
+          badgeVariant="about"
+          title={t.about.title}
+        />
         <P className="max-w-2xl text-muted-foreground">
           {parseBoldMarkdown(t.about.description)}
         </P>

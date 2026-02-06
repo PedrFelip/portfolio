@@ -45,12 +45,16 @@ export const SectionHeader = ({
   return (
     <div className="mb-8 sm:mb-12">
       {badge && (
-        <Badge
-          variant={badgeVariant}
-          className="mb-3 uppercase tracking-wider text-[10px] sm:text-xs font-medium"
-        >
-          {badge}
-        </Badge>
+        <div className="flex items-center gap-3 mb-3">
+          <Badge
+            variant={badgeVariant}
+            className="uppercase tracking-wider text-[10px] sm:text-xs font-semibold"
+          >
+            <span className="w-1.5 h-1.5 rounded-full bg-current animate-pulse-subtle" />
+            {badge}
+          </Badge>
+          <div className="flex-1 h-[1px] bg-gradient-to-r from-border to-transparent" />
+        </div>
       )}
       <H2 className="mb-4">{title}</H2>
       {description && <P className="max-w-2xl mb-4">{description}</P>}

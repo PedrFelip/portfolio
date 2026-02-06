@@ -88,9 +88,10 @@ export const TableOfContents = memo(({ headings }: TableOfContentsProps) => {
     const triggerOffset = scrollY + HEADER_HEIGHT;
 
     let activeHeadingId = headings[0].id;
+    const positions = headingPositionsRef.current;
 
     for (const heading of headings) {
-      const position = headingPositionsRef.current.get(heading.id);
+      const position = positions.get(heading.id);
       if (position === undefined) continue;
 
       if (position <= triggerOffset) {

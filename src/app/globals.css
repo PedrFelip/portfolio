@@ -100,6 +100,23 @@ html {
   --callout-error-bg: oklch(0.704 0.191 22.216 / 10%);
   --callout-error-border: oklch(0.704 0.191 22.216 / 30%);
   --callout-error-text: oklch(0.704 0.191 22.216);
+  /* Brand Colors */
+  --brand-github: oklch(0.65 0.24 280);
+  --brand-linkedin: oklch(0.55 0.2 240);
+  --brand-twitter: oklch(0.6 0 0);
+  --brand-email: oklch(0.6 0.2 25);
+  --brand-blue: oklch(0.6 0.18 240);
+  --brand-emerald: oklch(0.6 0.2 150);
+  --brand-violet: oklch(0.65 0.24 280);
+  --brand-amber: oklch(0.7 0.18 70);
+  --brand-cyan: oklch(0.65 0.15 220);
+  --brand-slate: oklch(0.6 0 0);
+  /* Status Colors */
+  --status-success: oklch(0.6 0.2 150);
+  --status-warning: oklch(0.7 0.18 70);
+  --status-error: oklch(0.6 0.2 25);
+  --status-info: oklch(0.55 0.18 240);
+  --status-neutral: oklch(0.55 0 0);
 }
 
 .dark {
@@ -148,6 +165,23 @@ html {
   --callout-error-bg: oklch(0.45 0.15 20 / 12%);
   --callout-error-border: oklch(0.65 0.18 20 / 40%);
   --callout-error-text: oklch(0.8 0.15 20);
+  /* Brand Colors (Dark Mode) */
+  --brand-github: oklch(0.7 0.24 280);
+  --brand-linkedin: oklch(0.6 0.2 240);
+  --brand-twitter: oklch(0.65 0 0);
+  --brand-email: oklch(0.65 0.2 25);
+  --brand-blue: oklch(0.65 0.18 240);
+  --brand-emerald: oklch(0.65 0.2 150);
+  --brand-violet: oklch(0.7 0.24 280);
+  --brand-amber: oklch(0.75 0.18 70);
+  --brand-cyan: oklch(0.7 0.15 220);
+  --brand-slate: oklch(0.65 0 0);
+  /* Status Colors (Dark Mode) */
+  --status-success: oklch(0.65 0.2 150);
+  --status-warning: oklch(0.75 0.18 70);
+  --status-error: oklch(0.65 0.2 25);
+  --status-info: oklch(0.6 0.18 240);
+  --status-neutral: oklch(0.6 0 0);
 }
 
 @layer base {
@@ -465,6 +499,71 @@ html {
 
   .syntax-number {
     color: #79c0ff;
+  }
+
+  /* Badge Variants */
+  .badge-work {
+    border-color: oklch(var(--brand-blue) / 0.3);
+    background-color: oklch(var(--brand-blue) / 0.1);
+    color: oklch(var(--brand-blue) / 0.9);
+  }
+  .badge-work:hover {
+    border-color: oklch(var(--brand-blue) / 0.5);
+    background-color: oklch(var(--brand-blue) / 0.15);
+  }
+  .badge-education {
+    border-color: oklch(var(--brand-emerald) / 0.3);
+    background-color: oklch(var(--brand-emerald) / 0.1);
+    color: oklch(var(--brand-emerald) / 0.9);
+  }
+  .badge-education:hover {
+    border-color: oklch(var(--brand-emerald) / 0.5);
+    background-color: oklch(var(--brand-emerald) / 0.15);
+  }
+  .badge-expertise {
+    border-color: oklch(var(--brand-violet) / 0.3);
+    background-color: oklch(var(--brand-violet) / 0.1);
+    color: oklch(var(--brand-violet) / 0.9);
+  }
+  .badge-expertise:hover {
+    border-color: oklch(var(--brand-violet) / 0.5);
+    background-color: oklch(var(--brand-violet) / 0.15);
+  }
+  .badge-projects {
+    border-color: oklch(var(--brand-amber) / 0.3);
+    background-color: oklch(var(--brand-amber) / 0.1);
+    color: oklch(var(--brand-amber) / 0.9);
+  }
+  .badge-projects:hover {
+    border-color: oklch(var(--brand-amber) / 0.5);
+    background-color: oklch(var(--brand-amber) / 0.15);
+  }
+  .badge-blog {
+    border-color: oklch(var(--accent) / 0.3);
+    background-color: oklch(var(--accent) / 0.1);
+    color: oklch(var(--accent) / 0.9);
+  }
+  .badge-blog:hover {
+    border-color: oklch(var(--accent) / 0.5);
+    background-color: oklch(var(--accent) / 0.15);
+  }
+  .badge-contact {
+    border-color: oklch(var(--brand-cyan) / 0.3);
+    background-color: oklch(var(--brand-cyan) / 0.1);
+    color: oklch(var(--brand-cyan) / 0.9);
+  }
+  .badge-contact:hover {
+    border-color: oklch(var(--brand-cyan) / 0.5);
+    background-color: oklch(var(--brand-cyan) / 0.15);
+  }
+  .badge-about {
+    border-color: oklch(var(--brand-slate) / 0.3);
+    background-color: oklch(var(--brand-slate) / 0.1);
+    color: oklch(var(--brand-slate) / 0.9);
+  }
+  .badge-about:hover {
+    border-color: oklch(var(--brand-slate) / 0.5);
+    background-color: oklch(var(--brand-slate) / 0.15);
   }
 
   /* Additional Stagger Delays */

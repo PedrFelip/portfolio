@@ -10,9 +10,15 @@ import {
   useState,
 } from "react";
 import { MonoText } from "@/components/ui/typography";
-import { blogContent } from "@/lib/content/blog-content";
+import { blogEn } from "@/lib/content/blog.en";
+import { blogPt } from "@/lib/content/blog.pt";
 import { useLanguage } from "@/lib/LanguageContext";
 import type { Heading } from "@/types/portfolio";
+
+const blogContent = {
+  en: blogEn,
+  pt: blogPt,
+};
 
 interface TableOfContentsProps {
   headings: Heading[];

@@ -17,8 +17,14 @@ import {
   Share2,
 } from "@/components/ui/icons";
 import { XIcon } from "@/components/ui/x-icon";
-import { blogContent } from "@/lib/content/blog-content";
+import { blogEn } from "@/lib/content/blog.en";
+import { blogPt } from "@/lib/content/blog.pt";
 import { useLanguage } from "@/lib/LanguageContext";
+
+const blogContent = {
+  en: blogEn,
+  pt: blogPt,
+};
 
 interface ShareButtonsProps {
   title: string;
@@ -97,6 +103,11 @@ export const ShareButtons = memo(
         });
       } catch (err) {
         console.error("Failed to copy:", err);
+        setCopied(false);
+        if (timeoutRef.current) {
+          clearTimeout(timeoutRef.current);
+          timeoutRef.current = null;
+        }
       }
     }, [url]);
 

@@ -20,6 +20,7 @@ export const projectsPt = {
         `${count} filtro${count > 1 ? "s" : ""} ativo${count > 1 ? "s" : ""}`,
       empty: "Filtrar por tecnologia",
       clear: "Limpar tudo",
+      clearButton: "Limpar todos os filtros",
       noResults: "Nenhum projeto encontrado com essas tecnologias.",
     },
 

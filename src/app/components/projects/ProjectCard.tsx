@@ -48,7 +48,7 @@ export const ProjectCard = memo(({ project }: ProjectCardProps) => {
   const remainingTechs = techCount > 6 ? techCount - 6 : 0;
 
   return (
-    <Card className="group flex h-full flex-col hover-lift-subtle">
+    <Card className="group flex h-full flex-col hover-lift-subtle touch-feedback-subtle">
       {/* Header: Title + Dates */}
       <CardHeader>
         <div className="flex flex-col gap-2 sm:gap-2 sm:flex-row sm:items-start sm:justify-between">
@@ -77,13 +77,15 @@ export const ProjectCard = memo(({ project }: ProjectCardProps) => {
           {displayedTechs.map((tech, index) => (
             <Badge
               key={tech}
-              className="transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-accent hover:bg-accent/10 hover:text-accent motion-reduce:transition-none"
+              className="transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-accent hover:bg-accent/10 hover:text-accent motion-reduce:transition-none min-h-[32px] touch-target-xs"
               style={{ transitionDelay: `${index * 30}ms` }}
             >
               {tech}
             </Badge>
           ))}
-          {remainingTechs > 0 && <Badge>+{remainingTechs}</Badge>}
+          {remainingTechs > 0 && (
+            <Badge className="min-h-[32px]">+{remainingTechs}</Badge>
+          )}
         </div>
       </CardContent>
 

@@ -97,11 +97,12 @@ export default async function AboutPage({ params }: AboutPageProps) {
           title={t.education.title}
         />
 
-        <div className="space-y-4">
-          {education.map((edu) => (
+        <div className="space-y-0">
+          {education.map((edu, index) => (
             <EducationCard
               key={`${edu.school}-${edu.degree}`}
               education={edu}
+              isLast={index === education.length - 1}
             />
           ))}
         </div>

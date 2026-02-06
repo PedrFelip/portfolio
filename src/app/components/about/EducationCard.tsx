@@ -1,61 +1,73 @@
 "use client";
 
 import { memo } from "react";
-import { H3, MonoText, P } from "@/components/ui";
-import { ExternalLink } from "@/components/ui/icons";
+import {
+  ExternalLinkAnchor,
+  TimelineCardWrapper,
+  TimelineDate,
+  TimelineItem,
+} from "@/components/common/timeline-components";
+import { H3, P } from "@/components/ui";
 import type { Education } from "@/types/portfolio";
 
 interface EducationCardProps {
   education: Education;
+  isLast?: boolean;
 }
 
 /**
- * EducationCard component
+ * EducationCard component - Timeline Item
  *
  * Design principles (AGENTS.md):
+ * - Timeline editorial layout matching blog TimelinePost
+ * - Same layout as WorkExperienceCard: school/date on same line
+ * - Vertical timeline with animated indicator dots
+ * - Rich hover interactions with border glow
  * - 4px grid: consistent spacing throughout
- * - Symmetrical padding: matching padding on all sides
- * - Borders-only approach: subtle borders, minimal depth
- * - Typography: monospace for data (dates)
- * - Animation: 150-250ms with cubic-bezier easing
+ * - Borders-only approach with accent highlights
+ * - Typography: monospace for dates, hierarchy for titles
+ * - Animation: smooth transitions
+ * - Mobile-first: responsive layout
  *
  * Best practices applied:
- * - Memoized to prevent re-renders when education prop doesn't change
+ * - Memoized to prevent re-renders
+ * - Uses shared timeline components for consistency
  * - Clean component composition
+ * - Consistent with WorkExperienceCard pattern
  */
-export const EducationCard = memo(({ education }: EducationCardProps) => {
-  return (
-    <div className="rounded-md border border-border bg-card p-4 transition-[border-color,transform] duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-foreground/60 hover:scale-[1.01] sm:p-6 motion-reduce:transition-none">
-      {/* Header */}
-      <div className="mb-3 sm:mb-4">
-        {education.href ? (
-          <a
-            href={education.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group inline-flex items-center gap-2 text-base font-semibold text-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:text-accent sm:text-lg"
-            aria-label={`${education.school} - Visit website`}
-          >
-            {education.school}
-            <ExternalLink
-              className="h-4 w-4 icon-hover-slide opacity-0 group-hover:opacity-100"
-              aria-hidden="true"
-            />
-          </a>
-        ) : (
-          <H3>{education.school}</H3>
-        )}
-      </div>
+export const EducationCard = memo(
+  ({ education, isLast = false }: EducationCardProps) => {
+    return (
+      <TimelineItem isLast={isLast}>
+        <TimelineCardWrapper>
+          {/* School + Date - same layout as WorkExperience */}
+          <div className="mb-3 flex flex-wrap items-start justify-between gap-3">
+            {/* School Header */}
+            {education.href ? (
+              <ExternalLinkAnchor
+                href={education.href}
+                size="base"
+                weight="semibold"
+                ariaLabel={`${education.school} - Visit website`}
+                className="flex-1 min-w-0"
+              >
+                {education.school}
+              </ExternalLinkAnchor>
+            ) : (
+              <H3 className="flex-1 min-w-0">{education.school}</H3>
+            )}
 
-      {/* Details */}
-      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-        <P className="text-muted-foreground">{education.degree}</P>
-        <MonoText className="whitespace-nowrap transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:text-accent">
-          {education.start} - {education.end}
-        </MonoText>
-      </div>
-    </div>
-  );
-});
+            <TimelineDate start={education.start} end={education.end} />
+          </div>
+
+          {/* Degree */}
+          <P className="transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:text-foreground/90">
+            {education.degree}
+          </P>
+        </TimelineCardWrapper>
+      </TimelineItem>
+    );
+  },
+);
 
 EducationCard.displayName = "EducationCard";

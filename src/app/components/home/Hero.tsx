@@ -9,7 +9,7 @@ import { Button, P } from "@/components/ui";
 import { ArrowRight } from "@/components/ui/icons";
 
 interface HeroProps {
-  greeting: string;
+  greetingTexts: string[];
   title: string;
   description: string;
   ctaPrimary: string;
@@ -49,7 +49,7 @@ interface HeroProps {
  */
 export const Hero = memo(
   ({
-    greeting,
+    greetingTexts,
     title,
     description,
     ctaPrimary,
@@ -65,8 +65,8 @@ export const Hero = memo(
         <div className="grid gap-8 md:grid-cols-2 lg:gap-12 items-center">
           {/* Left Column: Main Content */}
           <div className="flex flex-col">
-            {/* Type-Annotated Greeting */}
-            <TypeAnnotatedGreeting greeting={greeting} />
+            {/* Type-Annotated Greeting with Typing Animation */}
+            <TypeAnnotatedGreeting texts={greetingTexts} />
 
             {/* Syntax-Highlighted Title */}
             <SyntaxHighlightedH1 title={title} keywords={keywords} />

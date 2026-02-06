@@ -44,7 +44,7 @@ export default async function Home({ params }: HomePageProps) {
   return (
     <div className="min-h-screen">
       <Hero
-        greeting={t.hero.greeting}
+        greetingTexts={t.hero.greetingTexts}
         title={t.hero.title}
         description={t.hero.description}
         ctaPrimary={t.hero.cta}

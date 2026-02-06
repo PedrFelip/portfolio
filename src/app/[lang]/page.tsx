@@ -51,6 +51,8 @@ export default function Home() {
         primaryHref={getLocalizedLink("/projects")}
         secondaryHref={getLocalizedLink("/about")}
         techStack={HOME_TECH_STACK}
+        keywords={t.hero.keywords}
+        badge={t.hero.badge}
       />
 
       {/* Featured Projects Section */}

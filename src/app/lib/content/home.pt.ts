@@ -12,6 +12,19 @@ export const homePt = {
       "Construindo sistemas escaláveis e manteníveis focados em eficiência e confiabilidade",
     cta: "Explorar meu trabalho",
     ctaSecondary: "Ler meu CV",
+    keywords: [
+      "Backend",
+      "DevOps",
+      "Engineer",
+      "Infrastructure",
+      "API",
+      "System",
+    ],
+    badge: {
+      label: "TypeScript",
+      percentage: 100,
+      status: "success",
+    },
   },
 
   projects: {

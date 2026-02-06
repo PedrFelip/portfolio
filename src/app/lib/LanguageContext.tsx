@@ -45,13 +45,15 @@ export const LanguageProvider = ({
     // Detect language from URL
     const pathname = window.location.pathname;
     const pathParts = pathname.split("/").filter(Boolean);
-    const langFromUrl = pathParts[0];
+    const langFromUrl = pathParts[0] as Language;
 
     if (langFromUrl === "pt" || langFromUrl === "en") {
-      setLanguageState(langFromUrl);
-      localStorage.setItem(STORAGE_KEY, langFromUrl);
+      if (language !== langFromUrl) {
+        setLanguageState(langFromUrl);
+        localStorage.setItem(STORAGE_KEY, langFromUrl);
+      }
     }
-  }, [isClient]);
+  }, [isClient, language]);
 
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);

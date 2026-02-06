@@ -1,6 +1,6 @@
 "use client";
 
-import { memo, useCallback } from "react";
+import { memo, useCallback, useMemo } from "react";
 import { MonoText } from "@/components/ui";
 import { useLanguage } from "@/lib/LanguageContext";
 import { cn } from "@/lib/utils";
@@ -30,16 +30,20 @@ export const FilterTags = memo(
   ({ selectedTags, onTagChange, allTags }: FilterTagsProps) => {
     const { t } = useLanguage();
     const filterLabels = t.projects.filters;
+    const selectedTagsSet = useMemo(
+      () => new Set(selectedTags),
+      [selectedTags],
+    );
 
     const toggleTag = useCallback(
       (tag: string) => {
-        if (selectedTags.includes(tag)) {
+        if (selectedTagsSet.has(tag)) {
           onTagChange(selectedTags.filter((t) => t !== tag));
         } else {
           onTagChange([...selectedTags, tag]);
         }
       },
-      [selectedTags, onTagChange],
+      [selectedTagsSet, selectedTags, onTagChange],
     );
 
     const clearAll = useCallback(() => {
@@ -69,7 +73,7 @@ export const FilterTags = memo(
         {/* Filter Tags */}
         <div className="flex flex-wrap gap-2">
           {allTags.map((tag) => {
-            const isSelected = selectedTags.includes(tag);
+            const isSelected = selectedTagsSet.has(tag);
             return (
               <button
                 key={tag}

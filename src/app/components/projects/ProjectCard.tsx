@@ -52,7 +52,12 @@ export const ProjectCard = memo(({ project }: ProjectCardProps) => {
       {/* Header: Title + Dates */}
       <CardHeader>
         <div className="flex flex-col gap-2 sm:gap-2 sm:flex-row sm:items-start sm:justify-between">
-          <H3 className="pr-2 transition-colors duration-150 break-words">
+          <H3 className="pr-2 transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] break-words group-hover:text-accent flex items-start gap-2">
+            {project.featured && (
+              <MonoText className="text-[10px] text-[color:var(--brand-amber)] opacity-80 mt-0.5">
+                ★
+              </MonoText>
+            )}
             {project.title}
           </H3>
           {project.dates && (
@@ -69,10 +74,11 @@ export const ProjectCard = memo(({ project }: ProjectCardProps) => {
 
         {/* Technologies */}
         <div className="mt-3 flex flex-wrap gap-2 sm:mt-4">
-          {displayedTechs.map((tech) => (
+          {displayedTechs.map((tech, index) => (
             <Badge
               key={tech}
-              className="transition-[border-color,background-color] duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-foreground hover:bg-muted/60 badge-hover motion-reduce:transition-none"
+              className="transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-accent hover:bg-accent/10 hover:text-accent motion-reduce:transition-none"
+              style={{ transitionDelay: `${index * 30}ms` }}
             >
               {tech}
             </Badge>

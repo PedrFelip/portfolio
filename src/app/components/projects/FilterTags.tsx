@@ -9,6 +9,7 @@ interface FilterTagsProps {
   selectedTags: string[];
   onTagChange: (tags: string[]) => void;
   allTags: string[];
+  tagCounts: Map<string, number>;
 }
 
 /**
@@ -25,9 +26,10 @@ interface FilterTagsProps {
  * - Memoized to prevent re-renders
  * - Uses cn() for className merging (Vercel: bundle-barrel-imports)
  * - Clear active/inactive states
+ * - Vercel: rerender-dependencies - toggleTag uses only selectedTagsSet (primitive dependency)
  */
 export const FilterTags = memo(
-  ({ selectedTags, onTagChange, allTags }: FilterTagsProps) => {
+  ({ selectedTags, onTagChange, allTags, tagCounts }: FilterTagsProps) => {
     const { t } = useLanguage();
     const filterLabels = t.projects.filters;
     const selectedTagsSet = useMemo(
@@ -37,13 +39,19 @@ export const FilterTags = memo(
 
     const toggleTag = useCallback(
       (tag: string) => {
+        const newTags = Array.from(selectedTagsSet);
         if (selectedTagsSet.has(tag)) {
-          onTagChange(selectedTags.filter((t) => t !== tag));
+          const index = newTags.indexOf(tag);
+          if (index > -1) {
+            newTags.splice(index, 1);
+          }
+          onTagChange(newTags);
         } else {
-          onTagChange([...selectedTags, tag]);
+          newTags.push(tag);
+          onTagChange(newTags);
         }
       },
-      [selectedTagsSet, selectedTags, onTagChange],
+      [selectedTagsSet, onTagChange],
     );
 
     const clearAll = useCallback(() => {
@@ -74,19 +82,20 @@ export const FilterTags = memo(
         <div className="flex flex-wrap gap-2">
           {allTags.map((tag) => {
             const isSelected = selectedTagsSet.has(tag);
+            const count = tagCounts.get(tag) ?? 0;
             return (
               <button
                 key={tag}
                 type="button"
                 onClick={() => toggleTag(tag)}
                 className={cn(
-                  "rounded border px-3 sm:px-3 py-1 sm:py-2 font-mono text-xs transition-[border-color,background-color,color] duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] motion-reduce:transition-none",
+                  "rounded border px-3 py-1 sm:px-3 sm:py-2 font-mono text-xs transition-[border-color,background-color,color] duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] motion-reduce:transition-none",
                   isSelected
                     ? "border-foreground bg-foreground text-background"
                     : "border-border bg-muted text-muted-foreground hover:border-foreground hover:bg-muted/60 hover:text-foreground",
                 )}
               >
-                {tag}
+                {tag} <MonoText className="opacity-60">({count})</MonoText>
               </button>
             );
           })}

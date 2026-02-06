@@ -587,6 +587,88 @@ html {
     animation-delay: 700ms;
   }
 
+  /* Touch & Mobile Interaction Utilities
+   * AGENTS.md Design Principles:
+   * - Minimum 44x44px touch targets (Apple HIG / Material Design)
+   * - 150ms transitions for instant feedback
+   * - No spring/bouncy effects
+   * - Active states for tactile feedback
+   */
+
+  /* Touch Target Sizing - Ensure Minimum Hit Areas */
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  .touch-target-sm {
+    min-height: 40px;
+    min-width: 40px;
+  }
+
+  .touch-target-xs {
+    min-height: 36px;
+    min-width: 36px;
+  }
+
+  /* Touch Feedback - Active State Animations */
+  .touch-feedback {
+    transition:
+      transform 150ms cubic-bezier(0.25, 1, 0.5, 1),
+      opacity 150ms cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .touch-feedback:active {
+    transform: scale(0.97);
+    opacity: 0.8;
+  }
+
+  .touch-feedback-subtle {
+    transition:
+      transform 150ms cubic-bezier(0.25, 1, 0.5, 1),
+      opacity 150ms cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .touch-feedback-subtle:active {
+    transform: scale(0.99);
+    opacity: 0.9;
+  }
+
+  .touch-feedback-scale {
+    transition: transform 150ms cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .touch-feedback-scale:active {
+    transform: scale(0.95);
+  }
+
+  /* Touch Action - Prevent Double-Tap Zoom */
+  .touch-manipulation {
+    touch-action: manipulation;
+  }
+
+  .touch-pan-x {
+    touch-action: pan-x;
+  }
+
+  .touch-pan-y {
+    touch-action: pan-y;
+  }
+
+  /* Tap Highlight Control - Remove Native Highlight */
+  *,
+  *::before,
+  *::after {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Touch-Optimized Spacing - Increase tap area spacing on mobile */
+  @media (max-width: 640px) {
+    .touch-spacing {
+      gap: 12px; /* 3 * 4px grid */
+    }
+  }
+
   /* Keyframe Animations */
   @keyframes float-idle {
     0%,

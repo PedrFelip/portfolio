@@ -8,12 +8,14 @@ interface BulletListProps {
 }
 
 /**
- * BulletList component - Generic list with animated bullet points
+ * BulletList component - Generic list with arrow markers
  *
  * Design principles (AGENTS.md):
  * - 4px grid: consistent spacing throughout
- * - Bullet points with hover effects
- * - Animation: 150-200ms with cubic-bezier(0.25, 1, 0.5, 1) easing
+ * - Arrow markers (→) instead of dots (terminal style)
+ * - Monospace font for markers
+ * - Animation: 150ms with cubic-bezier(0.25, 1, 0.5, 1) easing
+ * - No scale transformations on hover
  * - Mobile-first: optimized for small screens
  *
  * Best practices applied:
@@ -35,7 +37,9 @@ export const BulletList = memo(
             key={typeof item === "string" ? item : index}
             className={cn("flex items-start gap-2.5 group/item", itemClassName)}
           >
-            <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-border transition-all duration-200 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover/item:bg-accent group-hover/item:scale-125" />
+            <span className="mt-0.5 flex-shrink-0 font-mono text-xs text-muted-foreground/60 transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover/item:text-accent">
+              →
+            </span>
             <span className="flex-1 transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover/item:text-foreground">
               {typeof item === "string" && item.trim() && !item.endsWith(".")
                 ? `${item}.`

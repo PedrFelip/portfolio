@@ -59,13 +59,13 @@ export const TimelinePost = memo(
           {/* Date Row */}
           <div className="mb-2 md:mb-3 flex items-center gap-2 md:gap-3">
             <Calendar className="h-3 w-3 md:h-3.5 md:w-3.5 text-muted-foreground transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:text-accent group-hover:scale-110" />
-            <MonoText className="text-[10px] md:text-xs text-muted-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:text-accent">
+            <MonoText className="text-xs md:text-xs text-muted-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:text-accent">
               <time dateTime={post.date}>{formattedDate}</time>
             </MonoText>
             {post.readingTime && (
               <>
                 <span className="text-muted-foreground/60">•</span>
-                <MonoText className="text-[10px] md:text-xs text-muted-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:text-accent">
+                <MonoText className="text-xs md:text-xs text-muted-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:text-accent">
                   {post.readingTime} {t.blog.readingTime}
                 </MonoText>
               </>
@@ -90,7 +90,7 @@ export const TimelinePost = memo(
               {post.tags.slice(0, 3).map((tag, index) => (
                 <Badge
                   key={tag}
-                  className="text-[10px] md:text-xs transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-accent hover:bg-accent/10 hover:text-accent"
+                  className="text-xs md:text-xs transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-accent hover:bg-accent/10 hover:text-accent"
                   style={{
                     transitionDelay: `${index * 30}ms`,
                   }}
@@ -99,7 +99,7 @@ export const TimelinePost = memo(
                 </Badge>
               ))}
               {post.tags.length > 3 && (
-                <Badge className="text-[10px] md:text-xs" variant="outline">
+                <Badge className="text-xs md:text-xs" variant="outline">
                   +{post.tags.length - 3}
                 </Badge>
               )}

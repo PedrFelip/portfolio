@@ -69,7 +69,6 @@ export const BlogCommitLog = memo(({ post }: BlogCommitLogProps) => {
         {/* Autor + data - segunda linha como no GitHub */}
         <div className="flex items-center gap-2 mb-3 text-xs text-muted-foreground">
           <CommitHash hash={hash} />
-          <span>committed on</span>
           <CommitDate start={formattedDate} />
         </div>
 
@@ -99,6 +98,7 @@ export const BlogCommitLog = memo(({ post }: BlogCommitLogProps) => {
           <ArrowRight className="h-3 w-3 transition-transform duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:translate-x-1" />
         </Link>
       </div>
+      <div className="absolute left-[10px] top-[25px] bottom-0 w-px bg-border opacity-80" />
     </CommitLogTimelineItem>
   );
 });

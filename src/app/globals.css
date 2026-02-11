@@ -778,7 +778,7 @@ html {
 
   .toc-line::before {
     content: attr(data-prefix);
-    @apply absolute left-0 font-mono text-xs text-muted-foreground/40;
+    @apply absolute left-0 font-mono text-xs text-muted-foreground/60;
   }
 
   .toc-line--active {

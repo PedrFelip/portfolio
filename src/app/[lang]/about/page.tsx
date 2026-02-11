@@ -73,11 +73,10 @@ export default async function AboutPage({ params }: AboutPageProps) {
         />
 
         <div className="space-y-0">
-          {workExperience.map((experience, index) => (
+          {workExperience.map((experience) => (
             <WorkExperienceCard
               key={`${experience.company}-${experience.title}`}
               experience={experience}
-              isLast={index === workExperience.length - 1}
             />
           ))}
         </div>
@@ -97,11 +96,10 @@ export default async function AboutPage({ params }: AboutPageProps) {
         />
 
         <div className="space-y-0">
-          {education.map((edu, index) => (
+          {education.map((edu) => (
             <EducationCard
               key={`${edu.school}-${edu.degree}`}
               education={edu}
-              isLast={index === education.length - 1}
             />
           ))}
         </div>

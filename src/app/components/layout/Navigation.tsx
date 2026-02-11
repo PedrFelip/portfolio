@@ -2,7 +2,14 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { memo, useCallback, useMemo, useState, useTransition } from "react";
+import {
+  memo,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+  useTransition,
+} from "react";
 import { Button } from "@/components/ui";
 import { Menu, X } from "@/components/ui/icons";
 import { useLanguage } from "@/lib/LanguageContext";
@@ -105,6 +112,17 @@ export const Navigation = memo(() => {
     setIsMenuOpen((prev) => !prev);
   }, []);
 
+  // ESC key handler to close mobile menu
+  useEffect(() => {
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && isMenuOpen) {
+        closeMenu();
+      }
+    };
+    document.addEventListener("keydown", handleEsc);
+    return () => document.removeEventListener("keydown", handleEsc);
+  }, [isMenuOpen, closeMenu]);
+
   return (
     <nav className="sticky top-0 z-50 border-b border-border/50 bg-background">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -165,22 +183,29 @@ export const Navigation = memo(() => {
         </div>
 
         {/* Mobile Navigation */}
-        {isMenuOpen ? (
-          <div className="border-t border-border md:hidden animate-in-down">
-            <div className="flex flex-col py-4 gap-1">
-              {navLinks.map((link) => (
-                <NavLinkItem
-                  key={link.href}
-                  label={link.label}
-                  isActive={isActive(link.href)}
-                  localizedHref={getLocalizedLink(link.href)}
-                  onClick={closeMenu}
-                  variant="mobile"
-                />
-              ))}
+        {isMenuOpen && (
+          <>
+            <div
+              className="fixed inset-0 bg-background/80 backdrop-blur-sm z-40 md:hidden"
+              onClick={closeMenu}
+              aria-hidden="true"
+            />
+            <div className="border-t border-border md:hidden animate-in-down relative z-50">
+              <div className="flex flex-col py-4 gap-1">
+                {navLinks.map((link) => (
+                  <NavLinkItem
+                    key={link.href}
+                    label={link.label}
+                    isActive={isActive(link.href)}
+                    localizedHref={getLocalizedLink(link.href)}
+                    onClick={closeMenu}
+                    variant="mobile"
+                  />
+                ))}
+              </div>
             </div>
-          </div>
-        ) : null}
+          </>
+        )}
       </div>
     </nav>
   );

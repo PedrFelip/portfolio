@@ -24,7 +24,7 @@ interface TechStackGridProps {
  */
 const TechBadge = memo(({ name, category }: TechStackItem) => (
   <div className="group relative flex flex-col gap-1 rounded-md border border-border bg-card p-2 sm:p-3 transition-[border-color,background-color] duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-foreground hover:bg-muted/50 motion-reduce:transition-none">
-    <Label className="text-[9px] sm:text-[10px] uppercase tracking-wider text-muted-foreground">
+    <Label className="text-xs sm:text-xs uppercase tracking-wider text-muted-foreground">
       {category}
     </Label>
     <div className="text-xs sm:text-sm font-semibold text-foreground">

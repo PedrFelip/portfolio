@@ -48,7 +48,7 @@ export const SectionHeader = ({
         <div className="flex items-center gap-3 mb-3">
           <Badge
             variant={badgeVariant}
-            className="uppercase tracking-wider text-[10px] sm:text-xs font-semibold"
+            className="uppercase tracking-wider text-xs sm:text-xs font-semibold"
           >
             <span className="w-1.5 h-1.5 rounded-full bg-current animate-pulse-subtle" />
             {badge}

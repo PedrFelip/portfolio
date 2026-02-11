@@ -54,7 +54,7 @@ export const ProjectCard = memo(({ project }: ProjectCardProps) => {
         <div className="flex flex-col gap-2 sm:gap-2 sm:flex-row sm:items-start sm:justify-between">
           <H3 className="pr-2 transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] break-words group-hover:text-accent flex items-start gap-2">
             {project.featured && (
-              <MonoText className="text-[10px] text-[color:var(--brand-amber)] opacity-80 mt-0.5">
+              <MonoText className="text-xs text-[color:var(--brand-amber)] opacity-80 mt-0.5">
                 ★
               </MonoText>
             )}

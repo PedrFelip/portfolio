@@ -10,7 +10,7 @@ interface TimelineDateProps {
 }
 
 const sizeClasses = {
-  xs: "text-[10px] sm:text-xs",
+  xs: "text-xs sm:text-xs",
   sm: "text-xs sm:text-sm",
 };
 

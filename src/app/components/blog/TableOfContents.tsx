@@ -29,6 +29,14 @@ const HEADER_HEIGHT = 100;
 /**
  * TableOfContents component with optimized scroll spy
  *
+ * Design principles (AGENTS.md):
+ * - File tree structure: prefixos simples (└─, ├─)
+ * - 4px grid: consistent spacing throughout
+ * - Monospace for tree prefixes
+ * - Terminal aesthetic: no pulse animations
+ * - Active state: accent color + subtle border
+ * - 150ms animations with cubic-bezier(0.25, 1, 0.5, 1) easing
+ *
  * Best Practices Applied:
  * - Passive event listeners for scroll performance (Vercel 4.2)
  * - startTransition for non-urgent state updates (Vercel 5.7)
@@ -40,29 +48,18 @@ export const TableOfContents = memo(({ headings }: TableOfContentsProps) => {
   const [activeId, setActiveId] = useState<string>(() =>
     headings.length > 0 ? headings[0].id : "",
   );
-  const [isScrolling, setIsScrolling] = useState(false);
   const { language } = useLanguage();
   const t = blogContent[language].blog;
 
-  // Refs
   const tickingRef = useRef(false);
   const headingPositionsRef = useRef<Map<string, number>>(new Map());
-  const isScrollingRef = useRef(false);
   const observerRef = useRef<MutationObserver | null>(null);
   const activeIdRef = useRef(activeId);
-
-  // Sync refs with state (Vercel 5.2 - useLatest pattern)
-  useEffect(() => {
-    isScrollingRef.current = isScrolling;
-  }, [isScrolling]);
 
   useEffect(() => {
     activeIdRef.current = activeId;
   }, [activeId]);
 
-  /**
-   * Update cached heading positions
-   */
   const updateHeadingPositions = useCallback(() => {
     const positions = new Map<string, number>();
 
@@ -77,10 +74,6 @@ export const TableOfContents = memo(({ headings }: TableOfContentsProps) => {
     headingPositionsRef.current = positions;
   }, [headings]);
 
-  /**
-   * Find active heading based on scroll position
-   * Active heading is the last one that passed the header offset
-   */
   const findActiveHeading = useCallback((): string => {
     if (headings.length === 0) return "";
 
@@ -104,19 +97,13 @@ export const TableOfContents = memo(({ headings }: TableOfContentsProps) => {
     return activeHeadingId;
   }, [headings]);
 
-  /**
-   * ✅ Consolidated useEffect for scroll, resize, and mutation observers
-   * Reduces from 3 separate effects to 1 with proper cleanup
-   */
   useEffect(() => {
     if (headings.length === 0) return;
 
-    // Initial position calculation
     updateHeadingPositions();
 
-    // Scroll handler with RAF throttling
     const handleScroll = () => {
-      if (isScrollingRef.current || tickingRef.current) return;
+      if (tickingRef.current) return;
 
       tickingRef.current = true;
 
@@ -133,7 +120,6 @@ export const TableOfContents = memo(({ headings }: TableOfContentsProps) => {
       });
     };
 
-    // Resize handler
     const handleResize = () => {
       updateHeadingPositions();
       const newActiveId = findActiveHeading();
@@ -142,7 +128,6 @@ export const TableOfContents = memo(({ headings }: TableOfContentsProps) => {
       }
     };
 
-    // MutationObserver for dynamic content
     const handleMutations = () => {
       requestAnimationFrame(updateHeadingPositions);
     };
@@ -158,12 +143,10 @@ export const TableOfContents = memo(({ headings }: TableOfContentsProps) => {
       });
     }
 
-    // Event listeners with passive flag (Vercel 4.2)
     window.addEventListener("scroll", handleScroll, { passive: true });
     window.addEventListener("resize", handleResize, { passive: true });
     window.addEventListener("load", updateHeadingPositions, { passive: true });
 
-    // ✅ Comprehensive cleanup
     return () => {
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", handleResize);
@@ -173,14 +156,9 @@ export const TableOfContents = memo(({ headings }: TableOfContentsProps) => {
     };
   }, [headings, findActiveHeading, updateHeadingPositions]);
 
-  /**
-   * Sync with URL hash on initial load
-   * ✅ Check DOM directly instead of headings array to avoid dependency issues
-   */
   useEffect(() => {
     const hash = window.location.hash.slice(1);
     if (hash) {
-      // Check if element exists in DOM directly
       const element = document.getElementById(hash);
       if (element) {
         setActiveId(hash);
@@ -192,19 +170,14 @@ export const TableOfContents = memo(({ headings }: TableOfContentsProps) => {
         });
       }
     }
-  }, []); // Only on mount
+  }, []);
 
-  /**
-   * Handle click on TOC link
-   * ✅ useCallback with stable dependencies
-   */
   const handleClick = useCallback(
     (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
       e.preventDefault();
       const element = document.getElementById(id);
       if (!element) return;
 
-      setIsScrolling(true);
       window.history.pushState(null, "", `#${id}`);
 
       const rect = element.getBoundingClientRect();
@@ -217,9 +190,7 @@ export const TableOfContents = memo(({ headings }: TableOfContentsProps) => {
 
       startTransition(() => setActiveId(id));
 
-      // Reset scrolling state after animation
       const handleScrollEnd = () => {
-        setIsScrolling(false);
         updateHeadingPositions();
       };
 
@@ -231,49 +202,47 @@ export const TableOfContents = memo(({ headings }: TableOfContentsProps) => {
     [updateHeadingPositions],
   );
 
-  // ✅ useMemo for rendered headings to avoid re-creation on every render
   const renderedHeadings = useMemo(() => {
     if (headings.length === 0) return null;
 
-    return headings.map((heading) => {
+    return headings.map((heading, index) => {
       const isActive = activeId === heading.id;
       const isH3 = heading.level === 3;
+      const isLast = index === headings.length - 1;
+      const nextIsH3 =
+        index < headings.length - 1 && headings[index + 1].level === 3;
+
+      let prefix = "";
+      if (isH3) {
+        prefix = nextIsH3 ? "│   ├─" : "│   └─";
+      } else {
+        prefix = isLast ? "└─" : "├─";
+      }
 
       return (
         <li key={heading.id}>
           <a
             href={`#${heading.id}`}
             onClick={(e) => handleClick(e, heading.id)}
-            className={`
-              relative block py-1 md:py-2 text-xs md:text-sm transition-all duration-200
-              ease-[cubic-bezier(0.25,1,0.5,1)]
-              ${isH3 ? "pl-5 md:pl-6" : "pl-3 md:pl-4"}
-              ${
-                isActive
-                  ? "text-accent font-medium border-l border-accent -ml-[1px]"
-                  : "text-muted-foreground hover:text-foreground border-l border-transparent -ml-[1px] hover:border-border"
-              }
-                ${isScrolling && activeId === heading.id ? "animate-pulse" : ""}
-            `}
+            className={`toc-line ${isActive ? "toc-line--active" : "text-muted-foreground hover:text-foreground"}`}
+            data-prefix={prefix}
           >
             {heading.text}
           </a>
         </li>
       );
     });
-  }, [headings, activeId, isScrolling, handleClick]);
+  }, [headings, activeId, handleClick]);
 
   if (headings.length === 0) return null;
 
   return (
     <nav className="space-y-1.5 md:space-y-2">
-      <MonoText className="text-[10px] md:text-xs uppercase tracking-wide text-muted-foreground mb-3 md:mb-4">
+      <MonoText className="text-xs md:text-xs uppercase tracking-wide text-muted-foreground mb-3 md:mb-4">
         {t.onThisPage}
       </MonoText>
 
-      <ul className="space-y-1 md:space-y-2 border-l border-border">
-        {renderedHeadings}
-      </ul>
+      <ul className="space-y-1 md:space-y-2 font-mono">{renderedHeadings}</ul>
     </nav>
   );
 });

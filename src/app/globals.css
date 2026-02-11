@@ -700,6 +700,169 @@ html {
     animation: pulse-subtle 2s cubic-bezier(0.25, 1, 0.5, 1) infinite;
   }
 
+  /* Commit Log Aesthetic - AGENTS.md Design Principles
+   * - Terminal-modern + GitHub dark aesthetic
+   * - 4px grid: consistent spacing throughout
+   * - Monospace for data: hashes, dates, tags
+   * - 150ms animations with cubic-bezier(0.25, 1, 0.5, 1) easing
+   * - Borders-only approach: subtle glow, no lift/scale
+   * - Color for meaning only: accent reserved for hover/active
+   */
+
+  /* Commit Log Item - estilo GitHub commit */
+  .commit-log-item {
+    @apply rounded-lg border border-border/50 p-4;
+    transition:
+      border-color 150ms cubic-bezier(0.25, 1, 0.5, 1),
+      background-color 150ms cubic-bezier(0.25, 1, 0.5, 1),
+      box-shadow 150ms cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .commit-log-item:hover {
+    border-color: oklch(var(--accent) / 0.5);
+    background-color: oklch(var(--accent) / 0.05);
+    box-shadow: 0 0 20px -5px oklch(var(--accent) / 0.1);
+  }
+
+  /* Commit Meta - hash + date row */
+  .commit-meta {
+    @apply flex items-center gap-3 mb-3 text-xs;
+  }
+
+  /* Commit Hash - estilo git hash */
+  .commit-hash {
+    @apply font-mono tabular-nums text-accent/60;
+    transition: opacity 150ms cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .commit-log-item:hover .commit-hash {
+    opacity: 1;
+  }
+
+  /* Commit Date - formato editorial mas monospace */
+  .commit-date {
+    @apply font-mono tabular-nums text-muted-foreground/80;
+    transition: color 150ms cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .commit-log-item:hover .commit-date {
+    color: oklch(var(--accent));
+  }
+
+  /* Commit Pill - badge monospace para tags */
+  .commit-pill {
+    @apply inline-flex items-center font-mono text-xs px-2 py-1 rounded-md;
+    border: 0.5px solid oklch(var(--border));
+    transition:
+      border-color 150ms cubic-bezier(0.25, 1, 0.5, 1),
+      background-color 150ms cubic-bezier(0.25, 1, 0.5, 1),
+      color 150ms cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .commit-pill:hover {
+    border-color: oklch(var(--accent) / 0.5);
+    background-color: oklch(var(--accent) / 0.1);
+    color: oklch(var(--accent));
+  }
+
+  .commit-pill--accent {
+    background-color: oklch(var(--accent) / 0.1);
+    border-color: oklch(var(--accent) / 0.5);
+    color: oklch(var(--accent));
+  }
+
+  /* TOC File Tree - estilo diretório para TableOfContents */
+  .toc-line {
+    @apply relative block py-1.5 pl-4 text-sm transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)];
+  }
+
+  .toc-line::before {
+    content: attr(data-prefix);
+    @apply absolute left-0 font-mono text-xs text-muted-foreground/40;
+  }
+
+  .toc-line--active {
+    color: oklch(var(--accent));
+    font-weight: 500;
+  }
+
+  /* Terminal Glow - substitui hover-lift-subtle */
+  .terminal-glow {
+    transition:
+      border-color 150ms cubic-bezier(0.25, 1, 0.5, 1),
+      background-color 150ms cubic-bezier(0.25, 1, 0.5, 1),
+      box-shadow 150ms cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .terminal-glow:hover {
+    border-color: oklch(var(--accent) / 0.5);
+    background-color: oklch(var(--accent) / 0.05);
+    box-shadow: 0 0 20px -5px oklch(var(--accent) / 0.1);
+  }
+
+  /* Modern Data Card - Work Experience
+   * - 2px border-radius (slightly rounded)
+   * - 1px border (defined)
+   * - 4px left border indicator (blue accent)
+   * - Hover: border accent + bg tint + minimal shadow + lift
+   * - 150ms transition with cubic-bezier(0.25, 1, 0.5, 1)
+   */
+  .work-card-modern {
+    @apply rounded-md border border-border/60 bg-card;
+    transition:
+      border-color 150ms cubic-bezier(0.25, 1, 0.5, 1),
+      background-color 150ms cubic-bezier(0.25, 1, 0.5, 1),
+      box-shadow 150ms cubic-bezier(0.25, 1, 0.5, 1),
+      transform 150ms cubic-bezier(0.25, 1, 0.5, 1);
+    border-left: 4px solid oklch(var(--brand-blue) / 0.2);
+  }
+
+  .work-card-modern:hover {
+    border-color: oklch(var(--brand-blue) / 0.4);
+    border-left-color: oklch(var(--brand-blue) / 0.6);
+    background-color: oklch(var(--brand-blue) / 0.03);
+    box-shadow: 0 2px 12px -2px oklch(var(--brand-blue) / 0.1);
+    transform: translateY(-1px);
+  }
+
+  /* Enhanced Brutalist Card - Education
+   * - 0px border radius (angular, raw)
+   * - 1px border (more prominent than 0.5px)
+   * - 4px left border indicator (emerald accent)
+   * - Hover: border accent + bg tint (no lift/shadow for grounded feel)
+   * - 150ms transition with cubic-bezier(0.25, 1, 0.5, 1)
+   */
+  .education-card-enhanced {
+    @apply rounded-none border-foreground/10 bg-card;
+    transition:
+      border-color 150ms cubic-bezier(0.25, 1, 0.5, 1),
+      background-color 150ms cubic-bezier(0.25, 1, 0.5, 1);
+    border-left: 4px solid oklch(var(--brand-emerald) / 0.15);
+  }
+
+  .education-card-enhanced:hover {
+    border-color: oklch(var(--brand-emerald) / 0.3);
+    border-left-color: oklch(var(--brand-emerald) / 0.5);
+    background-color: oklch(var(--brand-emerald) / 0.04);
+  }
+
+  /* Legacy Brutalist Card Style - Tech Brutalist Design
+   * - 0px border radius (angular, raw)
+   * - 1px border (more prominent than 0.5px)
+   * - Border-only hover: no background, no shadow, no transform
+   * - 150ms transition with cubic-bezier(0.25, 1, 0.5, 1)
+   * - DEPRECATED: Use .work-card-modern or .education-card-enhanced instead
+   */
+  .work-card-brutalist,
+  .education-card-brutalist {
+    transition: border-color 150ms cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .work-card-brutalist:hover,
+  .education-card-brutalist:hover {
+    border-color: oklch(var(--accent) / 0.6);
+  }
+
   /* Blog Post Markdown Styles */
   .prose {
     @apply text-foreground;

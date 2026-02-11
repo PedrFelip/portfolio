@@ -1,73 +1,67 @@
 "use client";
 
 import { memo } from "react";
-import {
-  ExternalLinkAnchor,
-  TimelineCardWrapper,
-  TimelineDate,
-  TimelineItem,
-} from "@/components/common/timeline-components";
-import { H3, P } from "@/components/ui";
+import { ExternalLinkAnchor } from "@/components/common/timeline-components";
+import { Badge, Card, H3, MonoText } from "@/components/ui";
 import type { Education } from "@/types/portfolio";
 
 interface EducationCardProps {
   education: Education;
-  isLast?: boolean;
 }
 
 /**
- * EducationCard component - Timeline Item
+ * EducationCard component - Enhanced Brutalist
  *
  * Design principles (AGENTS.md):
- * - Timeline editorial layout matching blog TimelinePost
- * - Same layout as WorkExperienceCard: school/date on same line
- * - Vertical timeline with animated indicator dots
- * - Rich hover interactions with border glow
+ * - Enhanced Brutalist with grid layout and left border indicator
  * - 4px grid: consistent spacing throughout
- * - Borders-only approach with accent highlights
- * - Typography: monospace for dates, hierarchy for titles
- * - Animation: smooth transitions
- * - Mobile-first: responsive layout
- *
- * Best practices applied:
+ * - Brand-emerald accent for education theme
+ * - No lift on hover (grounded, stable feel)
+ * - Borders-only approach: colored left border, bg tint on hover
+ * - Monospace for data: dates, degree, school name
+ * - 150ms animations with cubic-bezier(0.25, 1, 0.5, 1) easing
  * - Memoized to prevent re-renders
- * - Uses shared timeline components for consistency
- * - Clean component composition
- * - Consistent with WorkExperienceCard pattern
  */
-export const EducationCard = memo(
-  ({ education, isLast = false }: EducationCardProps) => {
-    return (
-      <TimelineItem isLast={isLast}>
-        <TimelineCardWrapper>
-          {/* School + Date - same layout as WorkExperience */}
-          <div className="mb-3 flex flex-wrap items-start justify-between gap-3">
-            {/* School Header */}
-            {education.href ? (
-              <ExternalLinkAnchor
-                href={education.href}
-                size="base"
-                weight="semibold"
-                ariaLabel={`${education.school} - Visit website`}
-                className="flex-1 min-w-0"
-              >
-                {education.school}
-              </ExternalLinkAnchor>
-            ) : (
-              <H3 className="flex-1 min-w-0">{education.school}</H3>
-            )}
+export const EducationCard = memo(({ education }: EducationCardProps) => {
+  return (
+    <Card className="education-card-enhanced">
+      <div className="grid grid-cols-[140px_1px_1fr] gap-4">
+        <div className="flex flex-col items-end pr-4">
+          <MonoText className="text-sm tabular-nums text-foreground/70">
+            {education.start}
+          </MonoText>
+          <div className="text-foreground/30 text-xs py-1">↓</div>
+          <MonoText className="text-sm tabular-nums text-foreground/70">
+            {education.end}
+          </MonoText>
+        </div>
 
-            <TimelineDate start={education.start} end={education.end} />
+        <div className="w-px bg-foreground/10" />
+
+        <div className="pl-4">
+          <H3 className="mb-3 text-foreground">{education.school}</H3>
+
+          <div className="mb-3 flex flex-wrap items-center gap-2">
+            <MonoText className="text-sm text-foreground/90">
+              {education.degree}
+            </MonoText>
+            <Badge variant="education">graduated</Badge>
           </div>
 
-          {/* Degree */}
-          <P className="transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:text-foreground/90">
-            {education.degree}
-          </P>
-        </TimelineCardWrapper>
-      </TimelineItem>
-    );
-  },
-);
+          {education.href && (
+            <ExternalLinkAnchor
+              href={education.href}
+              size="sm"
+              weight="medium"
+              ariaLabel={`${education.school} - Visit website`}
+            >
+              Visit website
+            </ExternalLinkAnchor>
+          )}
+        </div>
+      </div>
+    </Card>
+  );
+});
 
 EducationCard.displayName = "EducationCard";

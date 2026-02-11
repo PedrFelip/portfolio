@@ -3,60 +3,65 @@
 import { memo } from "react";
 import {
   BulletList,
-  OrganizationWithLocation,
-  TimelineCardWrapper,
-  TimelineDate,
-  TimelineItem,
+  ExternalLinkAnchor,
 } from "@/components/common/timeline-components";
-import { H3 } from "@/components/ui";
+import { Card, CardContent, CardHeader, H3, MonoText } from "@/components/ui";
 import type { WorkExperience } from "@/types/portfolio";
 
 interface WorkExperienceCardProps {
   experience: WorkExperience;
-  isLast?: boolean;
 }
 
 /**
- * WorkExperienceCard component
+ * WorkExperienceCard component - Modern Data Card
  *
  * Design principles (AGENTS.md):
+ * - Modern Data Card pattern with left border indicator
  * - 4px grid: consistent spacing throughout
- * - Timeline editorial layout matching blog TimelinePost
- * - Vertical timeline with animated indicator dots
- * - Rich hover interactions with border glow
- * - Borders-only approach with accent highlights
- * - Typography: monospace for dates, hierarchy for titles
- * - Animation: smooth transitions
- * - Mobile-first: responsive layout
- *
- * Best practices applied:
+ * - Brand-blue accent for work theme
+ * - Subtle lift on hover (1px) for tactile feedback
+ * - Borders-only approach: colored left border, minimal shadow
+ * - Monospace for data: dates, company name, location
+ * - 150ms animations with cubic-bezier(0.25, 1, 0.5, 1) easing
  * - Memoized to prevent re-renders
- * - Uses shared timeline components for consistency
- * - Clean component composition
  */
 export const WorkExperienceCard = memo(
-  ({ experience, isLast = false }: WorkExperienceCardProps) => {
+  ({ experience }: WorkExperienceCardProps) => {
     return (
-      <TimelineItem isLast={isLast}>
-        <TimelineCardWrapper>
-          <div className="mb-3">
-            {/* Title + Date */}
-            <div className="mb-3 flex flex-wrap items-start justify-between gap-3">
-              <H3 className="flex-1 min-w-0">{experience.title}</H3>
-              <TimelineDate start={experience.start} end={experience.end} />
-            </div>
+      <Card className="work-card-modern">
+        <CardHeader>
+          <H3 className="mb-2">{experience.title}</H3>
 
-            {/* Company + Location */}
-            <OrganizationWithLocation
-              name={experience.company}
-              href={experience.href}
-              location={experience.location}
-              size="sm"
-              weight="medium"
-            />
+          <div className="flex items-center gap-2.5">
+            <MonoText className="text-xs tabular-nums text-muted-foreground">
+              {experience.start}
+              {experience.end && ` → ${experience.end}`}
+            </MonoText>
+          </div>
+        </CardHeader>
+
+        <CardContent>
+          <div className="mb-4 flex flex-wrap items-center gap-2">
+            {experience.href ? (
+              <ExternalLinkAnchor
+                href={experience.href}
+                size="sm"
+                weight="medium"
+                ariaLabel={`${experience.company} - Visit website`}
+              >
+                {experience.company}
+              </ExternalLinkAnchor>
+            ) : (
+              <MonoText className="text-sm font-medium text-foreground">
+                {experience.company}
+              </MonoText>
+            )}
+            <span className="text-muted-foreground/40">•</span>
+            <span className="text-xs uppercase tracking-wider text-muted-foreground/70">
+              {experience.location}
+            </span>
           </div>
 
-          {/* Description */}
           {experience.description && (
             <BulletList
               items={experience.description
@@ -64,8 +69,8 @@ export const WorkExperienceCard = memo(
                 .filter((item) => item.trim())}
             />
           )}
-        </TimelineCardWrapper>
-      </TimelineItem>
+        </CardContent>
+      </Card>
     );
   },
 );

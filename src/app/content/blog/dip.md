@@ -69,7 +69,7 @@ Imagina uma simples mudança de serviço de e-mail quebrar toda a regra de negó
 
 ---
 
-### Aonde a dependência deve apontar?
+## Aonde a dependência deve apontar?
 
 
 Agora que entendemos o que são módulos de **alto** e **baixo nível**, vamos entender como a dependência deve ser direcionada.

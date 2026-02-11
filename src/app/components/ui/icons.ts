@@ -25,6 +25,7 @@ export {
   ChevronRight,
   Copy,
   ExternalLink,
+  GitCommitVertical,
   Github,
   Home,
   Info,

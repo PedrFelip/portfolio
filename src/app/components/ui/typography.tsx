@@ -198,10 +198,7 @@ export const MonoText = React.forwardRef<HTMLSpanElement, TypographyProps>(
     return (
       <Component
         ref={ref}
-        className={cn(
-          "font-mono text-[10px] sm:text-xs tabular-nums",
-          className,
-        )}
+        className={cn("font-mono text-xs sm:text-xs tabular-nums", className)}
         {...props}
       />
     );

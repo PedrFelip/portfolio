@@ -83,7 +83,7 @@ Mas o **DIP inverte essa dependência**. Ambos os módulos devem depender de **a
 
 ![Fluxo da dependencia](/images/posts/dip/dip.webp)
 
-### Exemplo no sistema de pagamentos fictício
+## Exemplo no sistema de pagamentos fictício
 
 ```ts
 // Abstrações (definidas pelo domínio / core)
@@ -240,7 +240,7 @@ await useCasePaypal.pay('order-2', 250, { account: 'user@paypal' })
 Nesse exemplo, o **core da aplicação** (`PaymentUseCase`) depende apenas de **abstrações** (`PaymentGateway`, `PaymentRepository`, `EventPublisher`). As **implementações concretas** (`StripeGateway`, `PaypalGateway`, `InMemoryPaymentRepository`, `ConsoleEventPublisher`) são detalhes que podem ser trocados sem afetar a lógica de negócio.
 
 
-### Benefícios do DIP
+## Benefícios do DIP
 
 
 - **Flexibilidade**: Módulos de baixo nível podem ser alterados ou substituídos sem impactar o módulo de alto nível.

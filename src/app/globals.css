@@ -771,19 +771,29 @@ html {
     color: oklch(var(--accent));
   }
 
-  /* TOC File Tree - estilo diretório para TableOfContents */
-  .toc-line {
-    @apply relative block py-1.5 pl-4 text-sm transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)];
+  /* TOC - clean editorial list */
+  .toc-item {
+    @apply relative block py-1.5 pl-3 text-sm leading-snug
+      transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)];
+    border-left: 2px solid transparent;
   }
 
-  .toc-line::before {
-    content: attr(data-prefix);
-    @apply absolute left-0 font-mono text-xs text-muted-foreground/60;
+  .toc-item--nested {
+    @apply pl-6 text-[13px];
   }
 
-  .toc-line--active {
+  .toc-item--inactive {
+    @apply text-muted-foreground hover:text-foreground;
+  }
+
+  .toc-item--inactive:hover {
+    border-left-color: oklch(var(--border));
+  }
+
+  .toc-item--active {
     color: oklch(var(--accent));
     font-weight: 500;
+    border-left-color: oklch(var(--accent));
   }
 
   /* Terminal Glow - substitui hover-lift-subtle */

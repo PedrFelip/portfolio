@@ -17,14 +17,7 @@ import {
   Share2,
 } from "@/components/ui/icons";
 import { XIcon } from "@/components/ui/x-icon";
-import { blogEn } from "@/lib/content/blog.en";
-import { blogPt } from "@/lib/content/blog.pt";
 import { useLanguage } from "@/lib/LanguageContext";
-
-const blogContent = {
-  en: blogEn,
-  pt: blogPt,
-};
 
 interface ShareButtonsProps {
   title: string;
@@ -57,8 +50,8 @@ export const ShareButtons = memo(
   ({ title, url, description = "" }: ShareButtonsProps) => {
     const [copied, setCopied] = useState(false);
     const [isPending, startTransition] = useTransition();
-    const { language } = useLanguage();
-    const t = blogContent[language].blog;
+    const { t } = useLanguage();
+    const tBlog = t.blog;
     const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
     const shareLinks = useMemo(() => {
@@ -109,7 +102,7 @@ export const ShareButtons = memo(
     return (
       <div className="flex flex-col gap-2 md:gap-3">
         <MonoText className="text-xs md:text-xs text-muted-foreground uppercase tracking-wider">
-          {t.share}
+          {tBlog.share}
         </MonoText>
 
         <div className="flex flex-wrap gap-2 md:gap-3">
@@ -118,7 +111,7 @@ export const ShareButtons = memo(
             target="_blank"
             rel="noopener noreferrer"
             className="terminal-glow inline-flex items-center gap-1 md:gap-2 rounded-md border border-border bg-card px-2 md:px-3 py-2 md:py-2 text-sm text-muted-foreground"
-            aria-label={`${t.shareOn} X (Twitter)`}
+            aria-label={`${tBlog.shareOn} X (Twitter)`}
           >
             <XIcon className="h-3 w-3 md:h-3.5 md:w-3.5" />
             <MonoText className="text-xs md:text-xs">[X]</MonoText>
@@ -129,7 +122,7 @@ export const ShareButtons = memo(
             target="_blank"
             rel="noopener noreferrer"
             className="terminal-glow inline-flex items-center gap-1 md:gap-2 rounded-md border border-border bg-card px-2 md:px-3 py-2 md:py-2 text-sm text-muted-foreground"
-            aria-label={`${t.shareOn} LinkedIn`}
+            aria-label={`${tBlog.shareOn} LinkedIn`}
           >
             <Linkedin className="h-3 w-3 md:h-3.5 md:w-3.5" />
             <MonoText className="text-xs md:text-xs">[LI]</MonoText>
@@ -138,7 +131,7 @@ export const ShareButtons = memo(
           <a
             href={shareLinks.email}
             className="terminal-glow inline-flex items-center gap-1 md:gap-2 rounded-md border border-border bg-card px-2 md:px-3 py-2 md:py-2 text-sm text-muted-foreground"
-            aria-label={`${t.shareVia} Email`}
+            aria-label={`${tBlog.shareVia} Email`}
           >
             <Mail className="h-3 w-3 md:h-3.5 md:w-3.5" />
             <MonoText className="text-xs md:text-xs">[EMAIL]</MonoText>
@@ -149,7 +142,7 @@ export const ShareButtons = memo(
             onClick={copyToClipboard}
             disabled={isPending}
             className="terminal-glow inline-flex items-center gap-1 md:gap-2 rounded-md border border-border bg-card px-2 md:px-3 py-2 md:py-2 text-sm text-muted-foreground disabled:opacity-50 disabled:cursor-not-allowed"
-            aria-label={copied ? t.linkCopied : t.copyLink}
+            aria-label={copied ? tBlog.linkCopied : tBlog.copyLink}
           >
             {copied ? (
               <>

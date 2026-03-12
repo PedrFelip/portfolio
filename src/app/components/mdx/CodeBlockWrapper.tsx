@@ -2,14 +2,7 @@
 
 import { memo, useCallback, useEffect, useRef, useState } from "react";
 import { Check, Copy } from "@/components/ui/icons";
-import { blogEn } from "@/lib/content/blog.en";
-import { blogPt } from "@/lib/content/blog.pt";
 import { useLanguage } from "@/lib/LanguageContext";
-
-const blogContent = {
-  en: blogEn,
-  pt: blogPt,
-};
 
 interface CodeBlockWrapperProps {
   children: React.ReactNode;
@@ -36,8 +29,8 @@ interface CodeBlockWrapperProps {
  */
 export const CodeBlockWrapper = memo(({ children }: CodeBlockWrapperProps) => {
   const [copied, setCopied] = useState(false);
-  const { language } = useLanguage();
-  const t = blogContent[language].blog;
+  const { t } = useLanguage();
+  const tBlog = t.blog;
   // ✅ useRef for O(1) DOM access instead of querySelector (Vercel 5.2)
   const preRef = useRef<HTMLPreElement>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -98,8 +91,8 @@ export const CodeBlockWrapper = memo(({ children }: CodeBlockWrapperProps) => {
         type="button"
         onClick={copyToClipboard}
         className="absolute right-3 top-3 rounded border border-border bg-card p-2 text-muted-foreground opacity-0 transition-[opacity,color] duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:text-foreground group-hover:opacity-100 motion-reduce:transition-none"
-        title={t.copyCode}
-        aria-label={copied ? t.codeCopied : t.copyCode}
+        title={tBlog.copyCode}
+        aria-label={copied ? tBlog.codeCopied : tBlog.copyCode}
       >
         {copied ? (
           <Check className="h-3.5 w-3.5" aria-hidden="true" />

@@ -2,14 +2,7 @@
 
 import { memo, useState, useTransition } from "react";
 import { Check, Copy } from "@/components/ui/icons";
-import { blogEn } from "@/lib/content/blog.en";
-import { blogPt } from "@/lib/content/blog.pt";
 import { useLanguage } from "@/lib/LanguageContext";
-
-const blogContent = {
-  en: blogEn,
-  pt: blogPt,
-};
 
 interface CodeBlockProps {
   children: React.ReactNode;
@@ -35,8 +28,8 @@ interface CodeBlockProps {
 export const CodeBlock = memo(({ children, className }: CodeBlockProps) => {
   const [copied, setCopied] = useState(false);
   const [isPending, startTransition] = useTransition();
-  const { language } = useLanguage();
-  const t = blogContent[language].blog;
+  const { t } = useLanguage();
+  const tBlog = t.blog;
 
   const copyToClipboard = () => {
     const text =
@@ -61,17 +54,17 @@ export const CodeBlock = memo(({ children, className }: CodeBlockProps) => {
         onClick={copyToClipboard}
         disabled={isPending}
         className="absolute right-3 top-3 flex items-center gap-1.5 rounded border border-border bg-background px-2 sm:px-3 py-1 sm:py-2 font-mono text-xs text-muted-foreground opacity-0 transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-foreground hover:text-foreground hover:bg-muted/50 group-hover:opacity-100 disabled:opacity-50 disabled:cursor-not-allowed"
-        aria-label={copied ? t.codeCopied : t.copyCode}
+        aria-label={copied ? tBlog.codeCopied : tBlog.copyCode}
       >
         {copied ? (
           <>
             <Check className="h-3.5 w-3.5" />
-            <span>{t.codeCopied}</span>
+            <span>{tBlog.codeCopied}</span>
           </>
         ) : (
           <>
             <Copy className="h-3.5 w-3.5" />
-            <span>{t.copyCode}</span>
+            <span>{tBlog.copyCode}</span>
           </>
         )}
       </button>

@@ -9,16 +9,9 @@ import {
   useRef,
   useState,
 } from "react";
-import { blogEn } from "@/lib/content/blog.en";
-import { blogPt } from "@/lib/content/blog.pt";
 import { useLanguage } from "@/lib/LanguageContext";
 import { cn } from "@/lib/utils";
 import type { Heading } from "@/types/portfolio";
-
-const blogContent = {
-  en: blogEn,
-  pt: blogPt,
-};
 
 interface TableOfContentsProps {
   headings: Heading[];
@@ -46,8 +39,8 @@ export const TableOfContents = memo(({ headings }: TableOfContentsProps) => {
   const [activeId, setActiveId] = useState<string>(() =>
     headings.length > 0 ? headings[0].id : "",
   );
-  const { language } = useLanguage();
-  const t = blogContent[language].blog;
+  const { t } = useLanguage();
+  const tBlog = t.blog;
 
   const tickingRef = useRef(false);
   const headingPositionsRef = useRef<Map<string, number>>(new Map());
@@ -230,7 +223,7 @@ export const TableOfContents = memo(({ headings }: TableOfContentsProps) => {
   return (
     <nav aria-label="Table of contents">
       <p className="text-[11px] font-mono uppercase tracking-widest text-muted-foreground/60 mb-3 px-3">
-        {t.onThisPage}
+        {tBlog.onThisPage}
       </p>
 
       <ul className="space-y-0.5">{renderedHeadings}</ul>

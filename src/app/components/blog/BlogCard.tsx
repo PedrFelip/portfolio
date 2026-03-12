@@ -2,44 +2,18 @@
 
 import Link from "next/link";
 import { memo, useMemo } from "react";
-import { CommitPill } from "@/components/common/timeline-components";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  H3,
-  MonoText,
-  P,
-} from "@/components/ui";
-import { ArrowRight, Calendar } from "@/components/ui/icons";
+import { Badge, MonoText } from "@/components/ui";
+import { ArrowRight, Calendar, Clock } from "@/components/ui/icons";
 import { useLanguage } from "@/lib/LanguageContext";
+import { cn } from "@/lib/utils";
 import type { BlogMetadata } from "@/types/portfolio";
 
 interface BlogCardProps {
   post: BlogMetadata;
+  index?: number;
 }
 
-/**
- * BlogCard component
- *
- * Design principles (AGENTS.md):
- * - 4px grid: consistent spacing throughout
- * - Symmetrical padding: matching padding on all sides
- * - Borders-only approach: subtle borders with terminal glow on hover
- * - Typography: monospace for data (date, tags)
- * - Animation: 150ms with cubic-bezier easing (no lift/scale/rotation)
- * - Mobile-first: optimized for small screens
- * - Flex column layout to push content and links consistently
- *
- * Best practices applied:
- * - Memoized to prevent re-renders when post prop doesn't change
- * - Flex column layout with flex-grow to push links to bottom
- * - useMemo for date formatting optimization (Vercel best practice)
- * - Clean component composition
- * - Uses shadcn/ui components: Card, H3, P, MonoText
- */
-export const BlogCard = memo(({ post }: BlogCardProps) => {
+export const BlogCard = memo(({ post, index = 0 }: BlogCardProps) => {
   const { t, language } = useLanguage();
 
   const formattedDate = useMemo(
@@ -48,7 +22,7 @@ export const BlogCard = memo(({ post }: BlogCardProps) => {
         language === "pt" ? "pt-BR" : "en-US",
         {
           year: "numeric",
-          month: "long",
+          month: "short",
           day: "numeric",
         },
       ),
@@ -56,56 +30,125 @@ export const BlogCard = memo(({ post }: BlogCardProps) => {
   );
 
   return (
-    <Card className="group flex h-full flex-col p-3 sm:p-4 terminal-glow">
-      <CardHeader className="p-0 mb-3 sm:mb-4">
-        <Link
-          href={`/${language}/blog/${post.slug}`}
-          className="block hover:opacity-80 transition-opacity duration-150"
-        >
-          <H3 className="mb-2 sm:mb-3 line-clamp-2">{post.title}</H3>
-        </Link>
+    <article
+      className={cn(
+        "group relative flex overflow-hidden rounded-sm",
+        "border border-border bg-card",
+        "terminal-glow touch-feedback-subtle",
+        "transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)]",
+      )}
+      style={{ animationDelay: `${index * 40}ms` }}
+    >
+      {/* Left accent bar */}
+      <div
+        className={cn(
+          "absolute inset-y-0 left-0 w-[2px]",
+          "bg-accent/0 transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)]",
+          "group-hover:bg-accent/60",
+        )}
+        aria-hidden="true"
+      />
 
-        <div className="flex items-center gap-2 sm:gap-3 tabular-nums">
-          <Calendar className="h-3.5 w-3.5" />
-          <MonoText>
-            <time dateTime={post.date}>{formattedDate}</time>
-          </MonoText>
+      <Link
+        href={`/${language}/blog/${post.slug}`}
+        className="block flex-1 p-4 sm:p-5 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring focus-visible:ring-offset-1"
+      >
+        {/* Meta row */}
+        <div className="flex items-center gap-3 mb-2.5">
+          <span className="inline-flex items-center gap-1.5 text-muted-foreground/70">
+            <Calendar className="h-3 w-3" aria-hidden="true" />
+            <MonoText className="text-[11px]">
+              <time dateTime={post.date}>{formattedDate}</time>
+            </MonoText>
+          </span>
+
           {post.readingTime && (
             <>
-              <span className="text-muted-foreground/60">•</span>
-              <MonoText>{post.readingTime} min</MonoText>
+              <span className="text-muted-foreground/30" aria-hidden="true">
+                ·
+              </span>
+              <span className="inline-flex items-center gap-1 text-muted-foreground/70">
+                <Clock className="h-3 w-3" aria-hidden="true" />
+                <MonoText className="text-[11px]">
+                  {post.readingTime} min
+                </MonoText>
+              </span>
             </>
           )}
         </div>
-      </CardHeader>
 
-      <CardContent className="flex-grow space-y-3 md:space-y-4 p-0">
-        <P className="leading-relaxed text-sm md:text-base line-clamp-2 md:line-clamp-3">
-          {post.excerpt}
-        </P>
-
-        {post.tags.length > 0 && (
-          <div className="flex flex-wrap gap-2">
-            {post.tags.map((tag) => (
-              <CommitPill key={tag}>{tag}</CommitPill>
-            ))}
-          </div>
-        )}
-      </CardContent>
-
-      <CardFooter className="p-0">
-        <Link
-          href={`/${language}/blog/${post.slug}`}
-          className="link-underline inline-flex items-center gap-1 md:gap-2 text-xs md:text-sm font-medium text-muted-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:text-foreground"
+        {/* Title */}
+        <h3
+          className={cn(
+            "mb-2 text-sm sm:text-base font-semibold leading-snug tracking-[-0.01em] text-foreground line-clamp-2",
+            "transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)]",
+            "group-hover:text-accent",
+          )}
         >
-          {t.blog.readMore}
-          <ArrowRight
-            className="h-3.5 w-3.5 transition-transform duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:translate-x-0.5"
+          {post.title}
+        </h3>
+
+        {/* Excerpt */}
+        <p
+          className={cn(
+            "mb-4 text-xs sm:text-sm text-muted-foreground leading-relaxed line-clamp-2",
+            "transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)]",
+            "group-hover:text-muted-foreground/90",
+          )}
+        >
+          {post.excerpt}
+        </p>
+
+        {/* Footer: tags + read more */}
+        <div className="flex items-center justify-between gap-3">
+          {post.tags.length > 0 ? (
+            <div className="flex flex-wrap gap-1.5 min-w-0">
+              {post.tags.slice(0, 3).map((tag, i) => (
+                <Badge
+                  key={tag}
+                  variant="outline"
+                  className={cn(
+                    "text-[10px] px-1.5 py-0 min-h-0 h-5 font-mono font-normal tracking-wide",
+                    "border-border/50 text-muted-foreground/70 bg-transparent",
+                    "transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)]",
+                    "group-hover:border-accent/30 group-hover:text-accent/80",
+                  )}
+                  style={{ transitionDelay: `${i * 20}ms` }}
+                >
+                  {tag}
+                </Badge>
+              ))}
+              {post.tags.length > 3 && (
+                <Badge
+                  variant="outline"
+                  className="text-[10px] px-1.5 py-0 min-h-0 h-5 font-mono font-normal border-border/40 text-muted-foreground/40 bg-transparent"
+                >
+                  +{post.tags.length - 3}
+                </Badge>
+              )}
+            </div>
+          ) : (
+            <span />
+          )}
+
+          <span
+            className={cn(
+              "inline-flex shrink-0 items-center gap-1 text-[11px] font-medium",
+              "text-muted-foreground/50",
+              "transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)]",
+              "group-hover:text-accent group-hover:gap-1.5",
+            )}
             aria-hidden="true"
-          />
-        </Link>
-      </CardFooter>
-    </Card>
+          >
+            {t.blog.readMore}
+            <ArrowRight
+              className="h-3 w-3 transition-transform duration-150 group-hover:translate-x-0.5"
+              aria-hidden="true"
+            />
+          </span>
+        </div>
+      </Link>
+    </article>
   );
 });
 

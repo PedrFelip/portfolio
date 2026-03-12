@@ -23,6 +23,7 @@ export {
   CheckCircle,
   ChevronLeft,
   ChevronRight,
+  Clock,
   Copy,
   ExternalLink,
   GitCommitVertical,

@@ -44,28 +44,27 @@ export default async function BlogPage({ params }: BlogPageProps) {
   return (
     <div className="min-h-screen">
       <Section>
+        <SectionHeader
+          badge={t.badge}
+          badgeVariant="blog"
+          title={t.title}
+          description={t.subtitle}
+        />
         <div className="max-w-3xl">
-          <SectionHeader
-            badge={t.badge}
-            badgeVariant="blog"
-            title={t.title}
-            description={t.subtitle}
+          <BlogList
+            initialPosts={allPosts.slice(0, postsPerPage)}
+            allPosts={allPosts}
+            postsPerPage={postsPerPage}
+            translations={{
+              noPosts: t.noPosts,
+              noPostsDesc: t.noPostsDesc,
+              page: t.page,
+              of: t.of,
+              previous: t.previous,
+              next: t.next,
+            }}
           />
         </div>
-
-        <BlogList
-          initialPosts={allPosts.slice(0, postsPerPage)}
-          allPosts={allPosts}
-          postsPerPage={postsPerPage}
-          translations={{
-            noPosts: t.noPosts,
-            noPostsDesc: t.noPostsDesc,
-            page: t.page,
-            of: t.of,
-            previous: t.previous,
-            next: t.next,
-          }}
-        />
       </Section>
     </div>
   );

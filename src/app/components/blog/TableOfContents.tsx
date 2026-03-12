@@ -9,10 +9,10 @@ import {
   useRef,
   useState,
 } from "react";
-import { MonoText } from "@/components/ui/typography";
 import { blogEn } from "@/lib/content/blog.en";
 import { blogPt } from "@/lib/content/blog.pt";
 import { useLanguage } from "@/lib/LanguageContext";
+import { cn } from "@/lib/utils";
 import type { Heading } from "@/types/portfolio";
 
 const blogContent = {
@@ -30,11 +30,9 @@ const HEADER_HEIGHT = 100;
  * TableOfContents component with optimized scroll spy
  *
  * Design principles (AGENTS.md):
- * - File tree structure: prefixos simples (└─, ├─)
+ * - Clean editorial list — no file-tree chrome
+ * - Active state: accent left bar + foreground color
  * - 4px grid: consistent spacing throughout
- * - Monospace for tree prefixes
- * - Terminal aesthetic: no pulse animations
- * - Active state: accent color + subtle border
  * - 150ms animations with cubic-bezier(0.25, 1, 0.5, 1) easing
  *
  * Best Practices Applied:
@@ -205,27 +203,20 @@ export const TableOfContents = memo(({ headings }: TableOfContentsProps) => {
   const renderedHeadings = useMemo(() => {
     if (headings.length === 0) return null;
 
-    return headings.map((heading, index) => {
+    return headings.map((heading) => {
       const isActive = activeId === heading.id;
       const isH3 = heading.level === 3;
-      const isLast = index === headings.length - 1;
-      const nextIsH3 =
-        index < headings.length - 1 && headings[index + 1].level === 3;
-
-      let prefix = "";
-      if (isH3) {
-        prefix = nextIsH3 ? "│   ├─" : "│   └─";
-      } else {
-        prefix = isLast ? "└─" : "├─";
-      }
 
       return (
         <li key={heading.id}>
           <a
             href={`#${heading.id}`}
             onClick={(e) => handleClick(e, heading.id)}
-            className={`toc-line ${isActive ? "toc-line--active" : "text-muted-foreground hover:text-foreground"}`}
-            data-prefix={prefix}
+            className={cn(
+              "toc-item",
+              isH3 && "toc-item--nested",
+              isActive ? "toc-item--active" : "toc-item--inactive",
+            )}
           >
             {heading.text}
           </a>
@@ -237,12 +228,12 @@ export const TableOfContents = memo(({ headings }: TableOfContentsProps) => {
   if (headings.length === 0) return null;
 
   return (
-    <nav className="space-y-1.5 md:space-y-2">
-      <MonoText className="text-xs md:text-xs uppercase tracking-wide text-muted-foreground mb-3 md:mb-4">
+    <nav aria-label="Table of contents">
+      <p className="text-[11px] font-mono uppercase tracking-widest text-muted-foreground/60 mb-3 px-3">
         {t.onThisPage}
-      </MonoText>
+      </p>
 
-      <ul className="space-y-1 md:space-y-2 font-mono">{renderedHeadings}</ul>
+      <ul className="space-y-0.5">{renderedHeadings}</ul>
     </nav>
   );
 });

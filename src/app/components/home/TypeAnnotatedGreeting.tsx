@@ -1,6 +1,6 @@
 "use client";
 
-import { memo, useEffect, useRef, useState } from "react";
+import { memo, useCallback, useEffect, useRef, useState } from "react";
 
 interface TypeAnnotatedGreetingProps {
   texts: string[];
@@ -10,6 +10,7 @@ interface TypeAnnotatedGreetingProps {
 const TYPING_SPEED = 80; // ms per character
 const DELETING_SPEED = 50; // ms per character (faster deletion)
 const PAUSE_DURATION = 2500; // ms to pause before deleting
+const ANIMATION_START_DELAY = 1000; // ms to wait before starting typing animation (FCP optimization)
 
 /**
  * TypeAnnotatedGreeting component with typing/deleting animation
@@ -23,6 +24,7 @@ const PAUSE_DURATION = 2500; // ms to pause before deleting
  * - Infinite loop through provided texts array
  * - Modular: easy to customize texts, speeds, and pause duration
  * - CLS optimization: reserved space, initial text displayed
+ * - FCP optimization: requestAnimationFrame for smooth animation
  *
  * Design principles (AGENTS.md):
  * - 4px grid: consistent spacing
@@ -38,85 +40,96 @@ const PAUSE_DURATION = 2500; // ms to pause before deleting
  * - Proper cleanup in useEffect return
  * - TypeScript strict mode compatible
  * - CLS fix: initial state shows first text, reserved height
+ * - FCP fix: requestAnimationFrame for smooth, efficient animation
  */
 export const TypeAnnotatedGreeting = memo(
   ({ texts }: TypeAnnotatedGreetingProps) => {
-    const [displayedText, setDisplayedText] = useState("");
-    const [currentIndex, setCurrentIndex] = useState(0);
-    const [isDeleting, setIsDeleting] = useState(false);
-    const [isMounted, setIsMounted] = useState(false);
-    const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+    const [displayedText, setDisplayedText] = useState(texts[0] || "");
+    const [isAnimating, setIsAnimating] = useState(false);
+    const rafIdRef = useRef<number | null>(null);
+    const animationRef = useRef<{
+      currentTextIndex: number;
+      isDeleting: boolean;
+    }>({
+      currentTextIndex: 0,
+      isDeleting: false,
+    });
+    const accumulatorRef = useRef(0);
 
-    // Calculate max length for space reservation
     const maxLength = texts.reduce(
       (max, text) => Math.max(max, text.length),
       0,
     );
-    const initialText = texts[0] || "";
+
+    const startAnimation = useCallback(() => {
+      setIsAnimating(true);
+      let lastTimestamp = 0;
+
+      const animate = (timestamp: number) => {
+        if (!lastTimestamp) {
+          lastTimestamp = timestamp;
+          rafIdRef.current = requestAnimationFrame(animate);
+          return;
+        }
+
+        const delta = timestamp - lastTimestamp;
+        lastTimestamp = timestamp;
+        accumulatorRef.current += delta;
+
+        const { currentTextIndex, isDeleting } = animationRef.current;
+        const currentText = texts[currentTextIndex];
+        const speed = isDeleting ? DELETING_SPEED : TYPING_SPEED;
+
+        if (accumulatorRef.current >= speed) {
+          accumulatorRef.current = 0;
+
+          if (isDeleting) {
+            if (displayedText.length > 0) {
+              setDisplayedText(
+                currentText.substring(0, displayedText.length - 1),
+              );
+            } else {
+              animationRef.current.isDeleting = false;
+              animationRef.current.currentTextIndex =
+                (currentTextIndex + 1) % texts.length;
+            }
+          } else {
+            if (displayedText.length < currentText.length) {
+              setDisplayedText(
+                currentText.substring(0, displayedText.length + 1),
+              );
+            } else {
+              accumulatorRef.current = -PAUSE_DURATION;
+              animationRef.current.isDeleting = true;
+            }
+          }
+        }
+
+        rafIdRef.current = requestAnimationFrame(animate);
+      };
+
+      rafIdRef.current = requestAnimationFrame(animate);
+    }, [displayedText, texts]);
 
     useEffect(() => {
-      // Safety check: ensure texts array is not empty
-      if (texts.length === 0) return;
+      if (!isAnimating && texts.length > 0) {
+        const delayId = setTimeout(() => {
+          startAnimation();
+        }, ANIMATION_START_DELAY);
 
-      // Start with first text fully displayed (CLS fix)
-      if (!isMounted) {
-        setDisplayedText(initialText);
-        setIsMounted(true);
-        // Start deletion after initial pause
-        timeoutRef.current = setTimeout(() => {
-          setIsDeleting(true);
-        }, PAUSE_DURATION);
-        return;
-      }
-
-      const currentText = texts[currentIndex];
-
-      const handleTyping = () => {
-        if (!isDeleting) {
-          if (displayedText.length < currentText.length) {
-            setDisplayedText(
-              currentText.substring(0, displayedText.length + 1),
-            );
-            timeoutRef.current = setTimeout(handleTyping, TYPING_SPEED);
-          } else {
-            timeoutRef.current = setTimeout(() => {
-              setIsDeleting(true);
-            }, PAUSE_DURATION);
+        return () => {
+          clearTimeout(delayId);
+          if (rafIdRef.current !== null) {
+            cancelAnimationFrame(rafIdRef.current);
           }
-        } else {
-          if (displayedText.length > 0) {
-            setDisplayedText(
-              currentText.substring(0, displayedText.length - 1),
-            );
-            timeoutRef.current = setTimeout(handleTyping, DELETING_SPEED);
-          } else {
-            setIsDeleting(false);
-            setCurrentIndex((prevIndex) => (prevIndex + 1) % texts.length);
-          }
-        }
-      };
-
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-        timeoutRef.current = null;
+        };
       }
-
-      timeoutRef.current = setTimeout(handleTyping, TYPING_SPEED);
-
       return () => {
-        if (timeoutRef.current) {
-          clearTimeout(timeoutRef.current);
-          timeoutRef.current = null;
+        if (rafIdRef.current !== null) {
+          cancelAnimationFrame(rafIdRef.current);
         }
       };
-    }, [
-      displayedText,
-      currentIndex,
-      isDeleting,
-      texts,
-      isMounted,
-      initialText,
-    ]);
+    }, [isAnimating, startAnimation, texts.length]);
 
     return (
       <div className="mb-8 sm:mb-12 code-block min-h-[28px]">
@@ -130,7 +143,10 @@ export const TypeAnnotatedGreeting = memo(
             style={{ minWidth: `${maxLength + 2}ch` }}
           >
             "{displayedText}
-            <span className="animate-blink-cursor text-foreground">|</span>"
+            {isAnimating && (
+              <span className="animate-blink-cursor text-foreground">|</span>
+            )}
+            "
           </span>
         </div>
       </div>

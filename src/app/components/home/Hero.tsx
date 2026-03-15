@@ -61,10 +61,10 @@ export const Hero = memo(
     badge,
   }: HeroProps) => {
     return (
-      <Section>
-        <div className="grid gap-8 md:grid-cols-2 lg:gap-12 items-center">
+      <Section className="px-4 sm:px-6 lg:px-8">
+        <div className="grid gap-6 sm:gap-8 md:grid-cols-2 lg:gap-12 items-center">
           {/* Left Column: Main Content */}
-          <div className="flex flex-col">
+          <div className="flex flex-col order-2 md:order-1">
             {/* Type-Annotated Greeting with Typing Animation */}
             <TypeAnnotatedGreeting texts={greetingTexts} />
 
@@ -72,23 +72,32 @@ export const Hero = memo(
             <SyntaxHighlightedH1 title={title} keywords={keywords} />
 
             {/* Description */}
-            <P className="mb-8 max-w-2xl animate-in-up animate-delay-150">
+            <P className="mb-6 sm:mb-8 max-w-full sm:max-w-2xl animate-in-up animate-delay-150">
               {description}
             </P>
 
             {/* CTAs */}
             <div className="mb-4 flex flex-col gap-3 sm:mb-6 sm:flex-row sm:gap-4 sm:items-center animate-in-up animate-delay-200">
-              <Button asChild size="lg">
+              <Button
+                asChild
+                size="lg"
+                className="touch-manipulation w-full sm:w-auto"
+              >
                 <Link href={primaryHref} className="group">
                   {ctaPrimary}
                   <ArrowRight
-                    className="ml-2 h-3.5 w-3.5 transition-transform duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:translate-x-0.5 sm:h-4 sm:w-4"
+                    className="ml-2 h-3.5 w-3.5 transition-transform duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:translate-x-0.5 group-active:translate-x-0.5 sm:h-4 sm:w-4"
                     aria-hidden="true"
                   />
                 </Link>
               </Button>
 
-              <Button asChild variant="outline" size="lg">
+              <Button
+                asChild
+                variant="outline"
+                size="lg"
+                className="touch-manipulation w-full sm:w-auto"
+              >
                 <Link href={secondaryHref}>{ctaSecondary}</Link>
               </Button>
             </div>
@@ -102,7 +111,7 @@ export const Hero = memo(
           </div>
 
           {/* Right Column: Code Block */}
-          <div className="flex items-center justify-center">
+          <div className="flex items-center justify-center order-1 md:order-2 px-2 sm:px-0">
             <CodeBlockTechStack techStack={techStack} />
           </div>
         </div>

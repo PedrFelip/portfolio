@@ -44,17 +44,23 @@ const ANIMATION_START_DELAY = 1000; // ms to wait before starting typing animati
  */
 export const TypeAnnotatedGreeting = memo(
   ({ texts }: TypeAnnotatedGreetingProps) => {
-    const [displayedText, setDisplayedText] = useState(texts[0] || "");
-    const [isAnimating, setIsAnimating] = useState(false);
+    const [displayedText, setDisplayedText] = useState("");
     const rafIdRef = useRef<number | null>(null);
     const animationRef = useRef<{
       currentTextIndex: number;
       isDeleting: boolean;
+      isInitialized: boolean;
     }>({
       currentTextIndex: 0,
       isDeleting: false,
+      isInitialized: false,
     });
     const accumulatorRef = useRef(0);
+    const displayedTextRef = useRef("");
+
+    useEffect(() => {
+      displayedTextRef.current = displayedText;
+    }, [displayedText]);
 
     const maxLength = texts.reduce(
       (max, text) => Math.max(max, text.length),
@@ -62,7 +68,6 @@ export const TypeAnnotatedGreeting = memo(
     );
 
     const startAnimation = useCallback(() => {
-      setIsAnimating(true);
       let lastTimestamp = 0;
 
       const animate = (timestamp: number) => {
@@ -84,20 +89,26 @@ export const TypeAnnotatedGreeting = memo(
           accumulatorRef.current = 0;
 
           if (isDeleting) {
-            if (displayedText.length > 0) {
-              setDisplayedText(
-                currentText.substring(0, displayedText.length - 1),
+            if (displayedTextRef.current.length > 0) {
+              const nextText = currentText.substring(
+                0,
+                displayedTextRef.current.length - 1,
               );
+              setDisplayedText(nextText);
+              displayedTextRef.current = nextText;
             } else {
               animationRef.current.isDeleting = false;
               animationRef.current.currentTextIndex =
                 (currentTextIndex + 1) % texts.length;
             }
           } else {
-            if (displayedText.length < currentText.length) {
-              setDisplayedText(
-                currentText.substring(0, displayedText.length + 1),
+            if (displayedTextRef.current.length < currentText.length) {
+              const nextText = currentText.substring(
+                0,
+                displayedTextRef.current.length + 1,
               );
+              setDisplayedText(nextText);
+              displayedTextRef.current = nextText;
             } else {
               accumulatorRef.current = -PAUSE_DURATION;
               animationRef.current.isDeleting = true;
@@ -109,11 +120,12 @@ export const TypeAnnotatedGreeting = memo(
       };
 
       rafIdRef.current = requestAnimationFrame(animate);
-    }, [displayedText, texts]);
+    }, [texts]);
 
     useEffect(() => {
-      if (!isAnimating && texts.length > 0) {
+      if (!animationRef.current.isInitialized && texts.length > 0) {
         const delayId = setTimeout(() => {
+          animationRef.current.isInitialized = true;
           startAnimation();
         }, ANIMATION_START_DELAY);
 
@@ -129,21 +141,21 @@ export const TypeAnnotatedGreeting = memo(
           cancelAnimationFrame(rafIdRef.current);
         }
       };
-    }, [isAnimating, startAnimation, texts.length]);
+    }, [startAnimation, texts.length]);
 
     return (
-      <div className="mb-8 sm:mb-12 code-block min-h-[28px]">
+      <div className="mb-6 sm:mb-8 md:mb-12 code-block min-h-[28px]">
         <div className="inline-flex flex-wrap items-baseline gap-2 text-sm sm:text-base">
           <span className="text-muted-foreground">const</span>
           <span className="syntax-keyword">greeting:</span>
           <span className="syntax-type">string</span>
           <span className="syntax-punctuation">=</span>
           <span
-            className="syntax-string font-mono"
-            style={{ minWidth: `${maxLength + 2}ch` }}
+            className="syntax-string font-mono break-words"
+            style={{ minWidth: `${Math.min(maxLength + 2, 20)}ch` }}
           >
             "{displayedText}
-            {isAnimating && (
+            {animationRef.current.isInitialized && (
               <span className="animate-blink-cursor text-foreground">|</span>
             )}
             "

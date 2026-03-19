@@ -43,7 +43,7 @@ export const SectionHeader = ({
   children,
 }: SectionHeaderProps) => {
   return (
-    <div className="mb-8 sm:mb-12">
+    <div className="mb-8 sm:mb-10">
       {badge && (
         <div className="flex items-center gap-3 mb-3">
           <Badge
@@ -56,8 +56,8 @@ export const SectionHeader = ({
           <div className="flex-1 h-[1px] bg-gradient-to-r from-border to-transparent" />
         </div>
       )}
-      <H2 className="mb-4">{title}</H2>
-      {description && <P className="max-w-2xl mb-4">{description}</P>}
+      <H2 className="mb-3">{title}</H2>
+      {description && <P className="max-w-2xl mb-3">{description}</P>}
       {children}
     </div>
   );

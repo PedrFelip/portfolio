@@ -25,7 +25,7 @@ interface EducationCardProps {
 export const EducationCard = memo(({ education }: EducationCardProps) => {
   return (
     <Card className="education-card-enhanced">
-      <div className="grid grid-cols-[140px_1px_1fr] gap-4">
+      <div className="grid grid-cols-[120px_1px_1fr] sm:grid-cols-[140px_1px_1fr] gap-3 sm:gap-4">
         <div className="flex flex-col items-end pr-4">
           <MonoText className="text-sm tabular-nums text-foreground/70">
             {education.start}

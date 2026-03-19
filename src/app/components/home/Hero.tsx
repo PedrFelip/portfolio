@@ -61,7 +61,7 @@ export const Hero = memo(
     badge,
   }: HeroProps) => {
     return (
-      <Section className="px-4 sm:px-6 lg:px-8">
+      <Section>
         <div className="grid gap-6 sm:gap-8 md:grid-cols-2 lg:gap-12 items-center">
           {/* Left Column: Main Content */}
           <div className="flex flex-col order-2 md:order-1">

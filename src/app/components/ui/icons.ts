@@ -25,6 +25,7 @@ export {
   ChevronRight,
   Clock,
   Copy,
+  Cpu,
   ExternalLink,
   GitCommitVertical,
   Github,
@@ -35,5 +36,6 @@ export {
   Mail,
   Menu,
   Share2,
+  Terminal,
   X,
 } from "lucide-react";

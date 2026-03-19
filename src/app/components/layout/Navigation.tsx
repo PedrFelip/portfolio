@@ -11,7 +11,7 @@ import {
   useTransition,
 } from "react";
 import { Button } from "@/components/ui";
-import { Cpu, Menu, Terminal, X } from "@/components/ui/icons";
+import { Menu, X } from "@/components/ui/icons";
 import { useLanguage } from "@/lib/LanguageContext";
 import { useLocalizedLink } from "@/lib/useLocalizedLink";
 
@@ -41,14 +41,14 @@ const NavLinkItem = memo(
 
     const variantClasses = {
       desktop:
-        "relative px-2 py-1 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset",
+        "relative px-3 py-1.5 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
       mobile:
-        "min-h-[48px] px-4 py-3 border-b border-border/40 last:border-b-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 active:bg-muted/80",
+        "min-h-[48px] px-4 py-3 border-b border-border/40 last:border-b-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset active:bg-muted/80",
     };
 
     const stateClasses = isActive
-      ? "text-foreground bg-muted/60"
-      : "text-muted-foreground/70 hover:text-foreground hover:bg-muted/40";
+      ? "text-foreground bg-muted/50"
+      : "text-muted-foreground hover:text-foreground hover:bg-muted/30 active:bg-muted/50";
 
     return (
       <Link
@@ -132,17 +132,14 @@ export const Navigation = memo(() => {
     <nav className="sticky top-0 z-50 border-b border-border/80 bg-background/95 backdrop-blur-sm">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-14 items-center justify-between md:h-16">
-          {/* Logo with Terminal Icon */}
+          {/* Logo */}
           <div className="flex items-center gap-2">
             <Link
               href={getLocalizedLink("/")}
               className="flex items-center gap-2 group"
             >
-              <div className="relative size-8 sm:size-9 rounded bg-muted/40 border border-border/60 flex items-center justify-center transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:border-border group-hover:bg-muted/60">
-                <Terminal className="h-4 w-4 sm:h-5 sm:w-5 text-muted-foreground/80 group-hover:text-foreground transition-colors duration-150" />
-              </div>
               <div className="hidden sm:block">
-                <div className="font-mono text-sm font-semibold tracking-tight text-foreground">
+                <div className="font-mono text-sm font-semibold tracking-tight text-foreground group-hover:text-muted-foreground/90 transition-colors duration-150">
                   Pedro Felipe
                 </div>
                 <div className="font-mono text-[10px] text-muted-foreground/60 tabular-nums">

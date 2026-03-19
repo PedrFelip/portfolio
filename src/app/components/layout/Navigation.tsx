@@ -171,15 +171,15 @@ export const Navigation = memo(() => {
               aria-label={`Switch language to ${
                 language === "en" ? "Portuguese" : "English"
               }`}
-              className="h-8 w-8 sm:h-9 sm:w-9 font-mono text-[11px] font-medium border border-border/60 rounded hover:bg-muted/60 active:bg-muted/80 transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)]"
+              className="h-9 w-9 sm:h-10 sm:w-10 font-mono text-[11px] font-medium border border-border/50 rounded hover:bg-muted/50 hover:border-border/70 active:bg-muted/70 active:scale-[0.97] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)]"
             >
               {language === "en" ? "EN" : "PT"}
             </Button>
 
             <Button
               variant="ghost"
-              className={`sm:hidden h-8 w-8 sm:h-9 sm:w-9 transition-all duration-200 ease-[cubic-bezier(0.25,1,0.5,1)] border border-border/60 rounded hover:bg-muted/60 ${
-                isMenuOpen ? "bg-muted/80" : ""
+              className={`sm:hidden h-9 w-9 transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] border border-border/50 rounded hover:bg-muted/50 hover:border-border/70 active:bg-muted/70 active:scale-[0.97] ${
+                isMenuOpen ? "bg-muted/50 border-border/70" : ""
               }`}
               onClick={toggleMenu}
               aria-label={t.nav.toggleMenu}
@@ -187,12 +187,12 @@ export const Navigation = memo(() => {
             >
               {isMenuOpen ? (
                 <X
-                  className="h-4 w-4 transition-all duration-200 ease-[cubic-bezier(0.25,1,0.5,1)]"
+                  className="h-4 w-4 transition-transform duration-150 ease-[cubic-bezier(0.25,1,0.5,1)]"
                   aria-hidden="true"
                 />
               ) : (
                 <Menu
-                  className="h-4 w-4 transition-all duration-200 ease-[cubic-bezier(0.25,1,0.5,1)]"
+                  className="h-4 w-4 transition-transform duration-150 ease-[cubic-bezier(0.25,1,0.5,1)]"
                   aria-hidden="true"
                 />
               )}

@@ -251,6 +251,26 @@ html {
     }
   }
 
+  @keyframes fade-in-menu {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes slide-down-menu {
+    from {
+      opacity: 0;
+      transform: translateY(-100%);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
   @keyframes scale-in {
     from {
       opacity: 0;
@@ -293,6 +313,16 @@ html {
     opacity: 0;
   }
 
+  .animate-in-fade {
+    animation: fade-in-menu 150ms cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    opacity: 0;
+  }
+
+  .animate-in-slide-down {
+    animation: slide-down-menu 200ms cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    opacity: 0;
+  }
+
   .animate-in-left {
     animation: fade-in-left 200ms cubic-bezier(0.25, 1, 0.5, 1) forwards;
     opacity: 0;
@@ -310,6 +340,20 @@ html {
 
   .animate-slide-down {
     animation: slide-in-top 150ms cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  /* Scale Utilities for Touch Feedback
+   * Provides immediate visual feedback on mobile
+   */
+  .scale-on-active:active {
+    transform: scale(0.98);
+  }
+
+  /* Scale Utilities for Touch Feedback
+   * Provides immediate visual feedback on mobile
+   */
+  .scale-on-active:active {
+    transform: scale(0.98);
   }
 
   /* Stagger Delays - AGENTS.md 4px Grid System

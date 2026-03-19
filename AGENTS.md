@@ -155,17 +155,19 @@ import { Button, Card, H1, P } from '@/components/ui'
 
 ## Product Context
 
-**Portfolio for backend engineers**: Showcase skills, system design expertise, and project experience. Target: tech leads, recruiters, senior engineers. Aesthetic: **precision + density**, terminal/GitHub dark vibes, technical clarity over visual flair.
+**Portfolio for backend engineers**: Showcase skills, system design expertise, and project experience. Target: tech leads, recruiters, senior engineers. Aesthetic: **architectural precision**, blueprint grid vibes, technical clarity over visual flair.
 
 ---
 
 ## Design Direction
 
 Design inspirations that guide the visual language:
-- **[opencode.ai](https://opencode.ai)** - Clean, technical interface with borders-only depth, monospace for data, subtle micro-interactions (150ms), minimal shadows, and gray-first color palette with sparing accent use
+- **[Vercel](https://vercel.com)** - Geometric dark theme, architectural precision, grid-aware layouts, subtle technical details, premium dark mode
+- **Linear** - Precision spacing, subtle borders, 0.5px border approach, asymmetrical compositions
 - **GitHub** - Developer-centric dark theme, tabular data presentation, status-based color usage
-- **Linear** - Precision spacing, subtle borders, 0.5px border approach
-- **Vercel** - Clean typography, technical clarity, minimal decoration
+- **Figma** - Canvas-like grid patterns, corner markers, tool-focused UI, blueprint aesthetic
+
+**Key Elements**: Blueprint grid lines (subtle, background), corner brackets/markers on cards, asymmetrical layouts with intention, monochromatic dark palette, 2-4px sharp corners, subtle animations (150ms).
 
 ---
 
@@ -181,10 +183,30 @@ All spacing uses a 4px base grid:
 - `32px` - major separation
 
 ### Depth & Elevation Strategy
-**Borders-only approach** — Clean, technical, dense. Works for precision tools. Use subtle borders (0.5px) at 8-10% opacity to define regions. Minimal shadows.
+**Borders-only approach with blueprint details** — Clean, technical, architectural. Works for precision tools. Use subtle borders (0.5px) at 8-10% opacity to define regions. Minimal shadows.
+
+**Blueprint/Grid Elements**:
+- Visible grid lines in background (subtle, architectural, like technical drawings)
+- Corner brackets/markers on cards and sections (L-shaped decorative elements)
+- Grid-aware asymmetrical layouts (break from perfect alignment with intention)
 
 ```css
 border: 0.5px solid rgba(0, 0, 0, 0.08);
+
+/* Corner bracket decoration */
+.corner-bracket {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border: 1px solid var(--border-subtle);
+}
+
+/* Grid lines background */
+.grid-background {
+  background-image: linear-gradient(var(--border-subtle) 1px, transparent 1px),
+                    linear-gradient(90deg, var(--border-subtle) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
 ```
 
 ### Typography Hierarchy
@@ -206,4 +228,4 @@ Numbers, IDs, codes, timestamps → monospace. Use `tabular-nums` for columnar a
 Gray builds structure. Color only appears for: status, action, error, success. Decorative color is noise.
 
 ### Anti-Patterns
-❌ Dramatic drop shadows | Asymmetric padding | Large border radius (16px+) | Excessive spacing | Spring animations | Gradients for decoration | Multiple accent colors
+❌ Dramatic drop shadows | Asymmetric padding without architectural reason | Large border radius (16px+) | Excessive spacing | Spring animations | Gradients for decoration | Multiple accent colors | Grid lines that distract from content

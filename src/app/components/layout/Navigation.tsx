@@ -129,9 +129,9 @@ export const Navigation = memo(() => {
   }, [isMenuOpen, closeMenu]);
 
   return (
-    <nav className="sticky top-0 z-50 border-b border-border/80 bg-background/95 backdrop-blur-sm">
+    <nav className="sticky top-0 z-50 border-b border-border/60 bg-background/90 backdrop-blur-md">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-14 items-center justify-between md:h-16">
+        <div className="flex h-[60px] items-center justify-between sm:h-[64px]">
           {/* Logo */}
           <div className="flex items-center gap-2">
             <Link
@@ -204,11 +204,11 @@ export const Navigation = memo(() => {
         {isMenuOpen && (
           <>
             <div
-              className="fixed inset-0 bg-background/90 backdrop-blur-md z-40 md:hidden animate-in-fade"
+              className="fixed inset-0 bg-background/80 backdrop-blur-sm z-40 md:hidden animate-in-fade"
               onClick={closeMenu}
               aria-hidden="true"
             />
-            <div className="border-t border-border/80 md:hidden relative z-50 bg-background animate-in-slide-down">
+            <div className="border-t border-border/60 md:hidden relative z-50 bg-background/95 backdrop-blur-md animate-in-slide-down shadow-lg">
               <div className="flex flex-col bg-background">
                 {navLinks.map((link) => (
                   <NavLinkItem

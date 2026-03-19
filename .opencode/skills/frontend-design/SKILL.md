@@ -31,7 +31,7 @@ Focus on:
 - **Color & Theme**: Commit to a cohesive aesthetic. Use CSS variables for consistency. Dominant colors with sharp accents outperform timid, evenly-distributed palettes.
 - **Motion**: Use animations for effects and micro-interactions. Prioritize CSS-only solutions for HTML. Use Motion library for React when available. Focus on high-impact moments: one well-orchestrated page load with staggered reveals (animation-delay) creates more delight than scattered micro-interactions. Use scroll-triggering and hover states that surprise.
 - **Spatial Composition**: Unexpected layouts. Asymmetry. Overlap. Diagonal flow. Grid-breaking elements. Generous negative space OR controlled density.
-- **Backgrounds & Visual Details**: Create atmosphere and depth rather than defaulting to solid colors. Add contextual effects and textures that match the overall aesthetic. Apply creative forms like gradient meshes, noise textures, geometric patterns, layered transparencies, dramatic shadows, decorative borders, custom cursors, and grain overlays.
+- **Backgrounds & Visual Details**: Create atmosphere and depth rather than defaulting to solid colors. Add contextual effects and textures that match the overall aesthetic. Apply creative forms like grid lines (architectural blueprint), corner brackets/markers, geometric patterns, layered transparencies, decorative borders, and subtle tech-focused details.
 
 NEVER use generic AI-generated aesthetics like overused font families (Inter, Roboto, Arial, system fonts), cliched color schemes (particularly purple gradients on white backgrounds), predictable layouts and component patterns, and cookie-cutter design that lacks context-specific character.
 
@@ -49,14 +49,14 @@ This project is a **backend-focused portfolio** showcasing system design, cloud 
 
 ### Design Direction
 
-**Emotional Goal**: Trust + Efficiency + Focus  
-**Visual Feel**: Terminal-modern + GitHub dark — clean, technical, precise  
-**Personality**: **Precision & Density** — tight spacing, monochrome, information-forward  
-**Color Foundation**: Cool foundations (slate, blue-gray) — professional, trustworthy  
-**Theme**: Dark mode default (feels technical, focused, premium)  
-**Typography**: Humanist sans (SF Pro) — warmer than cold system fonts  
+**Emotional Goal**: Precision + Technical Focus + Modern Craft  
+**Visual Feel**: Vercel geometric + Blueprint grid — clean, architectural, tech-forward  
+**Personality**: **Architectural Precision** — asymmetrical layouts, grid-aware composition, technical details  
+**Color Foundation**: Monochromatic dark — single hue depth, professional, focused  
+**Theme**: Dark mode default (feels technical, premium, engineered)  
+**Typography**: Humanist sans (SF Pro) — legible, technical but approachable  
 
-**What makes it memorable**: Subtle delight for nerds — terminal vibes, optimization focus, hands-on Linux energy without being overdone.
+**What makes it memorable**: Blueprint-inspired details — visible grid lines, corner brackets, asymmetrical compositions that feel engineered and intentional.
 
 ### Core Craft Principles
 
@@ -77,22 +77,43 @@ Use 2px, 4px, 6px (minimal system). Sharper corners feel technical. Pick a syste
 
 #### Depth & Elevation Strategy
 
-**Use borders-only (flat) approach:**
-- Clean, technical, dense. Works for utility-focused tools where information density matters.
+**Use borders-only (flat) approach with blueprint details:**
+- Clean, technical, architectural. Works for precision tools where composition matters.
 - Minimal shadows (`0 1px 3px rgba(0,0,0,0.08)` maximum for subtle lift).
 - Lean on borders for definition (not shadows).
 - Borders at 10-15% opacity for dark backgrounds.
+
+**Blueprint/Grid Decorations:**
+- Visible grid lines in background (subtle, architectural, like technical drawings)
+- Corner brackets/markers on cards and sections (L-shaped decorative elements)
+- Grid-aware asymmetrical layouts (break from perfect alignment with intention)
 
 **Example CSS:**
 ```css
 --border: rgba(0, 0, 0, 0.08);
 --border-subtle: rgba(0, 0, 0, 0.05);
 border: 0.5px solid var(--border);
+
+/* Corner bracket decoration */
+.corner-bracket {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border: 1px solid var(--border-subtle);
+}
+
+/* Grid lines background */
+.grid-background {
+  background-image: linear-gradient(var(--border-subtle) 1px, transparent 1px),
+                    linear-gradient(90deg, var(--border-subtle) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
 ```
 
 #### Card Design
-- Varied internal layouts based on content.
+- Varied internal layouts based on content (asymmetrical when intentional).
 - **Consistent surface treatment**: same border weight, shadow depth, corner radius, padding scale.
+- **Corner brackets**: L-shaped decorative markers on card corners (2-4px size, subtle border).
 - No decorative gradients or excessive effects.
 
 #### Typography Hierarchy
@@ -124,12 +145,14 @@ Build a four-level system: foreground (primary) → secondary → muted → fain
 ### Anti-Patterns (Never Do)
 - Dramatic drop shadows (`box-shadow: 0 25px 50px...`)
 - Large border radius (16px+) on small elements
-- Asymmetric padding without clear reason
-- Thick borders (2px+) for decoration
+- Asymmetric padding without clear architectural reason
+- Thick borders (2px+) for decoration (keep subtle, 0.5-1px)
 - Excessive spacing (margins > 48px between sections)
 - Spring/bouncy animations
 - Gradients for decoration
 - Multiple accent colors in one interface
+- Grid lines that distract from content (keep subtle, background-only)
+- Corner brackets that feel decorative without purpose
 
 ### Tech Stack
 
@@ -171,6 +194,6 @@ import { Button, Card, H1, P } from '@/components/ui'
 
 ### The Standard
 
-Every interface should look designed by a team that obsesses over 1-pixel differences. Not stripped — *crafted*. Designed for the specific context of a technical portfolio for power users who value precision, clarity, and density of information without fluff.
+Every interface should look designed by a team that obsesses over 1-pixel differences. Not stripped — *crafted*. Designed for the specific context of a technical portfolio for power users who value precision, architectural composition, and deliberate asymmetry without chaos.
 
-The goal: **intricate minimalism with subtle technical personality**. No generic AI aesthetics. Precision meets nerd delight.
+The goal: **architectural minimalism with blueprint-inspired details**. Grid-aware layouts, corner brackets, and subtle technical references. No generic AI aesthetics. Precision meets modern craft.

@@ -7,7 +7,11 @@ import {
   RefreshCw,
 } from "lucide-react";
 import Link from "next/link";
-import { RailLayout, SectionDivider } from "@/components/blueprint";
+import {
+  AlignedFlickeringGrid,
+  RailLayout,
+  SectionDivider,
+} from "@/components/blueprint";
 import { CornerBrackets } from "@/components/blueprint/CornerBracket";
 import { GitHubSection } from "@/components/home/GitHubSection";
 import { SimpleTechStack } from "@/components/home/SimpleTechStack";
@@ -171,48 +175,69 @@ export default async function NewPage({ params }: NewPageProps) {
 
       {/* CTA Section */}
       <section className="relative px-6 py-16 sm:py-24">
-        <div className="relative mx-auto max-w-6xl">
-          {/* CTA Card Container with Corner Brackets */}
-          <div className="group relative border border-white/[0.08] bg-white/[0.02] px-8 py-12 sm:px-12 sm:py-16">
-            <CornerBrackets
-              size={16}
-              className="border-border/50 transition-colors duration-300 group-hover:border-white/20"
+        <div className="rail-bounded">
+          {/* Grid container aligned with blueprint rails */}
+          <div className="relative grid grid-cols-1 gap-0 sm:grid-cols-[1fr_minmax(0,_2fr)_1fr]">
+            {/* Left flickering grid - aligned to rail */}
+            <AlignedFlickeringGrid
+              side="left"
+              squareSize={4}
+              gridGap={6}
+              flickerChance={0.3}
+              maxOpacity={0.25}
             />
 
-            {/* Content */}
-            <div className="flex flex-col items-center text-center">
-              <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-                Let's build something together
-              </h2>
-              <p className="mt-4 max-w-md text-base text-muted-foreground sm:text-lg">
-                I'm always open to discussing new projects, creative ideas, or
-                opportunities.
-              </p>
+            {/* CTA Card Container with Corner Brackets */}
+            <div className="group relative border border-white/[0.08] bg-white/[0.02] px-8 py-12 sm:px-12 sm:py-16">
+              <CornerBrackets
+                size={16}
+                className="border-border/50 transition-colors duration-300 group-hover:border-white/20"
+              />
 
-              {/* CTA Buttons */}
-              <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row">
-                <div className="relative">
-                  <Link
-                    href={`/${lang}/projects`}
-                    className="relative inline-flex h-11 w-44 items-center justify-center gap-2 rounded-lg bg-foreground text-sm font-medium text-background transition-all duration-150 hover:opacity-90"
-                  >
-                    View Projects
-                  </Link>
-                </div>
+              {/* Content */}
+              <div className="flex flex-col items-center text-center">
+                <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+                  Let's build something together
+                </h2>
+                <p className="mt-4 max-w-md text-base text-muted-foreground sm:text-lg">
+                  I'm always open to discussing new projects, creative ideas, or
+                  opportunities.
+                </p>
 
-                <div className="relative">
-                  <Link
-                    href="https://x.com/pedrofelipeek"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="relative inline-flex h-11 w-44 items-center justify-center gap-2 rounded-lg border border-white/[0.1] text-sm font-medium text-foreground transition-all duration-150 hover:bg-white/[0.04]"
-                  >
-                    <XIcon className="size-4" />
-                    <span>Follow on Twitter</span>
-                  </Link>
+                {/* CTA Buttons */}
+                <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row">
+                  <div className="relative">
+                    <Link
+                      href={`/${lang}/projects`}
+                      className="relative inline-flex h-11 w-44 items-center justify-center gap-2 rounded-lg bg-foreground text-sm font-medium text-background transition-all duration-150 hover:opacity-90"
+                    >
+                      View Projects
+                    </Link>
+                  </div>
+
+                  <div className="relative">
+                    <Link
+                      href="https://x.com/pedrofelipeek"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="relative inline-flex h-11 w-44 items-center justify-center gap-2 rounded-lg border border-white/[0.1] text-sm font-medium text-foreground transition-all duration-150 hover:bg-white/[0.04]"
+                    >
+                      <XIcon className="size-4" />
+                      <span>Follow on Twitter</span>
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>
+
+            {/* Right flickering grid - aligned to rail */}
+            <AlignedFlickeringGrid
+              side="right"
+              squareSize={4}
+              gridGap={6}
+              flickerChance={0.3}
+              maxOpacity={0.25}
+            />
           </div>
         </div>
       </section>

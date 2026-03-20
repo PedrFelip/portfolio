@@ -117,8 +117,7 @@ export const Footer = memo(() => {
         {/* Blueprint Grid with visible grid lines and corner brackets */}
         <FooterGrid>
           {/* Brand Column */}
-          <FooterGridCell showCorners={false}
- showDotPattern={true}>
+          <FooterGridCell showCorners={false} showDotPattern={true}>
             <Link
               href={getLocalizedLink("/")}
               className="text-base font-semibold tracking-tight text-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background touch-manipulation"
@@ -131,8 +130,7 @@ export const Footer = memo(() => {
           </FooterGridCell>
 
           {/* Navigation Column */}
-          <FooterGridCell showCorners={false}
- showDotPattern={true}>
+          <FooterGridCell showCorners={false} showDotPattern={true}>
             <Label className="mb-4 block text-xs font-medium uppercase tracking-wide text-muted-foreground">
               {t.footer.navigation}
             </Label>
@@ -146,8 +144,7 @@ export const Footer = memo(() => {
           </FooterGridCell>
 
           {/* Connect Column - NO DotPattern as requested */}
-          <FooterGridCell showCorners={false}
- showDotPattern={false}>
+          <FooterGridCell showCorners={false} showDotPattern={false}>
             <Label className="mb-4 block text-xs font-medium uppercase tracking-wide text-muted-foreground">
               {t.footer.connect}
             </Label>
@@ -164,8 +161,7 @@ export const Footer = memo(() => {
           </FooterGridCell>
 
           {/* Tech Stack Column */}
-          <FooterGridCell showCorners={false}
- showDotPattern={true}>
+          <FooterGridCell showCorners={false} showDotPattern={true}>
             <Label className="mb-4 block text-xs font-medium uppercase tracking-wide text-muted-foreground">
               Built With
             </Label>

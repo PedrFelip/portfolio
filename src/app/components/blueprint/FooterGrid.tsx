@@ -1,5 +1,6 @@
 import { memo } from "react";
 import { cn } from "@/lib/utils";
+import { DotPattern } from "./DotPattern";
 
 interface FooterGridProps {
   children: React.ReactNode;
@@ -10,6 +11,7 @@ interface FooterGridCellProps {
   children: React.ReactNode;
   className?: string;
   showCorners?: boolean;
+  showDotPattern?: boolean;
 }
 
 /**
@@ -61,14 +63,20 @@ export const FooterGridCell = memo(function FooterGridCell({
   children,
   className,
   showCorners = true,
+  showDotPattern = false,
 }: FooterGridCellProps) {
   return (
     <div
       className={cn(
-        "group relative px-6 py-12 transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:bg-white/[0.02]",
+        "group relative px-6 py-12 sm:py-16 transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:bg-white/[0.02] overflow-hidden",
         className,
       )}
     >
+      {/* Subtle dot pattern background - blueprint aesthetic */}
+      {showDotPattern && (
+        <DotPattern className="absolute inset-0 opacity-20 group-hover:opacity-40 transition-opacity duration-300 pointer-events-none" />
+      )}
+
       {/* Corner brackets - blueprint architectural detail */}
       {showCorners && (
         <>

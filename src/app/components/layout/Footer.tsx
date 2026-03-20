@@ -17,7 +17,7 @@ interface FooterLinkProps {
 
 /**
  * FooterLink component - Internal navigation link
- * Structural Grid: hover states with subtle transitions
+ * Structural Grid: subtle hover with underline animation
  */
 const FooterLink = memo(
   ({ href, children, external = false }: FooterLinkProps) => (
@@ -25,7 +25,7 @@ const FooterLink = memo(
       href={href}
       target={external ? "_blank" : undefined}
       rel={external ? "noopener noreferrer" : undefined}
-      className="inline-flex min-h-[36px] items-center text-sm text-muted-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background active:opacity-80 touch-manipulation"
+      className="link-underline inline-flex min-h-[30px] items-center text-sm text-muted-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background touch-manipulation"
     >
       {children}
     </Link>
@@ -41,7 +41,7 @@ interface SocialLinkProps {
 
 /**
  * SocialLink component - External social/contact link
- * Structural Grid: Blueprint-inspired card with corner brackets aesthetic
+ * Structural Grid: Consistent blueprint-style button
  */
 const SocialLink = memo(({ href, label, icon }: SocialLinkProps) => (
   <a
@@ -49,12 +49,11 @@ const SocialLink = memo(({ href, label, icon }: SocialLinkProps) => (
     target="_blank"
     rel="noopener noreferrer"
     aria-label={label}
-    className="group relative flex min-h-[40px] min-w-[40px] items-center justify-center rounded border border-white/[0.08] bg-white/[0.03] p-2 text-muted-foreground transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-white/[0.15] hover:bg-white/[0.05] hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background active:scale-[0.97] touch-manipulation overflow-hidden"
+    className="group relative flex h-10 w-10 items-center justify-center rounded border border-white/[0.08] bg-white/[0.03] text-muted-foreground transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-white/[0.2] hover:bg-white/[0.08] hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background active:scale-[0.97] touch-manipulation"
   >
-    {icon}
-    {/* Blueprint corner bracket decoration - only on hover */}
-    <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-white/0 transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:border-white/[0.15]" />
-    <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-white/0 transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:border-white/[0.15]" />
+    <div className="relative z-10 transition-transform duration-150 group-hover:scale-110">
+      {icon}
+    </div>
   </a>
 ));
 SocialLink.displayName = "SocialLink";
@@ -67,27 +66,14 @@ SocialLink.displayName = "SocialLink";
  * - Blueprint Grid: visible vertical grid lines connecting cells (architectural aesthetic)
  * - Corner brackets: L-shaped technical markers on all 4 corners of each cell
  * - Hover effects: subtle background + bracket glow (150ms transitions)
- * - 4px grid: consistent spacing throughout (12px, 16px, 24px, 32px, 48px)
+ * - 4px grid: consistent spacing throughout
  * - Symmetrical padding: px-6 (24px) and py-12 (48px) on each cell
- * - Typography: monospace for data (version numbers, dates)
- * - Dot pattern: subtle background texture for depth
- * - Grid lines: 40% opacity, visible separators between columns (technical drawing style)
- * - Responsive: 1 col mobile → 2 cols tablet → 4 cols desktop
- *
- * Best practices applied:
- * - Memoized child components to prevent re-renders
- * - useMemo for navLinks and socialLinks arrays optimization (Vercel best practice)
- * - Clean component composition with specialized FooterGrid/FooterGridCell
- * - Accessible social links with aria-labels
- * - All decorative elements have aria-hidden="true"
+ * - Dot pattern: restricted to non-contact cells to avoid visual clutter
  */
 export const Footer = memo(() => {
   const { t } = useLanguage();
   const getLocalizedLink = useLocalizedLink();
 
-  // Memoize navLinks array to prevent array recreation on every render
-  // Vercel best practice: cache arrays when used in maps (rerender-dependencies)
-  // Dependencies optimized: only include when language actually changes
   const navLinks = useMemo(
     () => [
       { href: "/", label: t.nav.home },
@@ -98,9 +84,6 @@ export const Footer = memo(() => {
     [t.nav],
   );
 
-  // Memoize socialLinks array - static links don't depend on props/state
-  // Vercel best practice: js-cache-function-results (cache static data)
-  // Empty dependency array is correct since these URLs never change
   const socialLinks: SocialLinkProps[] = useMemo(
     () => [
       {
@@ -129,15 +112,13 @@ export const Footer = memo(() => {
 
   return (
     <footer className="relative border-t border-border bg-background">
-      {/* Subtle dot pattern background - blueprint aesthetic */}
-      <DotPattern className="inset-0" />
-
       {/* Main container - matches Navigation max-w-6xl and padding */}
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
         {/* Blueprint Grid with visible grid lines and corner brackets */}
-        <FooterGrid className="py-12 sm:py-16">
-          {/* Brand Column - Full width mobile, 1 col sm+lg */}
-          <FooterGridCell showCorners={true}>
+        <FooterGrid>
+          {/* Brand Column */}
+          <FooterGridCell showCorners={false}
+ showDotPattern={true}>
             <Link
               href={getLocalizedLink("/")}
               className="text-base font-semibold tracking-tight text-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background touch-manipulation"
@@ -150,7 +131,8 @@ export const Footer = memo(() => {
           </FooterGridCell>
 
           {/* Navigation Column */}
-          <FooterGridCell showCorners={true}>
+          <FooterGridCell showCorners={false}
+ showDotPattern={true}>
             <Label className="mb-4 block text-xs font-medium uppercase tracking-wide text-muted-foreground">
               {t.footer.navigation}
             </Label>
@@ -163,8 +145,9 @@ export const Footer = memo(() => {
             </nav>
           </FooterGridCell>
 
-          {/* Connect Column */}
-          <FooterGridCell showCorners={true}>
+          {/* Connect Column - NO DotPattern as requested */}
+          <FooterGridCell showCorners={false}
+ showDotPattern={false}>
             <Label className="mb-4 block text-xs font-medium uppercase tracking-wide text-muted-foreground">
               {t.footer.connect}
             </Label>
@@ -181,7 +164,8 @@ export const Footer = memo(() => {
           </FooterGridCell>
 
           {/* Tech Stack Column */}
-          <FooterGridCell showCorners={true}>
+          <FooterGridCell showCorners={false}
+ showDotPattern={true}>
             <Label className="mb-4 block text-xs font-medium uppercase tracking-wide text-muted-foreground">
               Built With
             </Label>

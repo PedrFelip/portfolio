@@ -1,3 +1,4 @@
+export { AlignedFlickeringGrid } from "./AlignedFlickeringGrid";
 export { CornerBracket, CornerBrackets } from "./CornerBracket";
 export { DotPattern } from "./DotPattern";
 export { FooterGrid, FooterGridCell } from "./FooterGrid";

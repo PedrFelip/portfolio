@@ -1,32 +1,193 @@
-import type { LucideIcon } from "lucide-react";
 import {
-  Cloud,
-  Code,
-  Database,
-  GitBranch,
-  Hexagon,
-  Layers,
-  Terminal,
-} from "lucide-react";
+  siDocker,
+  siGo,
+  siGraphql,
+  siNestjs,
+  siMongodb,
+  siNextdotjs,
+  siNodedotjs,
+  siPostgresql,
+  siHono,
+  siRedis,
+  siTypescript,
+  siPrisma,
+  siZod,
+} from "simple-icons";
 
 interface TechItem {
   name: string;
-  icon: LucideIcon;
+  icon: React.FC<{ className?: string }>;
 }
 
 const techData: TechItem[] = [
-  { name: "Node.js", icon: Hexagon },
-  { name: "TypeScript", icon: Terminal },
-  { name: "Go", icon: Terminal },
-  { name: "GraphQL", icon: GitBranch },
-  { name: "PostgreSQL", icon: Database },
-  { name: "MongoDB", icon: Database },
-  { name: "Redis", icon: Database },
-  { name: "Docker", icon: Layers },
-  { name: "Kubernetes", icon: Cloud },
-  { name: "AWS", icon: Cloud },
-  { name: "Next.js", icon: Code },
-  { name: "React", icon: Code },
+  {
+    name: "Node.js",
+    icon: ({ className }) => (
+      <svg
+        role="img"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        className={className}
+      >
+        <title>{siNodedotjs.title}</title>
+        <path d={siNodedotjs.path} />
+      </svg>
+    ),
+  },
+  {
+    name: "TypeScript",
+    icon: ({ className }) => (
+      <svg
+        role="img"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        className={className}
+      >
+        <title>{siTypescript.title}</title>
+        <path d={siTypescript.path} />
+      </svg>
+    ),
+  },
+  {
+    name: "Go",
+    icon: ({ className }) => (
+      <svg
+        role="img"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        className={className}
+      >
+        <title>{siGo.title}</title>
+        <path d={siGo.path} />
+      </svg>
+    ),
+  },
+  {
+    name: "GraphQL",
+    icon: ({ className }) => (
+      <svg
+        role="img"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        className={className}
+      >
+        <title>{siGraphql.title}</title>
+        <path d={siGraphql.path} />
+      </svg>
+    ),
+  },
+  {
+    name: "PostgreSQL",
+    icon: ({ className }) => (
+      <svg
+        role="img"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        className={className}
+      >
+        <title>{siPostgresql.title}</title>
+        <path d={siPostgresql.path} />
+      </svg>
+    ),
+  },
+  {
+    name: "MongoDB",
+    icon: ({ className }) => (
+      <svg
+        role="img"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        className={className}
+      >
+        <title>{siMongodb.title}</title>
+        <path d={siMongodb.path} />
+      </svg>
+    ),
+  },
+  {
+    name: "Redis",
+    icon: ({ className }) => (
+      <svg
+        role="img"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        className={className}
+      >
+        <title>{siRedis.title}</title>
+        <path d={siRedis.path} />
+      </svg>
+    ),
+  },
+  {
+    name: "Docker",
+    icon: ({ className }) => (
+      <svg
+        role="img"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        className={className}
+      >
+        <title>{siDocker.title}</title>
+        <path d={siDocker.path} />
+      </svg>
+    ),
+  },
+  {
+    name: "NestJS",
+    icon: ({ className }) => (
+      <svg
+        role="img"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        className={className}
+      >
+        <title>{siNestjs.title}</title>
+        <path d={siNestjs.path} />
+      </svg>
+    ),
+  },
+  {
+    name: "Prisma ORM",
+    icon: ({ className }) => (
+      <svg
+        role="img"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        className={className}
+      >
+        <title>{siPrisma.title}</title>
+        <path d={siPrisma.path} />
+      </svg>
+    ),
+  },
+  {
+    name: "Zod",
+    icon: ({ className }) => (
+      <svg
+        role="img"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        className={className}
+      >
+        <title>{siZod.title}</title>
+        <path d={siZod.path} />
+      </svg>
+    ),
+  },
+  {
+    name: "Hono",
+    icon: ({ className }) => (
+      <svg
+        role="img"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        className={className}
+      >
+        <title>{siHono.title}</title>
+        <path d={siHono.path} />
+      </svg>
+    ),
+  },
 ];
 
 export function SimpleTechStack() {
@@ -66,7 +227,7 @@ export function SimpleTechStack() {
               >
                 {/* Icon Container */}
                 <div className="mb-4 inline-flex size-10 items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.03] text-white/60 transition-colors group-hover:text-white/90">
-                  <Icon size={18} strokeWidth={1.5} />
+                  <Icon className="size-5" />
                 </div>
 
                 {/* Tech Name */}

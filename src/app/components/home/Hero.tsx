@@ -6,6 +6,7 @@ import { CodeQualityBadge } from "@/components/home/CodeQualityBadge";
 import { SyntaxHighlightedH1 } from "@/components/home/SyntaxHighlightedH1";
 import { TypeAnnotatedGreeting } from "@/components/home/TypeAnnotatedGreeting";
 import { Button, P } from "@/components/ui";
+import { FlickeringGrid } from "@/components/ui/flickering-grid";
 import { ArrowRight } from "@/components/ui/icons";
 
 interface HeroProps {
@@ -61,7 +62,15 @@ export const Hero = memo(
     badge,
   }: HeroProps) => {
     return (
-      <Section>
+      <Section className="relative overflow-hidden">
+        <FlickeringGrid
+          className="absolute inset-0 -z-10 opacity-[0.03] dark:opacity-[0.08]"
+          squareSize={4}
+          gridGap={6}
+          flickerChance={0.3}
+          color="rgb(0, 0, 0)"
+          maxOpacity={0.4}
+        />
         <div className="grid gap-6 sm:gap-8 md:grid-cols-2 lg:gap-12 items-center">
           {/* Left Column: Main Content */}
           <div className="flex flex-col order-2 md:order-1">

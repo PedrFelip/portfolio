@@ -1,20 +1,12 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { memo } from "react";
 import {
-  CornerBrackets,
   RailBounded,
   RailLayout,
   SectionDivider,
 } from "@/components/blueprint";
 import { Badge, H1, MonoText, P } from "@/components/ui";
-import {
-  ArrowRight,
-  Github,
-  Home,
-  Linkedin,
-  Mail,
-} from "@/components/ui/icons";
+import { ArrowRight, Github, Linkedin, Mail } from "@/components/ui/icons";
 import { XIcon } from "@/components/ui/x-icon";
 import { linksEn } from "@/lib/content/links.en";
 import { linksPt } from "@/lib/content/links.pt";
@@ -36,12 +28,6 @@ export async function generateMetadata({
 }
 
 const socialLinks = [
-  {
-    label: "Portfolio",
-    url: "/",
-    icon: "portfolio",
-    description: "View my projects",
-  },
   {
     label: "GitHub",
     url: "https://github.com/pedrfelip",
@@ -69,7 +55,6 @@ const socialLinks = [
 ] as const;
 
 const iconMap = {
-  portfolio: Home,
   github: Github,
   linkedin: Linkedin,
   x: XIcon,
@@ -84,12 +69,6 @@ const iconMap = {
  * - Text/Icon: Strong color (400-500 range)
  */
 const colorMap = {
-  portfolio: {
-    border: "group-hover:border-blue-500/70",
-    bg: "group-hover:bg-blue-500/12",
-    text: "group-hover:text-blue-400",
-    icon: "group-hover:text-blue-400",
-  },
   github: {
     border: "group-hover:border-purple-500/70",
     bg: "group-hover:bg-purple-500/12",
@@ -124,78 +103,52 @@ interface LinkItemProps {
 }
 
 /**
- * LinkItem - Individual card with blueprint styling
+ * LinkItem - Minimal integrated link item
  * Features:
- * - Corner bracket decorations
- * - Dot pattern overlay
+ * - Borderless, transparent design
+ * - Subtle hover effect blending with background
  * - Platform-specific color scheme on hover
- * - Responsive grid layout
+ * - Responsive layout
  */
 const LinkItem = memo(({ label, url, icon, description }: LinkItemProps) => {
   const Icon = iconMap[icon];
   const colors = colorMap[icon];
-  const isExternal = icon !== "portfolio";
-
-  const LinkComponent = isExternal ? "a" : Link;
-  const linkProps = isExternal
-    ? {
-        href: url,
-        target: "_blank" as const,
-        rel: "noopener noreferrer",
-      }
-    : { href: url };
 
   return (
-    <LinkComponent
-      {...linkProps}
-      aria-label={`Visit ${label}`}
-      className={`group relative flex flex-col gap-3 rounded-lg border border-border bg-card p-4 sm:p-6 transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:scale-105 ${colors.border} ${colors.bg}`}
+    <a
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`group flex items-center gap-3 px-3 py-4 sm:px-4 sm:py-5 rounded-lg transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:bg-white/[0.04] ${colors.border} ${colors.bg}`}
     >
-      {/* Dot pattern overlay */}
-      <div
-        className="dot-pattern absolute inset-0 rounded-lg opacity-20 transition-opacity duration-200 group-hover:opacity-40"
-        aria-hidden="true"
-      />
-
-      {/* Corner brackets */}
-      <div className="absolute inset-0 pointer-events-none">
-        <CornerBrackets
-          size={12}
-          className="transition-all duration-200 opacity-30 group-hover:opacity-50 border-border/40 group-hover:border-border/70"
-        />
-      </div>
-
-      {/* Content - relative z-index above pattern */}
-      <div className="relative z-10 flex items-center gap-3">
-        {/* Icon container */}
-        <div className="relative flex flex-shrink-0 items-center justify-center">
-          <Icon
-            className={`h-5 w-5 text-muted-foreground transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-110 ${colors.icon}`}
-            strokeWidth={1.5}
-            aria-hidden="true"
-          />
-        </div>
-
-        {/* Label and description */}
-        <div className="flex min-w-0 flex-1 flex-col gap-1">
-          <span className="text-sm font-semibold tracking-tight text-foreground transition-colors duration-150 group-hover:text-foreground">
-            {label}
-          </span>
-          <MonoText
-            className={`text-xs text-muted-foreground transition-colors duration-150 ${colors.text}`}
-          >
-            {description}
-          </MonoText>
-        </div>
-
-        {/* Arrow icon */}
-        <ArrowRight
-          className={`h-4 w-4 flex-shrink-0 text-muted-foreground transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:translate-x-1 group-hover:scale-110 ${colors.icon}`}
+      {/* Icon container */}
+      <div className="flex flex-shrink-0 items-center justify-center">
+        <Icon
+          className={`h-5 w-5 text-muted-foreground transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-110 ${colors.icon}`}
           strokeWidth={1.5}
           aria-hidden="true"
         />
       </div>
-    </LinkComponent>
+
+      {/* Label and description */}
+      <div className="flex min-w-0 flex-1 flex-col gap-0.5">
+        <span className="text-sm font-semibold tracking-tight text-foreground transition-colors duration-150">
+          {label}
+        </span>
+        <MonoText
+          className={`text-xs text-muted-foreground/60 transition-colors duration-150 ${colors.text}`}
+        >
+          {description}
+        </MonoText>
+      </div>
+
+      {/* Arrow icon */}
+      <ArrowRight
+        className={`h-4 w-4 flex-shrink-0 text-muted-foreground/40 transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:translate-x-1 group-hover:scale-110 group-hover:text-muted-foreground/70 ${colors.icon}`}
+        strokeWidth={1.5}
+        aria-hidden="true"
+      />
+    </a>
   );
 });
 
@@ -240,18 +193,24 @@ export default async function LinksPage({ params }: LinksPageProps) {
       <SectionDivider />
 
       {/* Links Grid Section */}
-      <RailBounded className="px-6 py-16 sm:py-20 lg:py-24">
-        <div className="mx-auto w-full max-w-4xl">
-          {/* Responsive grid: 1 col → 2 cols → 3 cols */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
-            {socialLinks.map((link) => (
-              <LinkItem
+      <RailBounded className="px-6 py-12 sm:py-16 lg:py-20">
+        <div className="mx-auto w-full max-w-3xl">
+          {/* Single column list - integrated vertical stack */}
+          <div className="flex flex-col">
+            {socialLinks.map((link, index) => (
+              <div
                 key={link.label}
-                label={link.label}
-                url={link.url}
-                icon={link.icon}
-                description={link.description}
-              />
+                className={`border-b border-border/20 last:border-b-0 ${
+                  index === 0 ? "border-t border-border/20" : ""
+                }`}
+              >
+                <LinkItem
+                  label={link.label}
+                  url={link.url}
+                  icon={link.icon}
+                  description={link.description}
+                />
+              </div>
             ))}
           </div>
         </div>

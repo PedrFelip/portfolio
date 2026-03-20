@@ -2,8 +2,8 @@
 
 import type React from "react";
 import { FlickeringGrid } from "@/components/ui/flickering-grid";
-import { cn } from "@/lib/utils";
 import { FLICKER_CONFIG } from "@/lib/constants";
+import { cn } from "@/lib/utils";
 
 interface AlignedFlickeringGridProps
   extends React.HTMLAttributes<HTMLDivElement> {

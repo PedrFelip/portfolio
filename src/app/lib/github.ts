@@ -26,6 +26,11 @@ export interface GitHubStats {
   forks: number;
 }
 
+export interface GitHubRepoNode {
+  stargazerCount: number;
+  forkCount: number;
+}
+
 /**
  * Fetch GitHub contribution data using GraphQL API
  * Requires GITHUB_TOKEN environment variable
@@ -188,11 +193,11 @@ export async function fetchGitHubStats(username: string): Promise<GitHubStats> {
   const repos = user.repositories.nodes;
 
   const totalStars = repos.reduce(
-    (sum: number, repo: any) => sum + repo.stargazerCount,
+    (sum: number, repo: GitHubRepoNode) => sum + repo.stargazerCount,
     0,
   );
   const totalForks = repos.reduce(
-    (sum: number, repo: any) => sum + repo.forkCount,
+    (sum: number, repo: GitHubRepoNode) => sum + repo.forkCount,
     0,
   );
 

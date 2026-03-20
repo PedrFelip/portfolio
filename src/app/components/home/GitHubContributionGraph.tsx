@@ -99,7 +99,9 @@ export const GitHubContributionGraph = memo(
             <div
               key={lvl}
               className="h-2 w-2 rounded-sm border border-white/[0.05]"
-              style={{ backgroundColor: getContributionColor(lvl as any) }}
+              style={{
+                backgroundColor: getContributionColor(lvl as 0 | 1 | 2 | 3 | 4),
+              }}
             />
           ))}
           <MonoText className="text-[10px] text-muted-foreground/60">

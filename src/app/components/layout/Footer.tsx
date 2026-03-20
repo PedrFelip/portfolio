@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { memo, useMemo } from "react";
-import { DotPattern, FooterGrid, FooterGridCell } from "@/components/blueprint";
+import { FooterGrid, FooterGridCell } from "@/components/blueprint";
 import { Label, MonoText } from "@/components/ui";
 import { Github, Linkedin, Mail } from "@/components/ui/icons";
 import { XIcon } from "@/components/ui/x-icon";

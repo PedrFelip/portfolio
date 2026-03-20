@@ -5,7 +5,6 @@ import {
   siHono,
   siMongodb,
   siNestjs,
-  siNextdotjs,
   siNodedotjs,
   siPostgresql,
   siPrisma,

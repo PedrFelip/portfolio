@@ -79,10 +79,6 @@ export default async function NewPage({ params }: NewPageProps) {
             {/* Left flickering grid - subtle entry */}
             <AlignedFlickeringGrid
               side="left"
-              squareSize={4}
-              gridGap={6}
-              flickerChance={0.2}
-              maxOpacity={0.15}
               className="border-b border-white/[0.08]"
             />
 
@@ -93,17 +89,6 @@ export default async function NewPage({ params }: NewPageProps) {
                 size={16}
                 className="border-white/10 transition-colors duration-500 group-hover:border-white/20"
               />
-
-              {/* Status badge - Modern & Premium */}
-              <div className="relative z-10 mb-8 inline-flex items-center gap-2.5 rounded-full border border-emerald-500/20 bg-emerald-500/5 px-4 py-1.5 backdrop-blur-md hover:border-emerald-500/40 hover:bg-emerald-500/10 transition-all duration-300">
-                <span className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
-                </span>
-                <span className="text-[13px] font-medium tracking-tight text-emerald-400/90">
-                  Available for new projects
-                </span>
-              </div>
 
               {/* Main headline - Enhanced Typography */}
               <h1 className="relative z-10 max-w-3xl text-4xl font-bold tracking-tight sm:text-5xl lg:text-7xl leading-[1.1]">
@@ -158,10 +143,6 @@ export default async function NewPage({ params }: NewPageProps) {
             {/* Right flickering grid - subtle entry */}
             <AlignedFlickeringGrid
               side="right"
-              squareSize={4}
-              gridGap={6}
-              flickerChance={0.2}
-              maxOpacity={0.15}
               className="border-b border-white/[0.08]"
             />
           </div>
@@ -225,13 +206,7 @@ export default async function NewPage({ params }: NewPageProps) {
           {/* Grid container aligned with blueprint rails */}
           <div className="relative grid grid-cols-1 gap-0 sm:grid-cols-[0.7fr_minmax(0,_3.6fr)_0.7fr]">
             {/* Left flickering grid - aligned to rail */}
-            <AlignedFlickeringGrid
-              side="left"
-              squareSize={4}
-              gridGap={6}
-              flickerChance={0.3}
-              maxOpacity={0.25}
-            />
+            <AlignedFlickeringGrid side="left" />
 
             {/* CTA Card Container with Corner Brackets */}
             <div className="group relative border border-white/[0.08] bg-white/[0.02] px-8 py-12 sm:px-12 sm:py-16">
@@ -271,13 +246,7 @@ export default async function NewPage({ params }: NewPageProps) {
             </div>
 
             {/* Right flickering grid - aligned to rail */}
-            <AlignedFlickeringGrid
-              side="right"
-              squareSize={4}
-              gridGap={6}
-              flickerChance={0.3}
-              maxOpacity={0.25}
-            />
+            <AlignedFlickeringGrid side="right" />
           </div>
         </div>
       </section>

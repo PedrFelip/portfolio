@@ -14,21 +14,15 @@ interface ButtonLinkProps
     VariantProps<typeof buttonVariants> {
   href: string;
   children: ReactNode;
-  variant?:
-    | "default"
-    | "destructive"
-    | "outline"
-    | "secondary"
-    | "ghost"
-    | "link";
-  size?: "default" | "sm" | "lg" | "icon";
+  variant?: "primary" | "destructive" | "outline" | "ghost";
+  size?: "sm" | "md" | "lg" | "icon";
 }
 
 export const ButtonLink = memo(
   ({
     href,
-    variant = "default",
-    size = "default",
+    variant = "primary",
+    size = "md",
     children,
     ...props
   }: ButtonLinkProps) => {

@@ -37,24 +37,29 @@ const NavLinkItem = memo(
     variant = "desktop",
   }: NavLinkItemProps) => {
     const baseClasses =
-      "font-mono text-[11px] font-medium transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] motion-reduce:transition-none touch-manipulation";
+      "text-sm font-medium transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] motion-reduce:transition-none touch-manipulation";
 
     const variantClasses = {
       desktop:
-        "relative px-3 py-1.5 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+        "relative px-3 py-2 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
       mobile:
-        "min-h-[48px] px-4 py-3 border-b border-border/40 last:border-b-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset active:bg-muted/80",
+        "block min-h-[48px] px-4 py-3 border-b border-dashed border-border last:border-b-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset active:bg-white/[0.04]",
     };
 
-    const stateClasses = isActive
-      ? "text-foreground bg-muted/50"
-      : "text-muted-foreground hover:text-foreground hover:bg-muted/30 active:bg-muted/50";
+    const stateClasses = {
+      desktop: isActive
+        ? "text-foreground bg-white/[0.02] border-l-4 border-l-accent pl-[8px]"
+        : "text-muted-foreground hover:text-foreground hover:bg-white/[0.02] border-l-4 border-l-transparent pl-[8px]",
+      mobile: isActive
+        ? "text-foreground bg-white/[0.02] border-l-4 border-l-accent"
+        : "text-muted-foreground hover:text-foreground hover:bg-white/[0.02] border-l-4 border-l-transparent",
+    };
 
     return (
       <Link
         href={localizedHref}
         onClick={onClick}
-        className={`${baseClasses} ${variantClasses[variant]} ${stateClasses}`}
+        className={`${baseClasses} ${variantClasses[variant]} ${stateClasses[variant]}`}
         aria-current={isActive ? "page" : undefined}
       >
         {label}
@@ -129,25 +134,15 @@ export const Navigation = memo(() => {
   }, [isMenuOpen, closeMenu]);
 
   return (
-    <nav className="sticky top-0 z-50 border-b border-border/60 bg-background/90 backdrop-blur-md">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-[60px] items-center justify-between sm:h-[64px]">
+    <nav className="sticky top-0 z-50 border-b border-white/[0.08] bg-background/90 backdrop-blur-md">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="flex h-16 items-center justify-between">
           {/* Logo */}
-          <div className="flex items-center gap-2">
-            <Link
-              href={getLocalizedLink("/")}
-              className="flex items-center gap-2 group"
-            >
-              <div className="hidden sm:block">
-                <div className="font-mono text-sm font-semibold tracking-tight text-foreground group-hover:text-muted-foreground/90 transition-colors duration-150">
-                  Pedro Felipe
-                </div>
-                <div className="font-mono text-[10px] text-muted-foreground/60 tabular-nums">
-                  <span className="opacity-50">~$</span> portfolio
-                </div>
-              </div>
-            </Link>
-          </div>
+          <Link href={getLocalizedLink("/")} className="group">
+            <div className="text-base font-semibold tracking-tight text-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:text-muted-foreground">
+              Pedro Felipe
+            </div>
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden items-center gap-1 md:flex">
@@ -163,7 +158,7 @@ export const Navigation = memo(() => {
           </div>
 
           {/* Language Toggle & Mobile Menu Button */}
-          <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex items-center gap-2">
             <Button
               variant="ghost"
               onClick={toggleLanguage}
@@ -171,15 +166,17 @@ export const Navigation = memo(() => {
               aria-label={`Switch language to ${
                 language === "en" ? "Portuguese" : "English"
               }`}
-              className="h-9 w-9 sm:h-10 sm:w-10 font-mono text-[11px] font-medium border border-border/50 rounded hover:bg-muted/50 hover:border-border/70 active:bg-muted/70 active:scale-[0.97] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)]"
+              className="h-10 w-10 rounded border border-white/[0.08] bg-white/[0.03] font-mono text-xs font-medium transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-white/[0.15] hover:bg-white/[0.05] active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-50"
             >
               {language === "en" ? "EN" : "PT"}
             </Button>
 
             <Button
               variant="ghost"
-              className={`sm:hidden h-9 w-9 transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] border border-border/50 rounded hover:bg-muted/50 hover:border-border/70 active:bg-muted/70 active:scale-[0.97] ${
-                isMenuOpen ? "bg-muted/50 border-border/70" : ""
+              className={`h-10 w-10 rounded border border-white/[0.08] transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-white/[0.15] hover:bg-white/[0.05] active:scale-[0.97] md:hidden ${
+                isMenuOpen
+                  ? "border-white/[0.15] bg-white/[0.05]"
+                  : "bg-white/[0.03]"
               }`}
               onClick={toggleMenu}
               aria-label={t.nav.toggleMenu}
@@ -204,12 +201,12 @@ export const Navigation = memo(() => {
         {isMenuOpen && (
           <>
             <div
-              className="fixed inset-0 bg-background/80 backdrop-blur-sm z-40 md:hidden animate-in-fade"
+              className="fixed inset-0 z-40 animate-in-fade bg-background/80 backdrop-blur-sm md:hidden"
               onClick={closeMenu}
               aria-hidden="true"
             />
-            <div className="border-t border-border/60 md:hidden relative z-50 bg-background/95 backdrop-blur-md animate-in-slide-down shadow-lg">
-              <div className="flex flex-col bg-background">
+            <div className="relative z-50 animate-in-slide-down border-t border-white/[0.08] bg-background/95 backdrop-blur-md md:hidden">
+              <div className="flex flex-col">
                 {navLinks.map((link) => (
                   <NavLinkItem
                     key={link.href}

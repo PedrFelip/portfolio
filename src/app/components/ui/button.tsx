@@ -5,41 +5,36 @@ import type * as React from "react";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded border text-xs font-medium transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] disabled:pointer-events-none disabled:opacity-50 touch-manipulation sm:text-sm",
+  "inline-flex items-center justify-center gap-2 rounded-lg font-medium disabled:pointer-events-none disabled:opacity-50 transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] touch-manipulation",
   {
     variants: {
       variant: {
-        default:
-          "border-foreground bg-foreground text-background hover:bg-background hover:text-foreground active:scale-[0.97] active:brightness-95",
-        destructive:
-          "border-destructive bg-destructive text-destructive-foreground hover:bg-destructive/90 active:scale-[0.97] active:brightness-95",
+        primary:
+          "bg-foreground text-background shadow-[inset_0_1px_0_rgba(255,255,255,0.25),inset_0_-1px_0_rgba(0,0,0,0.15),0_0_0_1px_rgba(255,255,255,0.2),0_4px_12px_rgba(0,0,0,0.5),0_0_32px_rgba(255,255,255,0.1)] hover:opacity-90",
         outline:
-          "border-border bg-background text-foreground hover:border-foreground hover:bg-muted active:scale-[0.97] active:bg-muted/80",
-        secondary:
-          "border-secondary bg-secondary text-secondary-foreground hover:bg-secondary/80 active:scale-[0.97] active:brightness-95",
-        ghost:
-          "border-transparent hover:bg-muted hover:text-foreground active:scale-[0.97] active:bg-muted/80",
-        link: "border-transparent text-primary underline-offset-4 hover:underline active:opacity-70",
-        nav: "border-border bg-background text-muted-foreground hover:border-foreground/50 hover:text-foreground hover:bg-muted/60 active:scale-[0.95] active:bg-muted/80 px-3 py-2 min-h-[44px] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+          "border border-white/[0.1] text-foreground hover:bg-white/[0.04]",
+        ghost: "text-muted-foreground hover:text-foreground",
+        destructive:
+          "bg-destructive text-destructive-foreground hover:opacity-80",
       },
       size: {
-        default: "px-4 py-2 min-h-[44px]",
-        sm: "px-3 py-2 text-xs min-h-[40px]",
-        lg: "px-4 py-3 sm:px-6 sm:py-3 min-h-[48px]",
-        icon: "size-9 min-h-[36px]",
+        sm: "h-9 px-3 text-xs",
+        md: "h-10 px-5 text-sm",
+        lg: "h-11 px-6 text-sm",
+        icon: "size-9",
       },
     },
     defaultVariants: {
-      variant: "default",
-      size: "default",
+      variant: "primary",
+      size: "md",
     },
   },
 );
 
 function Button({
   className,
-  variant = "default",
-  size = "default",
+  variant,
+  size,
   asChild = false,
   ...props
 }: React.ComponentProps<"button"> &

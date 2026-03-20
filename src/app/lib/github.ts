@@ -18,6 +18,14 @@ export interface ContributionData {
   totalContributions: number;
 }
 
+export interface GitHubStats {
+  repositories: number;
+  followers: number;
+  following: number;
+  stars: number;
+  forks: number;
+}
+
 /**
  * Fetch GitHub contribution data using GraphQL API
  * Requires GITHUB_TOKEN environment variable
@@ -121,4 +129,78 @@ export function getContributionColor(level: 0 | 1 | 2 | 3 | 4): string {
     4: "rgba(255, 255, 255, 0.40)", // Very high
   };
   return colors[level];
+}
+
+/**
+ * Fetch general GitHub stats using GraphQL API
+ */
+export async function fetchGitHubStats(username: string): Promise<GitHubStats> {
+  const token = process.env.GITHUB_TOKEN;
+
+  if (!token) {
+    throw new Error("GITHUB_TOKEN environment variable is not set");
+  }
+
+  const query = `
+    query($userName:String!) {
+      user(login: $userName) {
+        repositories(first: 100, ownerAffiliations: OWNER, orderBy: {field: STARGAZERS, direction: DESC}) {
+          totalCount
+          nodes {
+            stargazerCount
+            forkCount
+          }
+        }
+        followers {
+          totalCount
+        }
+        following {
+          totalCount
+        }
+      }
+    }
+  `;
+
+  const response = await fetch("https://api.github.com/graphql", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      query,
+      variables: { userName: username },
+    }),
+    next: { revalidate: 3600 }, // Cache for 1 hour
+  });
+
+  if (!response.ok) {
+    throw new Error(`GitHub API error: ${response.status}`);
+  }
+
+  const data = await response.json();
+
+  if (data.errors) {
+    throw new Error(`GraphQL error: ${data.errors[0].message}`);
+  }
+
+  const user = data.data.user;
+  const repos = user.repositories.nodes;
+
+  const totalStars = repos.reduce(
+    (sum: number, repo: any) => sum + repo.stargazerCount,
+    0,
+  );
+  const totalForks = repos.reduce(
+    (sum: number, repo: any) => sum + repo.forkCount,
+    0,
+  );
+
+  return {
+    repositories: user.repositories.totalCount,
+    followers: user.followers.totalCount,
+    following: user.following.totalCount,
+    stars: totalStars,
+    forks: totalForks,
+  };
 }

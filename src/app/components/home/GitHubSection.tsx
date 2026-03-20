@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import type { ContributionData } from "@/lib/github";
-import { GitHubContributionGraph } from "./GitHubContributionGraph";
 import { AlignedFlickeringGrid } from "@/components/blueprint/AlignedFlickeringGrid";
+import type { ContributionData } from "@/lib/github";
 import { cn } from "@/lib/utils";
+import { GitHubContributionGraph } from "./GitHubContributionGraph";
 
 interface GitHubSectionProps {
   className?: string;

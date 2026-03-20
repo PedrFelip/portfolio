@@ -1,3 +1,4 @@
+import { RailLayout, SectionDivider } from "@/components/blueprint";
 import { FeaturedProjectsSection } from "@/components/home/FeaturedProjectsSection";
 import { Hero } from "@/components/home/Hero";
 import { SkillsSection } from "@/components/home/SkillsSection";
@@ -42,7 +43,7 @@ export default async function Home({ params }: HomePageProps) {
   ]);
 
   return (
-    <div className="min-h-screen">
+    <RailLayout className="min-h-screen">
       <Hero
         greetingTexts={t.hero.greetingTexts}
         title={t.hero.title}
@@ -56,6 +57,8 @@ export default async function Home({ params }: HomePageProps) {
         badge={t.hero.badge}
       />
 
+      <SectionDivider />
+
       <FeaturedProjectsSection
         projects={featuredProjects}
         badge={t.projects.badge}
@@ -65,11 +68,13 @@ export default async function Home({ params }: HomePageProps) {
         viewAllHref={getLocalizedLink(lang, "/projects")}
       />
 
+      <SectionDivider />
+
       <SkillsSection
         skills={skills}
         badge={t.skills.badge}
         title={t.skills.title}
       />
-    </div>
+    </RailLayout>
   );
 }

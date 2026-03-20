@@ -34,7 +34,7 @@ export const Section = ({
 
   return (
     <section className={cn(variantStyles[variant], className)}>
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">{children}</div>
+      <div className="rail-bounded px-4 sm:px-6 lg:px-8">{children}</div>
     </section>
   );
 };

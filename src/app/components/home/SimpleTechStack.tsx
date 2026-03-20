@@ -16,12 +16,14 @@ import {
 
 interface TechItem {
   name: string;
+  color: string;
   icon: React.FC<{ className?: string }>;
 }
 
 const techData: TechItem[] = [
   {
     name: "Node.js",
+    color: `#${siNodedotjs.hex}`,
     icon: ({ className }) => (
       <svg
         role="img"
@@ -36,6 +38,7 @@ const techData: TechItem[] = [
   },
   {
     name: "TypeScript",
+    color: `#${siTypescript.hex}`,
     icon: ({ className }) => (
       <svg
         role="img"
@@ -50,6 +53,7 @@ const techData: TechItem[] = [
   },
   {
     name: "Go",
+    color: `#${siGo.hex}`,
     icon: ({ className }) => (
       <svg
         role="img"
@@ -64,6 +68,7 @@ const techData: TechItem[] = [
   },
   {
     name: "GraphQL",
+    color: `#${siGraphql.hex}`,
     icon: ({ className }) => (
       <svg
         role="img"
@@ -78,6 +83,7 @@ const techData: TechItem[] = [
   },
   {
     name: "PostgreSQL",
+    color: `#${siPostgresql.hex}`,
     icon: ({ className }) => (
       <svg
         role="img"
@@ -92,6 +98,7 @@ const techData: TechItem[] = [
   },
   {
     name: "MongoDB",
+    color: `#${siMongodb.hex}`,
     icon: ({ className }) => (
       <svg
         role="img"
@@ -106,6 +113,7 @@ const techData: TechItem[] = [
   },
   {
     name: "Redis",
+    color: `#${siRedis.hex}`,
     icon: ({ className }) => (
       <svg
         role="img"
@@ -120,6 +128,7 @@ const techData: TechItem[] = [
   },
   {
     name: "Docker",
+    color: `#${siDocker.hex}`,
     icon: ({ className }) => (
       <svg
         role="img"
@@ -134,6 +143,7 @@ const techData: TechItem[] = [
   },
   {
     name: "NestJS",
+    color: `#${siNestjs.hex}`,
     icon: ({ className }) => (
       <svg
         role="img"
@@ -148,6 +158,7 @@ const techData: TechItem[] = [
   },
   {
     name: "Prisma ORM",
+    color: `#${siPrisma.hex}`,
     icon: ({ className }) => (
       <svg
         role="img"
@@ -162,6 +173,7 @@ const techData: TechItem[] = [
   },
   {
     name: "Zod",
+    color: `#${siZod.hex}`,
     icon: ({ className }) => (
       <svg
         role="img"
@@ -176,6 +188,7 @@ const techData: TechItem[] = [
   },
   {
     name: "Hono",
+    color: `#${siHono.hex}`,
     icon: ({ className }) => (
       <svg
         role="img"
@@ -216,7 +229,7 @@ export function SimpleTechStack() {
             return (
               <div
                 key={tech.name}
-                className={`group px-6 py-8 transition-colors hover:bg-white/[0.02]
+                className={`group px-6 py-8 transition-all duration-300 hover:bg-white/[0.01]
                   ${i % 4 !== 0 ? "lg:border-l lg:border-dashed lg:border-border" : ""}
                   ${i % 3 !== 0 ? "sm:max-lg:border-l sm:max-lg:border-dashed sm:max-lg:border-border" : ""}
                   ${i % 2 !== 0 ? "max-sm:border-l max-sm:border-dashed max-sm:border-border" : ""}
@@ -224,14 +237,26 @@ export function SimpleTechStack() {
                   ${i >= 3 ? "sm:max-lg:border-t sm:max-lg:border-dashed sm:max-lg:border-border" : ""}
                   ${i >= 2 ? "max-sm:border-t max-sm:border-dashed max-sm:border-border" : ""}
                 `}
+                style={
+                  {
+                    "--tech-color": tech.color,
+                  } as React.CSSProperties
+                }
               >
                 {/* Icon Container */}
-                <div className="mb-4 inline-flex size-10 items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.03] text-white/60 transition-colors group-hover:text-white/90">
+                <div
+                  className="mb-4 inline-flex size-10 items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.03] text-white/60 transition-all duration-300 group-hover:border-[var(--tech-color)]/30 group-hover:bg-[var(--tech-color)]/10 group-hover:text-[var(--tech-color)] group-hover:shadow-[0_0_15px_rgba(0,0,0,0.2)] group-hover:shadow-[var(--tech-color)]/20"
+                  style={
+                    {
+                      borderColor: "rgba(255, 255, 255, 0.08)",
+                    } as React.CSSProperties
+                  }
+                >
                   <Icon className="size-5" />
                 </div>
 
                 {/* Tech Name */}
-                <h3 className="text-sm font-medium tracking-tight text-foreground">
+                <h3 className="text-sm font-medium tracking-tight text-foreground transition-colors group-hover:text-white">
                   {tech.name}
                 </h3>
               </div>

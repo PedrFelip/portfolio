@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import type { ContributionData } from "@/lib/github";
 import { GitHubContributionGraph } from "./GitHubContributionGraph";
+import { AlignedFlickeringGrid } from "@/components/blueprint/AlignedFlickeringGrid";
+import { cn } from "@/lib/utils";
 
 interface GitHubSectionProps {
   className?: string;
@@ -12,14 +14,14 @@ interface GitHubSectionProps {
 }
 
 /**
- * GitHubSection - Complete section with header and contribution graph
- * Follows the same pattern as other sections (Features, Projects, etc.)
+ * GitHubSection - Complete section with 3-column header and contribution graph
+ * Aligned with the blueprint/rail design system.
  *
  * Design:
- * - Section header with label, title, description
+ * - 3-column header grid (Info, Stats, Decorative Grid)
+ * - Dashed internal dividers
  * - Centered contribution graph
- * - Consistent spacing with other sections
- * - 4px grid system (12px, 16px, 24px, 32px, 48px)
+ * - Rail-bounded alignment
  */
 export function GitHubSection({
   className,
@@ -52,35 +54,66 @@ export function GitHubSection({
     fetchData();
   }, []);
 
-  if (loading) {
-    return null;
-  }
-
-  if (error || !data) {
+  if (loading || error || !data) {
     return null;
   }
 
   return (
-    <section id="github-activity" className={`relative ${className || ""}`}>
-      {/* Section Header - same pattern as Features section */}
-      <div className="relative mx-auto w-full max-w-6xl px-6">
-        <div className="pt-12 pb-8">
-          <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-            {subtitle}
-          </p>
-          <h2 className="mt-3 text-2xl font-bold tracking-tight sm:text-3xl">
-            {title}
-          </h2>
-          <p className="mt-2 max-w-md text-sm text-muted-foreground">
-            {description}
-          </p>
+    <section id="github-activity" className={cn("relative", className)}>
+      {/* 3-Column Header Grid aligned with Features Section Grid */}
+      <div className="rail-bounded border-t border-border overflow-hidden">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+          {/* Column 1: Info Content */}
+          <div className="px-6 py-10 sm:py-12 lg:px-8">
+            <p className="text-[10px] sm:text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground/60">
+              {subtitle}
+            </p>
+            <h2 className="mt-4 text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">
+              {title}
+            </h2>
+            <p className="mt-3 max-w-md text-sm leading-relaxed text-muted-foreground">
+              {description}
+            </p>
+          </div>
+
+          {/* Column 2: Commit Stats - Balanced & Centered */}
+          <div className="flex flex-col justify-center px-6 py-10 sm:py-12 border-t border-dashed border-border sm:border-t-0 sm:border-l lg:px-10">
+            <div className="flex flex-col items-start sm:items-center text-left sm:text-center">
+              <span className="text-5xl font-bold tracking-tighter text-foreground sm:text-6xl tabular-nums">
+                {data.totalContributions}
+              </span>
+              <span className="text-[10px] sm:text-xs font-semibold uppercase tracking-[0.15em] text-muted-foreground/70 mt-2">
+                Commits last year
+              </span>
+            </div>
+          </div>
+
+          {/* Column 3: Decorative Flickering Grid - Responsive Display */}
+          {/* Aligned to 3rd column on LG, spans full width or occupies new row on SM */}
+          <div className="relative border-t border-dashed border-border lg:border-t-0 lg:border-l sm:col-span-2 lg:col-span-1 overflow-hidden min-h-[140px] sm:min-h-[160px] lg:min-h-0">
+            <AlignedFlickeringGrid
+              side="right"
+              className="absolute inset-0 h-full w-full !flex"
+              squareSize={4}
+              gridGap={6}
+              flickerChance={0.3}
+              maxOpacity={0.25}
+            />
+            {/* Blueprint corner detail */}
+            <div className="absolute right-2 bottom-2 size-2 border-r border-b border-border/40" />
+          </div>
         </div>
       </div>
 
-      {/* Contribution Graph - centered with consistent padding */}
-      <div className="relative mx-auto w-full max-w-6xl px-6 pb-12">
-        <div className="flex justify-center">
-          <GitHubContributionGraph data={data} username="" />
+      {/* Contribution Graph Area - Aligned to Rails with background texture */}
+      <div className="rail-bounded border-t border-dashed border-border bg-white/[0.01]">
+        <div className="relative py-12 sm:py-16">
+          {/* Subtle background texture - blueprint detail */}
+          <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[radial-gradient(circle_at_center,var(--foreground)_1px,transparent_1px)] bg-[size:32px_32px]" />
+
+          <div className="relative z-10">
+            <GitHubContributionGraph data={data} username="" />
+          </div>
         </div>
       </div>
     </section>

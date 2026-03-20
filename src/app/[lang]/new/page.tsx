@@ -166,11 +166,8 @@ export default async function NewPage({ params }: NewPageProps) {
       </section>
       <SectionDivider />
       {/* GitHub Activity Section */}
-      <section className="relative px-6 py-12 sm:py-16">
-        <div className="mx-auto max-w-6xl">
-          <GitHubSection />
-        </div>
-      </section>
+      <GitHubSection />
+      <SectionDivider />
 
       {/* CTA Section */}
       <section className="relative px-6 py-16 sm:py-24">

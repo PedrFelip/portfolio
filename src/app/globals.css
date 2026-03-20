@@ -1063,3 +1063,89 @@ html {
 .hljs-built_in {
   color: #b8a0ff;
 }
+
+/* ============================================
+   Structural Grid / Exposed Rail Layout
+   ============================================ */
+
+/* Vertical rail lines that span the full height of the page */
+.page-rails {
+  --rail-offset: max(1rem, calc(50% - 36rem)); /* max-w-6xl centered */
+  position: relative;
+  overflow-x: clip; /* clip, NOT hidden — hidden breaks position:sticky */
+}
+
+.page-rails::before,
+.page-rails::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--border);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.page-rails::before {
+  left: var(--rail-offset);
+}
+
+.page-rails::after {
+  right: var(--rail-offset);
+}
+
+/* Content bounded to rail edges (margin-based approach) */
+.rail-bounded {
+  margin-left: var(--rail-offset);
+  margin-right: var(--rail-offset);
+}
+
+/* Horizontal section divider between rails */
+.section-divider {
+  position: relative;
+  height: 1px;
+  z-index: 2;
+}
+
+.section-divider::before {
+  content: "";
+  position: absolute;
+  left: var(--rail-offset, max(1rem, calc(50% - 36rem)));
+  right: var(--rail-offset, max(1rem, calc(50% - 36rem)));
+  height: 1px;
+  background: var(--border);
+}
+
+/* Subtle dot pattern for section backgrounds */
+.dot-pattern {
+  background-image: radial-gradient(
+    rgba(255, 255, 255, 0.04) 1px,
+    transparent 1px
+  );
+  background-size: 24px 24px;
+}
+
+/* Custom scrollbar - matches dark themes */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}

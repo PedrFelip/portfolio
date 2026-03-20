@@ -134,8 +134,23 @@ export const Navigation = memo(() => {
   }, [isMenuOpen, closeMenu]);
 
   return (
-    <nav className="sticky top-0 z-50 border-b border-white/[0.08] bg-background/90 backdrop-blur-md">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+    <nav className="sticky top-0 z-50 bg-background/90 backdrop-blur-md page-rails-nav">
+      {/* Continuation of page rails */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div
+          className="absolute top-0 bottom-0 w-px bg-gradient-to-b from-white/[0.08] to-white/[0.04]"
+          style={{ left: "var(--rail-offset)" }}
+        />
+        <div
+          className="absolute top-0 bottom-0 w-px bg-gradient-to-b from-white/[0.08] to-white/[0.04]"
+          style={{ right: "var(--rail-offset)" }}
+        />
+      </div>
+
+      {/* Border with gradient effect */}
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-white/[0.04] via-white/[0.08] to-white/[0.04]" />
+
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 relative">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <Link href={getLocalizedLink("/")} className="group">

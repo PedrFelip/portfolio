@@ -109,19 +109,18 @@ interface LinkItemProps {
 }
 
 /**
- * LinkItem - Minimal integrated link item
+ * LinkItem - Optimized link item with enhanced hover effects
  * Features:
- * - Borderless, transparent design
- * - Subtle hover effect blending with background
- * - Platform-specific color scheme on hover
- * - Responsive layout
+ * - Enhanced hover feedback with lift and glow
+ * - Platform-specific color scheme
+ * - Touch-friendly with active states
+ * - Accessible focus states
  */
 const LinkItem = memo(({ label, url, icon, description }: LinkItemProps) => {
   const Icon = iconMap[icon];
   const colors = colorMap[icon];
   const isExternal = icon !== "portfolio";
 
-  const LinkComponent = isExternal ? "a" : "a";
   const linkProps = isExternal
     ? {
         href: url,
@@ -131,14 +130,14 @@ const LinkItem = memo(({ label, url, icon, description }: LinkItemProps) => {
     : { href: url };
 
   return (
-    <LinkComponent
+    <a
       {...linkProps}
-      className={`group flex items-center gap-3 px-3 py-4 sm:px-4 sm:py-5 rounded-lg transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:bg-white/[0.04] ${colors.border} ${colors.bg}`}
+      className={`group flex items-center gap-3 px-3 py-3 sm:px-4 sm:py-3.5 rounded-lg border border-transparent transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:bg-white/[0.06] hover:-translate-y-0.5 hover:border-current/10 active:translate-y-0 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background ${colors.border} ${colors.bg}`}
     >
       {/* Icon container */}
       <div className="flex flex-shrink-0 items-center justify-center">
         <Icon
-          className={`h-5 w-5 text-muted-foreground transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-110 ${colors.icon}`}
+          className={`h-5 w-5 text-muted-foreground transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-110 group-hover:rotate-3 ${colors.icon}`}
           strokeWidth={1.5}
           aria-hidden="true"
         />
@@ -158,53 +157,53 @@ const LinkItem = memo(({ label, url, icon, description }: LinkItemProps) => {
 
       {/* Arrow icon */}
       <ArrowRight
-        className={`h-4 w-4 flex-shrink-0 text-muted-foreground/40 transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:translate-x-1 group-hover:scale-110 group-hover:text-muted-foreground/70 ${colors.icon}`}
+        className={`h-4 w-4 flex-shrink-0 text-muted-foreground/40 transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:translate-x-1.5 group-hover:scale-110 group-hover:opacity-100 ${colors.icon}`}
         strokeWidth={1.5}
         aria-hidden="true"
       />
-    </LinkComponent>
+    </a>
   );
 });
 
 LinkItem.displayName = "LinkItem";
 
 /**
- * LinksPage - Standalone links page with structural grid design
- * No header/footer from layout, full control over appearance
- * Uses blueprint components: RailLayout, SectionDivider, RailBounded
+ * LinksPage - Optimized for single-viewport display
+ * All content fits within 100vh on all breakpoints without scrolling
+ * Enhanced hover effects and polish
  */
 export default function LinksPage() {
   return (
-    <RailLayout className="min-h-screen bg-background">
-      {/* Header Section with Divider */}
-      <SectionDivider />
+    <RailLayout className="grid grid-rows-[auto_1fr_auto] min-h-screen bg-background">
+      {/* Header Section - Compact */}
+      <div>
+        <SectionDivider />
+        <RailBounded className="px-6 py-8 sm:py-10 lg:py-12">
+          <div className="mx-auto w-full max-w-2xl text-center">
+            {/* Availability Badge */}
+            <div className="mb-4 inline-flex">
+              <Badge className="inline-flex items-center gap-2 transition-all duration-150 hover:scale-105 hover:ring-2 hover:ring-green-500/20">
+                <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-green-500" />
+                <span>Available for work</span>
+              </Badge>
+            </div>
 
-      <RailBounded className="px-6 py-16 sm:py-20 lg:py-24">
-        <div className="mx-auto w-full max-w-2xl text-center">
-          {/* Availability Badge */}
-          <div className="mb-6 inline-flex">
-            <Badge className="inline-flex items-center gap-2 transition-all duration-150 hover:scale-105">
-              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-green-500" />
-              <span>Available for work</span>
-            </Badge>
+            {/* Main Title */}
+            <H1 className="mb-2 text-3xl sm:text-4xl lg:text-5xl transition-colors duration-150 tracking-tight">
+              Pedro Felipe
+            </H1>
+
+            {/* Subtitle */}
+            <P className="text-sm sm:text-base lg:text-lg text-muted-foreground transition-colors duration-150">
+              Backend Engineer & System Architect
+            </P>
           </div>
+        </RailBounded>
+        <SectionDivider />
+      </div>
 
-          {/* Main Title */}
-          <H1 className="mb-4 text-4xl sm:text-5xl transition-colors duration-150 tracking-tight">
-            Pedro Felipe
-          </H1>
-
-          {/* Subtitle */}
-          <P className="text-base sm:text-lg text-muted-foreground transition-colors duration-150">
-            Backend Engineer & System Architect
-          </P>
-        </div>
-      </RailBounded>
-
-      <SectionDivider />
-
-      {/* Links Grid Section */}
-      <RailBounded className="px-6 py-12 sm:py-16 lg:py-20">
+      {/* Links Section - Flexible height, centered */}
+      <RailBounded className="px-6 py-8 sm:py-10 lg:py-12 flex items-center">
         <div className="mx-auto w-full max-w-3xl">
           {/* Single column list - integrated vertical stack */}
           <div className="flex flex-col">
@@ -227,17 +226,18 @@ export default function LinksPage() {
         </div>
       </RailBounded>
 
-      <SectionDivider />
-
-      {/* Footer Section */}
-      <RailBounded className="px-6 py-16 sm:py-20 lg:py-24">
-        <div className="mx-auto w-full max-w-2xl text-center">
-          <MonoText className="text-xs sm:text-sm text-muted-foreground/70 transition-colors duration-150">
-            © {new Date().getFullYear()} Pedro Felipe · Made with precision for
-            backend engineering
-          </MonoText>
-        </div>
-      </RailBounded>
+      {/* Footer Section - Minimal */}
+      <div>
+        <SectionDivider />
+        <RailBounded className="px-6 py-6 sm:py-8">
+          <div className="mx-auto w-full max-w-2xl text-center">
+            <MonoText className="text-xs sm:text-sm text-muted-foreground/70 transition-colors duration-150">
+              © {new Date().getFullYear()} Pedro Felipe · Made with precision
+              for backend engineering
+            </MonoText>
+          </div>
+        </RailBounded>
+      </div>
     </RailLayout>
   );
 }

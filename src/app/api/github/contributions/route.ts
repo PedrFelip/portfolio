@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { fetchGitHubContributions } from "@/lib/github";
 
 export const runtime = "edge";
-export const revalidate = 3600; // Revalidate every hour
+export const revalidate = 86400; // Revalidate every 24 hours
 
 export async function GET() {
   try {

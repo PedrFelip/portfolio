@@ -1,11 +1,6 @@
 import type { Metadata } from "next";
 import { memo } from "react";
-import {
-  RailBounded,
-  RailLayout,
-  SectionDivider,
-} from "@/components/blueprint";
-import { Badge, H1, MonoText, P } from "@/components/ui";
+import { H1, P } from "@/components/ui";
 import {
   ArrowRight,
   Github,
@@ -61,13 +56,6 @@ const iconMap = {
   email: Mail,
 };
 
-/**
- * Color map for each social platform
- * Design system alignment:
- * - Border: Increased opacity on hover (0.5 → 0.7)
- * - Background: Subtle tint (12% opacity)
- * - Text/Icon: Strong color (400-500 range)
- */
 const colorMap = {
   portfolio: {
     border: "group-hover:border-blue-500/70",
@@ -108,14 +96,6 @@ interface LinkItemProps {
   description: string;
 }
 
-/**
- * LinkItem - Optimized link item with enhanced hover effects
- * Features:
- * - Enhanced hover feedback with lift and glow
- * - Platform-specific color scheme
- * - Touch-friendly with active states
- * - Accessible focus states
- */
 const LinkItem = memo(({ label, url, icon, description }: LinkItemProps) => {
   const Icon = iconMap[icon];
   const colors = colorMap[icon];
@@ -132,32 +112,29 @@ const LinkItem = memo(({ label, url, icon, description }: LinkItemProps) => {
   return (
     <a
       {...linkProps}
-      className={`group flex items-center gap-3 px-3 py-3 sm:px-4 sm:py-3.5 rounded-lg border border-transparent transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:bg-white/[0.06] hover:-translate-y-0.5 hover:border-current/10 active:translate-y-0 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background ${colors.border} ${colors.bg}`}
+      className={`group flex items-center gap-4 px-4 py-3.5 sm:px-5 sm:py-4 lg:px-6 lg:py-5 rounded-lg border border-transparent transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:bg-white/[0.06] hover:-translate-y-0.5 hover:border-current/10 active:translate-y-0 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background ${colors.border} ${colors.bg}`}
     >
-      {/* Icon container */}
       <div className="flex flex-shrink-0 items-center justify-center">
         <Icon
-          className={`h-5 w-5 text-muted-foreground transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-110 group-hover:rotate-3 ${colors.icon}`}
+          className={`h-6 w-6 sm:h-7 sm:w-7 lg:h-8 lg:w-8 text-muted-foreground transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-110 group-hover:rotate-3 ${colors.icon}`}
           strokeWidth={1.5}
           aria-hidden="true"
         />
       </div>
 
-      {/* Label and description */}
-      <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-        <span className="text-sm font-semibold tracking-tight text-foreground transition-colors duration-150">
+      <div className="flex min-w-0 flex-1 flex-col">
+        <span className="text-base font-semibold tracking-tight text-foreground transition-colors duration-150 sm:text-lg lg:text-xl">
           {label}
         </span>
-        <MonoText
-          className={`text-xs text-muted-foreground/60 transition-colors duration-150 ${colors.text}`}
+        <span
+          className={`text-sm text-muted-foreground/60 transition-colors duration-150 sm:text-base lg:text-lg ${colors.text}`}
         >
           {description}
-        </MonoText>
+        </span>
       </div>
 
-      {/* Arrow icon */}
       <ArrowRight
-        className={`h-4 w-4 flex-shrink-0 text-muted-foreground/40 transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:translate-x-1.5 group-hover:scale-110 group-hover:opacity-100 ${colors.icon}`}
+        className={`h-5 w-5 sm:h-6 sm:w-6 lg:h-7 lg:w-7 flex-shrink-0 text-muted-foreground/40 transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:translate-x-1.5 group-hover:scale-110 group-hover:opacity-100 ${colors.icon}`}
         strokeWidth={1.5}
         aria-hidden="true"
       />
@@ -167,77 +144,30 @@ const LinkItem = memo(({ label, url, icon, description }: LinkItemProps) => {
 
 LinkItem.displayName = "LinkItem";
 
-/**
- * LinksPage - Optimized for single-viewport display
- * All content fits within 100vh on all breakpoints without scrolling
- * Enhanced hover effects and polish
- */
 export default function LinksPage() {
   return (
-    <RailLayout className="grid grid-rows-[auto_1fr_auto] min-h-screen bg-background">
-      {/* Header Section - Compact */}
-      <div>
-        <SectionDivider />
-        <RailBounded className="px-6 py-8 sm:py-10 lg:py-12">
-          <div className="mx-auto w-full max-w-2xl text-center">
-            {/* Availability Badge */}
-            <div className="mb-4 inline-flex">
-              <Badge className="inline-flex items-center gap-2 transition-all duration-150 hover:scale-105 hover:ring-2 hover:ring-green-500/20">
-                <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-green-500" />
-                <span>Available for work</span>
-              </Badge>
-            </div>
+    <div className="h-screen max-h-screen overflow-hidden bg-background flex flex-col items-center justify-center p-6">
+      <div className="w-full max-w-2xl">
+        <H1 className="mb-0.5 text-center text-2xl sm:text-3xl lg:text-4xl tracking-tight">
+          Pedro Felipe
+        </H1>
 
-            {/* Main Title */}
-            <H1 className="mb-2 text-3xl sm:text-4xl lg:text-5xl transition-colors duration-150 tracking-tight">
-              Pedro Felipe
-            </H1>
+        <P className="mb-8 text-center text-sm text-muted-foreground">
+          Backend Engineer & System Architect
+        </P>
 
-            {/* Subtitle */}
-            <P className="text-sm sm:text-base lg:text-lg text-muted-foreground transition-colors duration-150">
-              Backend Engineer & System Architect
-            </P>
-          </div>
-        </RailBounded>
-        <SectionDivider />
-      </div>
-
-      {/* Links Section - Flexible height, centered */}
-      <RailBounded className="px-6 py-8 sm:py-10 lg:py-12 flex items-center">
-        <div className="mx-auto w-full max-w-3xl">
-          {/* Single column list - integrated vertical stack */}
-          <div className="flex flex-col">
-            {socialLinks.map((link, index) => (
-              <div
-                key={link.label}
-                className={`border-b border-border/20 last:border-b-0 ${
-                  index === 0 ? "border-t border-border/20" : ""
-                }`}
-              >
-                <LinkItem
-                  label={link.label}
-                  url={link.url}
-                  icon={link.icon}
-                  description={link.description}
-                />
-              </div>
-            ))}
-          </div>
+        <div className="flex flex-col gap-1 sm:gap-1.5 lg:gap-2">
+          {socialLinks.map((link) => (
+            <LinkItem
+              key={link.label}
+              label={link.label}
+              url={link.url}
+              icon={link.icon}
+              description={link.description}
+            />
+          ))}
         </div>
-      </RailBounded>
-
-      {/* Footer Section - Minimal */}
-      <div>
-        <SectionDivider />
-        <RailBounded className="px-6 py-6 sm:py-8">
-          <div className="mx-auto w-full max-w-2xl text-center">
-            <MonoText className="text-xs sm:text-sm text-muted-foreground/70 transition-colors duration-150">
-              © {new Date().getFullYear()} Pedro Felipe · Made with precision
-              for backend engineering
-            </MonoText>
-          </div>
-        </RailBounded>
       </div>
-    </RailLayout>
+    </div>
   );
 }

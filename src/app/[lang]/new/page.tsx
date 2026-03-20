@@ -183,7 +183,7 @@ export default async function NewPage({ params }: NewPageProps) {
               side="left"
               squareSize={4}
               gridGap={6}
-              flickerChance={0.6}
+              flickerChance={0.3}
               maxOpacity={0.25}
             />
 
@@ -235,7 +235,7 @@ export default async function NewPage({ params }: NewPageProps) {
               side="right"
               squareSize={4}
               gridGap={6}
-              flickerChance={0.6}
+              flickerChance={0.3}
               maxOpacity={0.25}
             />
           </div>

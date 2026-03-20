@@ -23,7 +23,7 @@ const FooterLink = memo(
       href={href}
       target={external ? "_blank" : undefined}
       rel={external ? "noopener noreferrer" : undefined}
-      className="text-sm text-muted-foreground transition-[color,opacity] duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:text-foreground active:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background touch-manipulation min-h-[36px] inline-flex items-center"
+      className="inline-flex min-h-[36px] items-center text-sm text-muted-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background active:opacity-80 touch-manipulation"
     >
       {children}
     </Link>
@@ -35,27 +35,19 @@ interface SocialLinkProps {
   href: string;
   label: string;
   icon: React.ReactNode;
-  platform: "github" | "linkedin" | "x" | "email";
 }
-
-const socialColorMap = {
-  github:
-    "hover:border-purple-500/50 hover:bg-purple-500/10 hover:text-purple-400",
-  linkedin: "hover:border-blue-700/60 hover:bg-blue-700/15 hover:text-blue-400",
-  x: "hover:border-slate-400/50 hover:bg-slate-500/10 hover:text-slate-300",
-  email: "hover:border-red-500/50 hover:bg-red-500/10 hover:text-red-400",
-};
 
 /**
  * SocialLink component - External social/contact link
+ * Blueprint design: minimal borders, subtle hover states
  */
-const SocialLink = memo(({ href, label, icon, platform }: SocialLinkProps) => (
+const SocialLink = memo(({ href, label, icon }: SocialLinkProps) => (
   <a
     href={href}
     target="_blank"
     rel="noopener noreferrer"
     aria-label={label}
-    className={`flex items-center justify-center rounded border border-border bg-background p-2 text-muted-foreground transition-[border-color,background-color,color,transform] duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] ${socialColorMap[platform]} active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background touch-manipulation min-h-[40px] min-w-[40px]`}
+    className="flex min-h-[40px] min-w-[40px] items-center justify-center rounded border border-white/[0.08] bg-white/[0.03] p-2 text-muted-foreground transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-white/[0.15] hover:bg-white/[0.05] hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background active:scale-[0.97] touch-manipulation"
   >
     {icon}
   </a>
@@ -104,40 +96,36 @@ export const Footer = memo(() => {
         href: "https://github.com/pedrfelip",
         label: "GitHub",
         icon: <Github className="h-4 w-4" />,
-        platform: "github",
       },
       {
         href: "https://linkedin.com/in/pedrfelip",
         label: "LinkedIn",
         icon: <Linkedin className="h-4 w-4" />,
-        platform: "linkedin",
       },
       {
         href: "https://x.com/pedrofelipeek",
         label: "X",
         icon: <XIcon className="h-4 w-4" />,
-        platform: "x",
       },
       {
         href: "mailto:pfsilva190406@gmail.com",
         label: "Email",
         icon: <Mail className="h-4 w-4" />,
-        platform: "email",
       },
     ],
     [],
   );
 
   return (
-    <footer className="border-t border-border bg-card py-6 sm:py-8 lg:py-12">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <footer className="border-t border-white/[0.08] bg-background py-12 sm:py-16">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
         {/* Main Footer Content */}
-        <div className="grid gap-6 sm:gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {/* Brand - Full width on mobile, 1 col on sm, 1 col on lg */}
           <div className="sm:col-span-2 lg:col-span-1">
             <Link
               href={getLocalizedLink("/")}
-              className="font-mono text-sm font-semibold tracking-tight text-foreground transition-[color,opacity] duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:text-accent active:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background touch-manipulation"
+              className="text-base font-semibold tracking-tight text-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background touch-manipulation"
             >
               Pedro Felipe
             </Link>
@@ -148,7 +136,7 @@ export const Footer = memo(() => {
 
           {/* Navigation - Stack on mobile, 1 col on sm, 1 col on lg */}
           <div className="sm:col-span-1">
-            <Label className="mb-3 block text-xs uppercase tracking-wider text-faint">
+            <Label className="mb-3 block text-xs font-medium uppercase tracking-wide text-muted-foreground">
               {t.footer.navigation}
             </Label>
             <nav className="flex flex-col gap-2">
@@ -162,17 +150,16 @@ export const Footer = memo(() => {
 
           {/* Connect - Flex wrap on mobile, 1 col on sm, 1 col on lg */}
           <div className="sm:col-span-1">
-            <Label className="mb-3 block text-xs uppercase tracking-wider text-faint">
+            <Label className="mb-3 block text-xs font-medium uppercase tracking-wide text-muted-foreground">
               {t.footer.connect}
             </Label>
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-2">
               {socialLinks.map((link) => (
                 <SocialLink
                   key={link.href}
                   href={link.href}
                   label={link.label}
                   icon={link.icon}
-                  platform={link.platform}
                 />
               ))}
             </div>
@@ -180,16 +167,18 @@ export const Footer = memo(() => {
 
           {/* Tech Stack - Full width on mobile, span 2 on sm, 1 col on lg */}
           <div className="sm:col-span-2 lg:col-span-1">
-            <MonoText className="text-faint">{t.footer.builtWith}</MonoText>
+            <MonoText className="text-sm text-muted-foreground">
+              {t.footer.builtWith}
+            </MonoText>
           </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-8 flex flex-col items-start gap-4 border-t border-border pt-6 sm:flex-row sm:items-center sm:justify-between sm:gap-0">
-          <MonoText className="text-xs sm:text-sm text-muted-foreground">
+        <div className="mt-12 flex flex-col items-start gap-4 border-t border-white/[0.08] pt-6 sm:flex-row sm:items-center sm:justify-between sm:gap-0">
+          <MonoText className="text-xs text-muted-foreground sm:text-sm">
             © {t.footer.year} Pedro Felipe
           </MonoText>
-          <MonoText className="text-xs sm:text-sm text-faint">
+          <MonoText className="text-xs text-muted-foreground sm:text-sm">
             v2.41.68
           </MonoText>
         </div>

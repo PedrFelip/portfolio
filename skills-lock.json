@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "skills": {
+    "structural-grid": {
+      "source": "nabinkhair42/structural-grid-skill",
+      "sourceType": "github",
+      "computedHash": "9b05711cd2e570894be241dc198e8fe506450dd3d99064d8036747d1cf642541"
+    }
+  }
+}

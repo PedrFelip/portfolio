@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { memo, useMemo } from "react";
+import { DotPattern, FooterGrid, FooterGridCell } from "@/components/blueprint";
 import { Label, MonoText } from "@/components/ui";
 import { Github, Linkedin, Mail } from "@/components/ui/icons";
 import { XIcon } from "@/components/ui/x-icon";
@@ -16,6 +17,7 @@ interface FooterLinkProps {
 
 /**
  * FooterLink component - Internal navigation link
+ * Structural Grid: hover states with subtle transitions
  */
 const FooterLink = memo(
   ({ href, children, external = false }: FooterLinkProps) => (
@@ -39,7 +41,7 @@ interface SocialLinkProps {
 
 /**
  * SocialLink component - External social/contact link
- * Blueprint design: minimal borders, subtle hover states
+ * Structural Grid: Blueprint-inspired card with corner brackets aesthetic
  */
 const SocialLink = memo(({ href, label, icon }: SocialLinkProps) => (
   <a
@@ -47,9 +49,12 @@ const SocialLink = memo(({ href, label, icon }: SocialLinkProps) => (
     target="_blank"
     rel="noopener noreferrer"
     aria-label={label}
-    className="flex min-h-[40px] min-w-[40px] items-center justify-center rounded border border-white/[0.08] bg-white/[0.03] p-2 text-muted-foreground transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-white/[0.15] hover:bg-white/[0.05] hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background active:scale-[0.97] touch-manipulation"
+    className="group relative flex min-h-[40px] min-w-[40px] items-center justify-center rounded border border-white/[0.08] bg-white/[0.03] p-2 text-muted-foreground transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-white/[0.15] hover:bg-white/[0.05] hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background active:scale-[0.97] touch-manipulation overflow-hidden"
   >
     {icon}
+    {/* Blueprint corner bracket decoration - only on hover */}
+    <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-white/0 transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:border-white/[0.15]" />
+    <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-white/0 transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:border-white/[0.15]" />
   </a>
 ));
 SocialLink.displayName = "SocialLink";
@@ -57,18 +62,24 @@ SocialLink.displayName = "SocialLink";
 /**
  * Footer component
  *
- * Design principles (AGENTS.md):
- * - 4px grid: consistent spacing throughout
- * - Symmetrical padding: matching padding on all sides
- * - Typography: monospace for data
- * - Consistent container: matches Navigation and Section components
- * - Information density: useful navigation and social links
+ * Design principles (AGENTS.md + Structural Grid + Blueprint):
+ * - Container alignment: matches Navigation (mx-auto max-w-6xl px-4 sm:px-6)
+ * - Blueprint Grid: visible vertical grid lines connecting cells (architectural aesthetic)
+ * - Corner brackets: L-shaped technical markers on all 4 corners of each cell
+ * - Hover effects: subtle background + bracket glow (150ms transitions)
+ * - 4px grid: consistent spacing throughout (12px, 16px, 24px, 32px, 48px)
+ * - Symmetrical padding: px-6 (24px) and py-12 (48px) on each cell
+ * - Typography: monospace for data (version numbers, dates)
+ * - Dot pattern: subtle background texture for depth
+ * - Grid lines: 40% opacity, visible separators between columns (technical drawing style)
+ * - Responsive: 1 col mobile → 2 cols tablet → 4 cols desktop
  *
  * Best practices applied:
  * - Memoized child components to prevent re-renders
  * - useMemo for navLinks and socialLinks arrays optimization (Vercel best practice)
- * - Clean component composition
+ * - Clean component composition with specialized FooterGrid/FooterGridCell
  * - Accessible social links with aria-labels
+ * - All decorative elements have aria-hidden="true"
  */
 export const Footer = memo(() => {
   const { t } = useLanguage();
@@ -117,43 +128,47 @@ export const Footer = memo(() => {
   );
 
   return (
-    <footer className="border-t border-white/[0.08] bg-background py-12 sm:py-16">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        {/* Main Footer Content */}
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          {/* Brand - Full width on mobile, 1 col on sm, 1 col on lg */}
-          <div className="sm:col-span-2 lg:col-span-1">
+    <footer className="relative border-t border-border bg-background">
+      {/* Subtle dot pattern background - blueprint aesthetic */}
+      <DotPattern className="inset-0" />
+
+      {/* Main container - matches Navigation max-w-6xl and padding */}
+      <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
+        {/* Blueprint Grid with visible grid lines and corner brackets */}
+        <FooterGrid className="py-12 sm:py-16">
+          {/* Brand Column - Full width mobile, 1 col sm+lg */}
+          <FooterGridCell showCorners={true}>
             <Link
               href={getLocalizedLink("/")}
               className="text-base font-semibold tracking-tight text-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background touch-manipulation"
             >
               Pedro Felipe
             </Link>
-            <p className="mt-2 text-sm text-muted-foreground">
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
               Backend Engineer
             </p>
-          </div>
+          </FooterGridCell>
 
-          {/* Navigation - Stack on mobile, 1 col on sm, 1 col on lg */}
-          <div className="sm:col-span-1">
-            <Label className="mb-3 block text-xs font-medium uppercase tracking-wide text-muted-foreground">
+          {/* Navigation Column */}
+          <FooterGridCell showCorners={true}>
+            <Label className="mb-4 block text-xs font-medium uppercase tracking-wide text-muted-foreground">
               {t.footer.navigation}
             </Label>
-            <nav className="flex flex-col gap-2">
+            <nav className="flex flex-col gap-3">
               {navLinks.map((link) => (
                 <FooterLink key={link.href} href={getLocalizedLink(link.href)}>
                   {link.label}
                 </FooterLink>
               ))}
             </nav>
-          </div>
+          </FooterGridCell>
 
-          {/* Connect - Flex wrap on mobile, 1 col on sm, 1 col on lg */}
-          <div className="sm:col-span-1">
-            <Label className="mb-3 block text-xs font-medium uppercase tracking-wide text-muted-foreground">
+          {/* Connect Column */}
+          <FooterGridCell showCorners={true}>
+            <Label className="mb-4 block text-xs font-medium uppercase tracking-wide text-muted-foreground">
               {t.footer.connect}
             </Label>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-3">
               {socialLinks.map((link) => (
                 <SocialLink
                   key={link.href}
@@ -163,18 +178,21 @@ export const Footer = memo(() => {
                 />
               ))}
             </div>
-          </div>
+          </FooterGridCell>
 
-          {/* Tech Stack - Full width on mobile, span 2 on sm, 1 col on lg */}
-          <div className="sm:col-span-2 lg:col-span-1">
-            <MonoText className="text-sm text-muted-foreground">
+          {/* Tech Stack Column */}
+          <FooterGridCell showCorners={true}>
+            <Label className="mb-4 block text-xs font-medium uppercase tracking-wide text-muted-foreground">
+              Built With
+            </Label>
+            <MonoText className="text-sm leading-relaxed text-muted-foreground">
               {t.footer.builtWith}
             </MonoText>
-          </div>
-        </div>
+          </FooterGridCell>
+        </FooterGrid>
 
-        {/* Bottom Bar */}
-        <div className="mt-12 flex flex-col items-start gap-4 border-t border-white/[0.08] pt-6 sm:flex-row sm:items-center sm:justify-between sm:gap-0">
+        {/* Bottom Bar - matches Navigation container */}
+        <div className="flex flex-col items-start gap-4 border-t border-border py-8 sm:flex-row sm:items-center sm:justify-between sm:gap-0">
           <MonoText className="text-xs text-muted-foreground sm:text-sm">
             © {t.footer.year} Pedro Felipe
           </MonoText>

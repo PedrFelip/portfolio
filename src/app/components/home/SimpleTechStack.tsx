@@ -2,15 +2,15 @@ import {
   siDocker,
   siGo,
   siGraphql,
-  siNestjs,
+  siHono,
   siMongodb,
+  siNestjs,
   siNextdotjs,
   siNodedotjs,
   siPostgresql,
-  siHono,
+  siPrisma,
   siRedis,
   siTypescript,
-  siPrisma,
   siZod,
 } from "simple-icons";
 

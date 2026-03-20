@@ -1,17 +1,32 @@
 import type * as React from "react";
 
+import { CornerBrackets } from "@/components/blueprint";
 import { cn } from "@/lib/utils";
 
-function Card({ className, ...props }: React.ComponentProps<"div">) {
+interface CardProps extends React.ComponentProps<"div"> {
+  withBrackets?: boolean;
+}
+
+function Card({
+  className,
+  withBrackets = true,
+  children,
+  ...props
+}: CardProps) {
   return (
     <div
       data-slot="card"
       className={cn(
-        "bg-card text-card-foreground flex flex-col rounded-md border border-border p-3 sm:p-4 md:p-6 transition-[border-color,transform,box-shadow] duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-foreground touch-manipulation",
+        "bg-card text-card-foreground relative flex flex-col rounded-sm border border-border/60 p-3 sm:p-4 md:p-6 transition-[border-color,background-color,box-shadow,transform] duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-accent/40 hover:bg-accent/[0.02] touch-manipulation group",
         className,
       )}
       {...props}
-    />
+    >
+      {withBrackets && (
+        <CornerBrackets className="opacity-40 group-hover:opacity-100 transition-opacity duration-150" />
+      )}
+      {children}
+    </div>
   );
 }
 

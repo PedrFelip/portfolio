@@ -49,7 +49,8 @@ export const GitHubContributionGraph = memo(
                         {hoveredDay?.date === day.date && (
                           <div className="pointer-events-none absolute bottom-full left-1/2 z-50 mb-2 -translate-x-1/2 whitespace-nowrap rounded border border-white/[0.08] bg-background/95 px-2 py-1 backdrop-blur-md animate-in-down">
                             <MonoText className="text-[10px] text-foreground">
-                              {day.date} · {day.count} commit{day.count !== 1 ? "s" : ""}
+                              {day.date} · {day.count} commit
+                              {day.count !== 1 ? "s" : ""}
                             </MonoText>
                           </div>
                         )}

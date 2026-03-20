@@ -6,28 +6,27 @@ import {
   SectionDivider,
 } from "@/components/blueprint";
 import { Badge, H1, MonoText, P } from "@/components/ui";
-import { ArrowRight, Github, Linkedin, Mail } from "@/components/ui/icons";
+import {
+  ArrowRight,
+  Github,
+  Home,
+  Linkedin,
+  Mail,
+} from "@/components/ui/icons";
 import { XIcon } from "@/components/ui/x-icon";
-import { linksEn } from "@/lib/content/links.en";
-import { linksPt } from "@/lib/content/links.pt";
 
-interface LinksPageProps {
-  params: Promise<{ lang: "en" | "pt" }>;
-}
-
-export async function generateMetadata({
-  params,
-}: LinksPageProps): Promise<Metadata> {
-  const { lang } = await params;
-  const content = lang === "pt" ? linksPt : linksEn;
-
-  return {
-    title: `${content.links.heading} - Links`,
-    description: content.links.footerText,
-  };
-}
+export const metadata: Metadata = {
+  title: "Pedro Felipe - Links",
+  description: "Connect with me on social media and professional platforms",
+};
 
 const socialLinks = [
+  {
+    label: "Portfolio",
+    url: "/",
+    icon: "portfolio",
+    description: "View my projects",
+  },
   {
     label: "GitHub",
     url: "https://github.com/pedrfelip",
@@ -55,6 +54,7 @@ const socialLinks = [
 ] as const;
 
 const iconMap = {
+  portfolio: Home,
   github: Github,
   linkedin: Linkedin,
   x: XIcon,
@@ -69,6 +69,12 @@ const iconMap = {
  * - Text/Icon: Strong color (400-500 range)
  */
 const colorMap = {
+  portfolio: {
+    border: "group-hover:border-blue-500/70",
+    bg: "group-hover:bg-blue-500/12",
+    text: "group-hover:text-blue-400",
+    icon: "group-hover:text-blue-400",
+  },
   github: {
     border: "group-hover:border-purple-500/70",
     bg: "group-hover:bg-purple-500/12",
@@ -113,12 +119,20 @@ interface LinkItemProps {
 const LinkItem = memo(({ label, url, icon, description }: LinkItemProps) => {
   const Icon = iconMap[icon];
   const colors = colorMap[icon];
+  const isExternal = icon !== "portfolio";
+
+  const LinkComponent = isExternal ? "a" : "a";
+  const linkProps = isExternal
+    ? {
+        href: url,
+        target: "_blank" as const,
+        rel: "noopener noreferrer",
+      }
+    : { href: url };
 
   return (
-    <a
-      href={url}
-      target="_blank"
-      rel="noopener noreferrer"
+    <LinkComponent
+      {...linkProps}
       className={`group flex items-center gap-3 px-3 py-4 sm:px-4 sm:py-5 rounded-lg transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:bg-white/[0.04] ${colors.border} ${colors.bg}`}
     >
       {/* Icon container */}
@@ -148,21 +162,18 @@ const LinkItem = memo(({ label, url, icon, description }: LinkItemProps) => {
         strokeWidth={1.5}
         aria-hidden="true"
       />
-    </a>
+    </LinkComponent>
   );
 });
 
 LinkItem.displayName = "LinkItem";
 
 /**
- * LinksPage - Localized links page with structural grid design
- * Uses blueprint components: RailLayout, SectionDivider, RailBounded, DotPattern
- * Responsive grid: 1 col (mobile) → 2 cols (tablet) → 3 cols (desktop)
+ * LinksPage - Standalone links page with structural grid design
+ * No header/footer from layout, full control over appearance
+ * Uses blueprint components: RailLayout, SectionDivider, RailBounded
  */
-export default async function LinksPage({ params }: LinksPageProps) {
-  const { lang } = await params;
-  const content = lang === "pt" ? linksPt : linksEn;
-
+export default function LinksPage() {
   return (
     <RailLayout className="min-h-screen bg-background">
       {/* Header Section with Divider */}
@@ -174,18 +185,18 @@ export default async function LinksPage({ params }: LinksPageProps) {
           <div className="mb-6 inline-flex">
             <Badge className="inline-flex items-center gap-2 transition-all duration-150 hover:scale-105">
               <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-green-500" />
-              <span>{content.links.availableForWork}</span>
+              <span>Available for work</span>
             </Badge>
           </div>
 
           {/* Main Title */}
           <H1 className="mb-4 text-4xl sm:text-5xl transition-colors duration-150 tracking-tight">
-            {content.links.heading}
+            Pedro Felipe
           </H1>
 
           {/* Subtitle */}
           <P className="text-base sm:text-lg text-muted-foreground transition-colors duration-150">
-            {content.links.subtitle}
+            Backend Engineer & System Architect
           </P>
         </div>
       </RailBounded>
@@ -222,8 +233,8 @@ export default async function LinksPage({ params }: LinksPageProps) {
       <RailBounded className="px-6 py-16 sm:py-20 lg:py-24">
         <div className="mx-auto w-full max-w-2xl text-center">
           <MonoText className="text-xs sm:text-sm text-muted-foreground/70 transition-colors duration-150">
-            © {new Date().getFullYear()} {content.links.heading} ·{" "}
-            {content.links.footerText}
+            © {new Date().getFullYear()} Pedro Felipe · Made with precision for
+            backend engineering
           </MonoText>
         </div>
       </RailBounded>

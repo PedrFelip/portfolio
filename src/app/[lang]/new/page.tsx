@@ -9,12 +9,14 @@ import {
 import Link from "next/link";
 import {
   AlignedFlickeringGrid,
+  DotPattern,
   RailLayout,
   SectionDivider,
 } from "@/components/blueprint";
 import { CornerBrackets } from "@/components/blueprint/CornerBracket";
 import { GitHubSection } from "@/components/home/GitHubSection";
 import { SimpleTechStack } from "@/components/home/SimpleTechStack";
+import { Button } from "@/components/ui";
 import { XIcon } from "@/components/ui/x-icon";
 
 interface NewPageProps {
@@ -71,54 +73,100 @@ export default async function NewPage({ params }: NewPageProps) {
   return (
     <RailLayout>
       {/* Hero Section */}
-      <section className="relative flex flex-col items-center px-4 pb-0 pt-20 text-center sm:pt-28">
-        {/* Dashed guide lines visible on larger screens */}
+      <section className="relative">
+        <div className="rail-bounded">
+          <div className="relative grid grid-cols-1 gap-0 sm:grid-cols-[0.6fr_minmax(0,_3.8fr)_0.6fr]">
+            {/* Left flickering grid - subtle entry */}
+            <AlignedFlickeringGrid
+              side="left"
+              squareSize={4}
+              gridGap={6}
+              flickerChance={0.2}
+              maxOpacity={0.15}
+              className="border-b border-white/[0.08]"
+            />
 
-        <div
-          className="pointer-events-none absolute inset-0 z-0 mx-auto hidden w-full max-w-5xl px-4 sm:block"
-          aria-hidden="true"
-        >
-          <div className="absolute left-4 top-0 bottom-0 w-px border-l border-dashed border-border" />
-          <div className="absolute right-4 top-0 bottom-0 w-px border-r border-dashed border-border" />
-        </div>
+            {/* Central Hero Content */}
+            <div className="relative flex flex-col items-center border-b border-x border-white/[0.08] bg-white/[0.01] px-6 pb-20 pt-12 text-center sm:px-12 overflow-hidden">
+              <DotPattern className="opacity-30" />
+              <CornerBrackets
+                size={16}
+                className="border-white/10 transition-colors duration-500 group-hover:border-white/20"
+              />
 
-        {/* Status badge */}
-        <div className="relative z-10 mb-6 inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.04] px-4 py-1.5">
-          <span className="size-1.5 rounded-full bg-white/40 animate-pulse" />
-          <span className="text-[13px] text-white/60">Available for work</span>
-        </div>
+              {/* Status badge - Modern & Premium */}
+              <div className="relative z-10 mb-8 inline-flex items-center gap-2.5 rounded-full border border-emerald-500/20 bg-emerald-500/5 px-4 py-1.5 backdrop-blur-md hover:border-emerald-500/40 hover:bg-emerald-500/10 transition-all duration-300">
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+                </span>
+                <span className="text-[13px] font-medium tracking-tight text-emerald-400/90">
+                  Available for new projects
+                </span>
+              </div>
 
-        {/* Main headline */}
-        <h1 className="relative z-10 max-w-2xl text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-          Backend Engineer
-          <br />
-          <span className="text-muted-foreground">& DevOps Enthusiast</span>
-        </h1>
+              {/* Main headline - Enhanced Typography */}
+              <h1 className="relative z-10 max-w-3xl text-4xl font-bold tracking-tight sm:text-5xl lg:text-7xl leading-[1.1]">
+                <span className="inline-block bg-gradient-to-b from-white via-white to-white/70 bg-clip-text text-transparent animate-fade-in">
+                  Backend Engineer
+                </span>
+                <br />
+                <span className="inline-block text-muted-foreground/90 relative">
+                  & DevOps Enthusiast
+                  <div className="absolute -bottom-2 left-0 h-1 bg-gradient-to-r from-emerald-500/50 to-transparent rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 w-full" />
+                </span>
+              </h1>
 
-        {/* Subtitle */}
-        <p className="relative z-10 mx-auto mt-5 max-w-lg text-base leading-relaxed text-muted-foreground sm:text-lg">
-          Building scalable, maintainable systems focused on efficiency and
-          reliability
-        </p>
+              {/* Subtitle - More evocative */}
+              <p className="relative z-10 mx-auto mt-8 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
+                Building scalable, maintainable systems focused on efficiency
+                and reliability. Architecting the future, one service at a time.
+              </p>
 
-        {/* CTAs */}
-        <div className="relative z-10 mt-8 mb-16 flex flex-col items-center gap-3 px-6 sm:flex-row">
-          <Link
-            href={`/${lang}/projects`}
-            className="inline-flex h-10 items-center gap-2 rounded-lg bg-foreground px-5 text-sm font-medium text-background transition-opacity hover:opacity-80"
-          >
-            Explore my work
-          </Link>
-          <Link
-            href={`/${lang}/about`}
-            className="inline-flex h-10 items-center gap-2 rounded-lg border border-white/[0.1] px-5 text-sm font-medium text-foreground transition-colors hover:bg-white/[0.04]"
-          >
-            Read my CV
-          </Link>
+              {/* CTAs - Refined with subtle border glow */}
+              <div className="relative z-10 mt-12 flex flex-col items-center gap-4 px-6 sm:flex-row">
+                <Button asChild size="lg" className="w-full sm:w-auto">
+                  <Link href={`/${lang}/projects`} className="group">
+                    Explore my work
+                    <svg
+                      className="size-4 transition-transform group-hover:translate-x-1"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <title>Arrow right</title>
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M13 7l5 5m0 0l-5 5m5-5H6"
+                      />
+                    </svg>
+                  </Link>
+                </Button>
+                <Button
+                  asChild
+                  variant="outline"
+                  size="lg"
+                  className="w-full sm:w-auto"
+                >
+                  <Link href={`/${lang}/about`}>Read my CV</Link>
+                </Button>
+              </div>
+            </div>
+
+            {/* Right flickering grid - subtle entry */}
+            <AlignedFlickeringGrid
+              side="right"
+              squareSize={4}
+              gridGap={6}
+              flickerChance={0.2}
+              maxOpacity={0.15}
+              className="border-b border-white/[0.08]"
+            />
+          </div>
         </div>
       </section>
-      <SectionDivider />
-      {/* Tech Stack Section */}
       <SimpleTechStack />
       <SectionDivider />
       {/* Features Grid Section */}
@@ -137,7 +185,6 @@ export default async function NewPage({ params }: NewPageProps) {
             </p>
           </div>
         </div>
-        {/* Grid with dashed dividers */}
         <div className="rail-bounded border-t border-border">
           <div className="grid sm:grid-cols-2 lg:grid-cols-3">
             {features.map((item, i) => {
@@ -169,7 +216,6 @@ export default async function NewPage({ params }: NewPageProps) {
         </div>
       </section>
       <SectionDivider />
-      {/* GitHub Activity Section */}
       <GitHubSection />
       <SectionDivider />
 
@@ -177,7 +223,7 @@ export default async function NewPage({ params }: NewPageProps) {
       <section className="relative px-6 py-16 sm:py-24">
         <div className="rail-bounded">
           {/* Grid container aligned with blueprint rails */}
-          <div className="relative grid grid-cols-1 gap-0 sm:grid-cols-[1fr_minmax(0,_2fr)_1fr]">
+          <div className="relative grid grid-cols-1 gap-0 sm:grid-cols-[0.7fr_minmax(0,_3.6fr)_0.7fr]">
             {/* Left flickering grid - aligned to rail */}
             <AlignedFlickeringGrid
               side="left"
@@ -206,26 +252,20 @@ export default async function NewPage({ params }: NewPageProps) {
 
                 {/* CTA Buttons */}
                 <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row">
-                  <div className="relative">
-                    <Link
-                      href={`/${lang}/projects`}
-                      className="relative inline-flex h-11 w-44 items-center justify-center gap-2 rounded-lg bg-foreground text-sm font-medium text-background transition-all duration-150 hover:opacity-90"
-                    >
-                      View Projects
-                    </Link>
-                  </div>
+                  <Button asChild className="w-44">
+                    <Link href={`/${lang}/projects`}>View Projects</Link>
+                  </Button>
 
-                  <div className="relative">
+                  <Button asChild variant="outline" className="w-44">
                     <Link
                       href="https://x.com/pedrofelipeek"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="relative inline-flex h-11 w-44 items-center justify-center gap-2 rounded-lg border border-white/[0.1] text-sm font-medium text-foreground transition-all duration-150 hover:bg-white/[0.04]"
                     >
                       <XIcon className="size-4" />
                       <span>Follow on Twitter</span>
                     </Link>
-                  </div>
+                  </Button>
                 </div>
               </div>
             </div>

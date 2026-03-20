@@ -4,6 +4,7 @@ import type React from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { cn } from "@/lib/utils";
+import { FLICKER_CONFIG } from "@/lib/constants";
 
 interface FlickeringGridProps extends React.HTMLAttributes<HTMLDivElement> {
   squareSize?: number;
@@ -17,14 +18,14 @@ interface FlickeringGridProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export const FlickeringGrid: React.FC<FlickeringGridProps> = ({
-  squareSize = 4,
-  gridGap = 6,
-  flickerChance = 0.3,
-  color = "rgb(0, 0, 0)",
+  squareSize = FLICKER_CONFIG.SQUARE_SIZE,
+  gridGap = FLICKER_CONFIG.GRID_GAP,
+  flickerChance = FLICKER_CONFIG.FLICKER_CHANCE,
+  color = FLICKER_CONFIG.COLOR,
   width,
   height,
   className,
-  maxOpacity = 0.3,
+  maxOpacity = FLICKER_CONFIG.MAX_OPACITY,
   ...props
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);

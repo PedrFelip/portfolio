@@ -94,10 +94,6 @@ export function GitHubSection({
             <AlignedFlickeringGrid
               side="right"
               className="absolute inset-0 h-full w-full !flex"
-              squareSize={4}
-              gridGap={6}
-              flickerChance={0.3}
-              maxOpacity={0.25}
             />
             {/* Blueprint corner detail */}
             <div className="absolute right-2 bottom-2 size-2 border-r border-b border-border/40" />

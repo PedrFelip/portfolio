@@ -3,6 +3,7 @@
 import type React from "react";
 import { FlickeringGrid } from "@/components/ui/flickering-grid";
 import { cn } from "@/lib/utils";
+import { FLICKER_CONFIG } from "@/lib/constants";
 
 interface AlignedFlickeringGridProps
   extends React.HTMLAttributes<HTMLDivElement> {
@@ -20,10 +21,10 @@ interface AlignedFlickeringGridProps
  */
 export const AlignedFlickeringGrid: React.FC<AlignedFlickeringGridProps> = ({
   side,
-  squareSize = 4,
-  gridGap = 6,
-  flickerChance = 0.3,
-  maxOpacity = 0.25,
+  squareSize = FLICKER_CONFIG.SQUARE_SIZE,
+  gridGap = FLICKER_CONFIG.GRID_GAP,
+  flickerChance = FLICKER_CONFIG.FLICKER_CHANCE,
+  maxOpacity = FLICKER_CONFIG.MAX_OPACITY,
   className,
   ...props
 }) => {
@@ -51,7 +52,7 @@ export const AlignedFlickeringGrid: React.FC<AlignedFlickeringGridProps> = ({
         squareSize={squareSize}
         gridGap={gridGap}
         flickerChance={flickerChance}
-        color="rgba(255, 255, 255, 1)"
+        color={FLICKER_CONFIG.COLOR}
         maxOpacity={maxOpacity}
         className="h-full w-full"
       />

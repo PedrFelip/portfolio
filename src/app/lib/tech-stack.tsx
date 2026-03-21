@@ -58,6 +58,11 @@ export const TECH_STACK: Record<string, TechItem> = {
     color: `#${siNestjs.hex}`,
     icon: createIcon(siNestjs),
   },
+  go: {
+    name: "Go",
+    color: `#${siGo.hex}`,
+    icon: createIcon(siGo),
+  },
   zod: {
     name: "Zod",
     color: `#${siZod.hex}`,
@@ -67,11 +72,6 @@ export const TECH_STACK: Record<string, TechItem> = {
     name: "Hono",
     color: `#${siHono.hex}`,
     icon: createIcon(siHono),
-  },
-  go: {
-    name: "Go",
-    color: `#${siGo.hex}`,
-    icon: createIcon(siGo),
   },
   linux: {
     name: "Linux",

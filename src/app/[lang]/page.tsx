@@ -1,10 +1,12 @@
 import {
-  Cloud,
+  Activity,
+  Cpu,
   Database,
-  Layers,
+  Monitor,
   Package,
-  Plug,
-  RefreshCw,
+  ShieldCheck,
+  Terminal,
+  Zap,
 } from "lucide-react";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -22,6 +24,8 @@ import { Button } from "@/components/ui";
 import { XIcon } from "@/components/ui/x-icon";
 import { homeEn } from "@/lib/content/home.en";
 import { homePt } from "@/lib/content/home.pt";
+import { TOOLKIT_CONFIG } from "@/lib/toolkit-data";
+import React from "react";
 
 interface HomePageProps {
   params: Promise<{ lang: string }>;
@@ -33,12 +37,12 @@ const homeContent = {
 };
 
 const iconMap = {
-  1: Plug,
-  2: Cloud,
-  3: Package,
+  1: Cpu,
+  2: ShieldCheck,
+  3: Activity,
   4: Database,
-  5: RefreshCw,
-  6: Layers,
+  5: Package,
+  6: Terminal,
 };
 
 export default async function HomePage({ params }: HomePageProps) {
@@ -150,7 +154,7 @@ export default async function HomePage({ params }: HomePageProps) {
         <div className="rail-bounded border-t border-border">
           <div className="grid sm:grid-cols-2 lg:grid-cols-3">
             {t.features.items.map((item, i) => {
-              const Icon = iconMap[item.id as keyof typeof iconMap] || Plug;
+              const Icon = iconMap[item.id as keyof typeof iconMap] || Activity;
               return (
                 <div
                   key={item.id}
@@ -188,6 +192,74 @@ export default async function HomePage({ params }: HomePageProps) {
           description={t.github.description}
         />
       </Suspense>
+
+      <SectionDivider />
+
+      {/* Toolkit / Setup Section */}
+      <section id="toolkit" className="relative">
+        <div className="rail-bounded">
+          <div className="px-4 pb-8 pt-12 sm:px-8">
+            <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+              {t.toolkit.badge}
+            </p>
+            <h2 className="mt-3 text-2xl font-bold tracking-tight sm:text-3xl">
+              {t.toolkit.title}
+            </h2>
+            <p className="mt-2 max-w-md text-sm text-muted-foreground">
+              {t.toolkit.description}
+            </p>
+          </div>
+        </div>
+        <div className="rail-bounded border-t border-border">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+            {t.toolkit.items.map((item, i) => {
+              const itemConfig = TOOLKIT_CONFIG[item.id];
+              return (
+                <div
+                  key={item.id}
+                  className={`group px-4 py-8 sm:px-6 transition-colors hover:bg-white/[0.02]
+                    ${i !== 0 ? "lg:border-l lg:border-dashed lg:border-border" : ""}
+                    ${i % 2 !== 0 ? "sm:max-lg:border-l sm:max-lg:border-dashed sm:max-lg:border-border" : ""}
+                    ${i >= 2 ? "sm:max-lg:border-t sm:max-lg:border-dashed sm:max-lg:border-border" : ""}
+                    ${i >= 1 ? "max-sm:border-t max-sm:border-dashed max-sm:border-border" : ""}
+                  `}
+                >
+                  <div className="flex flex-col">
+                    {/* Icons Container */}
+                    <div className="mb-5 flex items-center gap-2">
+                      {itemConfig?.icons.map((iconConfig, index) => (
+                        <React.Fragment key={index}>
+                          {index > 0 && (
+                            <span className="text-muted-foreground/40 font-mono text-sm leading-none flex items-center h-full">
+                              +
+                            </span>
+                          )}
+                          <div
+                            className="inline-flex size-10 flex-shrink-0 items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.03] text-white/60 transition-all duration-300 group-hover:border-[var(--icon-color)]/30 group-hover:bg-[var(--icon-color)]/10 group-hover:text-[var(--icon-color)] group-hover:shadow-[0_0_15px_rgba(0,0,0,0.2)] group-hover:shadow-[var(--icon-color)]/20"
+                            style={{ "--icon-color": iconConfig.color || "#ffffff" } as React.CSSProperties}
+                          >
+                            <iconConfig.component className="size-5" />
+                          </div>
+                        </React.Fragment>
+                      ))}
+                    </div>
+                    
+                    <p className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground/60">
+                      {item.title}
+                    </p>
+                    <h3 className="mt-1 text-base font-semibold tracking-tight">
+                      {item.name}
+                    </h3>
+                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground/80">
+                      {item.description}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
 
       <SectionDivider />
 

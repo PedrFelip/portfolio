@@ -1,5 +1,4 @@
 import { AlignedFlickeringGrid } from "@/components/blueprint/AlignedFlickeringGrid";
-import { cn } from "@/lib/utils";
 
 /**
  * GitHubSectionSkeleton - Loading state for GitHub activity section

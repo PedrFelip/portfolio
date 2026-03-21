@@ -2,14 +2,12 @@ import {
   Activity,
   Cpu,
   Database,
-  Monitor,
   Package,
   ShieldCheck,
   Terminal,
-  Zap,
 } from "lucide-react";
 import Link from "next/link";
-import { Suspense } from "react";
+import React, { Suspense } from "react";
 import {
   AlignedFlickeringGrid,
   DotPattern,
@@ -25,7 +23,6 @@ import { XIcon } from "@/components/ui/x-icon";
 import { homeEn } from "@/lib/content/home.en";
 import { homePt } from "@/lib/content/home.pt";
 import { TOOLKIT_CONFIG } from "@/lib/toolkit-data";
-import React from "react";
 
 interface HomePageProps {
   params: Promise<{ lang: string }>;
@@ -66,36 +63,36 @@ export default async function HomePage({ params }: HomePageProps) {
               <DotPattern className="opacity-30" />
               <CornerBrackets
                 size={16}
-                className="border-white/10 transition-colors duration-500"
+                className="border-white/10 transition-colors duration-500 hover:border-white/30"
               />
 
               {/* Main headline - Enhanced Typography */}
               <h1 className="relative z-10 max-w-3xl text-3xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl leading-[1.1]">
-                <span className="inline-block bg-gradient-to-b from-white via-white to-white/70 bg-clip-text text-transparent animate-fade-in">
+                <span className="inline-block bg-gradient-to-b from-white via-white to-white/70 bg-clip-text text-transparent animate-in-up">
                   {t.hero.title}
                 </span>
                 <br />
-                <span className="inline-block text-muted-foreground/90 relative">
+                <span className="inline-block text-muted-foreground/90 relative animate-in-up animate-delay-100">
                   {t.hero.subtitle}
                 </span>
               </h1>
 
               {/* Subtitle - More evocative */}
-              <p className="relative z-10 mx-auto mt-6 max-w-xl text-sm leading-relaxed text-muted-foreground sm:mt-8 sm:text-lg">
+              <p className="relative z-10 mx-auto mt-6 max-w-xl text-sm leading-relaxed text-muted-foreground sm:mt-8 sm:text-lg animate-in-up animate-delay-150">
                 {t.hero.description}
               </p>
 
               {/* CTAs - Refined with subtle border glow */}
-              <div className="relative z-10 mt-10 flex flex-col items-center gap-4 px-4 sm:mt-12 sm:flex-row">
+              <div className="relative z-10 mt-10 flex flex-col items-center gap-4 px-4 sm:mt-12 sm:flex-row animate-in-up animate-delay-200">
                 <Button
                   asChild
                   size="lg"
-                  className="w-full sm:w-52 scale-on-active group/btn"
+                  className="w-full sm:w-52 scale-on-active group/btn hover:shadow-[0_0_20px_-5px_rgba(255,255,255,0.1)] transition-all duration-200"
                 >
                   <Link href={`/${lang}/projects`}>
                     {t.hero.cta}
                     <svg
-                      className="size-4 transition-transform group-hover/btn:translate-x-1"
+                      className="size-4 transition-transform duration-150 group-hover/btn:translate-x-1"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -114,7 +111,7 @@ export default async function HomePage({ params }: HomePageProps) {
                   asChild
                   variant="outline"
                   size="lg"
-                  className="w-full sm:w-52 scale-on-active"
+                  className="w-full sm:w-52 scale-on-active hover:border-white/30 transition-all duration-200"
                 >
                   <Link href={`/${lang}/about`}>{t.hero.ctaSecondary}</Link>
                 </Button>
@@ -140,16 +137,19 @@ export default async function HomePage({ params }: HomePageProps) {
       <SectionDivider />
 
       {/* Features Grid Section */}
-      <section id="features" className="relative">
+      <section
+        id="features"
+        className="relative animate-in-up animate-delay-300"
+      >
         <div className="rail-bounded">
           <div className="px-4 pb-8 pt-12 sm:px-8">
-            <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+            <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground animate-in-left animate-delay-350">
               {t.features.badge}
             </p>
-            <h2 className="mt-3 text-2xl font-bold tracking-tight sm:text-3xl">
+            <h2 className="mt-3 text-2xl font-bold tracking-tight sm:text-3xl animate-in-left animate-delay-400">
               {t.features.title}
             </h2>
-            <p className="mt-2 max-w-md text-sm text-muted-foreground">
+            <p className="mt-2 max-w-md text-sm text-muted-foreground animate-in-left animate-delay-450">
               {t.features.description}
             </p>
           </div>
@@ -161,21 +161,26 @@ export default async function HomePage({ params }: HomePageProps) {
               return (
                 <div
                   key={item.id}
-                  className={`group px-4 py-6 sm:px-6 transition-colors hover:bg-white/[0.02]
+                  className={`group px-4 py-6 sm:px-6 transition-all duration-200 hover:bg-white/[0.02] hover:shadow-inner animate-in-up
                     ${i % 3 !== 0 ? "lg:border-l lg:border-dashed lg:border-border" : ""}
                     ${i % 2 !== 0 ? "sm:max-lg:border-l sm:max-lg:border-dashed sm:max-lg:border-border" : ""}
                     ${i >= 3 ? "lg:border-t lg:border-dashed lg:border-border" : ""}
                     ${i >= 2 ? "sm:max-lg:border-t sm:max-lg:border-dashed sm:max-lg:border-border" : ""}
                     ${i >= 1 ? "max-sm:border-t max-sm:border-dashed max-sm:border-border" : ""}
                   `}
+                  style={{ animationDelay: `${500 + i * 50}ms` }}
                 >
-                  <div className="mb-4 inline-flex size-10 items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.03] text-white/60 transition-colors group-hover:text-white/90">
-                    <Icon size={18} strokeWidth={1.5} />
+                  <div className="mb-4 inline-flex size-10 items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.03] text-white/60 transition-all duration-200 group-hover:text-white/90 group-hover:border-white/20 group-hover:bg-white/[0.08] group-hover:scale-110">
+                    <Icon
+                      size={18}
+                      strokeWidth={1.5}
+                      className="transition-transform duration-200 group-hover:rotate-3"
+                    />
                   </div>
-                  <h3 className="text-base font-semibold tracking-tight">
+                  <h3 className="text-base font-semibold tracking-tight transition-colors duration-150 group-hover:text-white">
                     {item.title}
                   </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground transition-colors duration-150 group-hover:text-muted-foreground/90">
                     {item.description}
                   </p>
                 </div>
@@ -199,7 +204,7 @@ export default async function HomePage({ params }: HomePageProps) {
       <SectionDivider />
 
       {/* Toolkit / Setup Section */}
-      <section id="toolkit" className="relative">
+      <section id="toolkit" className="relative animate-in-up">
         <div className="rail-bounded">
           <div className="px-4 pb-8 pt-12 sm:px-8">
             <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
@@ -220,40 +225,46 @@ export default async function HomePage({ params }: HomePageProps) {
               return (
                 <div
                   key={item.id}
-                  className={`group px-4 py-8 sm:px-6 transition-colors hover:bg-white/[0.02]
+                  className={`group px-4 py-8 sm:px-6 transition-all duration-200 hover:bg-white/[0.02] hover:shadow-inner animate-in-up
                     ${i !== 0 ? "lg:border-l lg:border-dashed lg:border-border" : ""}
                     ${i % 2 !== 0 ? "sm:max-lg:border-l sm:max-lg:border-dashed sm:max-lg:border-border" : ""}
                     ${i >= 2 ? "sm:max-lg:border-t sm:max-lg:border-dashed sm:max-lg:border-border" : ""}
                     ${i >= 1 ? "max-sm:border-t max-sm:border-dashed max-sm:border-border" : ""}
                   `}
+                  style={{ animationDelay: `${i * 80}ms` }}
                 >
                   <div className="flex flex-col">
                     {/* Icons Container */}
                     <div className="mb-5 flex items-center gap-2">
-                      {itemConfig?.icons.map((iconConfig, index) => (
-                        <React.Fragment key={index}>
-                          {index > 0 && (
+                      {itemConfig?.icons.map((iconConfig, iconIndex) => (
+                        <React.Fragment key={`${item.id}-icon-${iconIndex}`}>
+                          {iconIndex > 0 && (
                             <span className="text-muted-foreground/40 font-mono text-sm leading-none flex items-center h-full">
                               +
                             </span>
                           )}
                           <div
-                            className="inline-flex size-10 flex-shrink-0 items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.03] text-white/60 transition-all duration-300 group-hover:border-[var(--icon-color)]/30 group-hover:bg-[var(--icon-color)]/10 group-hover:text-[var(--icon-color)] group-hover:shadow-[0_0_15px_rgba(0,0,0,0.2)] group-hover:shadow-[var(--icon-color)]/20"
-                            style={{ "--icon-color": iconConfig.color || "#ffffff" } as React.CSSProperties}
+                            className="inline-flex size-10 flex-shrink-0 items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.03] text-white/60 transition-all duration-300 group-hover:border-[var(--icon-color)]/30 group-hover:bg-[var(--icon-color)]/10 group-hover:text-[var(--icon-color)] group-hover:shadow-[0_0_15px_rgba(0,0,0,0.2)] group-hover:shadow-[var(--icon-color)]/20 group-hover:scale-110"
+                            style={
+                              {
+                                "--icon-color": iconConfig.color || "#ffffff",
+                                transitionDelay: `${iconIndex * 50}ms`,
+                              } as React.CSSProperties
+                            }
                           >
-                            <iconConfig.component className="size-5" />
+                            <iconConfig.component className="size-5 transition-transform duration-200 group-hover:rotate-6" />
                           </div>
                         </React.Fragment>
                       ))}
                     </div>
-                    
-                    <p className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground/60">
+
+                    <p className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground/60 transition-colors duration-150 group-hover:text-muted-foreground">
                       {item.title}
                     </p>
-                    <h3 className="mt-1 text-base font-semibold tracking-tight">
+                    <h3 className="mt-1 text-base font-semibold tracking-tight transition-colors duration-150 group-hover:text-white">
                       {item.name}
                     </h3>
-                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground/80">
+                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground/80 transition-colors duration-150 group-hover:text-muted-foreground">
                       {item.description}
                     </p>
                   </div>
@@ -267,7 +278,7 @@ export default async function HomePage({ params }: HomePageProps) {
       <SectionDivider />
 
       {/* CTA Section */}
-      <section className="relative px-4 py-12 sm:px-6 sm:py-24">
+      <section className="relative px-4 py-12 sm:px-6 sm:py-24 animate-in-up">
         <div className="rail-bounded">
           {/* Grid container aligned with blueprint rails */}
           <div className="relative grid grid-cols-1 gap-0 sm:grid-cols-[0.7fr_minmax(0,_3.6fr)_0.7fr]">
@@ -275,18 +286,18 @@ export default async function HomePage({ params }: HomePageProps) {
             <AlignedFlickeringGrid side="left" />
 
             {/* CTA Card Container with Corner Brackets */}
-            <div className="group relative border border-white/[0.08] bg-white/[0.02] px-4 py-10 sm:px-12 sm:py-16">
+            <div className="group relative border border-white/[0.08] bg-white/[0.02] px-4 py-10 sm:px-12 sm:py-16 transition-all duration-300 hover:border-white/20 hover:bg-white/[0.04] hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.1)]">
               <CornerBrackets
                 size={16}
-                className="border-border/50 transition-colors duration-300 group-hover:border-white/20"
+                className="border-border/50 transition-all duration-300 group-hover:border-white/40 group-hover:scale-110"
               />
 
               {/* Content */}
               <div className="flex flex-col items-center text-center">
-                <h2 className="text-2xl font-bold tracking-tight sm:text-4xl">
+                <h2 className="text-2xl font-bold tracking-tight sm:text-4xl transition-colors duration-200 group-hover:text-white">
                   {t.cta.title}
                 </h2>
-                <p className="mt-4 max-w-md text-sm text-muted-foreground sm:text-lg">
+                <p className="mt-4 max-w-md text-sm text-muted-foreground sm:text-lg transition-colors duration-200 group-hover:text-muted-foreground/90">
                   {t.cta.description}
                 </p>
 
@@ -295,12 +306,12 @@ export default async function HomePage({ params }: HomePageProps) {
                   <Button
                     asChild
                     size="lg"
-                    className="w-full sm:w-52 scale-on-active group/btn"
+                    className="w-full sm:w-52 scale-on-active group/btn hover:shadow-[0_0_20px_-5px_rgba(255,255,255,0.15)] transition-all duration-200"
                   >
                     <Link href={`/${lang}/projects`}>
                       {t.cta.primary}
                       <svg
-                        className="size-4 transition-transform group-hover/btn:translate-x-1"
+                        className="size-4 transition-transform duration-150 group-hover/btn:translate-x-1"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -320,14 +331,14 @@ export default async function HomePage({ params }: HomePageProps) {
                     asChild
                     variant="outline"
                     size="lg"
-                    className="w-full sm:w-52 scale-on-active"
+                    className="w-full sm:w-52 scale-on-active hover:border-white/30 transition-all duration-200"
                   >
                     <Link
                       href="https://x.com/pedrofelipeek"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <XIcon className="size-4" />
+                      <XIcon className="size-4 transition-transform duration-150 group-hover:scale-110" />
                       <span>{t.cta.secondary}</span>
                     </Link>
                   </Button>

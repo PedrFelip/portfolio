@@ -119,7 +119,7 @@ export const homePt = {
     description:
       "Estou sempre aberto a discutir novos projetos, ideias criativas ou oportunidades.",
     primary: "Ver Projetos",
-    secondary: "",
+    secondary: "Entre em Contato",
   },
 
   projects: {

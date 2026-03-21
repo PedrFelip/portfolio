@@ -66,7 +66,7 @@ export default async function HomePage({ params }: HomePageProps) {
               <DotPattern className="opacity-30" />
               <CornerBrackets
                 size={16}
-                className="border-white/10 transition-colors duration-500 group-hover:border-white/20"
+                className="border-white/10 transition-colors duration-500"
               />
 
               {/* Main headline - Enhanced Typography */}
@@ -77,7 +77,6 @@ export default async function HomePage({ params }: HomePageProps) {
                 <br />
                 <span className="inline-block text-muted-foreground/90 relative">
                   {t.hero.subtitle}
-                  <div className="absolute -bottom-2 left-0 h-1 bg-gradient-to-r from-emerald-500/50 to-transparent rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 w-full" />
                 </span>
               </h1>
 
@@ -91,12 +90,12 @@ export default async function HomePage({ params }: HomePageProps) {
                 <Button
                   asChild
                   size="lg"
-                  className="w-full sm:w-48 scale-on-active"
+                  className="w-full sm:w-52 scale-on-active group/btn"
                 >
-                  <Link href={`/${lang}/projects`} className="group">
+                  <Link href={`/${lang}/projects`}>
                     {t.hero.cta}
                     <svg
-                      className="size-4 transition-transform group-hover:translate-x-1"
+                      className="size-4 transition-transform group-hover/btn:translate-x-1"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -115,7 +114,7 @@ export default async function HomePage({ params }: HomePageProps) {
                   asChild
                   variant="outline"
                   size="lg"
-                  className="w-full sm:w-48 scale-on-active"
+                  className="w-full sm:w-52 scale-on-active"
                 >
                   <Link href={`/${lang}/about`}>{t.hero.ctaSecondary}</Link>
                 </Button>
@@ -292,16 +291,16 @@ export default async function HomePage({ params }: HomePageProps) {
                 </p>
 
                 {/* CTA Buttons */}
-                <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row">
+                <div className="mt-10 flex flex-col items-center gap-4 px-4 sm:mt-12 sm:flex-row">
                   <Button
                     asChild
                     size="lg"
-                    className="w-full sm:w-48 scale-on-active group"
+                    className="w-full sm:w-52 scale-on-active group/btn"
                   >
                     <Link href={`/${lang}/projects`}>
                       {t.cta.primary}
                       <svg
-                        className="size-4 transition-transform group-hover:translate-x-1"
+                        className="size-4 transition-transform group-hover/btn:translate-x-1"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -321,7 +320,7 @@ export default async function HomePage({ params }: HomePageProps) {
                     asChild
                     variant="outline"
                     size="lg"
-                    className="w-full sm:w-48 scale-on-active"
+                    className="w-full sm:w-52 scale-on-active"
                   >
                     <Link
                       href="https://x.com/pedrofelipeek"

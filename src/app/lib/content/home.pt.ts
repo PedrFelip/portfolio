@@ -41,32 +41,38 @@ export const homePt = {
       {
         id: 1,
         title: "Estrutura de Dados",
-        description: "Sólido entendimento de complexidade algorítmica e trade-offs entre estruturas de dados",
+        description:
+          "Sólido entendimento de complexidade algorítmica e trade-offs entre estruturas de dados",
       },
       {
         id: 2,
         title: "Boas Práticas",
-        description: "Priorizo legibilidade, manutenibilidade e escalabilidade a longo prazo em vez de soluções rápidas.",
+        description:
+          "Priorizo legibilidade, manutenibilidade e escalabilidade a longo prazo em vez de soluções rápidas.",
       },
       {
         id: 3,
         title: "APIs Escaláveis",
-        description: "APIs RESTful projetadas para performance e manutenibilidade",
+        description:
+          "APIs RESTful projetadas para performance e manutenibilidade",
       },
       {
         id: 4,
         title: "Otimização de Queries",
-        description: "Queries eficientes e uso consciente de índices quando necessário",
+        description:
+          "Queries eficientes e uso consciente de índices quando necessário",
       },
       {
         id: 5,
         title: "Conteinerização",
-        description: "Empacotamento de aplicações com Docker para ambientes consistentes",
+        description:
+          "Empacotamento de aplicações com Docker para ambientes consistentes",
       },
       {
         id: 6,
         title: "Shell & Automação",
-        description: "Criação de shell scripts e serviços systemd para automatizar tarefas repetitivas",
+        description:
+          "Criação de shell scripts e serviços systemd para automatizar tarefas repetitivas",
       },
     ],
   },
@@ -74,7 +80,8 @@ export const homePt = {
   github: {
     badge: "Histórico de Commits",
     title: "Atividade no GitHub",
-    description: "Contribuições diárias e atividade de codificação no último ano.",
+    description:
+      "Contribuições diárias e atividade de codificação no último ano.",
     less: "Menos",
     more: "Mais",
     commit: "commit",
@@ -84,25 +91,29 @@ export const homePt = {
   techStack: {
     badge: "Tecnologias",
     title: "Tech Stack",
-    description: "Ferramentas e tecnologias modernas com as quais trabalho diariamente.",
+    description:
+      "Ferramentas e tecnologias modernas com as quais trabalho diariamente.",
   },
 
   toolkit: {
     badge: "Ambiente",
     title: "Minhas Ferramentas",
-    description: "As ferramentas e o ambiente que utilizo para manter a produtividade e construir software eficiente.",
+    description:
+      "As ferramentas e o ambiente que utilizo para manter a produtividade e construir software eficiente.",
     items: [
       {
         id: "os",
         title: "Sistema Operacional",
         name: "Fedora + Niri WM",
-        description: "Um ambiente robusto e fluido controlado por teclado para foco máximo.",
+        description:
+          "Um ambiente robusto e fluido controlado por teclado para foco máximo.",
       },
       {
         id: "editor",
         title: "Editor de Código",
         name: "Zed",
-        description: "Editor de alto desempenho focado em velocidade e eficiência.",
+        description:
+          "Editor de alto desempenho focado em velocidade e eficiência.",
       },
       {
         id: "terminal",
@@ -114,7 +125,6 @@ export const homePt = {
   },
 
   cta: {
-
     title: "Vamos construir algo juntos",
     description:
       "Estou sempre aberto a discutir novos projetos, ideias criativas ou oportunidades.",

@@ -42,32 +42,38 @@ export const homeEn = {
       {
         id: 1,
         title: "Data Structures",
-        description: "Solid understanding of algorithmic complexity and data structure trade-offs",
+        description:
+          "Solid understanding of algorithmic complexity and data structure trade-offs",
       },
       {
         id: 2,
         title: "Best Practices",
-        description: "I prioritize readability, maintainability and long-term scalability over quick hacks.",
+        description:
+          "I prioritize readability, maintainability and long-term scalability over quick hacks.",
       },
       {
         id: 3,
         title: "Scalable APIs",
-        description: "RESTful APIs designed for performance and maintainability",
+        description:
+          "RESTful APIs designed for performance and maintainability",
       },
       {
         id: 4,
         title: "Query Optimization",
-        description: "Writing efficient queries and knowing when indexes matter",
+        description:
+          "Writing efficient queries and knowing when indexes matter",
       },
       {
         id: 5,
         title: "Containerization",
-        description: "Packaging applications with Docker for consistent environments",
+        description:
+          "Packaging applications with Docker for consistent environments",
       },
       {
         id: 6,
         title: "Shell & Automation",
-        description: "Writing shell scripts and systemd services to automate repetitive tasks",
+        description:
+          "Writing shell scripts and systemd services to automate repetitive tasks",
       },
     ],
   },
@@ -105,7 +111,8 @@ export const homeEn = {
         id: "editor",
         title: "Code Editor",
         name: "Zed",
-        description: "A high-performance editor built for speed and efficiency.",
+        description:
+          "A high-performance editor built for speed and efficiency.",
       },
       {
         id: "terminal",

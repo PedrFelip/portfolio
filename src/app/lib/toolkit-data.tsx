@@ -1,8 +1,7 @@
 import type React from "react";
-import { Cpu, LayoutTemplate, Monitor, Terminal, Zap } from "lucide-react";
 import {
-  siGhostty,
   siFedora,
+  siGhostty,
   siNiri,
   siTmux,
   siZedindustries,

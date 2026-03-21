@@ -88,7 +88,11 @@ export default async function HomePage({ params }: HomePageProps) {
 
               {/* CTAs - Refined with subtle border glow */}
               <div className="relative z-10 mt-10 flex flex-col items-center gap-4 px-4 sm:mt-12 sm:flex-row">
-                <Button asChild size="lg" className="w-full sm:w-auto">
+                <Button
+                  asChild
+                  size="lg"
+                  className="w-full sm:w-48 scale-on-active"
+                >
                   <Link href={`/${lang}/projects`} className="group">
                     {t.hero.cta}
                     <svg
@@ -111,7 +115,7 @@ export default async function HomePage({ params }: HomePageProps) {
                   asChild
                   variant="outline"
                   size="lg"
-                  className="w-full sm:w-auto"
+                  className="w-full sm:w-48 scale-on-active"
                 >
                   <Link href={`/${lang}/about`}>{t.hero.ctaSecondary}</Link>
                 </Button>
@@ -289,11 +293,36 @@ export default async function HomePage({ params }: HomePageProps) {
 
                 {/* CTA Buttons */}
                 <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row">
-                  <Button asChild className="w-full sm:w-44">
-                    <Link href={`/${lang}/projects`}>{t.cta.primary}</Link>
+                  <Button
+                    asChild
+                    size="lg"
+                    className="w-full sm:w-48 scale-on-active group"
+                  >
+                    <Link href={`/${lang}/projects`}>
+                      {t.cta.primary}
+                      <svg
+                        className="size-4 transition-transform group-hover:translate-x-1"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <title>Arrow right</title>
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M13 7l5 5m0 0l-5 5m5-5H6"
+                        />
+                      </svg>
+                    </Link>
                   </Button>
 
-                  <Button asChild variant="outline" className="w-full sm:w-44">
+                  <Button
+                    asChild
+                    variant="outline"
+                    size="lg"
+                    className="w-full sm:w-48 scale-on-active"
+                  >
                     <Link
                       href="https://x.com/pedrofelipeek"
                       target="_blank"

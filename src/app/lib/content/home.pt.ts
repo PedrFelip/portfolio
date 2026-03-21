@@ -74,8 +74,11 @@ export const homePt = {
   github: {
     badge: "Histórico de Commits",
     title: "Atividade no GitHub",
-    description:
-      "Contribuições diárias e atividade no último ano.",
+    description: "Contribuições diárias e atividade de codificação no último ano.",
+    less: "Menos",
+    more: "Mais",
+    commit: "commit",
+    commits: "commits",
   },
 
   techStack: {
@@ -116,7 +119,7 @@ export const homePt = {
     description:
       "Estou sempre aberto a discutir novos projetos, ideias criativas ou oportunidades.",
     primary: "Ver Projetos",
-    secondary: "Conecte-se",
+    secondary: "",
   },
 
   projects: {

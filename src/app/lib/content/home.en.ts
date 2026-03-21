@@ -76,6 +76,10 @@ export const homeEn = {
     badge: "Commit History",
     title: "GitHub Activity",
     description: "Daily contributions and coding activity over the past year.",
+    less: "Less",
+    more: "More",
+    commit: "commit",
+    commits: "commits",
   },
 
   techStack: {
@@ -117,7 +121,7 @@ export const homeEn = {
     description:
       "I'm always open to discussing new projects, creative ideas, or opportunities.",
     primary: "View Projects",
-    secondary: "Let's Connect",
+    secondary: "DM me on Twitter",
   },
 
   projects: {

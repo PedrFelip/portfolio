@@ -60,12 +60,6 @@ export default async function HomePage({ params }: HomePageProps) {
 
             {/* Central Hero Content */}
             <div className="relative flex flex-col items-center border-b border-x border-white/[0.08] bg-white/[0.01] px-4 pb-16 pt-10 text-center sm:px-12 sm:pb-24 sm:pt-16 md:px-16 overflow-hidden">
-              <DotPattern className="opacity-30" />
-              <CornerBrackets
-                size={16}
-                className="border-white/10 transition-colors duration-500 hover:border-white/30"
-              />
-
               {/* Main headline - Enhanced Typography */}
               <h1 className="relative z-10 max-w-3xl text-3xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl leading-[1.1]">
                 <span className="inline-block bg-gradient-to-b from-white via-white to-white/70 bg-clip-text text-transparent animate-in-up">

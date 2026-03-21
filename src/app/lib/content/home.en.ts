@@ -12,10 +12,10 @@ export const homeEn = {
       "a DevOps Enthusiast",
       "real scale systems",
     ],
-    title: "Backend Engineer & DevOps Enthusiast",
-    subtitle: "Backend Developer & DevOps Enthusiast",
+    title: "Backend Engineer",
+    subtitle: "& DevOps Enthusiast",
     description:
-      "Building scalable, maintainable systems focused on efficiency and reliability",
+      "Building scalable, maintainable systems focused on efficiency and reliability. Architecting the future, one service at a time.",
     cta: "Explore my work",
     ctaSecondary: "Read my CV",
     keywords: [
@@ -31,6 +31,70 @@ export const homeEn = {
       percentage: 100,
       status: "success",
     },
+  },
+
+  features: {
+    badge: "Capabilities",
+    title: "What I bring to the table",
+    description:
+      "Core competencies in backend development, infrastructure, and system design.",
+    items: [
+      {
+        id: 1,
+        title: "Scalable APIs",
+        description:
+          "RESTful and GraphQL APIs designed for performance and maintainability",
+      },
+      {
+        id: 2,
+        title: "Cloud Infrastructure",
+        description:
+          "AWS, GCP, and Azure deployments with IaC using Terraform and Pulumi",
+      },
+      {
+        id: 3,
+        title: "Containerization",
+        description:
+          "Docker and Kubernetes orchestration for reliable microservices",
+      },
+      {
+        id: 4,
+        title: "Database Design",
+        description:
+          "SQL and NoSQL schema design, optimization, and migration strategies",
+      },
+      {
+        id: 5,
+        title: "CI/CD Pipelines",
+        description: "Automated testing, deployment, and monitoring workflows",
+      },
+      {
+        id: 6,
+        title: "System Architecture",
+        description:
+          "Designing resilient, distributed systems with fault tolerance",
+      },
+    ],
+  },
+
+  github: {
+    badge: "Commit History",
+    title: "GitHub Activity",
+    description: "Daily contributions and coding activity over the past year.",
+  },
+
+  techStack: {
+    badge: "Technologies",
+    title: "Tech Stack",
+    description: "Modern tools and technologies I work with daily.",
+  },
+
+  cta: {
+    title: "Let's build something together",
+    description:
+      "I'm always open to discussing new projects, creative ideas, or opportunities.",
+    primary: "View Projects",
+    secondary: "Follow on Twitter",
   },
 
   projects: {

@@ -1,10 +1,10 @@
 import type React from "react";
 import {
   siDocker,
+  siDrizzle,
   siGo,
-  siGraphql,
   siHono,
-  siMongodb,
+  siLinux,
   siNestjs,
   siNodedotjs,
   siPostgresql,
@@ -20,7 +20,13 @@ export interface TechItem {
   icon: React.FC<{ className?: string }>;
 }
 
-const createIcon = (icon: any) => {
+interface SimpleIcon {
+  title: string;
+  path: string;
+  hex: string;
+}
+
+const createIcon = (icon: SimpleIcon) => {
   const IconComponent: React.FC<{ className?: string }> = ({ className }) => (
     <svg
       role="img"
@@ -47,45 +53,10 @@ export const TECH_STACK: Record<string, TechItem> = {
     color: `#${siTypescript.hex}`,
     icon: createIcon(siTypescript),
   },
-  go: {
-    name: "Go",
-    color: `#${siGo.hex}`,
-    icon: createIcon(siGo),
-  },
-  graphql: {
-    name: "GraphQL",
-    color: `#${siGraphql.hex}`,
-    icon: createIcon(siGraphql),
-  },
-  postgresql: {
-    name: "PostgreSQL",
-    color: `#${siPostgresql.hex}`,
-    icon: createIcon(siPostgresql),
-  },
-  mongodb: {
-    name: "MongoDB",
-    color: `#${siMongodb.hex}`,
-    icon: createIcon(siMongodb),
-  },
-  redis: {
-    name: "Redis",
-    color: `#${siRedis.hex}`,
-    icon: createIcon(siRedis),
-  },
-  docker: {
-    name: "Docker",
-    color: `#${siDocker.hex}`,
-    icon: createIcon(siDocker),
-  },
   nestjs: {
     name: "NestJS",
     color: `#${siNestjs.hex}`,
     icon: createIcon(siNestjs),
-  },
-  prisma: {
-    name: "Prisma ORM",
-    color: `#${siPrisma.hex}`,
-    icon: createIcon(siPrisma),
   },
   zod: {
     name: "Zod",
@@ -96,6 +67,41 @@ export const TECH_STACK: Record<string, TechItem> = {
     name: "Hono",
     color: `#${siHono.hex}`,
     icon: createIcon(siHono),
+  },
+  go: {
+    name: "Go",
+    color: `#${siGo.hex}`,
+    icon: createIcon(siGo),
+  },
+  linux: {
+    name: "Linux",
+    color: `#${siLinux.hex}`,
+    icon: createIcon(siLinux),
+  },
+  docker: {
+    name: "Docker",
+    color: `#${siDocker.hex}`,
+    icon: createIcon(siDocker),
+  },
+  postgresql: {
+    name: "PostgreSQL",
+    color: `#${siPostgresql.hex}`,
+    icon: createIcon(siPostgresql),
+  },
+  prisma: {
+    name: "Prisma ORM",
+    color: `#${siPrisma.hex}`,
+    icon: createIcon(siPrisma),
+  },
+  drizzle: {
+    name: "Drizzle ORM",
+    color: `#${siDrizzle.hex}`,
+    icon: createIcon(siDrizzle),
+  },
+  redis: {
+    name: "Redis",
+    color: `#${siRedis.hex}`,
+    icon: createIcon(siRedis),
   },
 };
 

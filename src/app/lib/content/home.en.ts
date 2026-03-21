@@ -41,38 +41,33 @@ export const homeEn = {
     items: [
       {
         id: 1,
-        title: "Scalable APIs",
-        description:
-          "RESTful and GraphQL APIs designed for performance and maintainability",
+        title: "Data Structures",
+        description: "Solid understanding of algorithmic complexity and data structure trade-offs",
       },
       {
         id: 2,
-        title: "Cloud Infrastructure",
-        description:
-          "AWS, GCP, and Azure deployments with IaC using Terraform and Pulumi",
+        title: "Best Practices",
+        description: "I prioritize readability, maintainability and long-term scalability over quick hacks.",
       },
       {
         id: 3,
-        title: "Containerization",
-        description:
-          "Docker and Kubernetes orchestration for reliable microservices",
+        title: "Scalable APIs",
+        description: "RESTful APIs designed for performance and maintainability",
       },
       {
         id: 4,
-        title: "Database Design",
-        description:
-          "SQL and NoSQL schema design, optimization, and migration strategies",
+        title: "Query Optimization",
+        description: "Writing efficient queries and knowing when indexes matter",
       },
       {
         id: 5,
-        title: "CI/CD Pipelines",
-        description: "Automated testing, deployment, and monitoring workflows",
+        title: "Containerization",
+        description: "Packaging applications with Docker for consistent environments",
       },
       {
         id: 6,
-        title: "System Architecture",
-        description:
-          "Designing resilient, distributed systems with fault tolerance",
+        title: "Shell & Automation",
+        description: "Writing shell scripts and systemd services to automate repetitive tasks",
       },
     ],
   },
@@ -89,12 +84,40 @@ export const homeEn = {
     description: "Modern tools and technologies I work with daily.",
   },
 
+  toolkit: {
+    badge: "Environment",
+    title: "My Toolkit",
+    description:
+      "The tools and environment I use to stay productive and build efficient software.",
+    items: [
+      {
+        id: "os",
+        title: "Operating System",
+        name: "Fedora + Niri WM",
+        description:
+          "A robust and fluid keyboard-driven environment for maximum focus.",
+      },
+      {
+        id: "editor",
+        title: "Code Editor",
+        name: "Zed",
+        description: "A high-performance editor built for speed and efficiency.",
+      },
+      {
+        id: "terminal",
+        title: "Terminal & Shell",
+        name: "Ghostty + Tmux",
+        description: "GPU-accelerated terminal with powerful multiplexing.",
+      },
+    ],
+  },
+
   cta: {
     title: "Let's build something together",
     description:
       "I'm always open to discussing new projects, creative ideas, or opportunities.",
     primary: "View Projects",
-    secondary: "Follow on Twitter",
+    secondary: "Let's Connect",
   },
 
   projects: {

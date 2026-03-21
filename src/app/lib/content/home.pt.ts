@@ -40,39 +40,33 @@ export const homePt = {
     items: [
       {
         id: 1,
-        title: "APIs Escaláveis",
-        description:
-          "APIs RESTful e GraphQL projetadas para performance e facilidade de manutenção",
+        title: "Estrutura de Dados",
+        description: "Sólido entendimento de complexidade algorítmica e trade-offs entre estruturas de dados",
       },
       {
         id: 2,
-        title: "Infraestrutura em Nuvem",
-        description:
-          "Implantações em AWS, GCP e Azure com IaC usando Terraform e Pulumi",
+        title: "Boas Práticas",
+        description: "Priorizo legibilidade, manutenibilidade e escalabilidade a longo prazo em vez de soluções rápidas.",
       },
       {
         id: 3,
-        title: "Conteinerização",
-        description:
-          "Orquestração com Docker e Kubernetes para microsserviços confiáveis",
+        title: "APIs Escaláveis",
+        description: "APIs RESTful projetadas para performance e manutenibilidade",
       },
       {
         id: 4,
-        title: "Design de Banco de Dados",
-        description:
-          "Design de esquemas SQL e NoSQL, otimização e estratégias de migração",
+        title: "Otimização de Queries",
+        description: "Queries eficientes e uso consciente de índices quando necessário",
       },
       {
         id: 5,
-        title: "Pipelines CI/CD",
-        description:
-          "Fluxos de trabalho de teste, implantação e monitoramento automatizados",
+        title: "Conteinerização",
+        description: "Empacotamento de aplicações com Docker para ambientes consistentes",
       },
       {
         id: 6,
-        title: "Arquitetura de Sistemas",
-        description:
-          "Projetando sistemas resilientes e distribuídos com tolerância a falhas",
+        title: "Shell & Automação",
+        description: "Criação de shell scripts e serviços systemd para automatizar tarefas repetitivas",
       },
     ],
   },
@@ -81,22 +75,48 @@ export const homePt = {
     badge: "Histórico de Commits",
     title: "Atividade no GitHub",
     description:
-      "Contribuições diárias e atividade de codificação no último ano.",
+      "Contribuições diárias e atividade no último ano.",
   },
 
   techStack: {
     badge: "Tecnologias",
     title: "Tech Stack",
-    description:
-      "Ferramentas e tecnologias modernas com as quais trabalho diariamente.",
+    description: "Ferramentas e tecnologias modernas com as quais trabalho diariamente.",
+  },
+
+  toolkit: {
+    badge: "Ambiente",
+    title: "Minhas Ferramentas",
+    description: "As ferramentas e o ambiente que utilizo para manter a produtividade e construir software eficiente.",
+    items: [
+      {
+        id: "os",
+        title: "Sistema Operacional",
+        name: "Fedora + Niri WM",
+        description: "Um ambiente robusto e fluido controlado por teclado para foco máximo.",
+      },
+      {
+        id: "editor",
+        title: "Editor de Código",
+        name: "Zed",
+        description: "Editor de alto desempenho focado em velocidade e eficiência.",
+      },
+      {
+        id: "terminal",
+        title: "Terminal & Shell",
+        name: "Ghostty + Tmux",
+        description: "Terminal acelerado por GPU com multiplexação poderosa.",
+      },
+    ],
   },
 
   cta: {
+
     title: "Vamos construir algo juntos",
     description:
       "Estou sempre aberto a discutir novos projetos, ideias criativas ou oportunidades.",
     primary: "Ver Projetos",
-    secondary: "Seguir no Twitter",
+    secondary: "Conecte-se",
   },
 
   projects: {

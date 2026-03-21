@@ -35,7 +35,7 @@ export function GitHubSectionSkeleton() {
       {/* Contribution Graph Skeleton Area */}
       <div className="rail-bounded border-t border-dashed border-border bg-white/[0.01]">
         <div className="relative py-12 sm:py-16 flex justify-center">
-           <div className="h-[120px] w-full max-w-4xl rounded bg-white/[0.02]" />
+          <div className="h-[120px] w-full max-w-4xl rounded bg-white/[0.02]" />
         </div>
       </div>
     </div>

@@ -65,7 +65,8 @@ export const homePt = {
       {
         id: 5,
         title: "Pipelines CI/CD",
-        description: "Fluxos de trabalho de teste, implantação e monitoramento automatizados",
+        description:
+          "Fluxos de trabalho de teste, implantação e monitoramento automatizados",
       },
       {
         id: 6,
@@ -79,13 +80,15 @@ export const homePt = {
   github: {
     badge: "Histórico de Commits",
     title: "Atividade no GitHub",
-    description: "Contribuições diárias e atividade de codificação no último ano.",
+    description:
+      "Contribuições diárias e atividade de codificação no último ano.",
   },
 
   techStack: {
     badge: "Tecnologias",
     title: "Tech Stack",
-    description: "Ferramentas e tecnologias modernas com as quais trabalho diariamente.",
+    description:
+      "Ferramentas e tecnologias modernas com as quais trabalho diariamente.",
   },
 
   cta: {

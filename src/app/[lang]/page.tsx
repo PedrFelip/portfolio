@@ -1,4 +1,3 @@
-import { Suspense } from "react";
 import {
   Cloud,
   Database,
@@ -8,6 +7,7 @@ import {
   RefreshCw,
 } from "lucide-react";
 import Link from "next/link";
+import { Suspense } from "react";
 import {
   AlignedFlickeringGrid,
   DotPattern,

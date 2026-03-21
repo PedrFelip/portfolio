@@ -176,7 +176,7 @@ export async function fetchGitHubStats(username: string): Promise<GitHubStats> {
       query,
       variables: { userName: username },
     }),
-    next: { revalidate: 3600 }, // Cache for 1 hour
+    next: { revalidate: 86400 }, // Cache for 24 hours
   });
 
   if (!response.ok) {

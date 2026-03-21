@@ -39,8 +39,8 @@ export const GitHubContributionGraph = memo(
           <div className="relative inline-flex flex-shrink-0">
             {/* Minimal contribution grid */}
             <div className="flex gap-1">
-              {recentWeeks.map((week) => {
-                const weekKey = week.days[0]?.date || Math.random().toString();
+              {recentWeeks.map((week, index) => {
+                const weekKey = week.days[0]?.date || `week-${index}`;
                 return (
                   <div key={weekKey} className="flex flex-col gap-1">
                     {week.days.map((day) => (
@@ -48,7 +48,7 @@ export const GitHubContributionGraph = memo(
                         key={day.date}
                         type="button"
                         className={cn(
-                          "group relative h-[10px] w-[10px] rounded-sm border border-white/[0.08] transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)]",
+                          "group relative h-[10px] w-[10px] rounded-[3px] border border-white/[0.08] transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)]",
                           "hover:border-white/[0.2] hover:scale-110 hover:z-10 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent",
                         )}
                         style={{
@@ -68,7 +68,7 @@ export const GitHubContributionGraph = memo(
                               </MonoText>
                               <MonoText className="text-[9px] text-muted-foreground/80">
                                 {new Date(day.date).toLocaleDateString(
-                                  undefined,
+                                  "en-US",
                                   {
                                     month: "short",
                                     day: "numeric",
@@ -98,7 +98,7 @@ export const GitHubContributionGraph = memo(
           {[0, 1, 2, 3, 4].map((lvl) => (
             <div
               key={lvl}
-              className="h-2 w-2 rounded-sm border border-white/[0.05]"
+              className="h-2 w-2 rounded-[2px] border border-white/[0.05]"
               style={{
                 backgroundColor: getContributionColor(lvl as 0 | 1 | 2 | 3 | 4),
               }}

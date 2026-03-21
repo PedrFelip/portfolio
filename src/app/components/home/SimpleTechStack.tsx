@@ -1,221 +1,31 @@
-import {
-  siDocker,
-  siGo,
-  siGraphql,
-  siHono,
-  siMongodb,
-  siNestjs,
-  siNodedotjs,
-  siPostgresql,
-  siPrisma,
-  siRedis,
-  siTypescript,
-  siZod,
-} from "simple-icons";
+import { DEFAULT_TECH_STACK, type TechItem } from "@/lib/tech-stack";
 
-interface TechItem {
-  name: string;
-  color: string;
-  icon: React.FC<{ className?: string }>;
+interface SimpleTechStackProps {
+  title?: string;
+  subtitle?: string;
+  description?: string;
+  items?: TechItem[];
 }
 
-const techData: TechItem[] = [
-  {
-    name: "Node.js",
-    color: `#${siNodedotjs.hex}`,
-    icon: ({ className }) => (
-      <svg
-        role="img"
-        viewBox="0 0 24 24"
-        fill="currentColor"
-        className={className}
-      >
-        <title>{siNodedotjs.title}</title>
-        <path d={siNodedotjs.path} />
-      </svg>
-    ),
-  },
-  {
-    name: "TypeScript",
-    color: `#${siTypescript.hex}`,
-    icon: ({ className }) => (
-      <svg
-        role="img"
-        viewBox="0 0 24 24"
-        fill="currentColor"
-        className={className}
-      >
-        <title>{siTypescript.title}</title>
-        <path d={siTypescript.path} />
-      </svg>
-    ),
-  },
-  {
-    name: "Go",
-    color: `#${siGo.hex}`,
-    icon: ({ className }) => (
-      <svg
-        role="img"
-        viewBox="0 0 24 24"
-        fill="currentColor"
-        className={className}
-      >
-        <title>{siGo.title}</title>
-        <path d={siGo.path} />
-      </svg>
-    ),
-  },
-  {
-    name: "GraphQL",
-    color: `#${siGraphql.hex}`,
-    icon: ({ className }) => (
-      <svg
-        role="img"
-        viewBox="0 0 24 24"
-        fill="currentColor"
-        className={className}
-      >
-        <title>{siGraphql.title}</title>
-        <path d={siGraphql.path} />
-      </svg>
-    ),
-  },
-  {
-    name: "PostgreSQL",
-    color: `#${siPostgresql.hex}`,
-    icon: ({ className }) => (
-      <svg
-        role="img"
-        viewBox="0 0 24 24"
-        fill="currentColor"
-        className={className}
-      >
-        <title>{siPostgresql.title}</title>
-        <path d={siPostgresql.path} />
-      </svg>
-    ),
-  },
-  {
-    name: "MongoDB",
-    color: `#${siMongodb.hex}`,
-    icon: ({ className }) => (
-      <svg
-        role="img"
-        viewBox="0 0 24 24"
-        fill="currentColor"
-        className={className}
-      >
-        <title>{siMongodb.title}</title>
-        <path d={siMongodb.path} />
-      </svg>
-    ),
-  },
-  {
-    name: "Redis",
-    color: `#${siRedis.hex}`,
-    icon: ({ className }) => (
-      <svg
-        role="img"
-        viewBox="0 0 24 24"
-        fill="currentColor"
-        className={className}
-      >
-        <title>{siRedis.title}</title>
-        <path d={siRedis.path} />
-      </svg>
-    ),
-  },
-  {
-    name: "Docker",
-    color: `#${siDocker.hex}`,
-    icon: ({ className }) => (
-      <svg
-        role="img"
-        viewBox="0 0 24 24"
-        fill="currentColor"
-        className={className}
-      >
-        <title>{siDocker.title}</title>
-        <path d={siDocker.path} />
-      </svg>
-    ),
-  },
-  {
-    name: "NestJS",
-    color: `#${siNestjs.hex}`,
-    icon: ({ className }) => (
-      <svg
-        role="img"
-        viewBox="0 0 24 24"
-        fill="currentColor"
-        className={className}
-      >
-        <title>{siNestjs.title}</title>
-        <path d={siNestjs.path} />
-      </svg>
-    ),
-  },
-  {
-    name: "Prisma ORM",
-    color: `#${siPrisma.hex}`,
-    icon: ({ className }) => (
-      <svg
-        role="img"
-        viewBox="0 0 24 24"
-        fill="currentColor"
-        className={className}
-      >
-        <title>{siPrisma.title}</title>
-        <path d={siPrisma.path} />
-      </svg>
-    ),
-  },
-  {
-    name: "Zod",
-    color: `#${siZod.hex}`,
-    icon: ({ className }) => (
-      <svg
-        role="img"
-        viewBox="0 0 24 24"
-        fill="currentColor"
-        className={className}
-      >
-        <title>{siZod.title}</title>
-        <path d={siZod.path} />
-      </svg>
-    ),
-  },
-  {
-    name: "Hono",
-    color: `#${siHono.hex}`,
-    icon: ({ className }) => (
-      <svg
-        role="img"
-        viewBox="0 0 24 24"
-        fill="currentColor"
-        className={className}
-      >
-        <title>{siHono.title}</title>
-        <path d={siHono.path} />
-      </svg>
-    ),
-  },
-];
-
-export function SimpleTechStack() {
+export function SimpleTechStack({
+  title = "Tech Stack",
+  subtitle = "Technologies",
+  description = "Modern tools and technologies I work with daily.",
+  items = DEFAULT_TECH_STACK,
+}: SimpleTechStackProps) {
   return (
     <section id="tech-stack" className="relative">
       {/* Section Header */}
-      <div className="mx-auto w-full max-w-6xl px-6">
-        <div className="pb-6 pt-16">
+      <div className="rail-bounded">
+        <div className="px-4 pb-6 pt-12 sm:px-8 sm:pt-16">
           <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-            Technologies
+            {subtitle}
           </p>
           <h2 className="mt-3 text-2xl font-bold tracking-tight sm:text-3xl">
-            Tech Stack
+            {title}
           </h2>
-          <p className="mt-2 max-w-md text-base text-muted-foreground">
-            Modern tools and technologies I work with daily.
+          <p className="mt-2 max-w-md text-sm text-muted-foreground sm:text-base">
+            {description}
           </p>
         </div>
       </div>
@@ -223,12 +33,12 @@ export function SimpleTechStack() {
       {/* Grid with Dashed Internal Dividers */}
       <div className="rail-bounded border-t border-border">
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
-          {techData.map((tech, i) => {
+          {items.map((tech, i) => {
             const Icon = tech.icon;
             return (
               <div
                 key={tech.name}
-                className={`group px-6 py-8 transition-all duration-300 hover:bg-white/[0.01]
+                className={`group px-4 py-8 sm:px-6 transition-all duration-300 hover:bg-white/[0.01]
                   ${i % 4 !== 0 ? "lg:border-l lg:border-dashed lg:border-border" : ""}
                   ${i % 3 !== 0 ? "sm:max-lg:border-l sm:max-lg:border-dashed sm:max-lg:border-border" : ""}
                   ${i % 2 !== 0 ? "max-sm:border-l max-sm:border-dashed max-sm:border-border" : ""}

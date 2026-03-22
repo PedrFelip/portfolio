@@ -1,4 +1,5 @@
 import { AlignedFlickeringGrid } from "@/components/blueprint/AlignedFlickeringGrid";
+import { DotPattern } from "@/components/blueprint/DotPattern";
 import { fetchGitHubContributions } from "@/lib/github";
 import { cn } from "@/lib/utils";
 import { GitHubContributionGraph } from "./GitHubContributionGraph";
@@ -85,8 +86,17 @@ export async function GitHubSection({
       </div>
 
       {/* Contribution Graph Area - Aligned to Rails with background texture */}
-      <div className="rail-bounded border-t border-dashed border-border bg-background">
+      <div className="rail-bounded border-t border-dashed border-border bg-background overflow-hidden">
         <div className="relative py-8 sm:py-16">
+          {/* Smooth background pattern with radial mask */}
+          <DotPattern 
+            className="opacity-[0.15] pointer-events-none" 
+            style={{
+              maskImage: 'radial-gradient(circle at center, white, transparent 80%)',
+              WebkitMaskImage: 'radial-gradient(circle at center, white, transparent 80%)'
+            }}
+          />
+
           <div className="relative z-10">
             <GitHubContributionGraph
               data={data}

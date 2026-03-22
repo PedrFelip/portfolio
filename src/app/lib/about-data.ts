@@ -4,23 +4,8 @@
  */
 
 import { cache } from "react";
+import type { Education, WorkExperience } from "../types/portfolio";
 import { socialLinks } from "./links";
-
-export interface WorkExperience {
-  company: string;
-  title: string;
-  location: string;
-  start: string;
-  end: string;
-  description: string;
-}
-
-export interface Education {
-  school: string;
-  degree: string;
-  start: string;
-  end: string;
-}
 
 export const getWorkExperience = cache(
   (language: "en" | "pt"): WorkExperience[] => {

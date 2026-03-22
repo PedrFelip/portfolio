@@ -17,7 +17,7 @@ export function SimpleTechStack({
     <section id="tech-stack" className="relative">
       {/* Section Header */}
       <div className="rail-bounded">
-        <div className="px-4 pb-6 pt-12 sm:px-8 sm:pt-16">
+        <div className="px-6 pb-6 pt-12 sm:px-8 sm:pt-16">
           <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
             {subtitle}
           </p>
@@ -38,7 +38,7 @@ export function SimpleTechStack({
             return (
               <div
                 key={tech.name}
-                className={`group px-4 py-8 sm:px-6 transition-all duration-300 hover:bg-white/[0.01]
+                className={`group px-6 py-10 sm:px-6 transition-all duration-300 hover:bg-white/[0.01]
                   ${i % 4 !== 0 ? "lg:border-l lg:border-dashed lg:border-border" : ""}
                   ${i % 3 !== 0 ? "sm:max-lg:border-l sm:max-lg:border-dashed sm:max-lg:border-border" : ""}
                   ${i % 2 !== 0 ? "max-sm:border-l max-sm:border-dashed max-sm:border-border" : ""}

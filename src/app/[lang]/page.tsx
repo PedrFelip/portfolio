@@ -59,9 +59,9 @@ export default async function HomePage({ params }: HomePageProps) {
             />
 
             {/* Central Hero Content */}
-            <div className="relative flex flex-col items-center border-b border-x border-white/[0.08] bg-white/[0.01] px-4 pb-16 pt-10 text-center sm:px-12 sm:pb-24 sm:pt-16 md:px-16 overflow-hidden">
+            <div className="relative flex flex-col items-center border-b border-x border-white/[0.08] bg-white/[0.01] px-6 pb-16 pt-12 text-center sm:px-12 sm:pb-24 sm:pt-16 md:px-16 overflow-hidden">
               {/* Main headline - Enhanced Typography */}
-              <h1 className="relative z-10 max-w-3xl text-3xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl leading-[1.1]">
+              <h1 className="relative z-10 max-w-3xl text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl leading-[1.1] sm:leading-[1.1]">
                 <span className="inline-block bg-gradient-to-b from-white via-white to-white/70 bg-clip-text text-transparent animate-in-up">
                   {t.hero.title}
                 </span>
@@ -72,12 +72,12 @@ export default async function HomePage({ params }: HomePageProps) {
               </h1>
 
               {/* Subtitle - More evocative */}
-              <p className="relative z-10 mx-auto mt-6 max-w-xl text-sm leading-relaxed text-muted-foreground sm:mt-8 sm:text-lg animate-in-up animate-delay-150">
+              <p className="relative z-10 mx-auto mt-6 max-w-xl text-base leading-relaxed text-muted-foreground sm:mt-8 sm:text-lg animate-in-up animate-delay-150">
                 {t.hero.description}
               </p>
 
               {/* CTAs - Refined with subtle border glow */}
-              <div className="relative z-10 mt-10 flex flex-col items-center gap-4 px-4 sm:mt-12 sm:flex-row animate-in-up animate-delay-200">
+              <div className="relative z-10 mt-10 flex w-full flex-col items-center gap-4 px-0 sm:mt-12 sm:w-auto sm:flex-row sm:px-4 animate-in-up animate-delay-200">
                 <Button
                   asChild
                   size="lg"
@@ -136,7 +136,7 @@ export default async function HomePage({ params }: HomePageProps) {
         className="relative animate-in-up animate-delay-300"
       >
         <div className="rail-bounded">
-          <div className="px-4 pb-8 pt-12 sm:px-8">
+          <div className="px-6 pb-8 pt-12 sm:px-8">
             <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground animate-in-left animate-delay-350">
               {t.features.badge}
             </p>
@@ -155,7 +155,7 @@ export default async function HomePage({ params }: HomePageProps) {
               return (
                 <div
                   key={item.id}
-                  className={`group px-4 py-6 sm:px-6 transition-all duration-200 hover:bg-white/[0.02] hover:shadow-inner animate-in-up
+                  className={`group px-6 py-8 sm:px-6 transition-all duration-200 hover:bg-white/[0.02] hover:shadow-inner animate-in-up
                     ${i % 3 !== 0 ? "lg:border-l lg:border-dashed lg:border-border" : ""}
                     ${i % 2 !== 0 ? "sm:max-lg:border-l sm:max-lg:border-dashed sm:max-lg:border-border" : ""}
                     ${i >= 3 ? "lg:border-t lg:border-dashed lg:border-border" : ""}
@@ -200,7 +200,7 @@ export default async function HomePage({ params }: HomePageProps) {
       {/* Toolkit / Setup Section */}
       <section id="toolkit" className="relative animate-in-up">
         <div className="rail-bounded">
-          <div className="px-4 pb-8 pt-12 sm:px-8">
+          <div className="px-6 pb-8 pt-12 sm:px-8">
             <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
               {t.toolkit.badge}
             </p>
@@ -219,7 +219,7 @@ export default async function HomePage({ params }: HomePageProps) {
               return (
                 <div
                   key={item.id}
-                  className={`group px-4 py-8 sm:px-6 transition-all duration-200 hover:bg-white/[0.02] hover:shadow-inner animate-in-up
+                  className={`group px-6 py-10 sm:px-6 transition-all duration-200 hover:bg-white/[0.02] hover:shadow-inner animate-in-up
                     ${i !== 0 ? "lg:border-l lg:border-dashed lg:border-border" : ""}
                     ${i % 2 !== 0 ? "sm:max-lg:border-l sm:max-lg:border-dashed sm:max-lg:border-border" : ""}
                     ${i >= 2 ? "sm:max-lg:border-t sm:max-lg:border-dashed sm:max-lg:border-border" : ""}
@@ -280,7 +280,7 @@ export default async function HomePage({ params }: HomePageProps) {
             <AlignedFlickeringGrid side="left" />
 
             {/* CTA Card Container with Corner Brackets */}
-            <div className="group relative border border-white/[0.08] bg-white/[0.02] px-4 py-10 sm:px-12 sm:py-16 transition-all duration-300 hover:border-white/20 hover:bg-white/[0.04] hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.1)]">
+            <div className="group relative border border-white/[0.08] bg-white/[0.02] px-6 py-12 sm:px-12 sm:py-16 transition-all duration-300 hover:border-white/20 hover:bg-white/[0.04] hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.1)]">
               <CornerBrackets
                 size={16}
                 className="border-border/50 transition-all duration-300 group-hover:border-white/40 group-hover:scale-110"
@@ -288,15 +288,15 @@ export default async function HomePage({ params }: HomePageProps) {
 
               {/* Content */}
               <div className="flex flex-col items-center text-center">
-                <h2 className="text-2xl font-bold tracking-tight sm:text-4xl transition-colors duration-200 group-hover:text-white">
+                <h2 className="text-3xl font-bold tracking-tight sm:text-4xl transition-colors duration-200 group-hover:text-white">
                   {t.cta.title}
                 </h2>
-                <p className="mt-4 max-w-md text-sm text-muted-foreground sm:text-lg transition-colors duration-200 group-hover:text-muted-foreground/90">
+                <p className="mt-4 max-w-md text-base text-muted-foreground sm:text-lg transition-colors duration-200 group-hover:text-muted-foreground/90">
                   {t.cta.description}
                 </p>
 
                 {/* CTA Buttons */}
-                <div className="mt-10 flex flex-col items-center gap-4 px-4 sm:mt-12 sm:flex-row">
+                <div className="mt-10 flex w-full flex-col items-center gap-4 px-0 sm:mt-12 sm:w-auto sm:flex-row sm:px-4">
                   <Button
                     asChild
                     size="lg"

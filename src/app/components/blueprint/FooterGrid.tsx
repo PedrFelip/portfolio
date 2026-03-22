@@ -68,7 +68,7 @@ export const FooterGridCell = memo(function FooterGridCell({
   return (
     <div
       className={cn(
-        "group relative px-6 py-12 sm:py-16 transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:bg-white/[0.02] overflow-hidden",
+        "group relative px-6 py-12 sm:py-16 transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:bg-white/[0.02] overflow-hidden border-t border-border/10 first:border-t-0 sm:border-t-0",
         className,
       )}
     >

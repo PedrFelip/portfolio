@@ -1,8 +1,7 @@
 import { NextResponse } from "next/server";
 import { fetchGitHubStats } from "@/lib/github";
 
-export const runtime = "edge";
-export const revalidate = 3600;
+export const revalidate = 86400;
 
 export async function GET() {
   try {

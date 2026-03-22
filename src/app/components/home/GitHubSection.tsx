@@ -9,6 +9,10 @@ interface GitHubSectionProps {
   subtitle?: string;
   description?: string;
   username?: string;
+  swipeHint?: string;
+  less?: string;
+  more?: string;
+  tapHint?: string;
 }
 
 /**
@@ -27,6 +31,10 @@ export async function GitHubSection({
   subtitle = "Commit History",
   description = "Daily contributions and coding activity over the past year.",
   username = "pedrfelip",
+  swipeHint = "Swipe",
+  less = "Less",
+  more = "More",
+  tapHint = "Tap a cell for details",
 }: GitHubSectionProps) {
   const data = await fetchGitHubContributions(username).catch(() => null);
 
@@ -65,7 +73,7 @@ export async function GitHubSection({
           </div>
 
           {/* Column 3: Decorative Flickering Grid - Responsive Display */}
-          <div className="relative border-t border-dashed border-border lg:border-t-0 lg:border-l sm:col-span-2 lg:col-span-1 overflow-hidden min-h-[120px] sm:min-h-[160px] lg:min-h-0">
+          <div className="relative border-t border-dashed border-border lg:border-t-0 lg:border-l sm:col-span-2 lg:col-span-1 overflow-hidden min-h-[200px] sm:min-h-[240px] lg:min-h-0">
             <AlignedFlickeringGrid
               side="right"
               className="absolute inset-0 h-full w-full !flex"
@@ -78,12 +86,19 @@ export async function GitHubSection({
 
       {/* Contribution Graph Area - Aligned to Rails with background texture */}
       <div className="rail-bounded border-t border-dashed border-border bg-white/[0.01]">
-        <div className="relative py-12 sm:py-16">
+        <div className="relative py-8 sm:py-16">
           {/* Subtle background texture - blueprint detail */}
           <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[radial-gradient(circle_at_center,var(--foreground)_1px,transparent_1px)] bg-[size:32px_32px]" />
 
           <div className="relative z-10">
-            <GitHubContributionGraph data={data} username={username} />
+            <GitHubContributionGraph
+              data={data}
+              username={username}
+              swipeHint={swipeHint}
+              less={less}
+              more={more}
+              tapHint={tapHint}
+            />
           </div>
         </div>
       </div>

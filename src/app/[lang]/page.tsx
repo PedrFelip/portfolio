@@ -198,6 +198,10 @@ export default async function HomePage({ params }: HomePageProps) {
           title={t.github.title}
           subtitle={t.github.badge}
           description={t.github.description}
+          swipeHint={t.github.swipeHint}
+          less={t.github.less}
+          more={t.github.more}
+          tapHint={t.github.tapHint}
         />
       </Suspense>
 

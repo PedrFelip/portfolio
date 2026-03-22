@@ -38,7 +38,7 @@ export function SimpleTechStack({
             return (
               <div
                 key={tech.name}
-                className={`group px-6 py-10 sm:px-6 transition-all duration-300 hover:bg-white/[0.01]
+                className={`group px-6 py-10 sm:px-6 transition-all duration-300 hover:bg-white/[0.01] touch-manipulation
                   ${i % 4 !== 0 ? "lg:border-l lg:border-dashed lg:border-border" : ""}
                   ${i % 3 !== 0 ? "sm:max-lg:border-l sm:max-lg:border-dashed sm:max-lg:border-border" : ""}
                   ${i % 2 !== 0 ? "max-sm:border-l max-sm:border-dashed max-sm:border-border" : ""}

@@ -7,7 +7,8 @@ import {
   useEffect,
   useState,
 } from "react";
-import { DEFAULT_LANGUAGE, type Language, translations } from "@/lib/i18n";
+import { DEFAULT_LANGUAGE, LANGUAGE_COOKIE, type Language, translations } from "@/lib/i18n";
+import { usePathname, useRouter } from "next/navigation";
 
 interface LanguageContextType {
   language: Language;
@@ -19,8 +20,6 @@ const LanguageContext = createContext<LanguageContextType | undefined>(
   undefined,
 );
 
-const STORAGE_KEY = "portfolio-language";
-
 export const LanguageProvider = ({
   children,
   initialLanguage,
@@ -28,6 +27,8 @@ export const LanguageProvider = ({
   children: ReactNode;
   initialLanguage?: Language;
 }) => {
+  const router = useRouter();
+  const pathname = usePathname();
   // Initialize with the server-provided language to avoid hydration mismatch
   const [language, setLanguageState] = useState<Language>(
     initialLanguage || DEFAULT_LANGUAGE,
@@ -43,27 +44,35 @@ export const LanguageProvider = ({
     if (!isClient) return;
 
     // Detect language from URL
-    const pathname = window.location.pathname;
     const pathParts = pathname.split("/").filter(Boolean);
     const langFromUrl = pathParts[0] as Language;
 
     if (langFromUrl === "pt" || langFromUrl === "en") {
       if (language !== langFromUrl) {
         setLanguageState(langFromUrl);
-        localStorage.setItem(STORAGE_KEY, langFromUrl);
+        // Sync cookie with current path
+        document.cookie = `${LANGUAGE_COOKIE}=${langFromUrl}; path=/; max-age=31536000; SameSite=Lax`;
       }
     }
-  }, [isClient, language]);
+  }, [isClient, language, pathname]);
 
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);
-    localStorage.setItem(STORAGE_KEY, lang);
-    // Navigate to the new language path
-    const pathname = window.location.pathname;
+    // Persist in cookie for server-side detection (Middleware)
+    document.cookie = `${LANGUAGE_COOKIE}=${lang}; path=/; max-age=31536000; SameSite=Lax`;
+
+    // Navigate to the new language path using next/navigation for SPA-like feel
     const pathParts = pathname.split("/").filter(Boolean);
     const currentLang = pathParts[0];
-    const newPath = pathname.replace(`/${currentLang}`, `/${lang}`);
-    window.location.pathname = newPath;
+
+    let newPath = "";
+    if (currentLang === "pt" || currentLang === "en") {
+      newPath = pathname.replace(`/${currentLang}`, `/${lang}`);
+    } else {
+      newPath = `/${lang}${pathname}`;
+    }
+
+    router.push(newPath);
   };
 
   const t = translations[language];

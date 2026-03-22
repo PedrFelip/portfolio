@@ -21,6 +21,7 @@ export const LANGUAGES: Record<Language, string> = {
 };
 
 export const DEFAULT_LANGUAGE: Language = "en";
+export const LANGUAGE_COOKIE = "NEXT_LOCALE";
 
 export const translations = {
   en: {

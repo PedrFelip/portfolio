@@ -33,8 +33,8 @@ interface BlogPageProps {
  * - ISR (Incremental Static Regeneration): revalidate every 1 hour
  */
 
-// Cache blog list for 1 hour (ISR)
-export const revalidate = 3600;
+// Cache blog list for 1 day (ISR)
+export const revalidate = 86400;
 export default async function BlogPage({ params }: BlogPageProps) {
   const { lang } = await params;
   const t = blogContent[lang].blog;

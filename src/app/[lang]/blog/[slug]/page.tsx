@@ -138,8 +138,8 @@ const createHeadingComponents = (headings: Heading[]) => {
  * - Hoisted static MDX components prevent re-creation
  */
 
-// Cache individual post for 24 hours (ISR)
-export const revalidate = 86400;
+// Cache individual post for 7 days (ISR)
+export const revalidate = 604800;
 
 // Enable incremental static regeneration for new posts
 export const dynamicParams = true;

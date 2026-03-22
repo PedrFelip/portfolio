@@ -1,7 +1,7 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { DEFAULT_LANGUAGE, LANGUAGE_COOKIE, type Language } from "./src/app/lib/i18n";
 
-function isLanguage(lang: string | null): lang is Language {
+function isLanguage(lang: string | null | undefined): lang is Language {
   return lang === "en" || lang === "pt";
 }
 

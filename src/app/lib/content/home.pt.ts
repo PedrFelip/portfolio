@@ -86,6 +86,8 @@ export const homePt = {
     more: "Mais",
     commit: "commit",
     commits: "commits",
+    swipeHint: "Deslize",
+    tapHint: "Toque em uma célula para detalhes",
   },
 
   techStack: {

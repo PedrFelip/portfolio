@@ -86,6 +86,8 @@ export const homeEn = {
     more: "More",
     commit: "commit",
     commits: "commits",
+    swipeHint: "Swipe",
+    tapHint: "Tap a cell for details",
   },
 
   techStack: {

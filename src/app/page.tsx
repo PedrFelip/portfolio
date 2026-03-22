@@ -1,10 +1,11 @@
-import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { DEFAULT_LANGUAGE } from "./lib/i18n";
 
-export default async function RootPage() {
-  const headersList = await headers();
-  const acceptLanguage = headersList.get("accept-language") || "";
-  const lang = acceptLanguage.includes("pt") ? "pt" : "en";
-
-  redirect(`/${lang}`);
+/**
+ * Root page component.
+ * Redirection is primarily handled by middleware.ts for better performance.
+ * This component serves as a static fallback.
+ */
+export default function RootPage() {
+  redirect(`/${DEFAULT_LANGUAGE}`);
 }

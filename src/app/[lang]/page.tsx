@@ -59,7 +59,13 @@ export default async function HomePage({ params }: HomePageProps) {
             />
 
             {/* Central Hero Content */}
-            <div className="relative flex flex-col items-center border-b border-x border-white/[0.08] bg-white/[0.01] px-6 pb-16 pt-12 text-center sm:px-12 sm:pb-24 sm:pt-16 md:px-16 overflow-hidden">
+            <div className="relative flex flex-col items-center border-b border-x border-white/[0.08] bg-white/[0.01] px-4 pb-16 pt-12 text-center sm:px-12 sm:pb-24 sm:pt-16 md:px-16 overflow-hidden">
+              {/* Subtle background pattern for mobile depth */}
+              <DotPattern className="opacity-40 sm:opacity-20" />
+
+              {/* Mobile-only radial glow for depth since side grids are hidden */}
+              <div className="absolute inset-0 z-0 pointer-events-none sm:hidden bg-[radial-gradient(circle_at_50%_40%,rgba(255,255,255,0.03)_0%,transparent_70%)]" />
+
               {/* Main headline - Enhanced Typography */}
               <h1 className="relative z-10 max-w-3xl text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl leading-[1.1] sm:leading-[1.1]">
                 <span className="inline-block bg-gradient-to-b from-white via-white to-white/70 bg-clip-text text-transparent animate-in-up">
@@ -77,7 +83,7 @@ export default async function HomePage({ params }: HomePageProps) {
               </p>
 
               {/* CTAs - Refined with subtle border glow */}
-              <div className="relative z-10 mt-10 flex w-full flex-col items-center gap-4 px-0 sm:mt-12 sm:w-auto sm:flex-row sm:px-4 animate-in-up animate-delay-200">
+              <div className="relative z-10 mt-8 flex w-full flex-col items-center gap-4 px-0 sm:mt-12 sm:w-auto sm:flex-row sm:px-4 animate-in-up animate-delay-200">
                 <Button
                   asChild
                   size="lg"
@@ -280,14 +286,15 @@ export default async function HomePage({ params }: HomePageProps) {
             <AlignedFlickeringGrid side="left" />
 
             {/* CTA Card Container with Corner Brackets */}
-            <div className="group relative border border-white/[0.08] bg-white/[0.02] px-6 py-12 sm:px-12 sm:py-16 transition-all duration-300 hover:border-white/20 hover:bg-white/[0.04] hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.1)]">
+            <div className="group relative border border-white/[0.08] bg-white/[0.02] px-4 py-12 sm:px-12 sm:py-16 transition-all duration-300 hover:border-white/20 hover:bg-white/[0.04] hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.1)] overflow-hidden">
+              <DotPattern className="opacity-40 sm:opacity-20" />
               <CornerBrackets
                 size={16}
                 className="border-border/50 transition-all duration-300 group-hover:border-white/40 group-hover:scale-110"
               />
 
               {/* Content */}
-              <div className="flex flex-col items-center text-center">
+              <div className="relative z-10 flex flex-col items-center text-center">
                 <h2 className="text-3xl font-bold tracking-tight sm:text-4xl transition-colors duration-200 group-hover:text-white">
                   {t.cta.title}
                 </h2>
@@ -296,7 +303,7 @@ export default async function HomePage({ params }: HomePageProps) {
                 </p>
 
                 {/* CTA Buttons */}
-                <div className="mt-10 flex w-full flex-col items-center gap-4 px-0 sm:mt-12 sm:w-auto sm:flex-row sm:px-4">
+                <div className="mt-8 flex w-full flex-col items-center gap-4 px-0 sm:mt-12 sm:w-auto sm:flex-row sm:px-4">
                   <Button
                     asChild
                     size="lg"

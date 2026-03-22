@@ -85,11 +85,8 @@ export async function GitHubSection({
       </div>
 
       {/* Contribution Graph Area - Aligned to Rails with background texture */}
-      <div className="rail-bounded border-t border-dashed border-border bg-white/[0.01]">
+      <div className="rail-bounded border-t border-dashed border-border bg-background">
         <div className="relative py-8 sm:py-16">
-          {/* Subtle background texture - blueprint detail */}
-          <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[radial-gradient(circle_at_center,var(--foreground)_1px,transparent_1px)] bg-[size:32px_32px]" />
-
           <div className="relative z-10">
             <GitHubContributionGraph
               data={data}

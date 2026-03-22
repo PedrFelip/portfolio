@@ -172,8 +172,8 @@ export const GitHubContributionGraph = memo(
           {/* Selected Day Details (Mobile Only) */}
           {isMobile && (
             <div className={cn(
-              "flex min-h-[48px] items-center justify-center rounded-lg border border-white/[0.04] bg-white/[0.02] px-4 py-2 transition-all duration-300",
-              selectedDay ? "opacity-100 translate-y-0" : "opacity-60 translate-y-0"
+              "flex min-h-[48px] items-center justify-center rounded-lg border border-white/[0.04] bg-background px-4 py-2 transition-all duration-300",
+              selectedDay ? "translate-y-0" : "translate-y-0"
             )}>
               {selectedDay && (
                 <div className="flex items-center gap-3">

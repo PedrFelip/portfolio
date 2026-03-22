@@ -31,24 +31,17 @@ const socialColorMap = {
 };
 
 /**
- * ContactLinks component
+ * ContactLinks component - Blueprint Edition
  *
- * Design principles (AGENTS.md):
- * - 4px grid: consistent spacing (gap-3 = 12px)
- * - Symmetrical padding: matching padding on all sides (p-3 = 12px)
- * - Borders-only approach: subtle borders with platform-specific hover effects
- * - Typography: Label for names, MonoText for URLs
- * - Animation: 150ms with cubic-bezier(0.25, 1, 0.5, 1) easing
- *
- * Best practices applied:
- * - Memoized to prevent re-renders
- * - Uses typography system (Label, MonoText)
- * - Accessible with proper aria-labels
- * - Platform-specific color scheme on hover
+ * Updated to match the architectural/blueprint aesthetic:
+ * - Sharp corners (rounded-none)
+ * - Transparent background with subtle tint
+ * - Monospace for both labels and URLs
+ * - Platform-specific hover glow
  */
 export const ContactLinks = memo(({ links }: ContactLinksProps) => {
   return (
-    <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+    <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
       {links.map((link) => {
         const Icon = iconMap[link.icon];
         const isEmail = link.icon === "email";
@@ -60,18 +53,18 @@ export const ContactLinks = memo(({ links }: ContactLinksProps) => {
             href={href}
             target={isEmail ? undefined : "_blank"}
             rel={isEmail ? undefined : "noopener noreferrer"}
-            className={`group flex items-center gap-3 rounded-lg border border-border bg-card p-3 transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:translate-y-[-2px] hover:shadow-[0_2px_12px_-2px_oklch(var(--foreground)/0.08)] focus:outline-none focus:ring-2 focus:ring-accent/50 focus:ring-offset-2 focus:ring-offset-card motion-reduce:transition-none ${socialColorMap[link.icon]}`}
+            className={`group flex items-center gap-4 rounded-none border border-white/[0.08] bg-white/[0.02] p-4 transition-all duration-200 ease-[cubic-bezier(0.25,1,0.5,1)] hover:translate-y-[-2px] hover:shadow-[0_4px_20px_-4px_rgba(255,255,255,0.1)] focus:outline-none focus:ring-1 focus:ring-white/20 motion-reduce:transition-none ${socialColorMap[link.icon]}`}
             aria-label={`${link.label}: ${link.url}`}
           >
             <Icon
-              className="h-5 w-5 flex-shrink-0 text-muted-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:text-foreground"
+              className="h-5 w-5 flex-shrink-0 text-muted-foreground transition-colors duration-200 group-hover:text-foreground"
               aria-hidden="true"
             />
             <div className="flex flex-col min-w-0 flex-1">
-              <Label className="text-xs uppercase tracking-wider text-foreground break-words transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)]">
+              <Label className="text-[10px] uppercase font-mono tracking-widest text-muted-foreground/60 transition-colors duration-200 group-hover:text-muted-foreground">
                 {link.label}
               </Label>
-              <MonoText className="break-words text-xs text-muted-foreground group-hover:text-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)]">
+              <MonoText className="break-words text-[11px] text-foreground/80 group-hover:text-foreground transition-colors duration-200">
                 {link.url}
               </MonoText>
             </div>

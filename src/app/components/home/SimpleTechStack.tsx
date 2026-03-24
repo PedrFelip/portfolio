@@ -1,6 +1,7 @@
 import { DEFAULT_TECH_STACK, type TechItem } from "@/lib/tech-stack";
 
 interface SimpleTechStackProps {
+  id?: string;
   title?: string;
   subtitle?: string;
   description?: string;
@@ -8,13 +9,14 @@ interface SimpleTechStackProps {
 }
 
 export function SimpleTechStack({
+  id = "tech-stack",
   title = "Tech Stack",
   subtitle = "Technologies",
   description = "Modern tools and technologies I work with daily.",
   items = DEFAULT_TECH_STACK,
 }: SimpleTechStackProps) {
   return (
-    <section id="tech-stack" className="relative">
+    <section id={id} className="relative">
       {/* Section Header */}
       <div className="rail-bounded">
         <div className="px-6 pb-6 pt-12 sm:px-8 sm:pt-16">

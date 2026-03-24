@@ -23,6 +23,10 @@ export const LANGUAGES: Record<Language, string> = {
 export const DEFAULT_LANGUAGE: Language = "en";
 export const LANGUAGE_COOKIE = "NEXT_LOCALE";
 
+export function isLanguage(lang: string | null | undefined): lang is Language {
+  return lang === "en" || lang === "pt";
+}
+
 export const translations = {
   en: {
     ...sharedEn,

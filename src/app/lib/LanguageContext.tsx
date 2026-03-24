@@ -7,7 +7,13 @@ import {
   useEffect,
   useState,
 } from "react";
-import { DEFAULT_LANGUAGE, LANGUAGE_COOKIE, type Language, translations } from "@/lib/i18n";
+import {
+  DEFAULT_LANGUAGE,
+  isLanguage,
+  LANGUAGE_COOKIE,
+  type Language,
+  translations,
+} from "@/lib/i18n";
 import { usePathname, useRouter } from "next/navigation";
 
 interface LanguageContextType {
@@ -47,11 +53,29 @@ export const LanguageProvider = ({
     const pathParts = pathname.split("/").filter(Boolean);
     const langFromUrl = pathParts[0] as Language;
 
-    if (langFromUrl === "pt" || langFromUrl === "en") {
+    if (isLanguage(langFromUrl)) {
       if (language !== langFromUrl) {
         setLanguageState(langFromUrl);
         // Sync cookie with current path
         document.cookie = `${LANGUAGE_COOKIE}=${langFromUrl}; path=/; max-age=31536000; SameSite=Lax`;
+      }
+    } else {
+      // No language in URL, check cookie or fallback to browser
+      const cookieLang = document.cookie
+        .split("; ")
+        .find((row) => row.startsWith(`${LANGUAGE_COOKIE}=`))
+        ?.split("=")[1];
+
+      if (isLanguage(cookieLang)) {
+        if (language !== cookieLang) {
+          setLanguageState(cookieLang);
+        }
+      } else {
+        // No cookie, fallback to browser language
+        const browserLang = navigator.language.startsWith("pt") ? "pt" : "en";
+        if (language !== browserLang) {
+          setLanguageState(browserLang);
+        }
       }
     }
   }, [isClient, language, pathname]);

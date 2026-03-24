@@ -13,16 +13,18 @@ import {
   DotPattern,
   RailLayout,
   SectionDivider,
+  CornerBrackets,
 } from "@/components/blueprint";
-import { CornerBrackets } from "@/components/blueprint/CornerBracket";
 import { GitHubSection } from "@/components/home/GitHubSection";
 import { GitHubSectionSkeleton } from "@/components/home/GitHubSectionSkeleton";
 import { SimpleTechStack } from "@/components/home/SimpleTechStack";
-import { Button } from "@/components/ui";
+import { Button, H1, Lead, MonoText } from "@/components/ui";
+import { ArrowRight } from "@/components/ui/icons";
 import { XIcon } from "@/components/ui/x-icon";
 import { homeEn } from "@/lib/content/home.en";
 import { homePt } from "@/lib/content/home.pt";
 import { TOOLKIT_CONFIG } from "@/lib/toolkit-data";
+import { cn } from "@/lib/utils";
 
 interface HomePageProps {
   params: Promise<{ lang: string }>;
@@ -55,63 +57,58 @@ export default async function HomePage({ params }: HomePageProps) {
             {/* Left flickering grid - subtle entry */}
             <AlignedFlickeringGrid
               side="left"
-              className="border-b border-white/[0.08]"
+              className="border-b border-border/40"
             />
 
             {/* Central Hero Content */}
-            <div className="relative flex flex-col items-center border-b border-x border-white/[0.08] bg-white/[0.01] px-4 pb-16 pt-12 text-center sm:px-12 sm:pb-24 sm:pt-16 md:px-16 overflow-hidden">
-              {/* Subtle background pattern for mobile depth */}
-              <DotPattern className="opacity-40 sm:opacity-20" />
+            <div className="relative flex flex-col items-center border-b border-x border-border/40 bg-card/10 px-4 pb-16 pt-12 text-center sm:px-12 sm:pb-24 sm:pt-16 md:px-16 overflow-hidden group">
+              {/* Architectural Details */}
+              <DotPattern className="opacity-40 sm:opacity-10" />
+              <CornerBrackets className="opacity-20 group-hover:opacity-40 transition-opacity duration-500" />
+              
+              {/* System Badge */}
+              <div className="relative z-10 mb-8 flex items-center gap-3 px-3 py-1 border border-border/40 bg-muted/20 rounded-sm animate-in-down">
+                <div className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse" />
+                <MonoText className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+                  v2.arch.stable
+                </MonoText>
+              </div>
 
               {/* Mobile-only radial glow for depth since side grids are hidden */}
-              <div className="absolute inset-0 z-0 pointer-events-none sm:hidden bg-[radial-gradient(circle_at_50%_40%,rgba(255,255,255,0.03)_0%,transparent_70%)]" />
+              <div className="absolute inset-0 z-0 pointer-events-none sm:hidden bg-[radial-gradient(circle_at_50%_40%,rgba(var(--foreground),0.02)_0%,transparent_70%)]" />
 
-              {/* Main headline - Enhanced Typography */}
-              <h1 className="relative z-10 max-w-3xl text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl leading-[1.1] sm:leading-[1.1]">
-                <span className="inline-block bg-gradient-to-b from-white via-white to-white/70 bg-clip-text text-transparent animate-in-up">
+              {/* Main headline - Clean Typography */}
+              <H1 className="relative z-10 max-w-4xl text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter leading-[0.95] sm:leading-[0.95]">
+                <span className="block text-foreground animate-in-up">
                   {t.hero.title}
                 </span>
-                <br />
-                <span className="inline-block text-muted-foreground/90 relative animate-in-up animate-delay-100">
+                <span className="block text-muted-foreground/60 animate-in-up animate-delay-100">
                   {t.hero.subtitle}
                 </span>
-              </h1>
+              </H1>
 
               {/* Subtitle - More evocative */}
-              <p className="relative z-10 mx-auto mt-6 max-w-xl text-base leading-relaxed text-muted-foreground sm:mt-8 sm:text-lg animate-in-up animate-delay-150">
+              <Lead className="relative z-10 mx-auto mt-6 max-w-xl text-muted-foreground sm:mt-8 animate-in-up animate-delay-150">
                 {t.hero.description}
-              </p>
+              </Lead>
 
-              {/* CTAs - Refined with subtle border glow */}
-              <div className="relative z-10 mt-8 flex w-full flex-col items-center gap-4 px-0 sm:mt-12 sm:w-auto sm:flex-row sm:px-4 animate-in-up animate-delay-200">
+              {/* CTAs - Technical & Clean */}
+              <div className="relative z-10 mt-10 flex w-full flex-col items-center gap-4 px-0 sm:mt-12 sm:w-auto sm:flex-row sm:px-4 animate-in-up animate-delay-200">
                 <Button
                   asChild
                   size="lg"
-                  className="w-full sm:w-52 scale-on-active group/btn hover:shadow-[0_0_20px_-5px_rgba(255,255,255,0.1)] transition-all duration-200"
+                  className="w-full sm:w-56"
                 >
                   <Link href={`/${lang}/projects`}>
                     {t.hero.cta}
-                    <svg
-                      className="size-4 transition-transform duration-150 group-hover/btn:translate-x-1"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <title>Arrow right</title>
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M13 7l5 5m0 0l-5 5m5-5H6"
-                      />
-                    </svg>
+                    <ArrowRight className="size-4" />
                   </Link>
                 </Button>
                 <Button
                   asChild
                   variant="outline"
                   size="lg"
-                  className="w-full sm:w-52 scale-on-active hover:border-white/30 transition-all duration-200"
+                  className="w-full sm:w-56"
                 >
                   <Link href={`/${lang}/about`}>{t.hero.ctaSecondary}</Link>
                 </Button>
@@ -121,7 +118,7 @@ export default async function HomePage({ params }: HomePageProps) {
             {/* Right flickering grid - subtle entry */}
             <AlignedFlickeringGrid
               side="right"
-              className="border-b border-white/[0.08]"
+              className="border-b border-border/40"
             />
           </div>
         </div>

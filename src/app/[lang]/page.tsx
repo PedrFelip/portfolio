@@ -65,14 +65,6 @@ export default async function HomePage({ params }: HomePageProps) {
               {/* Architectural Details */}
               <DotPattern className="opacity-40 sm:opacity-10" />
               <CornerBrackets className="opacity-20 group-hover:opacity-40 transition-opacity duration-500" />
-              
-              {/* System Badge */}
-              <div className="relative z-10 mb-8 flex items-center gap-3 px-3 py-1 border border-border/40 bg-muted/20 rounded-sm animate-in-down">
-                <div className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse" />
-                <MonoText className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-                  v2.arch.stable
-                </MonoText>
-              </div>
 
               {/* Mobile-only radial glow for depth since side grids are hidden */}
               <div className="absolute inset-0 z-0 pointer-events-none sm:hidden bg-[radial-gradient(circle_at_50%_40%,rgba(var(--foreground),0.02)_0%,transparent_70%)]" />
@@ -94,11 +86,7 @@ export default async function HomePage({ params }: HomePageProps) {
 
               {/* CTAs - Technical & Clean */}
               <div className="relative z-10 mt-10 flex w-full flex-col items-center gap-4 px-0 sm:mt-12 sm:w-auto sm:flex-row sm:px-4 animate-in-up animate-delay-200">
-                <Button
-                  asChild
-                  size="lg"
-                  className="w-full sm:w-56"
-                >
+                <Button asChild size="lg" className="w-full sm:w-56">
                   <Link href={`/${lang}/projects`}>
                     {t.hero.cta}
                     <ArrowRight className="size-4" />

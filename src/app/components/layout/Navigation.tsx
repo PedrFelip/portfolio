@@ -3,10 +3,13 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
+  forwardRef,
   memo,
   useCallback,
   useEffect,
+  useLayoutEffect,
   useMemo,
+  useRef,
   useState,
   useTransition,
 } from "react";
@@ -29,43 +32,65 @@ interface NavLinkItemProps {
 }
 
 const NavLinkItem = memo(
-  ({
-    label,
-    isActive,
-    localizedHref,
-    onClick,
-    variant = "desktop",
-  }: NavLinkItemProps) => {
-    const baseClasses =
-      "text-sm font-medium transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] motion-reduce:transition-none touch-manipulation";
+  // eslint-disable-next-line react/display-name
+  forwardRef<HTMLAnchorElement, NavLinkItemProps>(
+    ({ label, isActive, localizedHref, onClick, variant = "desktop" }, ref) => {
+      const baseClasses =
+        "text-sm font-medium transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] motion-reduce:transition-none touch-manipulation";
 
-    const variantClasses = {
-      desktop:
-        "relative px-3 py-2 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-      mobile:
-        "block min-h-[48px] px-4 py-3 border-b border-dashed border-border last:border-b-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset active:bg-white/[0.04]",
-    };
+      const variantClasses = {
+        desktop:
+          "group relative px-3 py-2 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+        mobile:
+          "block min-h-[48px] px-4 py-3 border-b border-dashed border-border last:border-b-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset active:bg-white/[0.04]",
+      };
 
-    const stateClasses = {
-      desktop: isActive
-        ? "text-foreground bg-white/[0.02] border-l-4 border-l-accent pl-[8px]"
-        : "text-muted-foreground hover:text-foreground hover:bg-white/[0.02] border-l-4 border-l-transparent pl-[8px]",
-      mobile: isActive
-        ? "text-foreground bg-white/[0.02] border-l-4 border-l-accent"
-        : "text-muted-foreground hover:text-foreground hover:bg-white/[0.02] border-l-4 border-l-transparent",
-    };
+      const stateClasses = {
+        desktop: isActive
+          ? "text-accent"
+          : "text-muted-foreground hover:text-foreground hover:bg-white/[0.04]",
+        mobile: isActive
+          ? "text-accent border-l-[3px] border-l-accent bg-accent/[0.08]"
+          : "text-muted-foreground hover:text-foreground hover:bg-white/[0.02] border-l-[3px] border-l-transparent",
+      };
 
-    return (
-      <Link
-        href={localizedHref}
-        onClick={onClick}
-        className={`${baseClasses} ${variantClasses[variant]} ${stateClasses[variant]}`}
-        aria-current={isActive ? "page" : undefined}
-      >
-        {label}
-      </Link>
-    );
-  },
+      return (
+        <Link
+          ref={ref}
+          href={localizedHref}
+          onClick={onClick}
+          className={`${baseClasses} ${variantClasses[variant]} ${stateClasses[variant]}`}
+          aria-current={isActive ? "page" : undefined}
+        >
+          {variant === "desktop" ? (
+            <span className="relative inline-flex flex-col items-center">
+              {label}
+              <span
+                className={`absolute -bottom-2 left-1/2 h-[2px] rounded-full bg-accent -translate-x-1/2 transition-all duration-200 ease-[cubic-bezier(0.25,1,0.5,1)] ${
+                  isActive
+                    ? "w-4/5 opacity-100"
+                    : "w-0 group-hover:w-1/2 opacity-0 group-hover:opacity-100"
+                }`}
+                aria-hidden="true"
+              />
+            </span>
+          ) : (
+            <span className="flex items-center gap-3">
+              <span
+                className={`rounded-full transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] ${
+                  isActive
+                    ? "h-2 w-2 bg-accent scale-100"
+                    : "h-1.5 w-1.5 bg-muted-foreground/30 scale-75"
+                }`}
+                aria-hidden="true"
+              />
+              {label}
+            </span>
+          )}
+        </Link>
+      );
+    },
+  ),
 );
 NavLinkItem.displayName = "NavLinkItem";
 
@@ -75,6 +100,11 @@ export const Navigation = memo(() => {
   const getLocalizedLink = useLocalizedLink();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
+  const navRef = useRef<HTMLDivElement>(null);
+  const linkRefs = useRef<(HTMLAnchorElement | null)[]>([]);
+  const [pill, setPill] = useState<{ left: number; width: number } | null>(
+    null,
+  );
 
   const navLinks: NavLink[] = useMemo(
     () => [
@@ -88,13 +118,40 @@ export const Navigation = memo(() => {
 
   const isActive = useCallback(
     (href: string) => {
+      const localizedPath = getLocalizedLink(href);
       if (href === "/") {
-        return pathname === "/";
+        return pathname === localizedPath;
       }
-      return pathname.startsWith(href);
+      return (
+        pathname === localizedPath || pathname.startsWith(`${localizedPath}/`)
+      );
     },
-    [pathname],
+    [pathname, getLocalizedLink],
   );
+
+  const activeIndex = useMemo(
+    () => navLinks.findIndex((link) => isActive(link.href)),
+    [navLinks, isActive],
+  );
+
+  useLayoutEffect(() => {
+    if (activeIndex === -1 || !navRef.current) {
+      setPill(null);
+      return;
+    }
+    const linkEl = linkRefs.current[activeIndex];
+    const containerEl = navRef.current;
+    if (!linkEl) {
+      setPill(null);
+      return;
+    }
+    const containerRect = containerEl.getBoundingClientRect();
+    const linkRect = linkEl.getBoundingClientRect();
+    setPill({
+      left: linkRect.left - containerRect.left,
+      width: linkRect.width,
+    });
+  }, [activeIndex]);
 
   const toggleLanguage = useCallback(() => {
     startTransition(() => {
@@ -110,7 +167,6 @@ export const Navigation = memo(() => {
     setIsMenuOpen((prev) => !prev);
   }, []);
 
-  // Lock body scroll when menu is open
   useEffect(() => {
     if (isMenuOpen) {
       document.body.style.overflow = "hidden";
@@ -122,7 +178,6 @@ export const Navigation = memo(() => {
     };
   }, [isMenuOpen]);
 
-  // ESC key handler to close mobile menu
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === "Escape" && isMenuOpen) {
@@ -135,7 +190,6 @@ export const Navigation = memo(() => {
 
   return (
     <nav className="sticky top-0 z-50 bg-background/90 backdrop-blur-md page-rails-nav">
-      {/* Continuation of page rails */}
       <div className="absolute inset-0 pointer-events-none">
         <div
           className="absolute top-0 bottom-0 w-px bg-gradient-to-b from-white/[0.08] to-white/[0.04]"
@@ -147,23 +201,33 @@ export const Navigation = memo(() => {
         />
       </div>
 
-      {/* Border with gradient effect */}
       <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-white/[0.04] via-white/[0.08] to-white/[0.04]" />
 
       <div className="mx-auto max-w-6xl px-4 sm:px-6 relative">
         <div className="flex h-16 items-center justify-between">
-          {/* Logo */}
           <Link href={getLocalizedLink("/")} className="group">
             <div className="text-base font-semibold tracking-tight text-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:text-muted-foreground">
               Pedro Felipe
             </div>
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden items-center gap-1 md:flex">
-            {navLinks.map((link) => (
+          <div
+            ref={navRef}
+            className="hidden items-center gap-1 md:flex relative"
+          >
+            {pill && (
+              <span
+                className="absolute top-1/2 -translate-y-1/2 h-[calc(100%-8px)] rounded bg-accent/[0.10] transition-all duration-200 ease-[cubic-bezier(0.25,1,0.5,1)] motion-reduce:transition-none pointer-events-none"
+                style={{ left: pill.left, width: pill.width }}
+                aria-hidden="true"
+              />
+            )}
+            {navLinks.map((link, index) => (
               <NavLinkItem
                 key={link.href}
+                ref={(el: HTMLAnchorElement | null) => {
+                  linkRefs.current[index] = el;
+                }}
                 label={link.label}
                 isActive={isActive(link.href)}
                 localizedHref={getLocalizedLink(link.href)}
@@ -172,7 +236,6 @@ export const Navigation = memo(() => {
             ))}
           </div>
 
-          {/* Language Toggle & Mobile Menu Button */}
           <div className="flex items-center gap-2">
             <Button
               variant="ghost"
@@ -212,7 +275,6 @@ export const Navigation = memo(() => {
           </div>
         </div>
 
-        {/* Mobile Navigation */}
         {isMenuOpen && (
           <>
             <div

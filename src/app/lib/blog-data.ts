@@ -124,7 +124,7 @@ export const getPostBySlug = cache((slug: string): BlogPost | null => {
       title: data.title || "Untitled",
       date: data.date ? `${data.date}T12:00:00.000Z` : new Date().toISOString(),
       excerpt: data.excerpt || "",
-      tags: data.tags || [],
+      tags: (data.tags || data.categories || []) as string[],
       content,
       headings,
     };

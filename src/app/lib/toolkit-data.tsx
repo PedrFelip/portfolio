@@ -6,35 +6,11 @@ import {
   siTmux,
   siZedindustries,
 } from "simple-icons";
-
-interface SimpleIcon {
-  title: string;
-  path: string;
-  hex: string;
-}
-
-const createIcon = (icon: SimpleIcon) => {
-  const IconComponent: React.FC<{ className?: string }> = ({ className }) => (
-    <svg
-      role="img"
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      className={className}
-    >
-      <title>{icon.title}</title>
-      <path d={icon.path} />
-    </svg>
-  );
-  IconComponent.displayName = `Icon${icon.title.replace(/\s+/g, "")}`;
-  return {
-    component: IconComponent,
-    color: `#${icon.hex}`,
-  };
-};
+import { createIcon } from "@/lib/create-icon";
 
 export interface ToolkitIcon {
   component: React.FC<{ className?: string }>;
-  color?: string;
+  color: string;
 }
 
 export interface ToolkitItemConfig {
@@ -42,17 +18,22 @@ export interface ToolkitItemConfig {
   icons: ToolkitIcon[];
 }
 
+const toToolkitIcon = (result: ReturnType<typeof createIcon>): ToolkitIcon => ({
+  component: result.icon,
+  color: result.color,
+});
+
 export const TOOLKIT_CONFIG: Record<string, ToolkitItemConfig> = {
   os: {
     id: "os",
-    icons: [createIcon(siFedora), createIcon(siNiri)],
+    icons: [siFedora, siNiri].map((si) => toToolkitIcon(createIcon(si))),
   },
   editor: {
     id: "editor",
-    icons: [createIcon(siZedindustries)],
+    icons: [siZedindustries].map((si) => toToolkitIcon(createIcon(si))),
   },
   terminal: {
     id: "terminal",
-    icons: [createIcon(siGhostty), createIcon(siTmux)],
+    icons: [siGhostty, siTmux].map((si) => toToolkitIcon(createIcon(si))),
   },
 };

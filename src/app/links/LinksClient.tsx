@@ -11,39 +11,7 @@ import {
 } from "@/components/ui/icons";
 import { XIcon } from "@/components/ui/x-icon";
 import { LanguageProvider, useLanguage } from "@/lib/LanguageContext";
-
-const socialLinks = [
-  {
-    label: "Portfolio",
-    url: "/",
-    icon: "portfolio",
-    descriptionKey: "links.portfolioDescription",
-  },
-  {
-    label: "GitHub",
-    url: "https://github.com/pedrfelip",
-    icon: "github",
-    descriptionKey: "links.githubDescription",
-  },
-  {
-    label: "LinkedIn",
-    url: "https://www.linkedin.com/in/pedrfelip/",
-    icon: "linkedin",
-    descriptionKey: "links.linkedinDescription",
-  },
-  {
-    label: "X",
-    url: "https://x.com/pedrofelipeek",
-    icon: "x",
-    descriptionKey: "links.xDescription",
-  },
-  {
-    label: "Email",
-    url: "mailto:pfsilva190406@gmail.com",
-    icon: "email",
-    descriptionKey: "links.emailDescription",
-  },
-] as const;
+import { socialLinks } from "@/lib/links";
 
 const iconMap = {
   portfolio: Home,
@@ -144,21 +112,12 @@ LinkItem.displayName = "LinkItem";
 function LinksContent() {
   const { t } = useLanguage();
 
-  const getLocalizedDescription = (key: string) => {
-    switch (key) {
-      case "links.portfolioDescription":
-        return t.links.portfolioDescription;
-      case "links.githubDescription":
-        return t.links.githubDescription;
-      case "links.linkedinDescription":
-        return t.links.linkedinDescription;
-      case "links.xDescription":
-        return t.links.xDescription;
-      case "links.emailDescription":
-        return t.links.emailDescription;
-      default:
-        return "";
-    }
+  const descriptionMap: Record<string, string> = {
+    portfolio: t.links.portfolioDescription,
+    github: t.links.githubDescription,
+    linkedin: t.links.linkedinDescription,
+    x: t.links.xDescription,
+    email: t.links.emailDescription,
   };
 
   return (
@@ -179,7 +138,7 @@ function LinksContent() {
               label={link.label}
               url={link.url}
               icon={link.icon}
-              description={getLocalizedDescription(link.descriptionKey)}
+              description={descriptionMap[link.icon] || ""}
             />
           ))}
         </div>

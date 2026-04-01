@@ -7,6 +7,7 @@ import { Label, MonoText } from "@/components/ui";
 import { Github, Linkedin, Mail } from "@/components/ui/icons";
 import { XIcon } from "@/components/ui/x-icon";
 import { useLanguage } from "@/lib/LanguageContext";
+import { socialLinks } from "@/lib/links";
 import { useLocalizedLink } from "@/lib/useLocalizedLink";
 
 interface FooterLinkProps {
@@ -84,29 +85,24 @@ export const Footer = memo(() => {
     [t.nav],
   );
 
-  const socialLinks: SocialLinkProps[] = useMemo(
-    () => [
-      {
-        href: "https://github.com/pedrfelip",
-        label: "GitHub",
-        icon: <Github className="h-4 w-4" />,
-      },
-      {
-        href: "https://linkedin.com/in/pedrfelip",
-        label: "LinkedIn",
-        icon: <Linkedin className="h-4 w-4" />,
-      },
-      {
-        href: "https://x.com/pedrofelipeek",
-        label: "X",
-        icon: <XIcon className="h-4 w-4" />,
-      },
-      {
-        href: "mailto:pfsilva190406@gmail.com",
-        label: "Email",
-        icon: <Mail className="h-4 w-4" />,
-      },
-    ],
+  const footerSocialLinks: SocialLinkProps[] = useMemo(
+    () =>
+      socialLinks
+        .filter((l) => l.icon !== "portfolio")
+        .map((link) => ({
+          href: link.url,
+          label: link.label,
+          icon:
+            link.icon === "github" ? (
+              <Github className="h-4 w-4" />
+            ) : link.icon === "linkedin" ? (
+              <Linkedin className="h-4 w-4" />
+            ) : link.icon === "x" ? (
+              <XIcon className="h-4 w-4" />
+            ) : (
+              <Mail className="h-4 w-4" />
+            ),
+        })),
     [],
   );
 
@@ -149,7 +145,7 @@ export const Footer = memo(() => {
               {t.footer.connect}
             </Label>
             <div className="flex flex-wrap gap-3">
-              {socialLinks.map((link) => (
+              {footerSocialLinks.map((link) => (
                 <SocialLink
                   key={link.href}
                   href={link.href}

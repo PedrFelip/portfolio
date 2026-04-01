@@ -27,8 +27,3 @@ export const getSkills = cache((language: "en" | "pt"): SkillGroup[] => {
     },
   ];
 });
-
-// Alias for consistency with home-data usage
-export const getHomeSkills = cache((language: "en" | "pt"): SkillGroup[] => {
-  return getSkills(language);
-});

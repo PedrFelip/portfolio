@@ -47,19 +47,3 @@ export const translations = {
     ...projectsPt,
   },
 };
-
-// Helper to get translation by key path (e.g., "hero.title")
-export const getTranslation = (language: Language, key: string): string => {
-  const keys = key.split(".");
-  let value: unknown = translations[language];
-
-  for (const k of keys) {
-    if (typeof value === "object" && value !== null) {
-      value = (value as Record<string, unknown>)[k];
-    }
-  }
-
-  return typeof value === "string" || typeof value === "number"
-    ? String(value)
-    : key;
-};

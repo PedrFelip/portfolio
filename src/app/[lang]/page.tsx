@@ -10,21 +10,20 @@ import Link from "next/link";
 import React, { Suspense } from "react";
 import {
   AlignedFlickeringGrid,
+  CornerBrackets,
   DotPattern,
   RailLayout,
   SectionDivider,
-  CornerBrackets,
 } from "@/components/blueprint";
 import { GitHubSection } from "@/components/home/GitHubSection";
 import { GitHubSectionSkeleton } from "@/components/home/GitHubSectionSkeleton";
 import { SimpleTechStack } from "@/components/home/SimpleTechStack";
-import { Button, H1, Lead, MonoText } from "@/components/ui";
+import { Button, H1, Lead } from "@/components/ui";
 import { ArrowRight } from "@/components/ui/icons";
 import { XIcon } from "@/components/ui/x-icon";
 import { homeEn } from "@/lib/content/home.en";
 import { homePt } from "@/lib/content/home.pt";
 import { TOOLKIT_CONFIG } from "@/lib/toolkit-data";
-import { cn } from "@/lib/utils";
 
 interface HomePageProps {
   params: Promise<{ lang: string }>;

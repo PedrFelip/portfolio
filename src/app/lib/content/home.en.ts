@@ -6,31 +6,12 @@
 export const homeEn = {
   hero: {
     greeting: "Hi, I'm Pedro Felipe",
-    greetingTexts: [
-      "Hi, I'm Pedro Felipe",
-      "a Backend Engineer",
-      "a DevOps Enthusiast",
-      "real scale systems",
-    ],
     title: "Backend Engineer",
     subtitle: "& DevOps Enthusiast",
     description:
       "Building scalable, maintainable systems focused on efficiency and reliability. Architecting the future, one service at a time.",
     cta: "Explore my work",
     ctaSecondary: "Read my CV",
-    keywords: [
-      "Backend",
-      "DevOps",
-      "Engineer",
-      "Infrastructure",
-      "API",
-      "System",
-    ],
-    badge: {
-      label: "TypeScript",
-      percentage: 100,
-      status: "success",
-    },
   },
 
   features: {
@@ -133,15 +114,6 @@ export const homeEn = {
     secondary: "DM me on Twitter",
   },
 
-  projects: {
-    badge: "Projects",
-    title: "Featured Projects",
-    subtitle: "Check out my latest work",
-    description:
-      "I've worked on a variety of projects, from simple websites to complex web applications. Here are a few of my favorites.",
-    viewAll: "View all projects",
-  },
-
   skills: {
     badge: "Skills",
     title: "Core Technical Skills",
@@ -149,13 +121,5 @@ export const homeEn = {
     databases: "Databases",
     devops: "DevOps & Infrastructure",
     tools: "Tools & Practices",
-  },
-
-  philosophy: {
-    title: "Always Learning, Always Building",
-    text1:
-      "I believe the best way to grow as a developer is through hands-on experience. Every project is an opportunity to solve real problems, experiment with new technologies, and push the boundaries of what I know.",
-    text2:
-      "Whether it's optimizing infrastructure, designing scalable architectures, or automating complex workflows - I'm driven by the challenge of building systems that work reliably and efficiently.",
   },
 };

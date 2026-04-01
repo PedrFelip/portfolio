@@ -3,7 +3,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import rehypeHighlight from "rehype-highlight";
-import { ArrowLeft, Calendar } from "@/components/ui/icons";
 import "highlight.js/styles/github-dark.css";
 import { ShareButtons } from "@/components/blog/ShareButtons";
 import { TableOfContents } from "@/components/blog/TableOfContents";
@@ -17,7 +16,8 @@ import {
   MDXTableHead,
   MDXTableRow,
 } from "@/components/mdx/MDXTable";
-import { Badge, H1, H2, H3 } from "@/components/ui";
+import { Badge } from "@/components/ui";
+import { ArrowLeft, Calendar, Clock } from "@/components/ui/icons";
 import { getAllPostSlugs, getPostBySlug } from "@/lib/blog-data";
 import { blogEn } from "@/lib/content/blog.en";
 import { blogPt } from "@/lib/content/blog.pt";
@@ -35,10 +35,6 @@ interface BlogPostPageProps {
   }>;
 }
 
-/**
- * Static MDX Components - defined outside component to prevent re-creation
- * These never change between renders (Vercel 3.1 - Hoist Static Definitions)
- */
 const PreComponent = ({ children }: { children: React.ReactNode }) => (
   <CodeBlockWrapper>{children}</CodeBlockWrapper>
 );
@@ -54,7 +50,7 @@ const CodeComponent = ({
     return <code className={className}>{children}</code>;
   }
   return (
-    <code className="font-mono text-xs sm:text-sm bg-muted px-2 py-1 rounded border border-border text-foreground">
+    <code className="font-mono text-[13px] bg-muted/60 px-1.5 py-0.5 rounded text-foreground">
       {children}
     </code>
   );
@@ -68,12 +64,7 @@ const TableCell = ({ children }: { children: React.ReactNode }) => (
   <MDXTableCell>{children}</MDXTableCell>
 );
 
-/**
- * Create heading components with sequential ID assignment
- * Uses closure to track index without mutating external state
- */
 const createHeadingComponents = (headings: Heading[]) => {
-  // Create index tracker inside closure
   let index = 0;
 
   const getNextId = (): string => {
@@ -87,67 +78,42 @@ const createHeadingComponents = (headings: Heading[]) => {
     h1: ({ children }: { children: React.ReactNode }) => {
       const id = getNextId();
       return (
-        <H1
+        <h1
           id={id}
-          className="mb-6 mt-12 text-2xl sm:text-3xl md:text-4xl transition-all duration-300"
+          className="text-2xl sm:text-3xl font-semibold tracking-tight text-foreground mt-10 mb-4 first:mt-0"
         >
           {children}
-        </H1>
+        </h1>
       );
     },
     h2: ({ children }: { children: React.ReactNode }) => {
       const id = getNextId();
       return (
-        <H2
+        <h2
           id={id}
-          className="group relative mb-4 mt-10 border-b border-border pb-2 transition-all duration-200 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-accent"
+          className="text-xl sm:text-2xl font-semibold tracking-tight text-foreground mt-10 mb-3 scroll-mt-24"
         >
-          <span className="relative">
-            {children}
-            <span className="absolute -left-4 top-0 bottom-0 w-1 bg-accent rounded-full opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
-          </span>
-        </H2>
+          {children}
+        </h2>
       );
     },
     h3: ({ children }: { children: React.ReactNode }) => {
       const id = getNextId();
       return (
-        <H3
+        <h3
           id={id}
-          className="group relative mb-3 mt-8 transition-all duration-200 ease-[cubic-bezier(0.25,1,0.5,1)] hover:text-accent"
+          className="text-lg sm:text-xl font-semibold text-foreground mt-8 mb-2 scroll-mt-24"
         >
           {children}
-        </H3>
+        </h3>
       );
     },
   };
 };
 
-/**
- * BlogPostPage component
- *
- * Design principles (AGENTS.md):
- * - 4px grid: consistent spacing throughout
- * - Symmetrical padding: matching padding on all sides
- * - Consistent container: matches Navigation and Section components
- *
- * Vercel best practices:
- * - Static generation with ISR fallback for new posts
- * - Optimized generateStaticParams: only generate recent posts at build time
- * - Server-side caching for post data
- * - Hoisted static MDX components prevent re-creation
- */
-
-// Cache individual post for 7 days (ISR)
 export const revalidate = 604800;
-
-// Enable incremental static regeneration for new posts
 export const dynamicParams = true;
 
-/**
- * Generate metadata for each blog post
- * Creates Open Graph and Twitter Card metadata for social sharing
- */
 export async function generateMetadata({
   params,
 }: BlogPostPageProps): Promise<Metadata> {
@@ -162,7 +128,7 @@ export async function generateMetadata({
     process.env.NEXT_PUBLIC_SITE_URL || "https://portfolio.vercel.app";
   const postUrl = `${baseUrl}/${lang}/blog/${slug}`;
 
-  const metadataConfig = {
+  const config = {
     en: {
       title: `${post.title} | Pedro Felipe`,
       description: post.excerpt,
@@ -175,11 +141,9 @@ export async function generateMetadata({
     },
   };
 
-  const config = metadataConfig[lang];
-
   return {
-    title: config.title,
-    description: config.description,
+    title: config[lang].title,
+    description: config[lang].description,
     alternates: {
       canonical: postUrl,
       languages: {
@@ -192,16 +156,16 @@ export async function generateMetadata({
       locale: lang === "pt" ? "pt_BR" : "en_US",
       alternateLocale: lang === "pt" ? "en_US" : "pt_BR",
       url: postUrl,
-      title: config.title,
-      description: config.description,
-      siteName: config.siteName,
+      title: config[lang].title,
+      description: config[lang].description,
+      siteName: config[lang].siteName,
       publishedTime: post.date,
       authors: ["Pedro Felipe"],
     },
     twitter: {
       card: "summary",
-      title: config.title,
-      description: config.description,
+      title: config[lang].title,
+      description: config[lang].description,
       creator: "@pedrofelipe",
     },
   };
@@ -210,11 +174,7 @@ export async function generateMetadata({
 export async function generateStaticParams() {
   const slugs = getAllPostSlugs();
   const langs = ["en", "pt"];
-
-  // Optimization: Only generate top 20 recent posts at build time
-  // New posts will be generated on-demand (ISR)
   const recentSlugs = slugs.slice(0, 20);
-
   return recentSlugs.flatMap((slug) => langs.map((lang) => ({ slug, lang })));
 }
 
@@ -227,11 +187,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     notFound();
   }
 
-  // Create heading components with sequential ID assignment
-  // Factory function ensures each heading gets the correct ID in order
   const headingComponents = createHeadingComponents(post.headings || []);
-
-  // Combine static and dynamic components
   const MDX_COMPONENTS = {
     pre: PreComponent,
     code: CodeComponent,
@@ -246,89 +202,99 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     ...headingComponents,
   };
 
-  // Format date
   const formattedDate = new Date(post.date).toLocaleDateString(
     lang === "pt" ? "pt-BR" : "en-US",
-    {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    },
+    { year: "numeric", month: "long", day: "numeric" },
   );
 
+  const postUrl = `${process.env.NEXT_PUBLIC_SITE_URL || ""}/${lang}/blog/${post.slug}`;
+
   return (
-    <section className="py-12 sm:py-16 lg:py-20">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
-          {/* Main Content */}
-          <div className="flex-1 w-full lg:max-w-4xl">
-            {/* Back Link with enhanced hover */}
-            <Link
-              href={`/${lang}/blog`}
-              className="group inline-flex items-center gap-2 text-sm font-mono text-muted-foreground transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:text-accent hover:gap-3 mb-6 sm:mb-8"
-              aria-label={`${t.back} - ${t.title}`}
-            >
-              <ArrowLeft
-                className="h-4 w-4 transition-transform duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:-translate-x-1"
-                aria-hidden="true"
-              />
-              <span className="relative">
-                {t.back}
-                <span className="absolute -bottom-0.5 left-0 w-0 h-0.5 bg-accent transition-all duration-200 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:w-full" />
-              </span>
-            </Link>
+    <main className="min-h-screen">
+      {/* Header Section */}
+      <header className="border-b border-border">
+        <div className="mx-auto max-w-3xl px-6 py-12 sm:px-8 sm:py-16">
+          {/* Back link */}
+          <Link
+            href={`/${lang}/blog`}
+            className="group inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wide text-muted-foreground transition-colors duration-150 hover:text-foreground mb-8"
+            aria-label={`${t.back} - ${t.title}`}
+          >
+            <ArrowLeft
+              className="h-3.5 w-3.5 transition-transform duration-150 group-hover:-translate-x-1"
+              aria-hidden="true"
+            />
+            {t.back}
+          </Link>
 
-            {/* Share Buttons - Mobile Only */}
-            <div className="lg:hidden mb-6 sm:mb-8">
-              <ShareButtons
-                title={post.title}
-                url={`${process.env.NEXT_PUBLIC_SITE_URL || ""}/${lang}/blog/${post.slug}`}
-                description={post.excerpt}
-              />
+          {/* Title */}
+          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground mb-4">
+            {post.title}
+          </h1>
+
+          {/* Meta row: date, reading time, tags */}
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs font-mono text-muted-foreground">
+            <span className="inline-flex items-center gap-1.5">
+              <Calendar className="h-3.5 w-3.5" aria-hidden="true" />
+              <time dateTime={post.date}>{formattedDate}</time>
+            </span>
+
+            {post.readingTime && (
+              <>
+                <span className="text-border" aria-hidden="true">
+                  ·
+                </span>
+                <span className="inline-flex items-center gap-1.5">
+                  <Clock className="h-3.5 w-3.5" aria-hidden="true" />
+                  {post.readingTime} {t.readingTime}
+                </span>
+              </>
+            )}
+          </div>
+
+          {/* Tags */}
+          {post.tags.length > 0 && (
+            <div className="flex flex-wrap gap-2 mt-4">
+              {post.tags.map((tag) => (
+                <Badge
+                  key={tag}
+                  variant="outline"
+                  className="text-[11px] font-mono font-normal px-2 py-0.5 border-border/60 text-muted-foreground"
+                >
+                  {tag}
+                </Badge>
+              ))}
             </div>
+          )}
 
-            {/* Post Header with visual enhancements */}
-            <header className="mb-6 sm:mb-8 lg:mb-12 relative">
-              {/* Accent line decoration - hidden on mobile */}
-              <div className="hidden sm:block absolute -left-4 top-0 bottom-0 w-1 bg-gradient-to-b from-accent via-accent to-transparent rounded-full" />
+          {/* Excerpt */}
+          {post.excerpt && (
+            <p className="mt-6 text-base sm:text-lg leading-relaxed text-muted-foreground italic max-w-2xl">
+              {post.excerpt}
+            </p>
+          )}
+        </div>
+      </header>
 
-              <H1 className="mb-3 sm:mb-4">{post.title}</H1>
-
-              {/* Meta Information with icons and hover effects */}
-              <div className="flex flex-wrap items-center gap-3 sm:gap-4 text-xs sm:text-sm font-mono text-muted-foreground border-b border-border pb-3 sm:pb-4">
-                <div className="group/meta flex items-center gap-2 transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:text-accent">
-                  <Calendar
-                    className="h-3.5 w-3.5 sm:h-4 sm:w-4 transition-transform duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover/meta:scale-110"
-                    aria-hidden="true"
-                  />
-                  <time dateTime={post.date}>{formattedDate}</time>
-                </div>
+      {/* Content Section */}
+      <div className="mx-auto max-w-5xl px-6 sm:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_200px] gap-8 lg:gap-12">
+          {/* Main Article */}
+          <div className="py-10 sm:py-12">
+            {/* Mobile TOC */}
+            <details className="lg:hidden mb-8 group">
+              <summary className="flex items-center justify-between cursor-pointer text-xs font-mono uppercase tracking-wide text-muted-foreground hover:text-foreground transition-colors py-3 border-b border-border">
+                <span>{t.onThisPage || "On this page"}</span>
+                <span className="text-[10px] transition-transform group-open:rotate-180">
+                  ▼
+                </span>
+              </summary>
+              <div className="pt-4 pb-2">
+                <TableOfContents headings={post.headings || []} />
               </div>
+            </details>
 
-              {/* Tags with stagger animation */}
-              {post.tags.length > 0 && (
-                <div className="flex flex-wrap gap-2 mt-3 sm:mt-4">
-                  {post.tags.map((tag, index) => (
-                    <Badge
-                      key={tag}
-                      className="text-xs transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-accent hover:bg-accent/10 hover:text-accent hover:scale-105"
-                      style={{
-                        animationDelay: `${index * 50}ms`,
-                      }}
-                    >
-                      {tag}
-                    </Badge>
-                  ))}
-                </div>
-              )}
-            </header>
-
-            {/* Table of Contents - Mobile Only */}
-            <div className="lg:hidden mb-6 sm:mb-8 p-4 rounded-lg border border-border bg-muted/30">
-              <TableOfContents headings={post.headings || []} />
-            </div>
-
-            {/* Post Content with reading enhancements */}
+            {/* Article Content */}
             <article className="prose prose-sm sm:prose-base max-w-none">
               <MDXRemote
                 source={post.content}
@@ -341,38 +307,44 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               />
             </article>
 
-            {/* Footer with enhanced back link */}
-            <footer className="mt-16 sm:mt-20 lg:mt-24 pt-6 sm:pt-8 border-t border-border">
+            {/* Footer */}
+            <footer className="mt-12 pt-6 border-t border-border">
+              {/* Mobile Share */}
+              <div className="lg:hidden mb-6">
+                <ShareButtons
+                  title={post.title}
+                  url={postUrl}
+                  description={post.excerpt}
+                />
+              </div>
+
               <Link
                 href={`/${lang}/blog`}
-                className="group inline-flex items-center gap-2 text-sm font-mono text-muted-foreground transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:text-accent hover:gap-3"
+                className="group inline-flex items-center gap-2 text-sm font-mono text-muted-foreground transition-colors duration-150 hover:text-foreground"
                 aria-label={`${t.back} - ${t.title}`}
               >
                 <ArrowLeft
-                  className="h-4 w-4 transition-transform duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:-translate-x-1"
+                  className="h-4 w-4 transition-transform duration-150 group-hover:-translate-x-1"
                   aria-hidden="true"
                 />
-                <span className="relative">
-                  {t.back}
-                  <span className="absolute -bottom-0.5 left-0 w-0 h-0.5 bg-accent transition-all duration-200 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:w-full" />
-                </span>
+                {t.back}
               </Link>
             </footer>
           </div>
 
-          {/* Sidebar with TOC and Share Buttons - Desktop Only */}
-          <aside className="hidden lg:block w-64 xl:w-72 flex-shrink-0">
-            <div className="sticky top-24 space-y-8">
+          {/* Sidebar (Desktop) */}
+          <aside className="hidden lg:block">
+            <div className="sticky top-24 py-10 sm:py-12 space-y-8">
               <TableOfContents headings={post.headings || []} />
               <ShareButtons
                 title={post.title}
-                url={`${process.env.NEXT_PUBLIC_SITE_URL || ""}/${lang}/blog/${post.slug}`}
+                url={postUrl}
                 description={post.excerpt}
               />
             </div>
           </aside>
         </div>
       </div>
-    </section>
+    </main>
   );
 }

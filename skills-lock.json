@@ -1,10 +1,20 @@
 {
   "version": 1,
   "skills": {
+    "codebase-cleanup-refactor-clean": {
+      "source": "sickn33/antigravity-awesome-skills",
+      "sourceType": "github",
+      "computedHash": "c6caae2e9bde463bab6e817a9c0ad98c0848f0aea69d7eaf35b11c2ba16c944c"
+    },
     "structural-grid": {
       "source": "nabinkhair42/structural-grid-skill",
       "sourceType": "github",
       "computedHash": "9b05711cd2e570894be241dc198e8fe506450dd3d99064d8036747d1cf642541"
+    },
+    "ui-ux-pro-max": {
+      "source": "nextlevelbuilder/ui-ux-pro-max-skill",
+      "sourceType": "github",
+      "computedHash": "0a413bf988d06481f69bb81df2070741c3ba12dd9f1be2706d57f259c905992d"
     }
   }
 }

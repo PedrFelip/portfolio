@@ -121,69 +121,66 @@ html {
 }
 
 .dark {
-  --background: oklch(0.12 0.02 255);
-  --foreground: oklch(0.95 0.01 255);
-  --card: oklch(0.14 0.025 255);
-  --card-foreground: oklch(0.95 0.01 255);
-  --popover: oklch(0.14 0.025 255);
-  --popover-foreground: oklch(0.95 0.01 255);
-  --primary: oklch(0.95 0.01 255);
-  --primary-foreground: oklch(0.12 0.02 255);
-  --secondary: oklch(0.18 0.03 255);
-  --secondary-foreground: oklch(0.95 0.01 255);
-  --muted: oklch(0.18 0.03 255);
-  --muted-foreground: oklch(0.65 0.02 255);
-  --faint: oklch(0.25 0.03 255);
-  --accent: oklch(0.65 0.15 255);
-  --accent-foreground: oklch(0.95 0.01 255);
+  --background: oklch(0.09 0.005 270);
+  --foreground: oklch(0.93 0.005 270);
+  --card: oklch(0.115 0.006 270);
+  --card-foreground: oklch(0.93 0.005 270);
+  --popover: oklch(0.115 0.006 270);
+  --popover-foreground: oklch(0.93 0.005 270);
+  --primary: oklch(0.93 0.005 270);
+  --primary-foreground: oklch(0.09 0.005 270);
+  --secondary: oklch(0.155 0.008 270);
+  --secondary-foreground: oklch(0.93 0.005 270);
+  --muted: oklch(0.155 0.008 270);
+  --muted-foreground: oklch(0.58 0.008 270);
+  --faint: oklch(0.21 0.01 270);
+  --accent: oklch(0.93 0.005 270);
+  --accent-foreground: oklch(0.09 0.005 270);
   --destructive: oklch(0.6 0.18 25);
-  --border: oklch(1 0 0 / 10%);
-  --border-subtle: oklch(1 0 0 / 5%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.65 0.15 255 / 40%);
-  --chart-1: oklch(0.6 0.18 255);
-  --chart-2: oklch(0.65 0.15 180);
-  --chart-3: oklch(0.7 0.15 80);
-  --chart-4: oklch(0.6 0.18 300);
-  --chart-5: oklch(0.65 0.18 15);
-  --sidebar: oklch(0.1 0.02 255);
-  --sidebar-foreground: oklch(0.95 0.01 255);
-  --sidebar-primary: oklch(0.65 0.15 255);
-  --sidebar-primary-foreground: oklch(0.95 0.01 255);
-  --sidebar-accent: oklch(0.18 0.03 255);
-  --sidebar-accent-foreground: oklch(0.95 0.01 255);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.65 0.15 255 / 25%);
-  /* Semantic Colors - Callout/Alert (Dark Mode) */
-  --callout-info-bg: oklch(0.3 0.08 255 / 15%);
-  --callout-info-border: oklch(0.55 0.1 255 / 40%);
-  --callout-info-text: oklch(0.75 0.1 255);
-  --callout-warning-bg: oklch(0.4 0.15 40 / 15%);
-  --callout-warning-border: oklch(0.6 0.15 40 / 40%);
-  --callout-warning-text: oklch(0.8 0.12 40);
-  --callout-success-bg: oklch(0.35 0.12 150 / 15%);
-  --callout-success-border: oklch(0.55 0.15 150 / 40%);
-  --callout-success-text: oklch(0.75 0.12 150);
-  --callout-error-bg: oklch(0.45 0.15 25 / 15%);
-  --callout-error-border: oklch(0.65 0.15 25 / 40%);
-  --callout-error-text: oklch(0.85 0.12 25);
-  /* Brand Colors (Dark Mode) */
-  --brand-github: oklch(0.75 0.05 255);
-  --brand-linkedin: oklch(0.65 0.15 255);
-  --brand-twitter: oklch(0.7 0.02 255);
-  --brand-email: oklch(0.65 0.15 25);
-  --brand-blue: oklch(0.7 0.15 255);
-  --brand-emerald: oklch(0.7 0.15 150);
-  --brand-violet: oklch(0.7 0.15 280);
-  --brand-amber: oklch(0.75 0.15 70);
-  --brand-cyan: oklch(0.75 0.12 220);
-  --brand-slate: oklch(0.7 0.02 255);
-  /* Status Colors (Dark Mode) */
-  --status-success: oklch(0.7 0.15 150);
-  --status-warning: oklch(0.75 0.15 70);
-  --status-error: oklch(0.7 0.15 25);
-  --status-info: oklch(0.65 0.15 255);
-  --status-neutral: oklch(0.65 0.02 255);
+  --border: oklch(0.93 0.005 270 / 8%);
+  --border-subtle: oklch(0.93 0.005 270 / 4%);
+  --input: oklch(0.93 0.005 270 / 12%);
+  --ring: oklch(0.93 0.005 270 / 24%);
+  --chart-1: oklch(0.65 0.01 270);
+  --chart-2: oklch(0.55 0.01 270);
+  --chart-3: oklch(0.45 0.01 270);
+  --chart-4: oklch(0.75 0.01 270);
+  --chart-5: oklch(0.35 0.01 270);
+  --sidebar: oklch(0.075 0.004 270);
+  --sidebar-foreground: oklch(0.93 0.005 270);
+  --sidebar-primary: oklch(0.93 0.005 270);
+  --sidebar-primary-foreground: oklch(0.075 0.004 270);
+  --sidebar-accent: oklch(0.155 0.008 270);
+  --sidebar-accent-foreground: oklch(0.93 0.005 270);
+  --sidebar-border: oklch(0.93 0.005 270 / 8%);
+  --sidebar-ring: oklch(0.93 0.005 270 / 16%);
+  --callout-info-bg: oklch(0.93 0.005 270 / 5%);
+  --callout-info-border: oklch(0.93 0.005 270 / 12%);
+  --callout-info-text: oklch(0.72 0.008 270);
+  --callout-warning-bg: oklch(0.93 0.005 50 / 5%);
+  --callout-warning-border: oklch(0.93 0.005 50 / 12%);
+  --callout-warning-text: oklch(0.78 0.04 50);
+  --callout-success-bg: oklch(0.93 0.005 150 / 5%);
+  --callout-success-border: oklch(0.93 0.005 150 / 12%);
+  --callout-success-text: oklch(0.72 0.04 150);
+  --callout-error-bg: oklch(0.93 0.005 25 / 5%);
+  --callout-error-border: oklch(0.93 0.005 25 / 12%);
+  --callout-error-text: oklch(0.75 0.04 25);
+  --brand-github: oklch(0.72 0.008 270);
+  --brand-linkedin: oklch(0.68 0.012 270);
+  --brand-twitter: oklch(0.7 0.006 270);
+  --brand-email: oklch(0.68 0.012 25);
+  --brand-blue: oklch(0.7 0.012 270);
+  --brand-emerald: oklch(0.7 0.012 150);
+  --brand-violet: oklch(0.7 0.012 280);
+  --brand-amber: oklch(0.75 0.012 70);
+  --brand-cyan: oklch(0.72 0.01 220);
+  --brand-slate: oklch(0.7 0.006 270);
+  --status-success: oklch(0.7 0.012 150);
+  --status-warning: oklch(0.75 0.012 70);
+  --status-error: oklch(0.7 0.012 25);
+  --status-info: oklch(0.68 0.012 270);
+  --status-neutral: oklch(0.6 0.008 270);
 }
 
 @layer base {
@@ -342,13 +339,6 @@ html {
 
   .animate-slide-down {
     animation: slide-in-top 150ms cubic-bezier(0.25, 1, 0.5, 1);
-  }
-
-  /* Scale Utilities for Touch Feedback
-   * Provides immediate visual feedback on mobile
-   */
-  .scale-on-active:active {
-    transform: scale(0.98);
   }
 
   /* Scale Utilities for Touch Feedback
@@ -902,38 +892,21 @@ html {
     background-color: oklch(var(--brand-emerald) / 0.04);
   }
 
-  /* Legacy Brutalist Card Style - Tech Brutalist Design
-   * - 0px border radius (angular, raw)
-   * - 1px border (more prominent than 0.5px)
-   * - Border-only hover: no background, no shadow, no transform
-   * - 150ms transition with cubic-bezier(0.25, 1, 0.5, 1)
-   * - DEPRECATED: Use .work-card-modern or .education-card-enhanced instead
-   */
-  .work-card-brutalist,
-  .education-card-brutalist {
-    transition: border-color 150ms cubic-bezier(0.25, 1, 0.5, 1);
-  }
-
-  .work-card-brutalist:hover,
-  .education-card-brutalist:hover {
-    border-color: oklch(var(--accent) / 0.6);
-  }
-
   /* Blog Post Markdown Styles */
   .prose {
     @apply text-foreground;
   }
 
   .prose h1 {
-    @apply text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-foreground mb-6 mt-12 first:mt-0;
+    @apply text-2xl sm:text-3xl font-semibold tracking-tight text-foreground mb-4 mt-10 first:mt-0;
   }
 
   .prose h2 {
-    @apply text-xl sm:text-2xl font-semibold tracking-tight text-foreground mb-4 mt-10 border-b border-border pb-2;
+    @apply text-xl sm:text-2xl font-semibold tracking-tight text-foreground mb-3 mt-10 scroll-mt-24;
   }
 
   .prose h3 {
-    @apply text-lg sm:text-xl font-semibold text-foreground mb-3 mt-8;
+    @apply text-lg sm:text-xl font-semibold text-foreground mb-2 mt-8 scroll-mt-24;
   }
 
   .prose h4 {
@@ -941,11 +914,11 @@ html {
   }
 
   .prose p {
-    @apply text-sm sm:text-base leading-[1.75] text-muted-foreground mb-4;
+    @apply text-sm sm:text-base leading-[1.8] text-muted-foreground mb-4;
   }
 
   .prose a {
-    @apply text-foreground underline underline-offset-4 decoration-muted-foreground/30 transition-colors hover:decoration-foreground;
+    @apply text-foreground underline underline-offset-4 decoration-muted-foreground/40 transition-colors hover:decoration-foreground;
   }
 
   .prose strong {
@@ -957,11 +930,11 @@ html {
   }
 
   .prose code {
-    @apply font-mono text-xs sm:text-sm bg-muted px-2 py-1 rounded border border-border text-foreground;
+    @apply font-mono text-[13px] bg-muted/60 px-1.5 py-0.5 rounded text-foreground;
   }
 
   .prose pre {
-    @apply bg-muted border border-border rounded-lg p-4 overflow-x-auto mb-4 mt-4;
+    @apply bg-muted border border-border rounded-lg p-4 overflow-x-auto mb-5 mt-5;
   }
 
   .prose pre code {
@@ -969,11 +942,11 @@ html {
   }
 
   .prose ul {
-    @apply list-disc list-inside space-y-2 mb-4 text-muted-foreground;
+    @apply list-disc pl-5 space-y-1.5 mb-4 text-muted-foreground;
   }
 
   .prose ol {
-    @apply list-decimal list-inside space-y-2 mb-4 text-muted-foreground;
+    @apply list-decimal pl-5 space-y-1.5 mb-4 text-muted-foreground;
   }
 
   .prose li {
@@ -982,19 +955,19 @@ html {
 
   .prose li > ul,
   .prose li > ol {
-    @apply mt-2 ml-4;
+    @apply mt-1.5 mb-0;
   }
 
   .prose blockquote {
-    @apply border-l-4 border-border pl-4 italic text-muted-foreground my-4;
+    @apply border-l-2 border-border/60 pl-5 italic text-muted-foreground my-5;
   }
 
   .prose hr {
-    @apply border-border my-8;
+    @apply border-border my-10;
   }
 
   .prose table {
-    @apply w-full border-collapse mb-4;
+    @apply w-full border-collapse mb-5;
   }
 
   .prose thead {
@@ -1015,7 +988,7 @@ html {
 
   .prose li code,
   .prose p code {
-    @apply text-xs sm:text-sm;
+    @apply text-[13px];
   }
 
   .prose pre[class*="language-"]::before {
@@ -1122,7 +1095,7 @@ html {
 /* Subtle dot pattern for section backgrounds */
 .dot-pattern {
   background-image: radial-gradient(
-    rgba(255, 255, 255, 0.04) 1px,
+    oklch(0.93 0.005 270 / 3%) 1px,
     transparent 1px
   );
   background-size: 24px 24px;
@@ -1131,7 +1104,7 @@ html {
 /* Custom scrollbar - matches dark themes */
 * {
   scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+  scrollbar-color: oklch(0.93 0.005 270 / 8%) transparent;
 }
 
 ::-webkit-scrollbar {
@@ -1144,12 +1117,12 @@ html {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
+  background: oklch(0.93 0.005 270 / 8%);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: oklch(0.93 0.005 270 / 16%);
 }
 
 /* Navigation Rail Connection

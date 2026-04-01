@@ -18,12 +18,17 @@ const badgeVariants = cva(
         outline:
           "border-border bg-transparent text-muted-foreground hover:border-foreground/40 hover:text-foreground",
         work: "border-brand-blue/30 bg-brand-blue/10 text-brand-blue/90 hover:bg-brand-blue/20",
-        education: "border-brand-emerald/30 bg-brand-emerald/10 text-brand-emerald/90 hover:bg-brand-emerald/20",
-        expertise: "border-brand-violet/30 bg-brand-violet/10 text-brand-violet/90 hover:bg-brand-violet/20",
-        projects: "border-brand-amber/30 bg-brand-amber/10 text-brand-amber/90 hover:bg-brand-amber/20",
+        education:
+          "border-brand-emerald/30 bg-brand-emerald/10 text-brand-emerald/90 hover:bg-brand-emerald/20",
+        expertise:
+          "border-brand-violet/30 bg-brand-violet/10 text-brand-violet/90 hover:bg-brand-violet/20",
+        projects:
+          "border-brand-amber/30 bg-brand-amber/10 text-brand-amber/90 hover:bg-brand-amber/20",
         blog: "border-accent/30 bg-accent/10 text-accent/90 hover:bg-accent/20",
-        contact: "border-brand-cyan/30 bg-brand-cyan/10 text-brand-cyan/90 hover:bg-brand-cyan/20",
-        about: "border-brand-slate/30 bg-brand-slate/10 text-brand-slate/90 hover:bg-brand-slate/20",
+        contact:
+          "border-brand-cyan/30 bg-brand-cyan/10 text-brand-cyan/90 hover:bg-brand-cyan/20",
+        about:
+          "border-brand-slate/30 bg-brand-slate/10 text-brand-slate/90 hover:bg-brand-slate/20",
       },
     },
     defaultVariants: {

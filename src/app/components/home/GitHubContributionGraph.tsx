@@ -27,8 +27,13 @@ interface GitHubContributionGraphProps {
 export const GitHubContributionGraph = memo(
   ({ data, swipeHint, less, more, tapHint }: GitHubContributionGraphProps) => {
     const [hoveredDay, setHoveredDay] = useState<ContributionDay | null>(null);
-    const [selectedDay, setSelectedDay] = useState<ContributionDay | null>(null);
-    const [scrollState, setScrollState] = useState({ left: false, right: true });
+    const [selectedDay, setSelectedDay] = useState<ContributionDay | null>(
+      null,
+    );
+    const [scrollState, setScrollState] = useState({
+      left: false,
+      right: true,
+    });
     const [hasScrolled, setHasScrolled] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
     const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -50,13 +55,14 @@ export const GitHubContributionGraph = memo(
     // Handle scroll for dynamic masks
     const handleScroll = useCallback(() => {
       if (!scrollContainerRef.current) return;
-      
+
       // Mark as scrolled to hide the hint
       if (!hasScrolled && scrollContainerRef.current.scrollLeft > 10) {
         setHasScrolled(true);
       }
 
-      const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
+      const { scrollLeft, scrollWidth, clientWidth } =
+        scrollContainerRef.current;
       setScrollState({
         left: scrollLeft > 10,
         right: scrollLeft < scrollWidth - clientWidth - 10,
@@ -66,7 +72,7 @@ export const GitHubContributionGraph = memo(
     // Initial scroll check and effect
     useEffect(() => {
       handleScroll();
-    }, [handleScroll, recentWeeks]);
+    }, [handleScroll]);
 
     return (
       <div className="relative w-full max-w-full group/graph">
@@ -74,8 +80,10 @@ export const GitHubContributionGraph = memo(
         {isMobile && !hasScrolled && scrollState.right && (
           <div className="absolute inset-0 z-30 flex items-center justify-center pointer-events-none animate-in-fade">
             <div className="flex flex-col items-center gap-2 rounded-full bg-background/80 px-5 py-2.5 backdrop-blur-md border border-white/10 shadow-2xl animate-pulse">
-               <MoveHorizontal className="size-4 text-accent" />
-               <span className="text-[9px] text-foreground font-bold uppercase tracking-[0.2em]">{swipeHint}</span>
+              <MoveHorizontal className="size-4 text-accent" />
+              <span className="text-[9px] text-foreground font-bold uppercase tracking-[0.2em]">
+                {swipeHint}
+              </span>
             </div>
           </div>
         )}
@@ -100,7 +108,8 @@ export const GitHubContributionGraph = memo(
                         className={cn(
                           "group relative h-[10px] w-[10px] rounded-[3px] border border-white/[0.08] transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)]",
                           "hover:border-white/[0.2] hover:scale-110 hover:z-10 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent",
-                          selectedDay?.date === day.date && "border-accent ring-1 ring-accent z-10 scale-110",
+                          selectedDay?.date === day.date &&
+                            "border-accent ring-1 ring-accent z-10 scale-110",
                           // Larger touch target (hidden)
                           "before:absolute before:-inset-2 before:z-[-1]",
                         )}
@@ -111,7 +120,9 @@ export const GitHubContributionGraph = memo(
                         onMouseLeave={() => !isMobile && setHoveredDay(null)}
                         onClick={() => {
                           if (isMobile) {
-                            setSelectedDay(selectedDay?.date === day.date ? null : day);
+                            setSelectedDay(
+                              selectedDay?.date === day.date ? null : day,
+                            );
                           }
                         }}
                         aria-label={`${day.count} contributions on ${day.date}`}
@@ -160,7 +171,9 @@ export const GitHubContributionGraph = memo(
                 key={lvl}
                 className="h-2 w-2 rounded-[2px] border border-white/[0.05]"
                 style={{
-                  backgroundColor: getContributionColor(lvl as 0 | 1 | 2 | 3 | 4),
+                  backgroundColor: getContributionColor(
+                    lvl as 0 | 1 | 2 | 3 | 4,
+                  ),
                 }}
               />
             ))}
@@ -171,27 +184,35 @@ export const GitHubContributionGraph = memo(
 
           {/* Selected Day Details (Mobile Only) */}
           {isMobile && (
-            <div className={cn(
-              "flex min-h-[48px] items-center justify-center rounded-lg border border-white/[0.04] bg-background px-4 py-2 transition-all duration-300",
-              selectedDay ? "translate-y-0" : "translate-y-0"
-            )}>
+            <div
+              className={cn(
+                "flex min-h-[48px] items-center justify-center rounded-lg border border-white/[0.04] bg-background px-4 py-2 transition-all duration-300",
+                selectedDay ? "translate-y-0" : "translate-y-0",
+              )}
+            >
               {selectedDay && (
                 <div className="flex items-center gap-3">
-                  <div 
+                  <div
                     className="size-3 rounded-sm border border-white/10"
-                    style={{ backgroundColor: getContributionColor(selectedDay.level) }}
+                    style={{
+                      backgroundColor: getContributionColor(selectedDay.level),
+                    }}
                   />
                   <div className="flex flex-col">
                     <MonoText className="text-[10px] font-bold text-foreground">
-                      {selectedDay.count} commit{selectedDay.count !== 1 ? "s" : ""}
+                      {selectedDay.count} commit
+                      {selectedDay.count !== 1 ? "s" : ""}
                     </MonoText>
                     <MonoText className="text-[9px] text-muted-foreground/70">
-                      {new Date(selectedDay.date).toLocaleDateString(undefined, {
-                        weekday: 'short',
-                        month: 'short',
-                        day: 'numeric',
-                        year: 'numeric'
-                      })}
+                      {new Date(selectedDay.date).toLocaleDateString(
+                        undefined,
+                        {
+                          weekday: "short",
+                          month: "short",
+                          day: "numeric",
+                          year: "numeric",
+                        },
+                      )}
                     </MonoText>
                   </div>
                 </div>

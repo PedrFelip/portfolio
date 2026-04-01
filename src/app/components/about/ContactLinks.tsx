@@ -52,12 +52,12 @@ export const ContactLinks = memo(({ links }: ContactLinksProps) => {
               size={6}
               className="opacity-0 transition-opacity duration-300 group-hover:opacity-100"
             />
-            
+
             <Icon
               className="h-5 w-5 text-muted-foreground transition-all duration-300 group-hover:scale-110 group-hover:text-foreground"
               aria-hidden="true"
             />
-            
+
             {/* Subtle decorative dot */}
             <div className="absolute -bottom-0.5 -right-0.5 h-1 w-1 bg-white/10 transition-colors group-hover:bg-white/30" />
           </a>

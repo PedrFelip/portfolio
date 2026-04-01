@@ -26,7 +26,10 @@ interface WorkExperienceCardProps {
 export const WorkExperienceCard = memo(
   ({ experience }: WorkExperienceCardProps) => {
     return (
-      <Card withBrackets={false} className="group relative p-0 overflow-hidden border-white/[0.08] bg-white/[0.01] hover:bg-white/[0.02] transition-all duration-300">
+      <Card
+        withBrackets={false}
+        className="group relative p-0 overflow-hidden border-white/[0.08] bg-white/[0.01] hover:bg-white/[0.02] transition-all duration-300"
+      >
         <CornerBrackets
           size={10}
           className="opacity-20 transition-opacity duration-300 group-hover:opacity-100"
@@ -42,7 +45,7 @@ export const WorkExperienceCard = memo(
               <H3 className="mb-3 text-xl font-bold tracking-tight text-foreground transition-colors group-hover:text-white">
                 {experience.title}
               </H3>
-              
+
               <div className="flex items-center gap-3">
                 {experience.href ? (
                   <ExternalLinkAnchor

@@ -1,5 +1,9 @@
 import { type NextRequest, NextResponse } from "next/server";
-import { DEFAULT_LANGUAGE, LANGUAGE_COOKIE, type Language } from "./src/app/lib/i18n";
+import {
+  DEFAULT_LANGUAGE,
+  LANGUAGE_COOKIE,
+  type Language,
+} from "./src/app/lib/i18n";
 
 function isLanguage(lang: string | null | undefined): lang is Language {
   return lang === "en" || lang === "pt";
@@ -27,7 +31,9 @@ export function middleware(request: NextRequest) {
   // 1. Check for cookie (user's explicit preference)
   const cookieLanguage = request.cookies.get(LANGUAGE_COOKIE)?.value;
   if (isLanguage(cookieLanguage)) {
-    return NextResponse.redirect(new URL(`/${cookieLanguage}${pathname}`, request.url));
+    return NextResponse.redirect(
+      new URL(`/${cookieLanguage}${pathname}`, request.url),
+    );
   }
 
   // 2. Fallback to Accept-Language header (robust parsing with weights)

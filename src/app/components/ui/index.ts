@@ -7,8 +7,6 @@
  * - Dark mode default
  */
 
-// Custom components
-export { ButtonLink } from "./ButtonLink";
 export { Badge, badgeVariants } from "./badge";
 // shadcn/ui primitives
 export { Button, buttonVariants } from "./button";

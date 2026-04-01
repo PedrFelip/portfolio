@@ -34,6 +34,7 @@ export {
   GitBranch,
   GitCommitVertical,
   Github,
+  Globe,
   Hexagon,
   Home,
   Info,

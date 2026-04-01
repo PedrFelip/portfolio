@@ -1,6 +1,7 @@
 "use client";
 
-import { memo, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
+import { SectionDivider } from "@/components/blueprint";
 import { FilterTags } from "@/components/projects/FilterTags";
 import { ProjectCard } from "@/components/projects/ProjectCard";
 import { P } from "@/components/ui";
@@ -12,17 +13,6 @@ interface ProjectsClientProps {
   emptyStateLabel: string;
 }
 
-// ✅ Memoized card wrapper to prevent unnecessary re-renders (Vercel 5.2)
-const AnimatedProjectCard = memo(
-  ({ project, delay }: { project: Project; delay: string }) => (
-    <div className="animate-in-up" style={{ animationDelay: delay }}>
-      <ProjectCard project={project} />
-    </div>
-  ),
-);
-
-AnimatedProjectCard.displayName = "AnimatedProjectCard";
-
 export default function ProjectsClient({
   projects,
   emptyStateLabel,
@@ -31,7 +21,6 @@ export default function ProjectsClient({
   const filterLabels = t.projects.filters;
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
-  // ✅ useMemo with Set for O(1) lookups (Vercel 7.11)
   const { allTags, tagCounts } = useMemo(() => {
     const tags = new Set<string>();
     const counts = new Map<string, number>();
@@ -54,51 +43,72 @@ export default function ProjectsClient({
     );
   }, [projects, selectedTags]);
 
-  // ✅ Memoized project cards - only recreates when filteredProjects changes
-  const projectCards = useMemo(
-    () =>
-      filteredProjects.map((project, index) => (
-        <AnimatedProjectCard
-          key={project.id}
-          project={project}
-          delay={`${index * 50}ms`}
-        />
-      )),
-    [filteredProjects],
-  );
-
   return (
     <>
-      <div className="mb-8 sm:mb-10 md:mb-12">
+      <section className="rail-bounded px-6 py-6 sm:px-8">
         <FilterTags
           selectedTags={selectedTags}
           onTagChange={setSelectedTags}
           allTags={allTags}
           tagCounts={tagCounts}
         />
-      </div>
+      </section>
 
-      <div className="grid gap-4 sm:gap-6 md:gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-        {projectCards}
-      </div>
+      <SectionDivider />
 
-      {filteredProjects.length === 0 ? (
-        <div className="flex flex-col items-center justify-center py-12 md:py-16 text-center px-4 animate-in-up">
-          <P className="text-muted-foreground mb-2">{emptyStateLabel}</P>
-          <div className="text-xs font-mono text-muted-foreground/70 mb-4">
-            {filterLabels.active(selectedTags.length)}
+      {filteredProjects.length > 0 ? (
+        <div className="rail-bounded border border-border">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+            {(() => {
+              const padCount = (3 - (filteredProjects.length % 3)) % 3;
+              const items = [
+                ...filteredProjects.map((p) => ({
+                  project: p,
+                  isEmpty: false,
+                })),
+                ...Array.from({ length: padCount }, () => ({
+                  project: null,
+                  isEmpty: true,
+                })),
+              ];
+              return items.map((item, index) => (
+                <div
+                  key={item.project ? item.project.id : `empty-${index}`}
+                  className={`px-6 py-8 transition-colors duration-200 animate-in-up
+                    ${!item.isEmpty ? "group hover:bg-white/[0.02]" : ""}
+                    ${index % 3 !== 0 ? "lg:border-l lg:border-dashed lg:border-border" : ""}
+                    ${index % 2 !== 0 ? "sm:max-lg:border-l sm:max-lg:border-dashed sm:max-lg:border-border" : ""}
+                    ${index >= 3 ? "lg:border-t lg:border-dashed lg:border-border" : ""}
+                    ${index >= 2 ? "sm:max-lg:border-t sm:max-lg:border-dashed sm:max-lg:border-border" : ""}
+                    ${index >= 1 ? "max-sm:border-t max-sm:border-dashed max-sm:border-border" : ""}
+                  `}
+                  style={{ animationDelay: `${index * 50}ms` }}
+                >
+                  {item.project && <ProjectCard project={item.project} />}
+                </div>
+              ));
+            })()}
           </div>
-          {selectedTags.length > 0 && (
-            <button
-              type="button"
-              onClick={() => setSelectedTags([])}
-              className="text-xs font-medium text-accent hover:text-accent/80 transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)]"
-            >
-              {filterLabels.clearButton}
-            </button>
-          )}
         </div>
-      ) : null}
+      ) : (
+        <div className="rail-bounded">
+          <div className="flex flex-col items-center justify-center px-6 py-16 text-center animate-in-up">
+            <P className="mb-2 text-muted-foreground">{emptyStateLabel}</P>
+            <div className="mb-4 text-xs font-mono text-muted-foreground/70">
+              {filterLabels.active(selectedTags.length)}
+            </div>
+            {selectedTags.length > 0 && (
+              <button
+                type="button"
+                onClick={() => setSelectedTags([])}
+                className="text-xs font-medium text-accent transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:text-accent/80"
+              >
+                {filterLabels.clearButton}
+              </button>
+            )}
+          </div>
+        </div>
+      )}
     </>
   );
 }

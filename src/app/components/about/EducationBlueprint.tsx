@@ -1,9 +1,13 @@
 "use client";
 
-import { memo } from "react";
-import { CornerBrackets, DotPattern } from "@/components/blueprint";
-import { MonoText } from "@/components/ui";
 import { GraduationCap } from "lucide-react";
+import { memo } from "react";
+import {
+  AlignedFlickeringGrid,
+  CornerBrackets,
+  DotPattern,
+} from "@/components/blueprint";
+import { MonoText } from "@/components/ui";
 import type { Education } from "@/types/portfolio";
 
 interface EducationBlueprintProps {
@@ -35,6 +39,13 @@ export const EducationBlueprint = memo(
 
           {/* Content Column (Blueprint Style) */}
           <div className="group relative flex flex-col justify-center border-t border-dashed border-border lg:border-t-0 lg:border-l lg:col-span-2 overflow-hidden bg-white/[0.01] px-6 py-10 sm:px-12 sm:py-16">
+            {/* Flickering Grid Background */}
+            <AlignedFlickeringGrid
+              side="right"
+              className="absolute inset-0 h-full w-full !flex opacity-40"
+              maxOpacity={0.1}
+            />
+
             {/* Decorative Background */}
             <DotPattern className="opacity-10" />
             <CornerBrackets

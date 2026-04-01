@@ -1,9 +1,7 @@
-import {
-  History,
-  Mail,
-} from "lucide-react";
-import Link from "next/link";
-import React, { Suspense } from "react";
+import { History } from "lucide-react";
+import { ContactLinks } from "@/components/about/ContactLinks";
+import { EducationBlueprint } from "@/components/about/EducationBlueprint";
+import { WorkExperienceCard } from "@/components/about/WorkExperienceCard";
 import {
   AlignedFlickeringGrid,
   DotPattern,
@@ -11,12 +9,8 @@ import {
   SectionDivider,
 } from "@/components/blueprint";
 import { CornerBrackets } from "@/components/blueprint/CornerBracket";
-import { ContactLinks } from "@/components/about/ContactLinks";
-import { WorkExperienceCard } from "@/components/about/WorkExperienceCard";
-import { EducationBlueprint } from "@/components/about/EducationBlueprint";
 import { SimpleTechStack } from "@/components/home/SimpleTechStack";
-import { Badge, Button, H3, Label, MonoText, P } from "@/components/ui";
-import { XIcon } from "@/components/ui/x-icon";
+import { Label } from "@/components/ui";
 import {
   getContactLinks,
   getEducation,
@@ -189,35 +183,6 @@ export default async function AboutPage({ params }: AboutPageProps) {
                   <p className="text-base text-muted-foreground sm:text-lg leading-relaxed mb-8">
                     {t.contact.description}
                   </p>
-
-                  <div className="flex flex-wrap gap-4 pt-6 border-t border-dashed border-white/[0.08]">
-                    <Button
-                      asChild
-                      size="lg"
-                      className="w-full sm:w-auto min-w-[180px] group/btn"
-                    >
-                      <Link href="mailto:pedrofelipeek@gmail.com">
-                        <Mail className="mr-2 size-4" />
-                        Email Me
-                      </Link>
-                    </Button>
-
-                    <Button
-                      asChild
-                      variant="outline"
-                      size="lg"
-                      className="w-full sm:w-auto min-w-[180px]"
-                    >
-                      <Link
-                        href="https://x.com/pedrofelipeek"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <XIcon className="mr-2 size-4" />
-                        <span>Follow on X</span>
-                      </Link>
-                    </Button>
-                  </div>
                 </div>
 
                 {/* Center: Decorative divider (hidden on mobile) */}

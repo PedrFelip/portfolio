@@ -1,13 +1,18 @@
 "use client";
 
 import Link from "next/link";
+import {
+  AlignedFlickeringGrid,
+  CornerBrackets,
+  RailBounded,
+  RailLayout,
+} from "@/components/blueprint";
 import { Footer } from "@/components/layout/Footer";
 import { Navigation } from "@/components/layout/Navigation";
-import { H1, Label, P, MonoText } from "@/components/ui";
+import { H1, Label, MonoText, P } from "@/components/ui";
 import { ArrowRight } from "@/components/ui/icons";
 import { useLanguage } from "@/lib/LanguageContext";
 import { useLocalizedLink } from "@/lib/useLocalizedLink";
-import { RailLayout, RailBounded, CornerBrackets, AlignedFlickeringGrid } from "@/components/blueprint";
 import { cn } from "@/lib/utils";
 
 /**
@@ -30,13 +35,18 @@ export function NotFound() {
       <main className="relative flex-1 flex flex-col justify-center overflow-hidden">
         {/* Decorative Grid Background - Blueprint Atmosphere */}
         <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.15] dark:opacity-[0.08]">
-          <AlignedFlickeringGrid side="left" className="absolute left-0 top-0 bottom-0 w-1/3" />
-          <AlignedFlickeringGrid side="right" className="absolute right-0 top-0 bottom-0 w-1/3" />
+          <AlignedFlickeringGrid
+            side="left"
+            className="absolute left-0 top-0 bottom-0 w-1/3"
+          />
+          <AlignedFlickeringGrid
+            side="right"
+            className="absolute right-0 top-0 bottom-0 w-1/3"
+          />
         </div>
 
         <RailBounded className="relative z-10 py-16 md:py-24 lg:py-32">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-            
             {/* Left Column: Huge 404 (Asymmetrical Architectural Detail) */}
             <div className="lg:col-span-5 flex flex-col gap-6 animate-in-left">
               <div className="relative group">
@@ -54,7 +64,7 @@ export function NotFound() {
                   </div>
                 </div>
               </div>
-              
+
               {/* Technical Status Badge */}
               <div className="flex items-center gap-3 px-4 py-2 border border-border/40 bg-muted/20 w-fit rounded-sm">
                 <div className="h-2 w-2 rounded-full bg-destructive animate-pulse" />
@@ -85,24 +95,45 @@ export function NotFound() {
                 </Label>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {[
-                    { label: t.nav.home, href: "/", desc: "Return to system root" },
-                    { label: t.nav.projects, href: "/projects", desc: "View technical builds" },
-                    { label: t.nav.blog, href: "/blog", desc: "Read engineering logs" },
-                    { label: t.nav.about, href: "/about", desc: "Architect specifications" },
+                    {
+                      label: t.nav.home,
+                      href: "/",
+                      desc: "Return to system root",
+                    },
+                    {
+                      label: t.nav.projects,
+                      href: "/projects",
+                      desc: "View technical builds",
+                    },
+                    {
+                      label: t.nav.blog,
+                      href: "/blog",
+                      desc: "Read engineering logs",
+                    },
+                    {
+                      label: t.nav.about,
+                      href: "/about",
+                      desc: "Architect specifications",
+                    },
                   ].map((link, i) => (
                     <Link
                       key={link.href}
                       href={getLocalizedLink(link.href)}
                       className={cn(
                         "group relative p-4 border border-border/40 bg-card/20 hover:bg-accent/[0.03] hover:border-accent/40 transition-all duration-200",
-                        `animate-in-up animate-delay-${(i + 4) * 50}`
+                        `animate-in-up animate-delay-${(i + 4) * 50}`,
                       )}
                     >
-                      <CornerBrackets size={8} className="opacity-0 group-hover:opacity-100 transition-opacity" />
+                      <CornerBrackets
+                        size={8}
+                        className="opacity-0 group-hover:opacity-100 transition-opacity"
+                      />
                       <div className="flex flex-col gap-1">
                         <div className="flex items-center gap-2">
                           <ArrowRight className="h-3 w-3 text-accent group-hover:translate-x-1 transition-transform" />
-                          <span className="text-xs font-semibold uppercase tracking-wider">{link.label}</span>
+                          <span className="text-xs font-semibold uppercase tracking-wider">
+                            {link.label}
+                          </span>
                         </div>
                         <span className="text-[11px] text-muted-foreground group-hover:text-foreground/70 transition-colors">
                           {link.desc}

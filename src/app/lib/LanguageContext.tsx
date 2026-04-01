@@ -1,5 +1,6 @@
 "use client";
 
+import { usePathname, useRouter } from "next/navigation";
 import {
   createContext,
   type ReactNode,
@@ -14,7 +15,6 @@ import {
   type Language,
   translations,
 } from "@/lib/i18n";
-import { usePathname, useRouter } from "next/navigation";
 
 interface LanguageContextType {
   language: Language;
@@ -56,7 +56,7 @@ export const LanguageProvider = ({
     if (isLanguage(langFromUrl)) {
       if (language !== langFromUrl) {
         setLanguageState(langFromUrl);
-        // Sync cookie with current path
+        // biome-ignore lint/suspicious/noDocumentCookie: Cookie Store API has limited browser support
         document.cookie = `${LANGUAGE_COOKIE}=${langFromUrl}; path=/; max-age=31536000; SameSite=Lax`;
       }
     } else {
@@ -82,7 +82,7 @@ export const LanguageProvider = ({
 
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);
-    // Persist in cookie for server-side detection (Middleware)
+    // biome-ignore lint/suspicious/noDocumentCookie: Cookie Store API has limited browser support
     document.cookie = `${LANGUAGE_COOKIE}=${lang}; path=/; max-age=31536000; SameSite=Lax`;
 
     // Navigate to the new language path using next/navigation for SPA-like feel

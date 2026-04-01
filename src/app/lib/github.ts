@@ -35,15 +35,42 @@ export interface GitHubRepoNode {
  * Fetch GitHub contribution data using GraphQL API
  * Requires GITHUB_TOKEN environment variable
  */
-export async function fetchGitHubContributions(
-  username: string,
-): Promise<ContributionData> {
+async function fetchGraphQL<T>(
+  query: string,
+  variables: Record<string, string>,
+): Promise<T> {
   const token = process.env.GITHUB_TOKEN;
 
   if (!token) {
     throw new Error("GITHUB_TOKEN environment variable is not set");
   }
 
+  const response = await fetch("https://api.github.com/graphql", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ query, variables }),
+    next: { revalidate: 86400 },
+  });
+
+  if (!response.ok) {
+    throw new Error(`GitHub API error: ${response.status}`);
+  }
+
+  const data = await response.json();
+
+  if (data.errors) {
+    throw new Error(`GraphQL error: ${data.errors[0].message}`);
+  }
+
+  return data.data as T;
+}
+
+export async function fetchGitHubContributions(
+  username: string,
+): Promise<ContributionData> {
   const query = `
     query($userName:String!) {
       user(login: $userName) {
@@ -63,32 +90,25 @@ export async function fetchGitHubContributions(
     }
   `;
 
-  const response = await fetch("https://api.github.com/graphql", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      query,
-      variables: { userName: username },
-    }),
-    next: { revalidate: 86400 }, // Cache for 24 hours
-  });
+  const data = await fetchGraphQL<{
+    user: {
+      contributionsCollection: {
+        contributionCalendar: {
+          totalContributions: number;
+          weeks: {
+            contributionDays: {
+              date: string;
+              contributionCount: number;
+              contributionLevel: string;
+            }[];
+          }[];
+        };
+      };
+    };
+  }>(query, { userName: username });
 
-  if (!response.ok) {
-    throw new Error(`GitHub API error: ${response.status}`);
-  }
+  const calendar = data.user.contributionsCollection.contributionCalendar;
 
-  const data = await response.json();
-
-  if (data.errors) {
-    throw new Error(`GraphQL error: ${data.errors[0].message}`);
-  }
-
-  const calendar = data.data.user.contributionsCollection.contributionCalendar;
-
-  // Map GitHub's contributionLevel (NONE, FIRST_QUARTILE, etc) to numeric levels
   const levelMap: Record<string, 0 | 1 | 2 | 3 | 4> = {
     NONE: 0,
     FIRST_QUARTILE: 1,
@@ -97,24 +117,23 @@ export async function fetchGitHubContributions(
     FOURTH_QUARTILE: 4,
   };
 
-  interface GitHubDay {
-    date: string;
-    contributionCount: number;
-    contributionLevel: string;
-  }
-
-  interface GitHubWeek {
-    contributionDays: GitHubDay[];
-  }
-
-  const weeks: ContributionWeek[] = calendar.weeks.map((week: GitHubWeek) => ({
-    days: week.contributionDays.map((day: GitHubDay) => ({
-      date: day.date,
-      count: day.contributionCount,
-      level:
-        levelMap[day.contributionLevel] ?? (day.contributionCount > 0 ? 1 : 0),
-    })),
-  }));
+  const weeks: ContributionWeek[] = calendar.weeks.map(
+    (week: {
+      contributionDays: {
+        date: string;
+        contributionCount: number;
+        contributionLevel: string;
+      }[];
+    }) => ({
+      days: week.contributionDays.map((day) => ({
+        date: day.date,
+        count: day.contributionCount,
+        level:
+          levelMap[day.contributionLevel] ??
+          (day.contributionCount > 0 ? 1 : 0),
+      })),
+    }),
+  );
 
   return {
     weeks,
@@ -140,12 +159,6 @@ export function getContributionColor(level: 0 | 1 | 2 | 3 | 4): string {
  * Fetch general GitHub stats using GraphQL API
  */
 export async function fetchGitHubStats(username: string): Promise<GitHubStats> {
-  const token = process.env.GITHUB_TOKEN;
-
-  if (!token) {
-    throw new Error("GITHUB_TOKEN environment variable is not set");
-  }
-
   const query = `
     query($userName:String!) {
       user(login: $userName) {
@@ -166,46 +179,21 @@ export async function fetchGitHubStats(username: string): Promise<GitHubStats> {
     }
   `;
 
-  const response = await fetch("https://api.github.com/graphql", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      query,
-      variables: { userName: username },
-    }),
-    next: { revalidate: 86400 }, // Cache for 24 hours
-  });
+  const data = await fetchGraphQL<{
+    user: {
+      repositories: { totalCount: number; nodes: GitHubRepoNode[] };
+      followers: { totalCount: number };
+      following: { totalCount: number };
+    };
+  }>(query, { userName: username });
 
-  if (!response.ok) {
-    throw new Error(`GitHub API error: ${response.status}`);
-  }
-
-  const data = await response.json();
-
-  if (data.errors) {
-    throw new Error(`GraphQL error: ${data.errors[0].message}`);
-  }
-
-  const user = data.data.user;
-  const repos = user.repositories.nodes;
-
-  const totalStars = repos.reduce(
-    (sum: number, repo: GitHubRepoNode) => sum + repo.stargazerCount,
-    0,
-  );
-  const totalForks = repos.reduce(
-    (sum: number, repo: GitHubRepoNode) => sum + repo.forkCount,
-    0,
-  );
+  const repos = data.user.repositories.nodes;
 
   return {
-    repositories: user.repositories.totalCount,
-    followers: user.followers.totalCount,
-    following: user.following.totalCount,
-    stars: totalStars,
-    forks: totalForks,
+    repositories: data.user.repositories.totalCount,
+    followers: data.user.followers.totalCount,
+    following: data.user.following.totalCount,
+    stars: repos.reduce((sum, repo) => sum + repo.stargazerCount, 0),
+    forks: repos.reduce((sum, repo) => sum + repo.forkCount, 0),
   };
 }

@@ -44,22 +44,6 @@ export interface Project {
 }
 
 /**
- * Generic API response wrapper
- *
- * All API responses should follow this structure for consistency.
- *
- * @template T - The type of data being returned
- * @property data - The response payload
- * @property success - Whether the request was successful
- * @property error - Optional error message if success is false
- */
-export type ApiResponse<T> = {
-  data: T;
-  success: boolean;
-  error?: string;
-};
-
-/**
  * Work experience entry
  *
  * Represents a position held at a company.
@@ -154,17 +138,4 @@ export interface Heading {
 export interface BlogPost extends BlogMetadata {
   content: string;
   headings?: Heading[];
-}
-
-/**
- * Skill category grouping
- *
- * Used to organize skills into categories for display.
- *
- * @property category - Category name (e.g., "Backend", "DevOps")
- * @property items - Array of skill names in this category
- */
-export interface SkillCategory {
-  category: string;
-  items: string[];
 }

@@ -19,9 +19,6 @@ export {
   CardHeader,
   CardTitle,
 } from "./card";
-export { Input } from "./input";
-export { Separator } from "./separator";
-
 // Typography system
 export {
   Blockquote,

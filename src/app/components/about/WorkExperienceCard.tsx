@@ -2,10 +2,8 @@
 
 import { memo } from "react";
 import { CornerBrackets } from "@/components/blueprint";
-import {
-  BulletList,
-  ExternalLinkAnchor,
-} from "@/components/common/timeline-components";
+import { BulletList } from "@/components/common/BulletList";
+import { ExternalLinkAnchor } from "@/components/common/ExternalLinkAnchor";
 import { Card, H3, MonoText } from "@/components/ui";
 import type { WorkExperience } from "@/types/portfolio";
 

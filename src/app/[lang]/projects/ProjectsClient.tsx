@@ -75,7 +75,7 @@ export default function ProjectsClient({
                 <div
                   key={item.project ? item.project.id : `empty-${index}`}
                   className={`px-6 py-8 transition-colors duration-200 animate-in-up
-                    ${!item.isEmpty ? "group hover:bg-white/[0.02]" : ""}
+                    ${!item.isEmpty ? "group hover:bg-surface-2" : ""}
                     ${index % 3 !== 0 ? "lg:border-l lg:border-dashed lg:border-border" : ""}
                     ${index % 2 !== 0 ? "sm:max-lg:border-l sm:max-lg:border-dashed sm:max-lg:border-border" : ""}
                     ${index >= 3 ? "lg:border-t lg:border-dashed lg:border-border" : ""}

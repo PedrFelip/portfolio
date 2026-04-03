@@ -145,7 +145,7 @@ export default async function HomePage({ params }: HomePageProps) {
               return (
                 <div
                   key={item.id}
-                  className={`group px-6 py-8 sm:px-6 transition-all duration-200 hover:bg-white/[0.02] hover:shadow-inner animate-in-up
+                  className={`group px-6 py-8 sm:px-6 transition-all duration-200 hover:bg-surface-2 hover:shadow-inner animate-in-up
                     ${i % 3 !== 0 ? "lg:border-l lg:border-dashed lg:border-border" : ""}
                     ${i % 2 !== 0 ? "sm:max-lg:border-l sm:max-lg:border-dashed sm:max-lg:border-border" : ""}
                     ${i >= 3 ? "lg:border-t lg:border-dashed lg:border-border" : ""}
@@ -154,14 +154,14 @@ export default async function HomePage({ params }: HomePageProps) {
                   `}
                   style={{ animationDelay: `${500 + i * 50}ms` }}
                 >
-                  <div className="mb-4 inline-flex size-10 items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.03] text-white/60 transition-all duration-200 group-hover:text-white/90 group-hover:border-white/20 group-hover:bg-white/[0.08] group-hover:scale-110">
+                  <div className="mb-4 inline-flex size-10 items-center justify-center rounded-xl border border-overlay-border bg-surface-3 text-muted-foreground transition-all duration-200 group-hover:text-foreground group-hover:border-overlay-border-hover group-hover:bg-faint group-hover:scale-110">
                     <Icon
                       size={18}
                       strokeWidth={1.5}
                       className="transition-transform duration-200 group-hover:rotate-3"
                     />
                   </div>
-                  <h3 className="text-base font-semibold tracking-tight transition-colors duration-150 group-hover:text-white">
+                  <h3 className="text-base font-semibold tracking-tight transition-colors duration-150 group-hover:text-foreground">
                     {item.title}
                   </h3>
                   <p className="mt-2 text-sm leading-relaxed text-muted-foreground transition-colors duration-150 group-hover:text-muted-foreground/90">
@@ -213,7 +213,7 @@ export default async function HomePage({ params }: HomePageProps) {
               return (
                 <div
                   key={item.id}
-                  className={`group px-6 py-10 sm:px-6 transition-all duration-200 hover:bg-white/[0.02] hover:shadow-inner animate-in-up
+                  className={`group px-6 py-10 sm:px-6 transition-all duration-200 hover:bg-surface-2 hover:shadow-inner animate-in-up
                     ${i !== 0 ? "lg:border-l lg:border-dashed lg:border-border" : ""}
                     ${i % 2 !== 0 ? "sm:max-lg:border-l sm:max-lg:border-dashed sm:max-lg:border-border" : ""}
                     ${i >= 2 ? "sm:max-lg:border-t sm:max-lg:border-dashed sm:max-lg:border-border" : ""}
@@ -232,7 +232,7 @@ export default async function HomePage({ params }: HomePageProps) {
                             </span>
                           )}
                           <div
-                            className="inline-flex size-10 flex-shrink-0 items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.03] text-white/60 transition-all duration-300 group-hover:border-[var(--icon-color)]/30 group-hover:bg-[var(--icon-color)]/10 group-hover:text-[var(--icon-color)] group-hover:shadow-[0_0_15px_rgba(0,0,0,0.2)] group-hover:shadow-[var(--icon-color)]/20 group-hover:scale-110"
+                            className="inline-flex size-10 flex-shrink-0 items-center justify-center rounded-xl border border-overlay-border bg-surface-3 text-muted-foreground transition-all duration-300 group-hover:border-[var(--icon-color)]/30 group-hover:bg-[var(--icon-color)]/10 group-hover:text-[var(--icon-color)] group-hover:shadow-[0_0_15px_rgba(0,0,0,0.2)] group-hover:shadow-[var(--icon-color)]/20 group-hover:scale-110"
                             style={
                               {
                                 "--icon-color": iconConfig.color || "#ffffff",
@@ -249,7 +249,7 @@ export default async function HomePage({ params }: HomePageProps) {
                     <p className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground/60 transition-colors duration-150 group-hover:text-muted-foreground">
                       {item.title}
                     </p>
-                    <h3 className="mt-1 text-base font-semibold tracking-tight transition-colors duration-150 group-hover:text-white">
+                    <h3 className="mt-1 text-base font-semibold tracking-tight transition-colors duration-150 group-hover:text-foreground">
                       {item.name}
                     </h3>
                     <p className="mt-2 text-sm leading-relaxed text-muted-foreground/80 transition-colors duration-150 group-hover:text-muted-foreground">
@@ -274,7 +274,7 @@ export default async function HomePage({ params }: HomePageProps) {
             <AlignedFlickeringGrid side="left" />
 
             {/* CTA Card Container with Corner Brackets */}
-            <div className="group relative border border-white/[0.08] bg-white/[0.02] px-4 py-12 sm:px-12 sm:py-16 transition-all duration-300 hover:border-white/20 hover:bg-white/[0.04] hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.1)] overflow-hidden">
+            <div className="group relative border border-overlay-border bg-surface-2 px-4 py-12 sm:px-12 sm:py-16 transition-all duration-300 hover:border-overlay-border-hover hover:bg-surface-4 hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.1)] overflow-hidden">
               <DotPattern className="opacity-40 sm:opacity-20" />
               <CornerBrackets
                 size={16}
@@ -283,7 +283,7 @@ export default async function HomePage({ params }: HomePageProps) {
 
               {/* Content */}
               <div className="relative z-10 flex flex-col items-center text-center">
-                <h2 className="text-3xl font-bold tracking-tight sm:text-4xl transition-colors duration-200 group-hover:text-white">
+                <h2 className="text-3xl font-bold tracking-tight sm:text-4xl transition-colors duration-200 group-hover:text-foreground">
                   {t.cta.title}
                 </h2>
                 <p className="mt-4 max-w-md text-base text-muted-foreground sm:text-lg transition-colors duration-200 group-hover:text-muted-foreground/90">

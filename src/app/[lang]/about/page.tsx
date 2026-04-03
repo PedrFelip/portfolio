@@ -166,7 +166,7 @@ export default async function AboutPage({ params }: AboutPageProps) {
           <div className="relative grid grid-cols-1 gap-0 sm:grid-cols-[0.7fr_minmax(0,_3.6fr)_0.7fr]">
             <AlignedFlickeringGrid side="left" />
 
-            <div className="group relative border border-white/[0.08] bg-white/[0.01] px-6 py-12 transition-all duration-300 hover:border-white/20 sm:px-12 sm:py-20 overflow-hidden">
+            <div className="group relative border border-overlay-border bg-surface-1 px-6 py-12 transition-all duration-300 hover:border-overlay-border-hover sm:px-12 sm:py-20 overflow-hidden">
               {/* Technical background details */}
               <DotPattern className="opacity-15 pointer-events-none" />
               <CornerBrackets
@@ -177,7 +177,7 @@ export default async function AboutPage({ params }: AboutPageProps) {
               <div className="relative z-10 grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] gap-12 items-center">
                 {/* Left side: Heading & Description */}
                 <div className="flex flex-col text-left max-w-xl">
-                  <h2 className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl transition-colors duration-200 group-hover:text-white mb-6">
+                  <h2 className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl transition-colors duration-200 group-hover:text-foreground mb-6">
                     {t.contact.title}
                   </h2>
                   <p className="text-base text-muted-foreground sm:text-lg leading-relaxed mb-8">
@@ -186,7 +186,7 @@ export default async function AboutPage({ params }: AboutPageProps) {
                 </div>
 
                 {/* Center: Decorative divider (hidden on mobile) */}
-                <div className="hidden lg:flex h-32 w-px border-r border-dashed border-white/[0.08]" />
+                <div className="hidden lg:flex h-32 w-px border-r border-dashed border-overlay-border" />
 
                 {/* Right side: Contact Links Grid */}
                 <div className="w-full flex flex-col items-start lg:items-center">

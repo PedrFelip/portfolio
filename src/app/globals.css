@@ -118,6 +118,13 @@ html {
   --status-error: oklch(0.6 0.15 25);
   --status-info: oklch(0.6 0.15 255);
   --status-neutral: oklch(0.55 0.02 255);
+  --syn-keyword: oklch(0.62 0.1 255);
+  --syn-type: oklch(0.65 0.1 300);
+  --syn-string: oklch(0.68 0.06 220);
+  --syn-function: oklch(0.65 0.1 300);
+  --syn-number: oklch(0.62 0.1 255);
+  --syn-punctuation: oklch(0.55 0.01 255);
+  --syn-comment: oklch(0.5 0.01 255);
 }
 
 .dark {
@@ -154,18 +161,18 @@ html {
   --sidebar-accent-foreground: oklch(0.93 0.005 270);
   --sidebar-border: oklch(0.93 0.005 270 / 8%);
   --sidebar-ring: oklch(0.93 0.005 270 / 16%);
-  --callout-info-bg: oklch(0.93 0.005 270 / 5%);
-  --callout-info-border: oklch(0.93 0.005 270 / 12%);
-  --callout-info-text: oklch(0.72 0.008 270);
-  --callout-warning-bg: oklch(0.93 0.005 50 / 5%);
-  --callout-warning-border: oklch(0.93 0.005 50 / 12%);
-  --callout-warning-text: oklch(0.78 0.04 50);
-  --callout-success-bg: oklch(0.93 0.005 150 / 5%);
-  --callout-success-border: oklch(0.93 0.005 150 / 12%);
-  --callout-success-text: oklch(0.72 0.04 150);
-  --callout-error-bg: oklch(0.93 0.005 25 / 5%);
-  --callout-error-border: oklch(0.93 0.005 25 / 12%);
-  --callout-error-text: oklch(0.75 0.04 25);
+  --callout-info-bg: oklch(0.6 0.12 255 / 8%);
+  --callout-info-border: oklch(0.65 0.1 255 / 20%);
+  --callout-info-text: oklch(0.72 0.06 255);
+  --callout-warning-bg: oklch(0.7 0.1 55 / 8%);
+  --callout-warning-border: oklch(0.7 0.08 55 / 20%);
+  --callout-warning-text: oklch(0.78 0.06 55);
+  --callout-success-bg: oklch(0.6 0.1 155 / 8%);
+  --callout-success-border: oklch(0.6 0.08 155 / 20%);
+  --callout-success-text: oklch(0.72 0.06 155);
+  --callout-error-bg: oklch(0.6 0.12 25 / 8%);
+  --callout-error-border: oklch(0.6 0.1 25 / 20%);
+  --callout-error-text: oklch(0.72 0.06 25);
   --brand-github: oklch(0.72 0.008 270);
   --brand-linkedin: oklch(0.68 0.012 270);
   --brand-twitter: oklch(0.7 0.006 270);
@@ -181,6 +188,13 @@ html {
   --status-error: oklch(0.7 0.012 25);
   --status-info: oklch(0.68 0.012 270);
   --status-neutral: oklch(0.6 0.008 270);
+  --syn-keyword: oklch(0.78 0.14 255);
+  --syn-type: oklch(0.8 0.14 290);
+  --syn-string: oklch(0.82 0.08 210);
+  --syn-function: oklch(0.8 0.14 290);
+  --syn-number: oklch(0.82 0.12 255);
+  --syn-punctuation: oklch(0.58 0.008 270);
+  --syn-comment: oklch(0.52 0.01 270);
 }
 
 @layer base {
@@ -514,27 +528,27 @@ html {
 
   /* Syntax Highlighting Colors */
   .syntax-keyword {
-    color: #79c0ff;
+    color: var(--syn-keyword);
   }
 
   .syntax-type {
-    color: #d2a8ff;
+    color: var(--syn-type);
   }
 
   .syntax-string {
-    color: #a5d6ff;
+    color: var(--syn-string);
   }
 
   .syntax-function {
-    color: #d2a8ff;
+    color: var(--syn-function);
   }
 
   .syntax-punctuation {
-    color: #8b949e;
+    color: var(--syn-punctuation);
   }
 
   .syntax-number {
-    color: #79c0ff;
+    color: var(--syn-number);
   }
 
   /* Badge Variants */
@@ -930,11 +944,12 @@ html {
   }
 
   .prose code {
-    @apply font-mono text-[13px] bg-muted/60 px-1.5 py-0.5 rounded text-foreground;
+    @apply font-mono text-[13px] bg-[oklch(0.12_0.008_270)] px-1.5 py-0.5 rounded-sm text-foreground;
   }
 
   .prose pre {
-    @apply bg-muted border border-border rounded-lg p-4 overflow-x-auto mb-5 mt-5;
+    @apply border border-border/40 rounded-sm p-4 overflow-x-auto mb-5 mt-5;
+    background: oklch(0.12 0.008 270);
   }
 
   .prose pre code {
@@ -942,11 +957,11 @@ html {
   }
 
   .prose ul {
-    @apply list-disc pl-5 space-y-1.5 mb-4 text-muted-foreground;
+    @apply list-disc pl-5 space-y-2 mb-4 text-muted-foreground;
   }
 
   .prose ol {
-    @apply list-decimal pl-5 space-y-1.5 mb-4 text-muted-foreground;
+    @apply list-decimal pl-5 space-y-2 mb-4 text-muted-foreground;
   }
 
   .prose li {
@@ -959,7 +974,7 @@ html {
   }
 
   .prose blockquote {
-    @apply border-l-2 border-border/60 pl-5 italic text-muted-foreground my-5;
+    @apply border-l-2 border-border/60 pl-5 text-muted-foreground my-6;
   }
 
   .prose hr {
@@ -971,19 +986,19 @@ html {
   }
 
   .prose thead {
-    @apply border-b border-border;
+    @apply border-b border-border/60;
   }
 
   .prose th {
-    @apply text-left font-semibold text-foreground px-3 py-2 text-sm;
+    @apply text-left font-medium text-foreground px-3 py-2.5 text-[11px] uppercase tracking-wide;
   }
 
   .prose td {
-    @apply px-3 py-2 text-sm text-muted-foreground border-b border-border;
+    @apply px-3 py-2.5 text-sm text-muted-foreground border-b border-border/60;
   }
 
   .prose img {
-    @apply rounded-lg border border-border my-6;
+    @apply rounded-sm border border-border/60 my-6;
   }
 
   .prose li code,
@@ -996,47 +1011,55 @@ html {
   }
 }
 
-/* Highlight.js customization for dark theme */
+/* Highlight.js customization - Atom Dark inspired */
 .hljs {
-  background: var(--color-muted);
-  color: var(--color-foreground);
+  background: oklch(0.12 0.008 270);
+  color: oklch(0.82 0.01 270);
   padding: 0;
 }
 
 .hljs-attr {
-  color: #79c0ff;
+  color: var(--syn-keyword);
 }
 
 .hljs-literal {
-  color: #79c0ff;
+  color: var(--syn-keyword);
 }
 
 .hljs-string {
-  color: #a5d6ff;
+  color: var(--syn-string);
 }
 
 .hljs-number {
-  color: #79c0ff;
+  color: var(--syn-number);
 }
 
 .hljs-keyword {
-  color: #79c0ff;
+  color: var(--syn-keyword);
 }
 
 .hljs-function {
-  color: #d2a8ff;
+  color: var(--syn-function);
 }
 
 .hljs-title {
-  color: #d2a8ff;
+  color: var(--syn-function);
 }
 
 .hljs-type {
-  color: #b8a0ff;
+  color: var(--syn-type);
 }
 
 .hljs-built_in {
-  color: #b8a0ff;
+  color: var(--syn-type);
+}
+
+.hljs-comment {
+  color: var(--syn-comment);
+}
+
+.hljs-meta {
+  color: var(--syn-punctuation);
 }
 
 /* ============================================

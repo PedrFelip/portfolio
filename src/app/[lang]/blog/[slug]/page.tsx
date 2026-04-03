@@ -9,6 +9,7 @@ import { TableOfContents } from "@/components/blog/TableOfContents";
 import { Callout } from "@/components/mdx/Callout";
 import { CodeBlockWrapper } from "@/components/mdx/CodeBlockWrapper";
 import { Figure } from "@/components/mdx/Figure";
+import { createHeadingComponents } from "@/components/mdx/MDXHeading";
 import {
   MDXTable,
   MDXTableBody,
@@ -21,7 +22,6 @@ import { ArrowLeft, Calendar, Clock } from "@/components/ui/icons";
 import { getAllPostSlugs, getPostBySlug } from "@/lib/blog-data";
 import { blogEn } from "@/lib/content/blog.en";
 import { blogPt } from "@/lib/content/blog.pt";
-import type { Heading } from "@/types/portfolio";
 
 const blogContent = {
   en: blogEn,
@@ -50,7 +50,7 @@ const CodeComponent = ({
     return <code className={className}>{children}</code>;
   }
   return (
-    <code className="font-mono text-[13px] bg-muted/60 px-1.5 py-0.5 rounded text-foreground">
+    <code className="font-mono text-[13px] bg-[oklch(0.12_0.008_270)] px-1.5 py-0.5 rounded-sm text-foreground">
       {children}
     </code>
   );
@@ -63,53 +63,6 @@ const TableCellHeader = ({ children }: { children: React.ReactNode }) => (
 const TableCell = ({ children }: { children: React.ReactNode }) => (
   <MDXTableCell>{children}</MDXTableCell>
 );
-
-const createHeadingComponents = (headings: Heading[]) => {
-  let index = 0;
-
-  const getNextId = (): string => {
-    if (index < headings.length) {
-      return headings[index++].id;
-    }
-    return `heading-${index++}`;
-  };
-
-  return {
-    h1: ({ children }: { children: React.ReactNode }) => {
-      const id = getNextId();
-      return (
-        <h1
-          id={id}
-          className="text-2xl sm:text-3xl font-semibold tracking-tight text-foreground mt-10 mb-4 first:mt-0"
-        >
-          {children}
-        </h1>
-      );
-    },
-    h2: ({ children }: { children: React.ReactNode }) => {
-      const id = getNextId();
-      return (
-        <h2
-          id={id}
-          className="text-xl sm:text-2xl font-semibold tracking-tight text-foreground mt-10 mb-3 scroll-mt-24"
-        >
-          {children}
-        </h2>
-      );
-    },
-    h3: ({ children }: { children: React.ReactNode }) => {
-      const id = getNextId();
-      return (
-        <h3
-          id={id}
-          className="text-lg sm:text-xl font-semibold text-foreground mt-8 mb-2 scroll-mt-24"
-        >
-          {children}
-        </h3>
-      );
-    },
-  };
-};
 
 export const revalidate = 604800;
 export const dynamicParams = true;
@@ -228,7 +181,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </Link>
 
           {/* Title */}
-          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground mb-4">
+          <h1 className="text-3xl sm:text-4xl font-semibold tracking-[-0.02em] text-foreground mb-4">
             {post.title}
           </h1>
 

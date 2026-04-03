@@ -8,34 +8,12 @@ interface CodeBlockWrapperProps {
   children: React.ReactNode;
 }
 
-/**
- * CodeBlockWrapper component for MDX code blocks
- *
- * Design principles (AGENTS.md):
- * - 4px grid spacing (p-2 = 8px, p-4 = 16px)
- * - Borders-only approach (no shadows)
- * - Animation: 150-200ms with cubic-bezier easing
- * - Isolated controls: copy button feels like crafted object
- * - Monospace for code content
- *
- * Best practices applied:
- * - Memoized to prevent re-renders
- * - Accessible copy button with visual feedback
- * - Respects reduced motion preference
- * - Clean group hover interaction
- * - useRef for efficient DOM access (Vercel 5.2)
- * - useCallback for stable function reference
- * - Timeout cleanup on unmount (Vercel 5.1)
- */
 export const CodeBlockWrapper = memo(({ children }: CodeBlockWrapperProps) => {
   const [copied, setCopied] = useState(false);
   const { t } = useLanguage();
-  const tBlog = t.blog;
-  // ✅ useRef for O(1) DOM access instead of querySelector (Vercel 5.2)
   const preRef = useRef<HTMLPreElement>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  // ✅ Cleanup timer on unmount to prevent memory leaks and state updates on unmounted component
   useEffect(() => {
     return () => {
       if (timeoutRef.current) {
@@ -44,15 +22,12 @@ export const CodeBlockWrapper = memo(({ children }: CodeBlockWrapperProps) => {
     };
   }, []);
 
-  // ✅ useCallback for stable function reference (Vercel 5.3)
   const copyToClipboard = useCallback(async () => {
     try {
       if (!navigator?.clipboard) {
-        console.error("Clipboard API not available");
         return;
       }
 
-      // ✅ Direct ref access - O(1), no DOM query (Vercel 5.2)
       const text = preRef.current?.textContent || "";
       if (!text) return;
 
@@ -67,8 +42,7 @@ export const CodeBlockWrapper = memo(({ children }: CodeBlockWrapperProps) => {
         setCopied(false);
         timeoutRef.current = null;
       }, 2000);
-    } catch (err) {
-      console.error("Failed to copy:", err);
+    } catch {
       setCopied(false);
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
@@ -78,26 +52,25 @@ export const CodeBlockWrapper = memo(({ children }: CodeBlockWrapperProps) => {
   }, []);
 
   return (
-    <div className="group relative my-4">
+    <div className="group/code relative my-6">
       <pre
         ref={preRef}
-        className="hljs overflow-x-auto rounded-md border border-border bg-muted p-4 text-sm leading-relaxed"
+        className="hljs overflow-x-auto rounded-sm border border-border/40 p-4 text-sm leading-relaxed"
       >
         {children}
       </pre>
 
-      {/* Copy button */}
       <button
         type="button"
         onClick={copyToClipboard}
-        className="absolute right-3 top-3 rounded border border-border bg-card p-2 text-muted-foreground opacity-0 transition-[opacity,color] duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:text-foreground group-hover:opacity-100 motion-reduce:transition-none"
-        title={tBlog.copyCode}
-        aria-label={copied ? tBlog.codeCopied : tBlog.copyCode}
+        className="absolute right-2 top-2 rounded-sm border border-border/40 bg-card/80 p-1.5 text-muted-foreground opacity-0 backdrop-blur-sm transition-[opacity,color,background-color] duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:bg-accent/[0.04] hover:text-foreground group-hover/code:opacity-100 motion-reduce:transition-none"
+        title={t.blog.copyCode}
+        aria-label={copied ? t.blog.codeCopied : t.blog.copyCode}
       >
         {copied ? (
-          <Check className="h-3.5 w-3.5" aria-hidden="true" />
+          <Check className="h-3 w-3" aria-hidden="true" />
         ) : (
-          <Copy className="h-3.5 w-3.5" aria-hidden="true" />
+          <Copy className="h-3 w-3" aria-hidden="true" />
         )}
       </button>
     </div>

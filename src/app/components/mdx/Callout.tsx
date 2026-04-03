@@ -17,72 +17,69 @@ interface CalloutProps {
   title?: string;
 }
 
-const styles: Record<
+const configs: Record<
   CalloutType,
-  { bg: string; border: string; icon: React.ReactNode; color: string }
+  {
+    bg: string;
+    border: string;
+    icon: React.ReactNode;
+    indicator: string;
+    text: string;
+  }
 > = {
   info: {
     bg: "bg-[color:var(--callout-info-bg)]",
     border: "border-[color:var(--callout-info-border)]",
-    color: "text-[color:var(--callout-info-text)]",
-    icon: <Info className="h-4 w-4" />,
+    indicator: "border-l-[color:var(--callout-info-text)]",
+    text: "text-[color:var(--callout-info-text)]",
+    icon: <Info className="h-3.5 w-3.5" />,
   },
   warning: {
     bg: "bg-[color:var(--callout-warning-bg)]",
     border: "border-[color:var(--callout-warning-border)]",
-    color: "text-[color:var(--callout-warning-text)]",
-    icon: <AlertTriangle className="h-4 w-4" />,
+    indicator: "border-l-[color:var(--callout-warning-text)]",
+    text: "text-[color:var(--callout-warning-text)]",
+    icon: <AlertTriangle className="h-3.5 w-3.5" />,
   },
   success: {
     bg: "bg-[color:var(--callout-success-bg)]",
     border: "border-[color:var(--callout-success-border)]",
-    color: "text-[color:var(--callout-success-text)]",
-    icon: <CheckCircle className="h-4 w-4" />,
+    indicator: "border-l-[color:var(--callout-success-text)]",
+    text: "text-[color:var(--callout-success-text)]",
+    icon: <CheckCircle className="h-3.5 w-3.5" />,
   },
   error: {
     bg: "bg-[color:var(--callout-error-bg)]",
     border: "border-[color:var(--callout-error-border)]",
-    color: "text-[color:var(--callout-error-text)]",
-    icon: <AlertCircle className="h-4 w-4" />,
+    indicator: "border-l-[color:var(--callout-error-text)]",
+    text: "text-[color:var(--callout-error-text)]",
+    icon: <AlertCircle className="h-3.5 w-3.5" />,
   },
 };
 
-/**
- * Callout component for MDX content
- *
- * Design principles (AGENTS.md):
- * - 4px grid spacing (gap-3 = 12px, p-3 = 12px, p-4 = 16px)
- * - Borders-only approach with semantic colors
- * - Symmetrical padding
- * - Color for meaning only (status communication)
- *
- * Best practices applied:
- * - Memoized to prevent re-renders
- * - Semantic color usage for different alert types
- * - Clean icon + content layout
- */
 export const Callout = memo(
   ({ type = "info", children, title }: CalloutProps) => {
-    const style = styles[type];
+    const config = configs[type];
 
     return (
       <div
         className={cn(
-          "my-4 flex gap-3 rounded-md border p-4",
-          style.bg,
-          style.border,
+          "my-6 flex gap-3 rounded-sm border border-l-[3px] p-4",
+          config.bg,
+          config.border,
+          config.indicator,
         )}
       >
-        <div className={cn("mt-1 flex-shrink-0", style.color)}>
-          {style.icon}
-        </div>
-        <div className="flex-1">
+        <div className={cn("mt-0.5 shrink-0", config.text)}>{config.icon}</div>
+        <div className="min-w-0 flex-1">
           {title && (
-            <div className={cn("mb-1 text-sm font-semibold", style.color)}>
+            <div className={cn("mb-1.5 text-sm font-semibold", config.text)}>
               {title}
             </div>
           )}
-          <div className="text-sm text-muted-foreground">{children}</div>
+          <div className="text-sm leading-relaxed text-muted-foreground">
+            {children}
+          </div>
         </div>
       </div>
     );

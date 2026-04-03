@@ -11,26 +11,11 @@ interface FigureProps {
   height?: number;
 }
 
-/**
- * Figure component for MDX images
- *
- * Design principles (AGENTS.md):
- * - Borders-only approach (no shadows)
- * - Symmetrical spacing (my-6)
- * - Typography: italic caption with muted-foreground
- * - Uses Next.js Image for optimization
- *
- * Best practices applied:
- * - Memoized to prevent re-renders
- * - Responsive image sizing
- * - Accessible alt text
- * - Optional caption support
- */
 export const Figure = memo(
   ({ src, alt, caption, width = 800, height = 400 }: FigureProps) => {
     return (
-      <figure className="my-6">
-        <div className="relative overflow-hidden rounded-md border border-border bg-muted">
+      <figure className="my-8">
+        <div className="relative overflow-hidden rounded-sm border border-border/60">
           <Image
             src={src}
             alt={alt}
@@ -40,7 +25,7 @@ export const Figure = memo(
           />
         </div>
         {caption && (
-          <figcaption className="mt-2 text-center text-xs italic text-muted-foreground sm:text-sm">
+          <figcaption className="mt-2 text-center text-xs text-muted-foreground">
             {caption}
           </figcaption>
         )}

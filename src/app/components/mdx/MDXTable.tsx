@@ -1,5 +1,6 @@
 "use client";
 
+import { memo } from "react";
 import { cn } from "@/lib/utils";
 
 interface TableProps {
@@ -24,49 +25,59 @@ interface TableCellProps {
   isHeader?: boolean;
 }
 
-export function MDXTable({ children }: TableProps) {
+export const MDXTable = memo(function MDXTable({ children }: TableProps) {
   return (
-    <div className="overflow-x-auto my-4 rounded-md border border-border">
+    <div className="my-6 overflow-x-auto rounded-sm border border-border/60">
       <table className="w-full text-sm">{children}</table>
     </div>
   );
-}
+});
 
-export function MDXTableHead({ children }: TableHeaderProps) {
+export const MDXTableHead = memo(function MDXTableHead({
+  children,
+}: TableHeaderProps) {
   return (
-    <thead className="border-b border-border bg-muted/50">{children}</thead>
+    <thead className="border-b border-border bg-muted/30">{children}</thead>
   );
-}
+});
 
-export function MDXTableBody({ children }: TableBodyProps) {
+export const MDXTableBody = memo(function MDXTableBody({
+  children,
+}: TableBodyProps) {
   return <tbody>{children}</tbody>;
-}
+});
 
-export function MDXTableRow({ children, isHeader }: TableRowProps) {
+export const MDXTableRow = memo(function MDXTableRow({
+  children,
+  isHeader,
+}: TableRowProps) {
   return (
     <tr
       className={cn(
-        "border-b border-border",
+        "border-b border-border/60 last:border-b-0",
         !isHeader &&
-          "hover:bg-muted/60 transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)]",
+          "transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:bg-white/[0.02]",
       )}
     >
       {children}
     </tr>
   );
-}
+});
 
-export function MDXTableCell({ children, isHeader }: TableCellProps) {
+export const MDXTableCell = memo(function MDXTableCell({
+  children,
+  isHeader,
+}: TableCellProps) {
   return (
     <td
       className={cn(
-        "px-3 py-3",
+        "px-3 py-2.5",
         isHeader
-          ? "font-semibold text-foreground text-xs uppercase tracking-wider"
+          ? "text-[11px] font-medium uppercase tracking-wide text-foreground"
           : "text-muted-foreground",
       )}
     >
       {children}
     </td>
   );
-}
+});

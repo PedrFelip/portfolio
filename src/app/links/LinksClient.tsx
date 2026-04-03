@@ -23,34 +23,34 @@ const iconMap = {
 
 const colorMap = {
   portfolio: {
-    border: "group-hover:border-blue-500/70",
-    bg: "group-hover:bg-blue-500/12",
-    text: "group-hover:text-blue-400",
-    icon: "group-hover:text-blue-400",
+    border: "group-hover:border-accent/70",
+    bg: "group-hover:bg-accent/12",
+    text: "group-hover:text-accent",
+    icon: "group-hover:text-accent",
   },
   github: {
-    border: "group-hover:border-purple-500/70",
-    bg: "group-hover:bg-purple-500/12",
-    text: "group-hover:text-purple-400",
-    icon: "group-hover:text-purple-400",
+    border: "group-hover:border-[var(--brand-violet)]/70",
+    bg: "group-hover:bg-[var(--brand-violet)]/12",
+    text: "group-hover:text-[var(--brand-violet)]",
+    icon: "group-hover:text-[var(--brand-violet)]",
   },
   linkedin: {
-    border: "group-hover:border-blue-600/70",
-    bg: "group-hover:bg-blue-600/12",
-    text: "group-hover:text-blue-400",
-    icon: "group-hover:text-blue-400",
+    border: "group-hover:border-[var(--brand-linkedin)]/70",
+    bg: "group-hover:bg-[var(--brand-linkedin)]/12",
+    text: "group-hover:text-[var(--brand-linkedin)]",
+    icon: "group-hover:text-[var(--brand-linkedin)]",
   },
   x: {
-    border: "group-hover:border-slate-400/70",
-    bg: "group-hover:bg-slate-400/12",
-    text: "group-hover:text-slate-300",
-    icon: "group-hover:text-slate-300",
+    border: "group-hover:border-[var(--brand-slate)]/70",
+    bg: "group-hover:bg-[var(--brand-slate)]/12",
+    text: "group-hover:text-[var(--brand-slate)]",
+    icon: "group-hover:text-[var(--brand-slate)]",
   },
   email: {
-    border: "group-hover:border-red-500/70",
-    bg: "group-hover:bg-red-500/12",
-    text: "group-hover:text-red-400",
-    icon: "group-hover:text-red-400",
+    border: "group-hover:border-[var(--brand-email)]/70",
+    bg: "group-hover:bg-[var(--brand-email)]/12",
+    text: "group-hover:text-[var(--brand-email)]",
+    icon: "group-hover:text-[var(--brand-email)]",
   },
 };
 
@@ -77,7 +77,7 @@ const LinkItem = memo(({ label, url, icon, description }: LinkItemProps) => {
   return (
     <a
       {...linkProps}
-      className={`group flex items-center gap-4 px-4 py-3.5 sm:px-5 sm:py-4 lg:px-6 lg:py-5 rounded-lg border border-transparent transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:bg-white/[0.06] hover:-translate-y-0.5 hover:border-current/10 active:translate-y-0 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background ${colors.border} ${colors.bg}`}
+      className={`group flex items-center gap-4 px-4 py-3.5 sm:px-5 sm:py-4 lg:px-6 lg:py-5 rounded-lg border border-transparent transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:bg-surface-4 hover:-translate-y-0.5 hover:border-current/10 active:translate-y-0 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background ${colors.border} ${colors.bg}`}
     >
       <div className="flex flex-shrink-0 items-center justify-center">
         <Icon

@@ -7,6 +7,11 @@ import type { ContributionData, ContributionDay } from "@/lib/github";
 import { getContributionColor } from "@/lib/github";
 import { cn } from "@/lib/utils";
 
+function parseLocalDate(dateStr: string): Date {
+  const [y, m, d] = dateStr.split("-").map(Number);
+  return new Date(y, m - 1, d);
+}
+
 interface GitHubContributionGraphProps {
   data: ContributionData;
   username: string;
@@ -136,7 +141,7 @@ export const GitHubContributionGraph = memo(
                                 {day.count !== 1 ? "s" : ""}
                               </MonoText>
                               <MonoText className="text-[9px] text-muted-foreground/80">
-                                {new Date(day.date).toLocaleDateString(
+                                {parseLocalDate(day.date).toLocaleDateString(
                                   "en-US",
                                   {
                                     month: "short",
@@ -204,7 +209,7 @@ export const GitHubContributionGraph = memo(
                       {selectedDay.count !== 1 ? "s" : ""}
                     </MonoText>
                     <MonoText className="text-[9px] text-muted-foreground/70">
-                      {new Date(selectedDay.date).toLocaleDateString(
+                      {parseLocalDate(selectedDay.date).toLocaleDateString(
                         undefined,
                         {
                           weekday: "short",

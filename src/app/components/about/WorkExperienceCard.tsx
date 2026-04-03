@@ -26,7 +26,7 @@ export const WorkExperienceCard = memo(
     return (
       <Card
         withBrackets={false}
-        className="group relative p-0 overflow-hidden border-white/[0.08] bg-white/[0.01] hover:bg-white/[0.02] transition-all duration-300"
+        className="group relative p-0 overflow-hidden border-overlay-border bg-surface-1 hover:bg-surface-2 transition-all duration-300"
       >
         <CornerBrackets
           size={10}
@@ -40,7 +40,7 @@ export const WorkExperienceCard = memo(
               <MonoText className="text-[10px] tabular-nums text-muted-foreground/40 mb-2">
                 {experience.start} — {experience.end}
               </MonoText>
-              <H3 className="mb-3 text-xl font-bold tracking-tight text-foreground transition-colors group-hover:text-white">
+              <H3 className="mb-3 text-xl font-bold tracking-tight text-foreground transition-colors group-hover:text-foreground">
                 {experience.title}
               </H3>
 
@@ -67,7 +67,7 @@ export const WorkExperienceCard = memo(
             </div>
 
             {/* Vertical Divider (Desktop) */}
-            <div className="hidden lg:flex h-full w-px border-r border-dashed border-white/[0.08] self-stretch" />
+            <div className="hidden lg:flex h-full w-px border-r border-dashed border-overlay-border self-stretch" />
 
             {/* Right side: Description */}
             <div className="flex flex-col pt-1">

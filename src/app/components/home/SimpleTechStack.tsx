@@ -40,7 +40,7 @@ export function SimpleTechStack({
             return (
               <div
                 key={tech.name}
-                className={`group px-6 py-10 sm:px-6 transition-all duration-300 hover:bg-white/[0.01] touch-manipulation
+                className={`group px-6 py-10 sm:px-6 transition-all duration-300 hover:bg-surface-1 touch-manipulation
                   ${i % 4 !== 0 ? "lg:border-l lg:border-dashed lg:border-border" : ""}
                   ${i % 3 !== 0 ? "sm:max-lg:border-l sm:max-lg:border-dashed sm:max-lg:border-border" : ""}
                   ${i % 2 !== 0 ? "max-sm:border-l max-sm:border-dashed max-sm:border-border" : ""}
@@ -55,19 +55,12 @@ export function SimpleTechStack({
                 }
               >
                 {/* Icon Container */}
-                <div
-                  className="mb-4 inline-flex size-10 items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.03] text-white/60 transition-all duration-300 group-hover:border-[var(--tech-color)]/30 group-hover:bg-[var(--tech-color)]/10 group-hover:text-[var(--tech-color)] group-hover:shadow-[0_0_15px_rgba(0,0,0,0.2)] group-hover:shadow-[var(--tech-color)]/20"
-                  style={
-                    {
-                      borderColor: "rgba(255, 255, 255, 0.08)",
-                    } as React.CSSProperties
-                  }
-                >
+                <div className="mb-4 inline-flex size-10 items-center justify-center rounded-xl border border-overlay-border bg-surface-3 text-muted-foreground transition-all duration-300 group-hover:border-[var(--tech-color)]/30 group-hover:bg-[var(--tech-color)]/10 group-hover:text-[var(--tech-color)] group-hover:shadow-[0_0_15px_rgba(0,0,0,0.2)] group-hover:shadow-[var(--tech-color)]/20">
                   <Icon className="size-5" />
                 </div>
 
                 {/* Tech Name */}
-                <h3 className="text-sm font-medium tracking-tight text-foreground transition-colors group-hover:text-white">
+                <h3 className="text-sm font-medium tracking-tight text-foreground transition-colors group-hover:text-accent">
                   {tech.name}
                 </h3>
               </div>

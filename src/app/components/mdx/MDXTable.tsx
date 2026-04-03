@@ -56,7 +56,7 @@ export const MDXTableRow = memo(function MDXTableRow({
       className={cn(
         "border-b border-border/60 last:border-b-0",
         !isHeader &&
-          "transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:bg-white/[0.02]",
+          "transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:bg-surface-2",
       )}
     >
       {children}

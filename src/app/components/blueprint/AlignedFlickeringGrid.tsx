@@ -40,7 +40,7 @@ export const AlignedFlickeringGrid: React.FC<AlignedFlickeringGridProps> = ({
       {/* Solid border frame - blueprint style */}
       <div
         className={cn(
-          "absolute inset-0 border-solid border-white/[0.08] pointer-events-none z-10",
+          "absolute inset-0 border-solid border-overlay-border pointer-events-none z-10",
           side === "left"
             ? "border-r border-t border-b"
             : "border-l border-t border-b",

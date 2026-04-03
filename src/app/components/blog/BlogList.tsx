@@ -94,7 +94,7 @@ export function BlogList({
                   "text-left text-sm px-2 py-1.5 rounded transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)]",
                   !activeTag
                     ? "text-accent bg-accent/5 font-medium"
-                    : "text-muted-foreground hover:text-foreground hover:bg-white/[0.02]",
+                    : "text-muted-foreground hover:text-foreground hover:bg-surface-2",
                 )}
               >
                 All ({allPosts.length})
@@ -112,7 +112,7 @@ export function BlogList({
                       "text-left text-sm px-2 py-1.5 rounded transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)]",
                       activeTag === tag
                         ? "text-accent bg-accent/5 font-medium"
-                        : "text-muted-foreground hover:text-foreground hover:bg-white/[0.02]",
+                        : "text-muted-foreground hover:text-foreground hover:bg-surface-2",
                     )}
                   >
                     <span className="font-mono text-xs">{tag}</span>
@@ -166,7 +166,7 @@ export function BlogList({
               <div
                 key={post.slug}
                 className={cn(
-                  "group transition-colors duration-150 hover:bg-white/[0.02]",
+                  "group transition-colors duration-150 hover:bg-surface-2",
                   i > 0 && "border-t border-dashed border-border",
                 )}
               >

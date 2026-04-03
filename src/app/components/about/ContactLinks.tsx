@@ -44,7 +44,7 @@ export const ContactLinks = memo(({ links }: ContactLinksProps) => {
             href={href}
             target={isEmail ? undefined : "_blank"}
             rel={isEmail ? undefined : "noopener noreferrer"}
-            className="group relative flex h-12 w-12 items-center justify-center border border-white/[0.08] bg-white/[0.02] transition-all duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-white/20 hover:bg-white/[0.04] focus:outline-none focus:ring-1 focus:ring-white/20"
+            className="group relative flex h-12 w-12 items-center justify-center border border-overlay-border bg-surface-2 transition-all duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-overlay-border-hover hover:bg-surface-4 focus:outline-none focus:ring-1 focus:ring-white/20"
             aria-label={`${link.label}: ${link.url}`}
             title={link.label}
           >
@@ -59,7 +59,7 @@ export const ContactLinks = memo(({ links }: ContactLinksProps) => {
             />
 
             {/* Subtle decorative dot */}
-            <div className="absolute -bottom-0.5 -right-0.5 h-1 w-1 bg-white/10 transition-colors group-hover:bg-white/30" />
+            <div className="absolute -bottom-0.5 -right-0.5 h-1 w-1 bg-faint transition-colors group-hover:bg-white/30" />
           </a>
         );
       })}

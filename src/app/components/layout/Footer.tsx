@@ -50,7 +50,7 @@ const SocialLink = memo(({ href, label, icon }: SocialLinkProps) => (
     target="_blank"
     rel="noopener noreferrer"
     aria-label={label}
-    className="group relative flex h-10 w-10 items-center justify-center rounded border border-white/[0.08] bg-white/[0.03] text-muted-foreground transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-white/[0.2] hover:bg-white/[0.08] hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background active:scale-[0.97] touch-manipulation"
+    className="group relative flex h-10 w-10 items-center justify-center rounded border border-overlay-border bg-surface-3 text-muted-foreground transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-overlay-border-hover hover:bg-faint hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background active:scale-[0.97] touch-manipulation"
   >
     <div className="relative z-10 transition-transform duration-150 group-hover:scale-110">
       {icon}

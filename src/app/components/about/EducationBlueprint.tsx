@@ -38,7 +38,7 @@ export const EducationBlueprint = memo(
           </div>
 
           {/* Content Column (Blueprint Style) */}
-          <div className="group relative flex flex-col justify-center border-t border-dashed border-border lg:border-t-0 lg:border-l lg:col-span-2 overflow-hidden bg-white/[0.01] px-6 py-10 sm:px-12 sm:py-16">
+          <div className="group relative flex flex-col justify-center border-t border-dashed border-border lg:border-t-0 lg:border-l lg:col-span-2 overflow-hidden bg-surface-1 px-6 py-10 sm:px-12 sm:py-16">
             {/* Flickering Grid Background */}
             <AlignedFlickeringGrid
               side="right"
@@ -63,12 +63,12 @@ export const EducationBlueprint = memo(
                     <MonoText className="text-[11px] tabular-nums uppercase tracking-widest text-muted-foreground/40 mb-1">
                       {edu.start} — {edu.end}
                     </MonoText>
-                    <h3 className="text-xl font-bold text-foreground transition-colors group-hover:text-white">
+                    <h3 className="text-xl font-bold text-foreground transition-colors group-hover:text-foreground">
                       {edu.school}
                     </h3>
                   </div>
 
-                  <div className="hidden sm:block h-8 w-px border-r border-dashed border-white/[0.08]" />
+                  <div className="hidden sm:block h-8 w-px border-r border-dashed border-overlay-border" />
 
                   <div className="flex flex-col">
                     <span className="text-base font-medium text-foreground/80">

@@ -15,7 +15,7 @@ export const Figure = memo(
   ({ src, alt, caption, width = 800, height = 400 }: FigureProps) => {
     return (
       <figure className="my-8">
-        <div className="relative overflow-hidden rounded-sm border border-border/60">
+        <div className="relative overflow-hidden">
           <Image
             src={src}
             alt={alt}

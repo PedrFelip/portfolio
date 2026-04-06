@@ -7,6 +7,25 @@ import type { BlogMetadata, BlogPost, Heading } from "@/types/portfolio";
 const BLOG_DIR = path.join(process.cwd(), "src/app/content/blog");
 const POSTS_PER_PAGE = 6;
 
+function isPostPublished(frontmatter: Record<string, unknown>): boolean {
+  const published = frontmatter.published;
+
+  if (published === undefined) {
+    return true;
+  }
+
+  if (typeof published === "boolean") {
+    return published;
+  }
+
+  if (typeof published === "string") {
+    const normalized = published.trim().toLowerCase();
+    return normalized !== "false" && normalized !== "0";
+  }
+
+  return Boolean(published);
+}
+
 /**
  * Slugify text for anchor IDs
  * Handles Portuguese characters (accents, ç)
@@ -94,7 +113,8 @@ export function getAllPostSlugs(): string[] {
   const files = fs.readdirSync(BLOG_DIR);
   return files
     .filter((file) => file.endsWith(".md") || file.endsWith(".mdx"))
-    .map((file) => file.replace(/\.mdx?$/, ""));
+    .map((file) => file.replace(/\.mdx?$/, ""))
+    .filter((slug) => getPostBySlug(slug) !== null);
 }
 
 /**
@@ -117,6 +137,11 @@ export const getPostBySlug = cache((slug: string): BlogPost | null => {
 
     const fileContents = fs.readFileSync(fullPath, "utf8");
     const { data, content } = matter(fileContents);
+
+    if (!isPostPublished(data as Record<string, unknown>)) {
+      return null;
+    }
+
     const headings = extractHeadings(content);
 
     return {

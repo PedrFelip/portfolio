@@ -18,9 +18,9 @@ export const ProjectCard = memo(({ project }: ProjectCardProps) => {
   return (
     <div className="group/card relative flex h-full flex-col">
       <div className="flex flex-col gap-1 sm:flex-row sm:items-start sm:justify-between sm:gap-2">
-        <H3 className="break-words pr-2 flex items-start gap-2 transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover/card:text-accent">
+        <H3 className="break-words pr-2 flex items-start gap-2 transition-colors duration-200 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover/card:text-accent">
           {project.featured && (
-            <MonoText className="mt-0.5 text-xs text-[color:var(--brand-amber)] opacity-80">
+            <MonoText className="mt-0.5 text-xs text-accent opacity-95 font-semibold animate-pulse hover:animate-none transition-all duration-150">
               ★
             </MonoText>
           )}
@@ -42,7 +42,7 @@ export const ProjectCard = memo(({ project }: ProjectCardProps) => {
           {project.technologies.map((tech, index) => (
             <Badge
               key={tech}
-              className="transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] motion-reduce:transition-none hover:border-accent hover:bg-accent/10 hover:text-accent"
+              className="transition-all duration-200 ease-[cubic-bezier(0.25,1,0.5,1)] motion-reduce:transition-none hover:border-accent/60 hover:bg-accent/25 hover:text-accent hover:shadow-md hover:shadow-accent/5 variant-projects"
               style={{ transitionDelay: `${index * 20}ms` }}
             >
               {tech}

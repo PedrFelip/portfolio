@@ -26,11 +26,11 @@ export const WorkExperienceCard = memo(
     return (
       <Card
         withBrackets={false}
-        className="group relative p-0 overflow-hidden border-overlay-border bg-surface-1 hover:bg-surface-2 transition-all duration-300"
+        className="group relative p-0 overflow-hidden border-overlay-border bg-surface-1 hover:bg-surface-2 hover:border-accent/20 transition-all duration-300 shadow-sm hover:shadow-md hover:shadow-accent/5"
       >
         <CornerBrackets
           size={10}
-          className="opacity-20 transition-opacity duration-300 group-hover:opacity-100"
+          className="opacity-20 transition-opacity duration-300 group-hover:opacity-60 group-hover:text-accent"
         />
 
         <div className="p-5 sm:p-6 sm:py-8">

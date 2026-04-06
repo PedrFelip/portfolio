@@ -35,12 +35,12 @@ export const BulletList = memo(
         {items.map((item, index) => (
           <div
             key={typeof item === "string" ? item : index}
-            className={cn("flex items-start gap-2.5 group/item", itemClassName)}
+            className={cn("flex items-start gap-2.5 group/item transition-all duration-200", itemClassName)}
           >
-            <span className="mt-0.5 flex-shrink-0 font-mono text-xs text-muted-foreground/60 transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover/item:text-accent">
-              →
+            <span className="mt-0.5 flex-shrink-0 font-mono text-xs text-accent/40 transition-all duration-200 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover/item:text-accent group-hover/item:scale-110 origin-left">
+              ▸
             </span>
-            <span className="flex-1 transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover/item:text-foreground">
+            <span className="flex-1 transition-colors duration-200 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover/item:text-foreground">
               {typeof item === "string" && item.trim() && !item.endsWith(".")
                 ? `${item}.`
                 : item}

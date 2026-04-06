@@ -17,7 +17,7 @@ function Card({
     <div
       data-slot="card"
       className={cn(
-        "bg-card text-card-foreground relative flex flex-col rounded-sm border border-border/60 p-3 sm:p-4 md:p-6 transition-[border-color,background-color,box-shadow,transform] duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-accent/40 hover:bg-accent/[0.02] touch-manipulation group",
+        "bg-card text-card-foreground relative flex flex-col rounded-sm border border-border/60 p-3 sm:p-4 md:p-6 transition-[border-color,background-color,box-shadow] duration-200 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-accent/50 hover:bg-accent/[0.04] hover:shadow-lg hover:shadow-accent/10 touch-manipulation group backdrop-blur-sm",
         className,
       )}
       {...props}

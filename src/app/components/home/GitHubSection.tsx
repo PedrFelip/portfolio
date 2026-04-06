@@ -62,9 +62,9 @@ export async function GitHubSection({
           </div>
 
           {/* Column 2: Commit Stats - Balanced & Centered */}
-          <div className="flex flex-col justify-center px-6 py-12 border-t border-dashed border-border sm:border-t-0 sm:border-l sm:py-12 lg:px-10">
+          <div className="flex flex-col justify-center px-6 py-12 border-t border-dashed border-border sm:border-t-0 sm:border-l sm:py-12 lg:px-10 hover:bg-accent/10 transition-colors duration-300">
             <div className="flex flex-col items-start sm:items-center text-left sm:text-center">
-              <span className="text-5xl font-bold tracking-tighter text-foreground sm:text-6xl tabular-nums">
+              <span className="text-5xl font-bold tracking-tighter text-accent transition-colors duration-200 sm:text-6xl tabular-nums">
                 {data.totalContributions}
               </span>
               <span className="text-[10px] sm:text-xs font-semibold uppercase tracking-[0.15em] text-muted-foreground/70 mt-2">
@@ -74,13 +74,13 @@ export async function GitHubSection({
           </div>
 
           {/* Column 3: Decorative Flickering Grid - Responsive Display */}
-          <div className="relative border-t border-dashed border-border lg:border-t-0 lg:border-l sm:col-span-2 lg:col-span-1 overflow-hidden min-h-[200px] sm:min-h-[240px] lg:min-h-0">
+          <div className="relative border-t border-dashed border-border lg:border-t-0 lg:border-l sm:col-span-2 lg:col-span-1 overflow-hidden min-h-[200px] sm:min-h-[240px] lg:min-h-0 group hover:bg-accent/5 transition-colors duration-300">
             <AlignedFlickeringGrid
               side="right"
               className="absolute inset-0 h-full w-full !flex"
             />
             {/* Blueprint corner detail */}
-            <div className="absolute right-2 bottom-2 size-2 border-r border-b border-border/40" />
+            <div className="absolute right-2 bottom-2 size-2 border-r border-b border-accent/40 transition-colors group-hover:border-accent/60" />
           </div>
         </div>
       </div>

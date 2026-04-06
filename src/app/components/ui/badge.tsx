@@ -16,19 +16,19 @@ const badgeVariants = cva(
         destructive:
           "border-destructive/30 bg-destructive/10 text-destructive hover:bg-destructive/20",
         outline:
-          "border-border bg-transparent text-muted-foreground hover:border-foreground/40 hover:text-foreground",
-        work: "border-brand-blue/30 bg-brand-blue/10 text-brand-blue/90 hover:bg-brand-blue/20",
+          "border-border bg-transparent text-muted-foreground hover:border-accent/40 hover:text-accent hover:bg-accent/[0.08]",
+        work: "border-brand-amber/40 bg-brand-amber/15 text-brand-amber/95 hover:bg-brand-amber/25 hover:border-brand-amber/60 shadow-sm hover:shadow-md hover:shadow-brand-amber/5 transition-shadow",
         education:
-          "border-brand-emerald/30 bg-brand-emerald/10 text-brand-emerald/90 hover:bg-brand-emerald/20",
+          "border-brand-violet/40 bg-brand-violet/15 text-brand-violet/95 hover:bg-brand-violet/25 hover:border-brand-violet/60 shadow-sm hover:shadow-md hover:shadow-brand-violet/5 transition-shadow",
         expertise:
-          "border-brand-violet/30 bg-brand-violet/10 text-brand-violet/90 hover:bg-brand-violet/20",
+          "border-brand-emerald/40 bg-brand-emerald/15 text-brand-emerald/95 hover:bg-brand-emerald/25 hover:border-brand-emerald/60 shadow-sm hover:shadow-md hover:shadow-brand-emerald/5 transition-shadow",
         projects:
-          "border-brand-amber/30 bg-brand-amber/10 text-brand-amber/90 hover:bg-brand-amber/20",
-        blog: "border-accent/30 bg-accent/10 text-accent/90 hover:bg-accent/20",
+          "border-accent/40 bg-accent/15 text-accent/95 hover:bg-accent/25 hover:border-accent/60 shadow-sm hover:shadow-md hover:shadow-accent/5 transition-shadow",
+        blog: "border-brand-blue/40 bg-brand-blue/15 text-brand-blue/95 hover:bg-brand-blue/25 hover:border-brand-blue/60 shadow-sm hover:shadow-md hover:shadow-brand-blue/5 transition-shadow",
         contact:
-          "border-brand-cyan/30 bg-brand-cyan/10 text-brand-cyan/90 hover:bg-brand-cyan/20",
+          "border-brand-cyan/40 bg-brand-cyan/15 text-brand-cyan/95 hover:bg-brand-cyan/25 hover:border-brand-cyan/60 shadow-sm hover:shadow-md hover:shadow-brand-cyan/5 transition-shadow",
         about:
-          "border-brand-slate/30 bg-brand-slate/10 text-brand-slate/90 hover:bg-brand-slate/20",
+          "border-brand-slate/40 bg-brand-slate/15 text-brand-slate/95 hover:bg-brand-slate/25 hover:border-brand-slate/60 shadow-sm hover:shadow-md hover:shadow-brand-slate/5 transition-shadow",
       },
     },
     defaultVariants: {

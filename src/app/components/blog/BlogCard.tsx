@@ -50,7 +50,7 @@ export const BlogCard = memo(({ post }: BlogCardProps) => {
         )}
       </div>
 
-      <h3 className="mb-2 text-sm sm:text-base font-semibold leading-snug tracking-[-0.01em] text-foreground line-clamp-2 transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:text-accent">
+      <h3 className="mb-2 text-sm sm:text-base font-semibold leading-snug tracking-[-0.01em] text-foreground line-clamp-2 transition-colors duration-200 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:text-accent">
         {post.title}
       </h3>
 

@@ -38,7 +38,7 @@ export const EducationBlueprint = memo(
           </div>
 
           {/* Content Column (Blueprint Style) */}
-          <div className="group relative flex flex-col justify-center border-t border-dashed border-border lg:border-t-0 lg:border-l lg:col-span-2 overflow-hidden bg-surface-1 px-6 py-10 sm:px-12 sm:py-16">
+          <div className="group relative flex flex-col justify-center border-t border-dashed border-border lg:border-t-0 lg:border-l lg:col-span-2 overflow-hidden bg-surface-1 hover:bg-surface-2 transition-colors duration-300 px-6 py-10 sm:px-12 sm:py-16 hover:shadow-lg hover:shadow-accent/5">
             {/* Flickering Grid Background */}
             <AlignedFlickeringGrid
               side="right"
@@ -50,7 +50,7 @@ export const EducationBlueprint = memo(
             <DotPattern className="opacity-10" />
             <CornerBrackets
               size={12}
-              className="opacity-20 transition-opacity duration-300 group-hover:opacity-100"
+              className="opacity-20 transition-opacity duration-300 group-hover:opacity-70"
             />
 
             <div className="relative z-10">

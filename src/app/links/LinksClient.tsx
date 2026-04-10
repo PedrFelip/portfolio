@@ -23,16 +23,16 @@ const iconMap = {
 
 const colorMap = {
   portfolio: {
-    border: "group-hover:border-accent/70",
-    bg: "group-hover:bg-accent/12",
-    text: "group-hover:text-accent",
-    icon: "group-hover:text-accent",
+    border: "group-hover:border-foreground/30",
+    bg: "group-hover:bg-foreground/[0.04]",
+    text: "group-hover:text-foreground",
+    icon: "group-hover:text-foreground",
   },
   github: {
-    border: "group-hover:border-[var(--brand-violet)]/70",
-    bg: "group-hover:bg-[var(--brand-violet)]/12",
-    text: "group-hover:text-[var(--brand-violet)]",
-    icon: "group-hover:text-[var(--brand-violet)]",
+    border: "group-hover:border-[var(--brand-github)]/70",
+    bg: "group-hover:bg-[var(--brand-github)]/12",
+    text: "group-hover:text-[var(--brand-github)]",
+    icon: "group-hover:text-[var(--brand-github)]",
   },
   linkedin: {
     border: "group-hover:border-[var(--brand-linkedin)]/70",
@@ -41,10 +41,10 @@ const colorMap = {
     icon: "group-hover:text-[var(--brand-linkedin)]",
   },
   x: {
-    border: "group-hover:border-[var(--brand-slate)]/70",
-    bg: "group-hover:bg-[var(--brand-slate)]/12",
-    text: "group-hover:text-[var(--brand-slate)]",
-    icon: "group-hover:text-[var(--brand-slate)]",
+    border: "group-hover:border-[var(--brand-twitter)]/70",
+    bg: "group-hover:bg-[var(--brand-twitter)]/12",
+    text: "group-hover:text-[var(--brand-twitter)]",
+    icon: "group-hover:text-[var(--brand-twitter)]",
   },
   email: {
     border: "group-hover:border-[var(--brand-email)]/70",

@@ -16,19 +16,19 @@ const badgeVariants = cva(
         destructive:
           "border-destructive/30 bg-destructive/10 text-destructive hover:bg-destructive/20",
         outline:
-          "border-border bg-transparent text-muted-foreground hover:border-accent/40 hover:text-accent hover:bg-accent/[0.08]",
-        work: "border-brand-amber/40 bg-brand-amber/15 text-brand-amber/95 hover:bg-brand-amber/25 hover:border-brand-amber/60 shadow-sm hover:shadow-md hover:shadow-brand-amber/5 transition-shadow",
+          "border-border bg-transparent text-muted-foreground hover:border-foreground/30 hover:text-foreground hover:bg-foreground/[0.04]",
+        work: "border-foreground/20 bg-foreground/[0.06] text-foreground/80 hover:bg-foreground/10 hover:border-foreground/35",
         education:
-          "border-brand-violet/40 bg-brand-violet/15 text-brand-violet/95 hover:bg-brand-violet/25 hover:border-brand-violet/60 shadow-sm hover:shadow-md hover:shadow-brand-violet/5 transition-shadow",
+          "border-foreground/20 bg-foreground/[0.06] text-foreground/80 hover:bg-foreground/10 hover:border-foreground/35",
         expertise:
-          "border-brand-emerald/40 bg-brand-emerald/15 text-brand-emerald/95 hover:bg-brand-emerald/25 hover:border-brand-emerald/60 shadow-sm hover:shadow-md hover:shadow-brand-emerald/5 transition-shadow",
+          "border-foreground/20 bg-foreground/[0.06] text-foreground/80 hover:bg-foreground/10 hover:border-foreground/35",
         projects:
-          "border-accent/40 bg-accent/15 text-accent/95 hover:bg-accent/25 hover:border-accent/60 shadow-sm hover:shadow-md hover:shadow-accent/5 transition-shadow",
-        blog: "border-brand-blue/40 bg-brand-blue/15 text-brand-blue/95 hover:bg-brand-blue/25 hover:border-brand-blue/60 shadow-sm hover:shadow-md hover:shadow-brand-blue/5 transition-shadow",
+          "border-foreground/20 bg-foreground/[0.06] text-foreground/80 hover:bg-foreground/10 hover:border-foreground/35",
+        blog: "border-foreground/20 bg-foreground/[0.06] text-foreground/80 hover:bg-foreground/10 hover:border-foreground/35",
         contact:
-          "border-brand-cyan/40 bg-brand-cyan/15 text-brand-cyan/95 hover:bg-brand-cyan/25 hover:border-brand-cyan/60 shadow-sm hover:shadow-md hover:shadow-brand-cyan/5 transition-shadow",
+          "border-foreground/20 bg-foreground/[0.06] text-foreground/80 hover:bg-foreground/10 hover:border-foreground/35",
         about:
-          "border-brand-slate/40 bg-brand-slate/15 text-brand-slate/95 hover:bg-brand-slate/25 hover:border-brand-slate/60 shadow-sm hover:shadow-md hover:shadow-brand-slate/5 transition-shadow",
+          "border-foreground/20 bg-foreground/[0.06] text-foreground/80 hover:bg-foreground/10 hover:border-foreground/35",
       },
     },
     defaultVariants: {

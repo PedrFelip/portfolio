@@ -6,7 +6,7 @@ interface SimpleIcon {
   hex: string;
 }
 
-export interface CreatedIcon {
+interface CreatedIcon {
   icon: React.FC<{ className?: string }>;
   color: string;
 }

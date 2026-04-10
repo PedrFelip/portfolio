@@ -36,8 +36,4 @@ export const TECH_STACK: Record<string, TechItem> = {
   redis: { name: "Redis", ...createIcon(siRedis) },
 };
 
-export const getTechStack = (keys: (keyof typeof TECH_STACK)[]): TechItem[] => {
-  return keys.map((key) => TECH_STACK[key]);
-};
-
 export const DEFAULT_TECH_STACK = Object.values(TECH_STACK);

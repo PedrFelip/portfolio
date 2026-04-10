@@ -26,7 +26,7 @@ export interface GitHubStats {
   forks: number;
 }
 
-export interface GitHubRepoNode {
+interface GitHubRepoNode {
   stargazerCount: number;
   forkCount: number;
 }

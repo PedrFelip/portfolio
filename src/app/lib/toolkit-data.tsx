@@ -8,12 +8,12 @@ import {
 } from "simple-icons";
 import { createIcon } from "@/lib/create-icon";
 
-export interface ToolkitIcon {
+interface ToolkitIcon {
   component: React.FC<{ className?: string }>;
   color: string;
 }
 
-export interface ToolkitItemConfig {
+interface ToolkitItemConfig {
   id: string;
   icons: ToolkitIcon[];
 }

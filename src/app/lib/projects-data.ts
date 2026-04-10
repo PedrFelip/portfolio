@@ -106,7 +106,3 @@ export const getProjects = cache((language: "en" | "pt"): Project[] => {
     },
   ];
 });
-
-export const getFeaturedProjects = cache((language: "en" | "pt"): Project[] => {
-  return getProjects(language).filter((p) => p.featured);
-});

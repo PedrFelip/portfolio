@@ -5,7 +5,6 @@ import { cache } from "react";
 import type { BlogMetadata, BlogPost, Heading } from "@/types/portfolio";
 
 const BLOG_DIR = path.join(process.cwd(), "src/app/content/blog");
-const POSTS_PER_PAGE = 6;
 
 function isPostPublished(frontmatter: Record<string, unknown>): boolean {
   const published = frontmatter.published;
@@ -39,25 +38,6 @@ export function slugify(text: string): string {
     .replace(/\s+/g, "-") // Spaces to hyphens
     .replace(/-+/g, "-") // Multiple hyphens to single
     .trim();
-}
-
-/**
- * Creates a deduplicated slugifier for consistent ID generation
- * Returns a function that generates unique IDs by appending numeric suffixes
- *
- * Best Practice 7.11 - Use Set/Map for O(1) Lookups
- * Ensures TOC headings and rendered headings have matching IDs
- */
-export function createDedupedSlugifier(): (text: string) => string {
-  const idCounts = new Map<string, number>();
-
-  return (text: string): string => {
-    const baseId = slugify(text);
-    const count = idCounts.get(baseId) || 0;
-    const id = count > 0 ? `${baseId}-${count}` : baseId;
-    idCounts.set(baseId, count + 1);
-    return id;
-  };
 }
 
 /**
@@ -190,43 +170,6 @@ export const getAllPosts = cache((): BlogMetadata[] => {
 
   return posts;
 });
-
-/**
- * Get paginated blog posts
- */
-export function getPaginatedPosts(page = 1): {
-  posts: BlogMetadata[];
-  totalPages: number;
-  currentPage: number;
-  hasNextPage: boolean;
-  hasPrevPage: boolean;
-} {
-  const allPosts = getAllPosts();
-  const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE);
-  const currentPage = Math.max(1, Math.min(page, totalPages));
-
-  const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
-  const endIndex = startIndex + POSTS_PER_PAGE;
-  const posts = allPosts.slice(startIndex, endIndex);
-
-  return {
-    posts,
-    totalPages,
-    currentPage,
-    hasNextPage: currentPage < totalPages,
-    hasPrevPage: currentPage > 1,
-  };
-}
-
-/**
- * Get posts by tag
- */
-export function getPostsByTag(tag: string): BlogMetadata[] {
-  const normalizedTag = tag.toLowerCase();
-  return getAllPosts().filter((post) =>
-    post.tags.some((t) => t.toLowerCase() === normalizedTag),
-  );
-}
 
 /**
  * Get all unique tags

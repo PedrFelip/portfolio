@@ -1,4 +1,4 @@
-export interface SocialLink {
+interface SocialLink {
   label: string;
   url: string;
   icon: "portfolio" | "github" | "linkedin" | "x" | "email";

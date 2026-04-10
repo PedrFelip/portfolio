@@ -15,11 +15,6 @@ import { sharedPt } from "./content/shared.pt";
 
 export type Language = "en" | "pt";
 
-export const LANGUAGES: Record<Language, string> = {
-  en: "English",
-  pt: "Português",
-};
-
 export const DEFAULT_LANGUAGE: Language = "en";
 export const LANGUAGE_COOKIE = "NEXT_LOCALE";
 

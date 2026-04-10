@@ -7,32 +7,7 @@
  * - Dark mode default
  */
 
-export { Badge, badgeVariants } from "./badge";
-// shadcn/ui primitives
-export { Button, buttonVariants } from "./button";
-export {
-  Card,
-  CardAction,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "./card";
-// Typography system
-export {
-  Blockquote,
-  Code,
-  H1,
-  H2,
-  H3,
-  H4,
-  Label,
-  Lead,
-  List,
-  MonoText,
-  Muted,
-  OrderedList,
-  P,
-  Small,
-} from "./typography";
+export { Badge } from "./badge";
+export { Button } from "./button";
+export { Card, CardContent } from "./card";
+export { H1, H3, Label, Lead, MonoText, P } from "./typography";

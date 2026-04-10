@@ -4,7 +4,7 @@ import Link from "next/link";
 import { memo } from "react";
 import { Badge, Button, H3, MonoText, P } from "@/components/ui";
 import { ExternalLink, Github } from "@/components/ui/icons";
-import { useLanguage } from "@/lib/LanguageContext";
+import { useLanguage } from "@/lib/language-store";
 import type { Project } from "@/types/portfolio";
 
 interface ProjectCardProps {

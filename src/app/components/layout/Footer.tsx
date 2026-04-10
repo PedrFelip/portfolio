@@ -6,7 +6,7 @@ import { FooterGrid, FooterGridCell } from "@/components/blueprint";
 import { Label, MonoText } from "@/components/ui";
 import { Github, Linkedin, Mail } from "@/components/ui/icons";
 import { XIcon } from "@/components/ui/x-icon";
-import { useLanguage } from "@/lib/LanguageContext";
+import { useLanguage } from "@/lib/language-store";
 import { socialLinks } from "@/lib/links";
 import { useLocalizedLink } from "@/lib/useLocalizedLink";
 

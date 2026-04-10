@@ -5,7 +5,7 @@ import { SectionDivider } from "@/components/blueprint";
 import { FilterTags } from "@/components/projects/FilterTags";
 import { ProjectCard } from "@/components/projects/ProjectCard";
 import { P } from "@/components/ui";
-import { useLanguage } from "@/lib/LanguageContext";
+import { useLanguage } from "@/lib/language-store";
 import type { Project } from "@/types/portfolio";
 
 interface ProjectsClientProps {

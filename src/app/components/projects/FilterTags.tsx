@@ -2,7 +2,7 @@
 
 import { memo, useCallback, useMemo } from "react";
 import { MonoText } from "@/components/ui";
-import { useLanguage } from "@/lib/LanguageContext";
+import { useLanguage } from "@/lib/language-store";
 import { cn } from "@/lib/utils";
 
 interface FilterTagsProps {

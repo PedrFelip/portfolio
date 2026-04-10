@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { LanguageSync } from "@/components/LanguageSync";
 import { Footer } from "@/components/layout/Footer";
 import { Navigation } from "@/components/layout/Navigation";
-import { LanguageProvider } from "@/lib/LanguageContext";
 
 const metadataConfig = {
   en: {
@@ -87,10 +87,10 @@ export default async function RootLayout({
   const validLang = lang as "pt" | "en";
 
   return (
-    <LanguageProvider initialLanguage={validLang}>
+    <LanguageSync initialLanguage={validLang}>
       <Navigation />
       <main className="flex-grow">{children}</main>
       <Footer />
-    </LanguageProvider>
+    </LanguageSync>
   );
 }

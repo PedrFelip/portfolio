@@ -4,7 +4,7 @@ import Link from "next/link";
 import { memo, useMemo } from "react";
 import { Badge, MonoText } from "@/components/ui";
 import { ArrowRight, Calendar, Clock } from "@/components/ui/icons";
-import { useLanguage } from "@/lib/LanguageContext";
+import { useLanguage } from "@/lib/language-store";
 import type { BlogMetadata } from "@/types/portfolio";
 
 interface BlogCardProps {

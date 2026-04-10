@@ -10,7 +10,7 @@ import {
   Mail,
 } from "@/components/ui/icons";
 import { XIcon } from "@/components/ui/x-icon";
-import { LanguageProvider, useLanguage } from "@/lib/LanguageContext";
+import { useLanguage } from "@/lib/language-store";
 import { socialLinks } from "@/lib/links";
 
 const iconMap = {
@@ -148,9 +148,5 @@ function LinksContent() {
 }
 
 export default function LinksClient() {
-  return (
-    <LanguageProvider>
-      <LinksContent />
-    </LanguageProvider>
-  );
+  return <LinksContent />;
 }

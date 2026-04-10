@@ -9,7 +9,7 @@ import {
   useRef,
   useState,
 } from "react";
-import { useLanguage } from "@/lib/LanguageContext";
+import { useLanguage } from "@/lib/language-store";
 import { cn } from "@/lib/utils";
 import type { Heading } from "@/types/portfolio";
 

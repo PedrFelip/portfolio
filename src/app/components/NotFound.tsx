@@ -11,7 +11,7 @@ import { Footer } from "@/components/layout/Footer";
 import { Navigation } from "@/components/layout/Navigation";
 import { H1, Label, MonoText, P } from "@/components/ui";
 import { ArrowRight } from "@/components/ui/icons";
-import { useLanguage } from "@/lib/LanguageContext";
+import { useLanguage } from "@/lib/language-store";
 import { useLocalizedLink } from "@/lib/useLocalizedLink";
 import { cn } from "@/lib/utils";
 

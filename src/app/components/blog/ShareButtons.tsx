@@ -17,7 +17,7 @@ import {
   Share2,
 } from "@/components/ui/icons";
 import { XIcon } from "@/components/ui/x-icon";
-import { useLanguage } from "@/lib/LanguageContext";
+import { useLanguage } from "@/lib/language-store";
 
 interface ShareButtonsProps {
   title: string;

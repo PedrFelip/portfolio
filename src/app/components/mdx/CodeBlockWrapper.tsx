@@ -2,7 +2,7 @@
 
 import { memo, useCallback, useEffect, useRef, useState } from "react";
 import { Check, Copy } from "@/components/ui/icons";
-import { useLanguage } from "@/lib/LanguageContext";
+import { useLanguage } from "@/lib/language-store";
 
 interface CodeBlockWrapperProps {
   children: React.ReactNode;

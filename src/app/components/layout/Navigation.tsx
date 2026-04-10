@@ -15,7 +15,7 @@ import {
 } from "react";
 import { Button } from "@/components/ui";
 import { Menu, X } from "@/components/ui/icons";
-import { useLanguage } from "@/lib/LanguageContext";
+import { useLanguage } from "@/lib/language-store";
 import { useLocalizedLink } from "@/lib/useLocalizedLink";
 
 interface NavLink {

@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { useLanguage } from "./LanguageContext";
+import { useLanguage } from "./language-store";
 
 /**
  * Hook para construir links localizados que incluem o prefixo de idioma

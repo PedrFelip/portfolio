@@ -204,7 +204,7 @@ export const Navigation = memo(() => {
       <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-surface-4 via-overlay-border to-surface-4" />
 
       <div className="mx-auto max-w-6xl px-4 sm:px-6 relative">
-        <div className="flex h-16 items-center justify-between">
+        <div className="relative z-50 flex h-16 items-center justify-between">
           <Link href={getLocalizedLink("/")} className="group">
             <div className="text-base font-semibold tracking-tight text-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:text-muted-foreground">
               Pedro Felipe
@@ -239,19 +239,21 @@ export const Navigation = memo(() => {
           <div className="flex items-center gap-2">
             <Button
               variant="ghost"
+              size="icon"
               onClick={toggleLanguage}
               disabled={isPending}
               aria-label={`Switch language to ${
                 language === "en" ? "Portuguese" : "English"
               }`}
-              className="h-10 w-10 rounded border border-overlay-border bg-surface-3 font-mono text-xs font-medium transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-overlay-border-hover hover:bg-surface-4 active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-50"
+              className="rounded border border-overlay-border bg-surface-3 font-mono text-xs font-medium transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-overlay-border-hover hover:bg-surface-4 active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-50"
             >
               {language === "en" ? "EN" : "PT"}
             </Button>
 
             <Button
               variant="ghost"
-              className={`h-10 w-10 rounded border border-overlay-border transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-overlay-border-hover hover:bg-surface-4 active:scale-[0.97] md:hidden ${
+              size="icon"
+              className={`rounded border border-overlay-border transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-overlay-border-hover hover:bg-surface-4 active:scale-[0.97] md:hidden ${
                 isMenuOpen
                   ? "border-overlay-border-hover bg-surface-4"
                   : "bg-surface-3"

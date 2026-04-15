@@ -1,8 +1,12 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { useCallback, useRef, useState } from "react";
+import { FlickerOverlay } from "@/components/common/FlickerOverlay";
 import { MonoText, P } from "@/components/ui";
 import { ChevronLeft, ChevronRight } from "@/components/ui/icons";
+import { useFlickerTransition } from "@/hooks/useFlickerTransition";
+import { flickerContentVariants } from "@/lib/animations";
 import { cn } from "@/lib/utils";
 import type { BlogMetadata } from "@/types/portfolio";
 import { BlogCard } from "./BlogCard";
@@ -31,6 +35,9 @@ export function BlogList({
 }: BlogListProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const [activeTag, setActiveTag] = useState<string | null>(null);
+  const { flickerPhase, contentVisible, trigger } = useFlickerTransition();
+  const listRef = useRef<HTMLDivElement>(null);
+  const [minHeight, setMinHeight] = useState<number | undefined>(undefined);
 
   const filteredPosts = activeTag
     ? allPosts.filter((p) => p.tags.includes(activeTag))
@@ -46,28 +53,52 @@ export function BlogList({
   const hasNextPage = currentPage < totalPages;
   const hasPrevPage = currentPage > 1;
 
+  const captureHeight = useCallback(() => {
+    if (listRef.current) {
+      setMinHeight(listRef.current.offsetHeight);
+    }
+  }, []);
+
   const handlePrevPage = useCallback(() => {
     if (hasPrevPage) {
-      setCurrentPage((prev) => prev - 1);
+      captureHeight();
+      trigger(() => setCurrentPage((prev) => prev - 1));
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
-  }, [hasPrevPage]);
+  }, [hasPrevPage, trigger, captureHeight]);
 
   const handleNextPage = useCallback(() => {
     if (hasNextPage) {
-      setCurrentPage((prev) => prev + 1);
+      captureHeight();
+      trigger(() => setCurrentPage((prev) => prev + 1));
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
-  }, [hasNextPage]);
+  }, [hasNextPage, trigger, captureHeight]);
 
-  const handleTagClick = useCallback((tag: string | null) => {
-    setActiveTag(tag);
-    setCurrentPage(1);
-  }, []);
+  const handleTagClick = useCallback(
+    (tag: string | null) => {
+      captureHeight();
+      trigger(() => {
+        setActiveTag(tag);
+        setCurrentPage(1);
+      });
+    },
+    [trigger, captureHeight],
+  );
+
+  const handleListRef = useCallback(
+    (node: HTMLDivElement | null) => {
+      listRef.current = node;
+      if (node && contentVisible) {
+        setMinHeight(undefined);
+      }
+    },
+    [contentVisible],
+  );
 
   if (allPosts.length === 0) {
     return (
-      <div className="rail-bounded border-t border-border">
+      <div className="rail-bounded border border-border">
         <div className="flex flex-col items-center justify-center py-12 md:py-16 text-center px-6">
           <P className="font-medium mb-2 text-sm md:text-base">{t.noPosts}</P>
           <P className="text-muted-foreground text-sm md:text-base">
@@ -78,8 +109,10 @@ export function BlogList({
     );
   }
 
+  const listKey = `${activeTag ?? "all"}-${currentPage}`;
+
   return (
-    <div className="rail-bounded border-t border-border">
+    <div className="rail-bounded border border-border">
       <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr]">
         <div className="hidden lg:block border-r border-dashed border-border">
           <div className="lg:sticky lg:top-24 py-8 pl-4 pr-6">
@@ -156,24 +189,63 @@ export function BlogList({
           ))}
         </div>
 
-        <div>
-          {currentPosts.length === 0 ? (
-            <div className="px-6 py-12 text-center text-muted-foreground text-sm">
-              {t.noPosts}
-            </div>
-          ) : (
-            currentPosts.map((post, i) => (
-              <div
-                key={post.slug}
-                className={cn(
-                  "group transition-colors duration-150 hover:bg-surface-2",
-                  i > 0 && "border-t border-dashed border-border",
-                )}
-              >
-                <BlogCard post={post} />
-              </div>
-            ))
-          )}
+        <div
+          className="relative"
+          style={minHeight !== undefined ? { minHeight } : undefined}
+        >
+          <FlickerOverlay phase={flickerPhase} />
+          <div className="relative z-0">
+            <AnimatePresence mode="wait">
+              {contentVisible && currentPosts.length > 0 ? (
+                <motion.div
+                  key={listKey}
+                  ref={handleListRef}
+                  variants={flickerContentVariants}
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
+                >
+                  {currentPosts.map((post, i) => (
+                    <div
+                      key={post.slug}
+                      className={cn(
+                        "group transition-colors duration-150 hover:bg-surface-2",
+                        i > 0 && "border-t border-dashed border-border",
+                      )}
+                    >
+                      <BlogCard post={post} />
+                    </div>
+                  ))}
+                </motion.div>
+              ) : contentVisible ? (
+                <motion.div
+                  key={`${listKey}-empty`}
+                  ref={handleListRef}
+                  variants={flickerContentVariants}
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
+                  className="px-6 py-12 text-center text-muted-foreground text-sm"
+                >
+                  {t.noPosts}
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="placeholder"
+                  variants={flickerContentVariants}
+                  initial="animate"
+                  animate="animate"
+                  exit="exit"
+                  className="invisible"
+                  aria-hidden="true"
+                >
+                  <div
+                    style={minHeight !== undefined ? { minHeight } : undefined}
+                  />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
 
           {totalPages > 1 && (
             <div className="flex items-center justify-center gap-4 px-6 py-8 border-t border-dashed border-border">

@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { FLICKER_TIMING } from "@/lib/animations";
 
 export type FlickerPhase = "idle" | "visible" | "exiting";
 
@@ -23,7 +24,10 @@ export function useFlickerTransition(): UseFlickerTransitionReturn {
       mountedRef.current = false;
       for (const t of timersRef.current) clearTimeout(t);
       timersRef.current = [];
-      if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
+      if (rafRef.current !== null) {
+        cancelAnimationFrame(rafRef.current);
+        rafRef.current = null;
+      }
     };
   }, []);
 
@@ -35,7 +39,18 @@ export function useFlickerTransition(): UseFlickerTransitionReturn {
     (onApply: () => void) => {
       for (const t of timersRef.current) clearTimeout(t);
       timersRef.current = [];
-      if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
+      if (rafRef.current !== null) {
+        cancelAnimationFrame(rafRef.current);
+        rafRef.current = null;
+      }
+
+      if (
+        typeof window !== "undefined" &&
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches
+      ) {
+        safe(() => onApply());
+        return;
+      }
 
       safe(() => {
         setContentVisible(false);
@@ -49,13 +64,14 @@ export function useFlickerTransition(): UseFlickerTransitionReturn {
         });
         rafRef.current = requestAnimationFrame(() => {
           safe(() => setContentVisible(true));
+          rafRef.current = null;
         });
-      }, 650);
+      }, FLICKER_TIMING.APPLY_DELAY);
       timersRef.current.push(t2);
 
       const t3 = setTimeout(() => {
         safe(() => setFlickerPhase("idle"));
-      }, 950);
+      }, FLICKER_TIMING.IDLE_DELAY);
       timersRef.current.push(t3);
     },
     [safe],

@@ -189,7 +189,10 @@ export function BlogList({
           ))}
         </div>
 
-        <div className="relative" style={minHeight ? { minHeight } : undefined}>
+        <div
+          className="relative"
+          style={minHeight !== undefined ? { minHeight } : undefined}
+        >
           <FlickerOverlay phase={flickerPhase} />
           <div className="relative z-0">
             <AnimatePresence mode="wait">
@@ -236,7 +239,9 @@ export function BlogList({
                   className="invisible"
                   aria-hidden="true"
                 >
-                  <div style={minHeight ? { minHeight } : undefined} />
+                  <div
+                    style={minHeight !== undefined ? { minHeight } : undefined}
+                  />
                 </motion.div>
               )}
             </AnimatePresence>

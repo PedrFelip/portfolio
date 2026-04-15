@@ -29,7 +29,7 @@ export function FlickerOverlay({ phase, className }: FlickerOverlayProps) {
         gridGap={FLICKER_CONFIG.GRID_GAP}
         flickerChance={FLICKER_CONFIG.FLICKER_CHANCE}
         color={FLICKER_CONFIG.COLOR}
-        maxOpacity={0.8}
+        maxOpacity={FLICKER_CONFIG.MAX_OPACITY}
         className="h-full w-full"
       />
     </motion.div>

@@ -105,7 +105,7 @@ export default function ProjectsClient({
 
       <div
         className="rail-bounded border border-border relative"
-        style={minHeight ? { minHeight } : undefined}
+        style={minHeight !== undefined ? { minHeight } : undefined}
       >
         <FlickerOverlay phase={flickerPhase} />
         <div className="relative z-0">
@@ -183,7 +183,9 @@ export default function ProjectsClient({
                 className="invisible"
                 aria-hidden="true"
               >
-                <div style={minHeight ? { minHeight } : undefined} />
+                <div
+                  style={minHeight !== undefined ? { minHeight } : undefined}
+                />
               </motion.div>
             )}
           </AnimatePresence>

@@ -35,6 +35,26 @@ export const revealVariants: Record<RevealDirection, Variants> = {
   scale: createRevealVariant({ opacity: 0, scale: 0.98 }),
 };
 
+export const revealFadeVariants: Variants = revealVariants.fade;
+
+export const staggerContainerFast: Variants = {
+  hidden: {},
+  visible: {
+    transition: {
+      delayChildren: 0.02,
+      staggerChildren: 0.02,
+    },
+  },
+};
+
+export const blueprintDecorativeVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { duration: 0.4, ease: EASE, delay: 0.3 },
+  },
+};
+
 export const staggerContainer: Variants = {
   hidden: {},
   visible: {

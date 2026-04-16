@@ -23,11 +23,11 @@ interface BlueprintRevealProps {
 /**
  * BlueprintReveal
  *
- * Orquestra a sequência de reveal estilo "blueprint draw":
- * - Conteúdo principal: stagger 0.06s, fade-up 8px
- * - Decorativos (dot pattern, corner brackets): fade após delay 0.3s
+ * Orchestrates a "blueprint draw" reveal sequence:
+ * - Main content: 0.06s stagger, 8px fade-up
+ * - Decoratives (dot pattern, corner brackets): fade after 0.3s delay
  *
- * Uso:
+ * Usage:
  * ```tsx
  * <BlueprintReveal
  *   decoratives={<><DotPattern /><CornerBrackets /></>}
@@ -81,12 +81,12 @@ export const BlueprintReveal = memo(function BlueprintReveal({
       variants={containerVariants}
       className={className}
     >
-      {/* Conteúdo principal: cada filho recebe revealVariants via stagger do container */}
+      {/* Main content: each child receives reveal variants through container stagger */}
       {Children.map(children, (child) => (
         <motion.div variants={revealVariants.up}>{child}</motion.div>
       ))}
 
-      {/* Decorativos: revelam após o conteúdo (delay interno via blueprintDecorativeVariants) */}
+      {/* Decoratives: reveal after content (delay via blueprintDecorativeVariants) */}
       {decoratives && (
         <motion.div variants={blueprintDecorativeVariants} aria-hidden="true">
           {decoratives}

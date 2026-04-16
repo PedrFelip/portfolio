@@ -15,7 +15,7 @@ interface RevealProps {
   className?: string;
   /** Override variants completely */
   variants?: Variants;
-  /** renderiza como outro elemento (default: div) */
+  /** Renders as another element (default: div) */
   as?: keyof JSX.IntrinsicElements;
 }
 

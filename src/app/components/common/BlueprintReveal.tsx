@@ -9,14 +9,14 @@ import {
 } from "@/lib/animations";
 
 interface BlueprintRevealProps {
-  /** Conteúdo principal — revela primeiro via stagger */
+  /** Main content — reveals first via stagger */
   children: ReactNode;
-  /** Elementos decorativos (DotPattern, CornerBrackets, etc) — revelam depois */
+  /** Decorative elements (DotPattern, CornerBrackets, etc) — reveal after */
   decoratives?: ReactNode;
   className?: string;
   /** viewport amount (default 0.15) */
   amount?: number;
-  /** delay antes de começar toda a sequência */
+  /** Delay before starting the full sequence */
   delay?: number;
 }
 

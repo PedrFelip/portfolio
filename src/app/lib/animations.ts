@@ -1,6 +1,6 @@
 import type { Variants } from "framer-motion";
 
-const EASE: [number, number, number, number] = [0.25, 1, 0.5, 1];
+export const EASE: [number, number, number, number] = [0.25, 1, 0.5, 1];
 
 export const FLICKER_TIMING = {
   /** Delay (ms) before applying the state change and starting the exit transition */
@@ -34,5 +34,37 @@ export const flickerOverlayVariants: Variants = {
   exiting: {
     opacity: 0,
     transition: { duration: 0.25, ease: EASE },
+  },
+};
+
+export const projectGridVariants: Variants = {
+  initial: {
+    opacity: 0,
+  },
+  animate: {
+    opacity: 1,
+    transition: {
+      duration: 0.15,
+      ease: EASE,
+      staggerChildren: 0.05,
+    },
+  },
+  exit: {
+    opacity: 0,
+    transition: { duration: 0.15, ease: EASE },
+  },
+};
+
+export const projectCardVariants: Variants = {
+  initial: {
+    opacity: 0,
+  },
+  animate: {
+    opacity: 1,
+    transition: { duration: 0.25, ease: EASE },
+  },
+  exit: {
+    opacity: 0,
+    transition: { duration: 0.1, ease: EASE },
   },
 };

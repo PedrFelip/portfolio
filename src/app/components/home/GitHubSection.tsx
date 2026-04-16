@@ -1,4 +1,5 @@
 import { AlignedFlickeringGrid } from "@/components/blueprint/AlignedFlickeringGrid";
+import { CountUp } from "@/components/blueprint/CountUp";
 import { DotPattern } from "@/components/blueprint/DotPattern";
 import { fetchGitHubContributions } from "@/lib/github";
 import { cn } from "@/lib/utils";
@@ -14,6 +15,9 @@ interface GitHubSectionProps {
   less?: string;
   more?: string;
   tapHint?: string;
+  commitLabel?: string;
+  commitsLabel?: string;
+  commitsLastYearLabel?: string;
 }
 
 /**
@@ -36,6 +40,9 @@ export async function GitHubSection({
   less = "Less",
   more = "More",
   tapHint = "Tap a cell for details",
+  commitLabel = "commit",
+  commitsLabel = "commits",
+  commitsLastYearLabel = "Commits last year",
 }: GitHubSectionProps) {
   const data = await fetchGitHubContributions(username).catch(() => null);
 
@@ -65,10 +72,10 @@ export async function GitHubSection({
           <div className="flex flex-col justify-center px-6 py-12 border-t border-dashed border-border sm:border-t-0 sm:border-l sm:py-12 lg:px-10 hover:bg-accent/10 transition-colors duration-300">
             <div className="flex flex-col items-start sm:items-center text-left sm:text-center">
               <span className="text-5xl font-bold tracking-tighter text-accent transition-colors duration-200 sm:text-6xl tabular-nums">
-                {data.totalContributions}
+                <CountUp value={data.totalContributions} />
               </span>
               <span className="text-[10px] sm:text-xs font-semibold uppercase tracking-[0.15em] text-muted-foreground/70 mt-2">
-                Commits last year
+                {commitsLastYearLabel}
               </span>
             </div>
           </div>
@@ -107,6 +114,8 @@ export async function GitHubSection({
               less={less}
               more={more}
               tapHint={tapHint}
+              commitLabel={commitLabel}
+              commitsLabel={commitsLabel}
             />
           </div>
         </div>

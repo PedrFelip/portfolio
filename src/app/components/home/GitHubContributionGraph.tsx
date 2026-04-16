@@ -19,6 +19,8 @@ interface GitHubContributionGraphProps {
   less: string;
   more: string;
   tapHint: string;
+  commitLabel: string;
+  commitsLabel: string;
 }
 
 /**
@@ -30,7 +32,15 @@ interface GitHubContributionGraphProps {
  * - Swipe hint for better mobile discoverability
  */
 export const GitHubContributionGraph = memo(
-  ({ data, swipeHint, less, more, tapHint }: GitHubContributionGraphProps) => {
+  ({
+    data,
+    swipeHint,
+    less,
+    more,
+    tapHint,
+    commitLabel,
+    commitsLabel,
+  }: GitHubContributionGraphProps) => {
     const [hoveredDay, setHoveredDay] = useState<ContributionDay | null>(null);
     const [selectedDay, setSelectedDay] = useState<ContributionDay | null>(
       null,
@@ -84,7 +94,7 @@ export const GitHubContributionGraph = memo(
         {/* Swipe Hint - Only mobile, only before first scroll */}
         {isMobile && !hasScrolled && scrollState.right && (
           <div className="absolute inset-0 z-30 flex items-center justify-center pointer-events-none animate-in-fade">
-            <div className="flex flex-col items-center gap-2 rounded-full bg-background/80 px-5 py-2.5 backdrop-blur-md border border-white/10 shadow-2xl animate-pulse">
+            <div className="flex flex-col items-center gap-2 rounded-full border border-overlay-border bg-background/85 px-5 py-2.5 shadow-xl backdrop-blur-md animate-pulse">
               <MoveHorizontal className="size-4 text-accent" />
               <span className="text-[9px] text-foreground font-bold uppercase tracking-[0.2em]">
                 {swipeHint}
@@ -97,7 +107,7 @@ export const GitHubContributionGraph = memo(
         <div
           ref={scrollContainerRef}
           onScroll={handleScroll}
-          className="relative w-full overflow-x-auto overflow-y-visible pb-10 pt-16 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent md:scrollbar-hide flex md:justify-center px-4"
+          className="relative w-full overflow-x-auto overflow-y-visible pb-10 pt-16 scrollbar-thin scrollbar-thumb-overlay-border scrollbar-track-transparent md:scrollbar-hide flex md:justify-center px-4"
         >
           <div className="relative inline-flex flex-shrink-0">
             {/* Minimal contribution grid */}
@@ -134,11 +144,11 @@ export const GitHubContributionGraph = memo(
                       >
                         {/* Enhanced Tooltip (Desktop Only) */}
                         {!isMobile && hoveredDay?.date === day.date && (
-                          <div className="pointer-events-none absolute bottom-full left-1/2 z-[9999] mb-2 -translate-x-1/2 whitespace-nowrap rounded border border-white/[0.1] bg-card/95 px-2.5 py-1.5 shadow-2xl backdrop-blur-md animate-in-down">
+                          <div className="pointer-events-none absolute bottom-full left-1/2 z-[9999] mb-2 -translate-x-1/2 whitespace-nowrap rounded border border-overlay-border bg-card/95 px-2.5 py-1.5 shadow-2xl backdrop-blur-md animate-in-down">
                             <div className="flex flex-col gap-0.5 items-center">
                               <MonoText className="text-[10px] font-bold text-foreground">
-                                {day.count} commit
-                                {day.count !== 1 ? "s" : ""}
+                                {day.count}{" "}
+                                {day.count === 1 ? commitLabel : commitsLabel}
                               </MonoText>
                               <MonoText className="text-[9px] text-muted-foreground/80">
                                 {parseLocalDate(day.date).toLocaleDateString(
@@ -152,7 +162,7 @@ export const GitHubContributionGraph = memo(
                               </MonoText>
                             </div>
                             {/* Tooltip Arrow */}
-                            <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 size-2 rotate-45 border-r border-b border-white/10 bg-card/95" />
+                            <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 size-2 rotate-45 border-r border-b border-overlay-border bg-card/95" />
                           </div>
                         )}
                       </button>
@@ -191,22 +201,22 @@ export const GitHubContributionGraph = memo(
           {isMobile && (
             <div
               className={cn(
-                "flex min-h-[48px] items-center justify-center rounded-lg border border-white/[0.04] bg-background px-4 py-2 transition-all duration-300",
+                "flex min-h-[48px] items-center justify-center rounded-lg border border-overlay-border bg-background px-4 py-2 transition-all duration-300",
                 selectedDay ? "translate-y-0" : "translate-y-0",
               )}
             >
               {selectedDay && (
                 <div className="flex items-center gap-3">
                   <div
-                    className="size-3 rounded-sm border border-white/10"
+                    className="size-3 rounded-sm border border-overlay-border"
                     style={{
                       backgroundColor: getContributionColor(selectedDay.level),
                     }}
                   />
                   <div className="flex flex-col">
                     <MonoText className="text-[10px] font-bold text-foreground">
-                      {selectedDay.count} commit
-                      {selectedDay.count !== 1 ? "s" : ""}
+                      {selectedDay.count}{" "}
+                      {selectedDay.count === 1 ? commitLabel : commitsLabel}
                     </MonoText>
                     <MonoText className="text-[9px] text-muted-foreground/70">
                       {parseLocalDate(selectedDay.date).toLocaleDateString(

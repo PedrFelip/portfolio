@@ -64,6 +64,7 @@ export const homePt = {
     title: "Atividade no GitHub",
     description:
       "Contribuições diárias e atividade de codificação no último ano.",
+    commitsLastYear: "Commits no último ano",
     less: "Menos",
     more: "Mais",
     commit: "commit",

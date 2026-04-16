@@ -63,6 +63,7 @@ export const homeEn = {
     badge: "Commit History",
     title: "GitHub Activity",
     description: "Daily contributions and coding activity over the past year.",
+    commitsLastYear: "Commits last year",
     less: "Less",
     more: "More",
     commit: "commit",

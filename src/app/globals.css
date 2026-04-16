@@ -343,12 +343,12 @@ html {
   }
 
   .animate-in-fade {
-    animation: fade-in-menu 150ms cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    animation: fade-in-menu 250ms cubic-bezier(0.25, 1, 0.5, 1) forwards;
     opacity: 0;
   }
 
   .animate-in-slide-down {
-    animation: slide-down-menu 200ms cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    animation: slide-down-menu 320ms cubic-bezier(0.25, 1, 0.5, 1) forwards;
     opacity: 0;
   }
 

@@ -1,25 +1,25 @@
 "use client";
 
-import { memo, useEffect, useRef, useState } from "react";
 import { useInView, useReducedMotion } from "framer-motion";
+import { memo, useEffect, useRef, useState } from "react";
 
 interface CountUpProps {
-  /** Valor final */
+  /** Final value */
   value: number;
-  /** Duração da animação em ms (default: 1200) */
+  /** Animation duration in ms (default: 1200) */
   duration?: number;
-  /** Texto antes do número */
+  /** Text before the number */
   prefix?: string;
-  /** Texto depois do número */
+  /** Text after the number */
   suffix?: string;
-  /** Classe CSS do wrapper span */
+  /** CSS class for the wrapper span */
   className?: string;
-  /** Se true, formata com separador de milhar (ex: 1,234) */
+  /** If true, format using thousands separator (e.g. 1,234) */
   format?: boolean;
 }
 
 function easeOutCubic(t: number): number {
-  return 1 - Math.pow(1 - t, 3);
+  return 1 - (1 - t) ** 3;
 }
 
 function formatNumber(n: number): string {
@@ -27,12 +27,12 @@ function formatNumber(n: number): string {
 }
 
 /**
- * CountUp — Anima um número de 0 até `value` quando entra no viewport.
+ * CountUp — Animates a number from 0 to `value` when it enters the viewport.
  *
- * Usa useInView do Framer Motion para detectar quando está visível.
- * Respeita prefers-reduced-motion: se ativo, exibe o valor final diretamente.
+ * Uses Framer Motion's useInView to detect visibility.
+ * Respects prefers-reduced-motion: when enabled, shows the final value directly.
  *
- * Uso:
+ * Usage:
  * ```tsx
  * <CountUp value={1234} suffix=" commits" format />
  * ```

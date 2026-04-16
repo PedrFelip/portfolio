@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { LanguageSync } from "@/components/LanguageSync";
-import { Footer } from "@/components/layout/Footer";
-import { Navigation } from "@/components/layout/Navigation";
+import { LayoutShell } from "@/components/layout/LayoutShell";
 
 const metadataConfig = {
   en: {
@@ -88,9 +87,7 @@ export default async function RootLayout({
 
   return (
     <LanguageSync initialLanguage={validLang}>
-      <Navigation />
-      <main className="flex-grow">{children}</main>
-      <Footer />
+      <LayoutShell>{children}</LayoutShell>
     </LanguageSync>
   );
 }

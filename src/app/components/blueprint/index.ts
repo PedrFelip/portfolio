@@ -1,7 +1,11 @@
 export { AlignedFlickeringGrid } from "./AlignedFlickeringGrid";
+export { BlueprintReveal } from "./BlueprintReveal";
 export { CornerBrackets } from "./CornerBracket";
+export { CountUp } from "./CountUp";
 export { DotPattern } from "./DotPattern";
 export { FooterGrid, FooterGridCell } from "./FooterGrid";
 export { RailBounded } from "./RailBounded";
 export { RailLayout } from "./RailLayout";
+export { Reveal } from "./Reveal";
 export { SectionDivider } from "./SectionDivider";
+export { StaggerGroup, StaggerItem } from "./StaggerGroup";

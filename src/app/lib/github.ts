@@ -144,15 +144,29 @@ export async function fetchGitHubContributions(
 /**
  * Get contribution color based on level (blueprint design)
  */
-export function getContributionColor(level: 0 | 1 | 2 | 3 | 4): string {
-  const colors = {
-    0: "rgba(255, 255, 255, 0.03)", // No contributions - subtle bg
-    1: "rgba(255, 255, 255, 0.08)", // Low
-    2: "rgba(255, 255, 255, 0.15)", // Medium
-    3: "rgba(255, 255, 255, 0.25)", // High
-    4: "rgba(255, 255, 255, 0.40)", // Very high
-  };
-  return colors[level];
+const contributionColorsDark: Record<0 | 1 | 2 | 3 | 4, string> = {
+  0: "oklch(0.93 0 0 / 3%)",
+  1: "oklch(0.75 0 0 / 12%)",
+  2: "oklch(0.75 0 0 / 22%)",
+  3: "oklch(0.75 0 0 / 38%)",
+  4: "oklch(0.75 0 0 / 58%)",
+};
+
+const contributionColorsLight: Record<0 | 1 | 2 | 3 | 4, string> = {
+  0: "oklch(0.13 0 0 / 4%)",
+  1: "oklch(0.42 0 0 / 12%)",
+  2: "oklch(0.42 0 0 / 22%)",
+  3: "oklch(0.42 0 0 / 36%)",
+  4: "oklch(0.42 0 0 / 52%)",
+};
+
+export function getContributionColor(
+  level: 0 | 1 | 2 | 3 | 4,
+  theme: "dark" | "light" = "dark",
+): string {
+  return theme === "dark"
+    ? contributionColorsDark[level]
+    : contributionColorsLight[level];
 }
 
 /**

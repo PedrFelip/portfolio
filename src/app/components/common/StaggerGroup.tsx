@@ -1,7 +1,7 @@
 "use client";
 
-import { memo, type ReactNode } from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import { memo, type ReactNode } from "react";
 import {
   revealVariants,
   staggerContainer,
@@ -14,9 +14,9 @@ interface StaggerGroupProps {
   children: ReactNode;
   speed?: StaggerSpeed;
   className?: string;
-  /** delay antes do primeiro filho (segundos) */
+  /** Delay before the first child (seconds) */
   delayChildren?: number;
-  /** viewport amount para triggar (default 0.15) */
+  /** Viewport amount to trigger (default 0.15) */
   amount?: number;
 }
 
@@ -72,26 +72,36 @@ export const StaggerGroup = memo(function StaggerGroup({
 StaggerGroup.displayName = "StaggerGroup";
 
 /**
- * StaggerItem — filho de StaggerGroup
- * Recebe as variants via context do motion; não precisa de props de animação.
+ * StaggerItem — child of StaggerGroup.
+ * Receives variants via motion context; no animation props needed.
  */
 interface StaggerItemProps {
   children: ReactNode;
   className?: string;
+  style?: React.CSSProperties;
 }
 
 export const StaggerItem = memo(function StaggerItem({
   children,
   className,
+  style,
 }: StaggerItemProps) {
   const shouldReduce = useReducedMotion();
 
   if (shouldReduce) {
-    return <div className={className}>{children}</div>;
+    return (
+      <div className={className} style={style}>
+        {children}
+      </div>
+    );
   }
 
   return (
-    <motion.div variants={revealVariants} className={className}>
+    <motion.div
+      variants={revealVariants.up}
+      className={className}
+      style={style}
+    >
       {children}
     </motion.div>
   );

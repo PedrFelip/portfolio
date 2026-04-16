@@ -1,7 +1,7 @@
 "use client";
 
-import { memo, type ElementType, type JSX, type ReactNode } from "react";
 import { motion, useReducedMotion, type Variants } from "framer-motion";
+import { type ElementType, type JSX, memo, type ReactNode } from "react";
 import { revealFadeVariants, revealVariants } from "@/lib/animations";
 
 type RevealVariant = "fade-up" | "fade";
@@ -13,14 +13,14 @@ interface RevealProps {
   /** viewport amount 0–1 (default 0.2) */
   amount?: number;
   className?: string;
-  /** override variants completamente */
+  /** Override variants completely */
   variants?: Variants;
-  /** renderiza como outro elemento (default: div) */
+  /** Renders as another element (default: div) */
   as?: keyof JSX.IntrinsicElements;
 }
 
 const VARIANT_MAP: Record<RevealVariant, Variants> = {
-  "fade-up": revealVariants,
+  "fade-up": revealVariants.up,
   fade: revealFadeVariants,
 };
 

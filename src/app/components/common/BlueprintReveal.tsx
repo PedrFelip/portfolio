@@ -1,7 +1,7 @@
 "use client";
 
-import { Children, memo, type ReactNode } from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import { Children, memo, type ReactNode } from "react";
 import {
   blueprintDecorativeVariants,
   blueprintDrawVariants,
@@ -9,25 +9,25 @@ import {
 } from "@/lib/animations";
 
 interface BlueprintRevealProps {
-  /** Conteúdo principal — revela primeiro via stagger */
+  /** Main content — reveals first via stagger */
   children: ReactNode;
-  /** Elementos decorativos (DotPattern, CornerBrackets, etc) — revelam depois */
+  /** Decorative elements (DotPattern, CornerBrackets, etc) — reveal after */
   decoratives?: ReactNode;
   className?: string;
   /** viewport amount (default 0.15) */
   amount?: number;
-  /** delay antes de começar toda a sequência */
+  /** Delay before starting the full sequence */
   delay?: number;
 }
 
 /**
  * BlueprintReveal
  *
- * Orquestra a sequência de reveal estilo "blueprint draw":
- * - Conteúdo principal: stagger 0.06s, fade-up 8px
- * - Decorativos (dot pattern, corner brackets): fade após delay 0.3s
+ * Orchestrates a "blueprint draw" reveal sequence:
+ * - Main content: 0.06s stagger, 8px fade-up
+ * - Decoratives (dot pattern, corner brackets): fade after 0.3s delay
  *
- * Uso:
+ * Usage:
  * ```tsx
  * <BlueprintReveal
  *   decoratives={<><DotPattern /><CornerBrackets /></>}
@@ -49,8 +49,8 @@ export const BlueprintReveal = memo(function BlueprintReveal({
   if (shouldReduce) {
     return (
       <div className={className}>
-        {decoratives}
         {children}
+        {decoratives}
       </div>
     );
   }
@@ -81,19 +81,12 @@ export const BlueprintReveal = memo(function BlueprintReveal({
       variants={containerVariants}
       className={className}
     >
-      {/* Conteúdo principal: cada filho recebe revealVariants via stagger do container */}
-      <>
-        {Children.toArray(children).map((child, index) => (
-          <motion.div
-            key={`blueprint-content-${index}`}
-            variants={revealVariants}
-          >
-            {child}
-          </motion.div>
-        ))}
-      </>
+      {/* Main content: each child receives reveal variants through container stagger */}
+      {Children.map(children, (child) => (
+        <motion.div variants={revealVariants.up}>{child}</motion.div>
+      ))}
 
-      {/* Decorativos: revelam após o conteúdo (delay interno via blueprintDecorativeVariants) */}
+      {/* Decoratives: reveal after content (delay via blueprintDecorativeVariants) */}
       {decoratives && (
         <motion.div variants={blueprintDecorativeVariants} aria-hidden="true">
           {decoratives}

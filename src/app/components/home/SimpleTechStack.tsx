@@ -1,4 +1,4 @@
-import { StaggerGroup, StaggerItem, Reveal } from "@/components/common";
+import { Reveal, StaggerGroup, StaggerItem } from "@/components/common";
 import { DEFAULT_TECH_STACK, type TechItem } from "@/lib/tech-stack";
 
 interface SimpleTechStackProps {

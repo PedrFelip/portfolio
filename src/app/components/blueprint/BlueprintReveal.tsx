@@ -48,7 +48,10 @@ export function BlueprintReveal({
       animate={isInView ? "visible" : "hidden"}
     >
       <motion.div
-        className={cn("relative z-10", contentClassName)}
+        className={cn(
+          "relative z-10 flex flex-col items-center w-full",
+          contentClassName,
+        )}
         variants={revealVariants.up}
       >
         {children}

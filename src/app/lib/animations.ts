@@ -68,3 +68,79 @@ export const projectCardVariants: Variants = {
     transition: { duration: 0.1, ease: EASE },
   },
 };
+
+export const DURATIONS = {
+  /** Micro-interactions: 150ms */
+  micro: 0.15,
+  /** Standard reveal: 220ms */
+  reveal: 0.22,
+  /** Slow reveal for decoratives: 280ms */
+  revealSlow: 0.28,
+} as const;
+
+/** Fade + translateY(8px → 0) — usado em Reveal */
+export const revealVariants: Variants = {
+  hidden: { opacity: 0, y: 8 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: DURATIONS.reveal, ease: EASE },
+  },
+};
+
+/** Fade simples — decorativos leves */
+export const revealFadeVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { duration: DURATIONS.revealSlow, ease: EASE },
+  },
+};
+
+/** Container que aplica stagger nos filhos — usado em StaggerGroup */
+export const staggerContainer: Variants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.06,
+      delayChildren: 0,
+    },
+  },
+};
+
+/** Container com stagger leve para grids densos */
+export const staggerContainerFast: Variants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.04,
+      delayChildren: 0,
+    },
+  },
+};
+
+/**
+ * Sequência blueprint: container orquestra conteúdo → decorativos.
+ * Stagger 0.06s nos filhos diretos.
+ */
+export const blueprintDrawVariants: Variants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.06,
+      delayChildren: 0,
+    },
+  },
+};
+
+/**
+ * Decorativo blueprint: fade lento com delay —
+ * revela APÓS o conteúdo principal.
+ */
+export const blueprintDecorativeVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { duration: 0.4, ease: EASE, delay: 0.3 },
+  },
+};

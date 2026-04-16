@@ -1,5 +1,6 @@
 import { AlignedFlickeringGrid } from "@/components/blueprint/AlignedFlickeringGrid";
 import { DotPattern } from "@/components/blueprint/DotPattern";
+import { CountUp, Reveal } from "@/components/common";
 import { fetchGitHubContributions } from "@/lib/github";
 import { cn } from "@/lib/utils";
 import { GitHubContributionGraph } from "./GitHubContributionGraph";
@@ -50,23 +51,36 @@ export async function GitHubSection({
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {/* Column 1: Info Content */}
           <div className="px-6 py-12 sm:px-8 sm:py-12">
-            <p className="text-[10px] sm:text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground/60">
+            <Reveal
+              as="p"
+              className="text-[10px] sm:text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground/60"
+            >
               {subtitle}
-            </p>
-            <h2 className="mt-4 text-3xl font-bold tracking-tight sm:text-3xl lg:text-4xl">
+            </Reveal>
+            <Reveal
+              as="h2"
+              delay={0.06}
+              className="mt-4 text-3xl font-bold tracking-tight sm:text-3xl lg:text-4xl"
+            >
               {title}
-            </h2>
-            <p className="mt-3 max-w-md text-base leading-relaxed text-muted-foreground">
+            </Reveal>
+            <Reveal
+              as="p"
+              delay={0.12}
+              className="mt-3 max-w-md text-base leading-relaxed text-muted-foreground"
+            >
               {description}
-            </p>
+            </Reveal>
           </div>
 
           {/* Column 2: Commit Stats - Balanced & Centered */}
           <div className="flex flex-col justify-center px-6 py-12 border-t border-dashed border-border sm:border-t-0 sm:border-l sm:py-12 lg:px-10 hover:bg-accent/10 transition-colors duration-300">
             <div className="flex flex-col items-start sm:items-center text-left sm:text-center">
-              <span className="text-5xl font-bold tracking-tighter text-accent transition-colors duration-200 sm:text-6xl tabular-nums">
-                {data.totalContributions}
-              </span>
+              <CountUp
+                value={data.totalContributions}
+                format
+                className="text-5xl font-bold tracking-tighter text-accent transition-colors duration-200 sm:text-6xl tabular-nums"
+              />
               <span className="text-[10px] sm:text-xs font-semibold uppercase tracking-[0.15em] text-muted-foreground/70 mt-2">
                 Commits last year
               </span>

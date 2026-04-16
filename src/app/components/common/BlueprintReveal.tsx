@@ -49,8 +49,8 @@ export const BlueprintReveal = memo(function BlueprintReveal({
   if (shouldReduce) {
     return (
       <div className={className}>
-        {decoratives}
         {children}
+        {decoratives}
       </div>
     );
   }

@@ -13,7 +13,7 @@ interface RevealProps {
   /** viewport amount 0–1 (default 0.2) */
   amount?: number;
   className?: string;
-  /** override variants completamente */
+  /** Override variants completely */
   variants?: Variants;
   /** renderiza como outro elemento (default: div) */
   as?: keyof JSX.IntrinsicElements;

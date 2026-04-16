@@ -14,9 +14,9 @@ interface StaggerGroupProps {
   children: ReactNode;
   speed?: StaggerSpeed;
   className?: string;
-  /** delay antes do primeiro filho (segundos) */
+  /** Delay before the first child (seconds) */
   delayChildren?: number;
-  /** viewport amount para triggar (default 0.15) */
+  /** Viewport amount to trigger (default 0.15) */
   amount?: number;
 }
 
@@ -72,8 +72,8 @@ export const StaggerGroup = memo(function StaggerGroup({
 StaggerGroup.displayName = "StaggerGroup";
 
 /**
- * StaggerItem — filho de StaggerGroup
- * Recebe as variants via context do motion; não precisa de props de animação.
+ * StaggerItem — child of StaggerGroup.
+ * Receives variants via motion context; no animation props needed.
  */
 interface StaggerItemProps {
   children: ReactNode;

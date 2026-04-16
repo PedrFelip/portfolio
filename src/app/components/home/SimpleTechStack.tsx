@@ -1,3 +1,4 @@
+import { Reveal, StaggerGroup, StaggerItem } from "@/components/common";
 import { DEFAULT_TECH_STACK, type TechItem } from "@/lib/tech-stack";
 
 interface SimpleTechStackProps {
@@ -20,25 +21,39 @@ export function SimpleTechStack({
       {/* Section Header */}
       <div className="rail-bounded">
         <div className="px-6 pb-6 pt-12 sm:px-8 sm:pt-16">
-          <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+          <Reveal
+            as="p"
+            className="text-xs font-medium uppercase tracking-wide text-muted-foreground"
+          >
             {subtitle}
-          </p>
-          <h2 className="mt-3 text-2xl font-bold tracking-tight sm:text-3xl">
+          </Reveal>
+          <Reveal
+            as="h2"
+            delay={0.06}
+            className="mt-3 text-2xl font-bold tracking-tight sm:text-3xl"
+          >
             {title}
-          </h2>
-          <p className="mt-2 max-w-md text-sm text-muted-foreground sm:text-base">
+          </Reveal>
+          <Reveal
+            as="p"
+            delay={0.12}
+            className="mt-2 max-w-md text-sm text-muted-foreground sm:text-base"
+          >
             {description}
-          </p>
+          </Reveal>
         </div>
       </div>
 
       {/* Grid with Dashed Internal Dividers */}
       <div className="rail-bounded border-t border-border">
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
+        <StaggerGroup
+          className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4"
+          speed="fast"
+        >
           {items.map((tech, i) => {
             const Icon = tech.icon;
             return (
-              <div
+              <StaggerItem
                 key={tech.name}
                 className={`group px-6 py-10 sm:px-6 transition-all duration-300 hover:bg-surface-1 touch-manipulation
                   ${i % 4 !== 0 ? "lg:border-l lg:border-dashed lg:border-border" : ""}
@@ -63,10 +78,10 @@ export function SimpleTechStack({
                 <h3 className="text-sm font-medium tracking-tight text-foreground transition-colors group-hover:text-accent">
                   {tech.name}
                 </h3>
-              </div>
+              </StaggerItem>
             );
           })}
-        </div>
+        </StaggerGroup>
       </div>
     </section>
   );

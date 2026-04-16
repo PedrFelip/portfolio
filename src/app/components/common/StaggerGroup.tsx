@@ -78,20 +78,30 @@ StaggerGroup.displayName = "StaggerGroup";
 interface StaggerItemProps {
   children: ReactNode;
   className?: string;
+  style?: React.CSSProperties;
 }
 
 export const StaggerItem = memo(function StaggerItem({
   children,
   className,
+  style,
 }: StaggerItemProps) {
   const shouldReduce = useReducedMotion();
 
   if (shouldReduce) {
-    return <div className={className}>{children}</div>;
+    return (
+      <div className={className} style={style}>
+        {children}
+      </div>
+    );
   }
 
   return (
-    <motion.div variants={revealVariants.up} className={className}>
+    <motion.div
+      variants={revealVariants.up}
+      className={className}
+      style={style}
+    >
       {children}
     </motion.div>
   );

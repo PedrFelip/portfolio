@@ -7,6 +7,22 @@ import type { ContributionData, ContributionDay } from "@/lib/github";
 import { getContributionColor } from "@/lib/github";
 import { cn } from "@/lib/utils";
 
+function useTheme(): "dark" | "light" {
+  const [theme, setTheme] = useState<"dark" | "light">("dark");
+
+  useEffect(() => {
+    const root = document.documentElement;
+    const observer = new MutationObserver(() => {
+      setTheme(root.classList.contains("dark") ? "dark" : "light");
+    });
+    setTheme(root.classList.contains("dark") ? "dark" : "light");
+    observer.observe(root, { attributes: true, attributeFilter: ["class"] });
+    return () => observer.disconnect();
+  }, []);
+
+  return theme;
+}
+
 function parseLocalDate(dateStr: string): Date {
   const [y, m, d] = dateStr.split("-").map(Number);
   return new Date(y, m - 1, d);
@@ -45,6 +61,7 @@ export const GitHubContributionGraph = memo(
     const [selectedDay, setSelectedDay] = useState<ContributionDay | null>(
       null,
     );
+    const theme = useTheme();
     const [scrollState, setScrollState] = useState({
       left: false,
       right: true,
@@ -129,7 +146,10 @@ export const GitHubContributionGraph = memo(
                           "before:absolute before:-inset-2 before:z-[-1]",
                         )}
                         style={{
-                          backgroundColor: getContributionColor(day.level),
+                          backgroundColor: getContributionColor(
+                            day.level,
+                            theme,
+                          ),
                         }}
                         onMouseEnter={() => !isMobile && setHoveredDay(day)}
                         onMouseLeave={() => !isMobile && setHoveredDay(null)}
@@ -188,6 +208,7 @@ export const GitHubContributionGraph = memo(
                 style={{
                   backgroundColor: getContributionColor(
                     lvl as 0 | 1 | 2 | 3 | 4,
+                    theme,
                   ),
                 }}
               />
@@ -210,7 +231,10 @@ export const GitHubContributionGraph = memo(
                   <div
                     className="size-3 rounded-sm border border-overlay-border"
                     style={{
-                      backgroundColor: getContributionColor(selectedDay.level),
+                      backgroundColor: getContributionColor(
+                        selectedDay.level,
+                        theme,
+                      ),
                     }}
                   />
                   <div className="flex flex-col">

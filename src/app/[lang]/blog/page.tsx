@@ -1,4 +1,4 @@
-import { BlogList } from "@/components/blog/BlogList";
+import dynamic from "next/dynamic";
 import {
   AlignedFlickeringGrid,
   RailLayout,
@@ -12,6 +12,17 @@ const blogContent = {
   en: blogEn,
   pt: blogPt,
 };
+
+const BlogListLazy = dynamic(
+  () => import("@/components/blog/BlogList").then((mod) => mod.BlogList),
+  {
+    loading: () => (
+      <div className="rail-bounded border border-border px-6 py-16 text-center text-xs font-mono text-muted-foreground">
+        Loading posts...
+      </div>
+    ),
+  },
+);
 
 interface BlogPageProps {
   params: Promise<{
@@ -68,7 +79,7 @@ export default async function BlogPage({ params }: BlogPageProps) {
       <SectionDivider />
 
       <section>
-        <BlogList
+        <BlogListLazy
           initialPosts={allPosts.slice(0, postsPerPage)}
           allPosts={allPosts}
           allTags={allTags}

@@ -1,7 +1,5 @@
 import { History } from "lucide-react";
-import { ContactLinks } from "@/components/about/ContactLinks";
-import { EducationBlueprint } from "@/components/about/EducationBlueprint";
-import { WorkExperienceCard } from "@/components/about/WorkExperienceCard";
+import dynamic from "next/dynamic";
 import {
   AlignedFlickeringGrid,
   DotPattern,
@@ -19,6 +17,40 @@ import {
 import { aboutEn } from "@/lib/content/about.en";
 import { aboutPt } from "@/lib/content/about.pt";
 import { parseBoldMarkdown } from "@/lib/markdown";
+
+const WorkExperienceCard = dynamic(
+  () =>
+    import("@/components/about/WorkExperienceCard").then(
+      (mod) => mod.WorkExperienceCard,
+    ),
+  {
+    loading: () => (
+      <div className="h-40 border border-overlay-border bg-surface-2" />
+    ),
+  },
+);
+
+const EducationBlueprint = dynamic(
+  () =>
+    import("@/components/about/EducationBlueprint").then(
+      (mod) => mod.EducationBlueprint,
+    ),
+  {
+    loading: () => (
+      <div className="rail-bounded h-56 border border-overlay-border bg-surface-2" />
+    ),
+  },
+);
+
+const ContactLinks = dynamic(
+  () =>
+    import("@/components/about/ContactLinks").then((mod) => mod.ContactLinks),
+  {
+    loading: () => (
+      <div className="h-12 w-40 border border-overlay-border bg-surface-2" />
+    ),
+  },
+);
 
 type Lang = "en" | "pt";
 

@@ -36,7 +36,7 @@ const NavLinkItem = memo(
   forwardRef<HTMLAnchorElement, NavLinkItemProps>(
     ({ label, isActive, localizedHref, onClick, variant = "desktop" }, ref) => {
       const baseClasses =
-        "text-sm font-medium transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] motion-reduce:transition-none touch-manipulation";
+        "text-sm font-medium transition-all duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] motion-reduce:transition-none touch-manipulation";
 
       const variantClasses = {
         desktop:
@@ -66,7 +66,7 @@ const NavLinkItem = memo(
             <span className="relative inline-flex flex-col items-center">
               {label}
               <span
-                className={`absolute -bottom-2 left-1/2 h-[2px] rounded-full bg-accent -translate-x-1/2 transition-all duration-200 ease-[cubic-bezier(0.25,1,0.5,1)] ${
+                className={`absolute -bottom-2 left-1/2 h-[2px] rounded-full bg-accent -translate-x-1/2 transition-all duration-350 ease-[cubic-bezier(0.25,1,0.5,1)] ${
                   isActive
                     ? "w-4/5 opacity-100"
                     : "w-0 group-hover:w-1/2 opacity-0 group-hover:opacity-100"
@@ -77,7 +77,7 @@ const NavLinkItem = memo(
           ) : (
             <span className="flex items-center gap-3">
               <span
-                className={`rounded-full transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] ${
+                className={`rounded-full transition-all duration-250 ease-[cubic-bezier(0.25,1,0.5,1)] ${
                   isActive
                     ? "h-2 w-2 bg-accent scale-100"
                     : "h-1.5 w-1.5 bg-muted-foreground/30 scale-75"
@@ -206,7 +206,7 @@ export const Navigation = memo(() => {
       <div className="mx-auto max-w-6xl px-4 sm:px-6 relative">
         <div className="relative z-50 flex h-16 items-center justify-between">
           <Link href={getLocalizedLink("/")} className="group">
-            <div className="text-base font-semibold tracking-tight text-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:text-muted-foreground">
+            <div className="text-base font-semibold tracking-tight text-foreground transition-colors duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:text-muted-foreground">
               Pedro Felipe
             </div>
           </Link>
@@ -217,7 +217,7 @@ export const Navigation = memo(() => {
           >
             {pill && (
               <span
-                className="absolute top-1/2 -translate-y-1/2 h-[calc(100%-8px)] rounded bg-accent/[0.10] transition-all duration-200 ease-[cubic-bezier(0.25,1,0.5,1)] motion-reduce:transition-none pointer-events-none"
+                className="absolute top-1/2 -translate-y-1/2 h-[calc(100%-8px)] rounded bg-accent/[0.10] transition-all duration-350 ease-[cubic-bezier(0.25,1,0.5,1)] motion-reduce:transition-none pointer-events-none"
                 style={{ left: pill.left, width: pill.width }}
                 aria-hidden="true"
               />
@@ -245,7 +245,7 @@ export const Navigation = memo(() => {
               aria-label={`Switch language to ${
                 language === "en" ? "Portuguese" : "English"
               }`}
-              className="rounded border border-overlay-border bg-surface-3 font-mono text-xs font-medium transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-overlay-border-hover hover:bg-surface-4 active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-50"
+              className="rounded border border-overlay-border bg-surface-3 font-mono text-xs font-medium transition-all duration-250 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-overlay-border-hover hover:bg-surface-4 active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-50"
             >
               {language === "en" ? "EN" : "PT"}
             </Button>
@@ -253,7 +253,7 @@ export const Navigation = memo(() => {
             <Button
               variant="ghost"
               size="icon"
-              className={`rounded border border-overlay-border transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-overlay-border-hover hover:bg-surface-4 active:scale-[0.97] md:hidden ${
+              className={`rounded border border-overlay-border transition-all duration-250 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-overlay-border-hover hover:bg-surface-4 active:scale-[0.97] md:hidden ${
                 isMenuOpen
                   ? "border-overlay-border-hover bg-surface-4"
                   : "bg-surface-3"
@@ -264,12 +264,12 @@ export const Navigation = memo(() => {
             >
               {isMenuOpen ? (
                 <X
-                  className="h-4 w-4 transition-transform duration-150 ease-[cubic-bezier(0.25,1,0.5,1)]"
+                  className="h-4 w-4 transition-transform duration-250 ease-[cubic-bezier(0.25,1,0.5,1)]"
                   aria-hidden="true"
                 />
               ) : (
                 <Menu
-                  className="h-4 w-4 transition-transform duration-150 ease-[cubic-bezier(0.25,1,0.5,1)]"
+                  className="h-4 w-4 transition-transform duration-250 ease-[cubic-bezier(0.25,1,0.5,1)]"
                   aria-hidden="true"
                 />
               )}

@@ -2,7 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { staggerContainer } from "@/lib/animations";
+import { revealVariants, staggerContainer } from "@/lib/animations";
 import { cn } from "@/lib/utils";
 
 interface StaggerGroupProps {
@@ -26,6 +26,30 @@ export function StaggerGroup({
       variants={staggerContainer}
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+interface StaggerItemProps {
+  children: React.ReactNode;
+  className?: string;
+  style?: React.CSSProperties;
+  variant?: "fade" | "up" | "down" | "left" | "right" | "scale";
+}
+
+export function StaggerItem({
+  children,
+  className,
+  style,
+  variant = "left",
+}: StaggerItemProps) {
+  return (
+    <motion.div
+      className={cn(className)}
+      style={style}
+      variants={revealVariants[variant]}
     >
       {children}
     </motion.div>

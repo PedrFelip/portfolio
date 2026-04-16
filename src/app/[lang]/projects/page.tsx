@@ -1,8 +1,16 @@
+import dynamic from "next/dynamic";
 import { DotPattern, RailLayout, SectionDivider } from "@/components/blueprint";
 import { projectsEn } from "@/lib/content/projects.en";
 import { projectsPt } from "@/lib/content/projects.pt";
 import { getProjects } from "@/lib/projects-data";
-import ProjectsClient from "./ProjectsClient";
+
+const ProjectsClient = dynamic(() => import("./ProjectsClient"), {
+  loading: () => (
+    <div className="rail-bounded border border-border px-6 py-16 text-center text-xs font-mono text-muted-foreground">
+      Loading projects...
+    </div>
+  ),
+});
 
 const projectsContent = {
   en: projectsEn,

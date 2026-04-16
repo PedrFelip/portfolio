@@ -1,9 +1,21 @@
+import dynamic from "next/dynamic";
 import { AlignedFlickeringGrid } from "@/components/blueprint/AlignedFlickeringGrid";
 import { DotPattern } from "@/components/blueprint/DotPattern";
 import { CountUp, Reveal } from "@/components/common";
 import { fetchGitHubContributions } from "@/lib/github";
 import { cn } from "@/lib/utils";
-import { GitHubContributionGraph } from "./GitHubContributionGraph";
+
+const GitHubContributionGraph = dynamic(
+  () =>
+    import("./GitHubContributionGraph").then(
+      (mod) => mod.GitHubContributionGraph,
+    ),
+  {
+    loading: () => (
+      <div className="h-[140px] w-full max-w-4xl rounded border border-overlay-border bg-surface-2" />
+    ),
+  },
+);
 
 interface GitHubSectionProps {
   className?: string;
@@ -80,12 +92,12 @@ export async function GitHubSection({
           </div>
 
           {/* Column 2: Commit Stats - Balanced & Centered */}
-          <div className="flex flex-col justify-center px-6 py-12 border-t border-dashed border-border sm:border-t-0 sm:border-l sm:py-12 lg:px-10 hover:bg-accent/10 transition-colors duration-300">
+          <div className="flex flex-col justify-center px-6 py-12 border-t border-dashed border-border sm:border-t-0 sm:border-l sm:py-12 lg:px-10 hover:bg-surface-3 dark:hover:bg-accent/10 transition-colors duration-300">
             <div className="flex flex-col items-start sm:items-center text-left sm:text-center">
               <CountUp
                 value={data.totalContributions}
                 format
-                className="text-5xl font-bold tracking-tighter text-accent transition-colors duration-200 sm:text-6xl tabular-nums"
+                className="text-5xl font-bold tracking-tighter text-foreground dark:text-accent transition-colors duration-200 sm:text-6xl tabular-nums"
               />
               <span className="text-[10px] sm:text-xs font-semibold uppercase tracking-[0.15em] text-muted-foreground/70 mt-2">
                 {commitsLastYearLabel}

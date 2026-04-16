@@ -41,8 +41,10 @@ export default function ProjectsClient({
   const { t } = useLanguage();
   const filterLabels = t.projects.filters;
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [hasUsedFilter, setHasUsedFilter] = useState(false);
 
   const handleTagChange = useCallback((tags: string[]) => {
+    setHasUsedFilter(true);
     setSelectedTags(tags);
   }, []);
 
@@ -84,77 +86,119 @@ export default function ProjectsClient({
       <SectionDivider />
 
       <div className="rail-bounded border border-border relative">
-        <AnimatePresence mode="wait">
-          {filteredProjects.length > 0 ? (
-            <motion.div
-              key={`grid-${filterKey}`}
-              variants={projectGridVariants}
-              initial="initial"
-              animate="animate"
-              exit="exit"
-            >
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-                {(() => {
-                  const padCount = (3 - (filteredProjects.length % 3)) % 3;
-                  const items = [
-                    ...filteredProjects.map((p) => ({
-                      project: p,
-                      isEmpty: false,
-                    })),
-                    ...Array.from({ length: padCount }, (_, i) => ({
-                      project: null,
-                      isEmpty: true,
-                      key: `empty-${i}`,
-                    })),
-                  ];
-                  return items.map((item, index) =>
-                    item.project ? (
-                      <motion.div
-                        key={item.project.id}
-                        variants={projectCardVariants}
-                        className={`relative px-6 py-8 transition-colors duration-200 group hover:bg-surface-2 ${getGridBorderClasses(
-                          index,
-                        )}`}
-                      >
-                        <CardFlicker />
-                        <ProjectCard project={item.project} />
-                      </motion.div>
-                    ) : (
-                      <div
-                        key={item.key}
-                        className={getGridBorderClasses(index)}
-                      />
-                    ),
-                  );
-                })()}
-              </div>
-            </motion.div>
-          ) : (
-            <motion.div
-              key="empty"
-              variants={projectGridVariants}
-              initial="initial"
-              animate="animate"
-              exit="exit"
-            >
-              <div className="flex flex-col items-center justify-center px-6 py-16 text-center">
-                <P className="mb-2 text-muted-foreground">{emptyStateLabel}</P>
-                <div className="mb-4 text-xs font-mono text-muted-foreground/70">
-                  {filterLabels.active(selectedTags.length)}
+        {hasUsedFilter ? (
+          <AnimatePresence mode="wait" initial={false}>
+            {filteredProjects.length > 0 ? (
+              <motion.div
+                key={`grid-${filterKey}`}
+                variants={projectGridVariants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+              >
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+                  {(() => {
+                    const padCount = (3 - (filteredProjects.length % 3)) % 3;
+                    const items = [
+                      ...filteredProjects.map((p) => ({
+                        project: p,
+                        isEmpty: false,
+                      })),
+                      ...Array.from({ length: padCount }, (_, i) => ({
+                        project: null,
+                        isEmpty: true,
+                        key: `empty-${i}`,
+                      })),
+                    ];
+                    return items.map((item, index) =>
+                      item.project ? (
+                        <motion.div
+                          key={item.project.id}
+                          variants={projectCardVariants}
+                          className={`relative px-6 py-8 transition-colors duration-200 group hover:bg-surface-2 ${getGridBorderClasses(
+                            index,
+                          )}`}
+                        >
+                          <CardFlicker />
+                          <ProjectCard project={item.project} />
+                        </motion.div>
+                      ) : (
+                        <div
+                          key={item.key}
+                          className={getGridBorderClasses(index)}
+                        />
+                      ),
+                    );
+                  })()}
                 </div>
-                {selectedTags.length > 0 && (
-                  <button
-                    type="button"
-                    onClick={() => handleTagChange([])}
-                    className="text-xs font-medium text-accent transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:text-accent/80"
+              </motion.div>
+            ) : (
+              <motion.div
+                key="empty"
+                variants={projectGridVariants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+              >
+                <div className="flex flex-col items-center justify-center px-6 py-16 text-center">
+                  <P className="mb-2 text-muted-foreground">
+                    {emptyStateLabel}
+                  </P>
+                  <div className="mb-4 text-xs font-mono text-muted-foreground/70">
+                    {filterLabels.active(selectedTags.length)}
+                  </div>
+                  {selectedTags.length > 0 && (
+                    <button
+                      type="button"
+                      onClick={() => handleTagChange([])}
+                      className="text-xs font-medium text-accent transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:text-accent/80"
+                    >
+                      {filterLabels.clearButton}
+                    </button>
+                  )}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        ) : filteredProjects.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+            {(() => {
+              const padCount = (3 - (filteredProjects.length % 3)) % 3;
+              const items = [
+                ...filteredProjects.map((p) => ({
+                  project: p,
+                  isEmpty: false,
+                })),
+                ...Array.from({ length: padCount }, (_, i) => ({
+                  project: null,
+                  isEmpty: true,
+                  key: `empty-${i}`,
+                })),
+              ];
+              return items.map((item, index) =>
+                item.project ? (
+                  <div
+                    key={item.project.id}
+                    className={`relative px-6 py-8 transition-colors duration-200 group hover:bg-surface-2 ${getGridBorderClasses(
+                      index,
+                    )}`}
                   >
-                    {filterLabels.clearButton}
-                  </button>
-                )}
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+                    <ProjectCard project={item.project} />
+                  </div>
+                ) : (
+                  <div key={item.key} className={getGridBorderClasses(index)} />
+                ),
+              );
+            })()}
+          </div>
+        ) : (
+          <div className="flex flex-col items-center justify-center px-6 py-16 text-center">
+            <P className="mb-2 text-muted-foreground">{emptyStateLabel}</P>
+            <div className="mb-4 text-xs font-mono text-muted-foreground/70">
+              {filterLabels.active(selectedTags.length)}
+            </div>
+          </div>
+        )}
       </div>
     </>
   );

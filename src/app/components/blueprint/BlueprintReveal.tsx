@@ -47,15 +47,14 @@ export function BlueprintReveal({
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}
     >
-      <motion.div
+      <div
         className={cn(
           "relative z-10 flex flex-col items-center w-full",
           contentClassName,
         )}
-        variants={revealVariants.up}
       >
         {children}
-      </motion.div>
+      </div>
 
       {(dotPattern || cornerBrackets || flickeringGrid) && (
         <motion.div

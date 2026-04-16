@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import rehypeHighlight from "rehype-highlight";
 import "highlight.js/styles/github-dark.css";
-import { ShareButtons } from "@/components/blog/ShareButtons";
-import { TableOfContents } from "@/components/blog/TableOfContents";
 import { Callout } from "@/components/mdx/Callout";
 import { CodeBlockWrapper } from "@/components/mdx/CodeBlockWrapper";
 import { Figure } from "@/components/mdx/Figure";
@@ -27,6 +26,28 @@ const blogContent = {
   en: blogEn,
   pt: blogPt,
 };
+
+const ShareButtons = dynamic(
+  () =>
+    import("@/components/blog/ShareButtons").then((mod) => mod.ShareButtons),
+  {
+    loading: () => (
+      <div className="h-10 w-44 border border-overlay-border bg-surface-2" />
+    ),
+  },
+);
+
+const TableOfContents = dynamic(
+  () =>
+    import("@/components/blog/TableOfContents").then(
+      (mod) => mod.TableOfContents,
+    ),
+  {
+    loading: () => (
+      <div className="h-24 border border-overlay-border bg-surface-2" />
+    ),
+  },
+);
 
 interface BlogPostPageProps {
   params: Promise<{

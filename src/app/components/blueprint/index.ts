@@ -8,4 +8,4 @@ export { RailBounded } from "./RailBounded";
 export { RailLayout } from "./RailLayout";
 export { Reveal } from "./Reveal";
 export { SectionDivider } from "./SectionDivider";
-export { StaggerGroup } from "./StaggerGroup";
+export { StaggerGroup, StaggerItem } from "./StaggerGroup";

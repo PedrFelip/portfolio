@@ -21,7 +21,7 @@ export function RouteNavigationLoader() {
   const [visible, setVisible] = useState(false);
   const [tick, setTick] = useState(0);
   const startRef = useRef<number>(0);
-  const initialPathRef = useRef(pathname);
+  const navigationFromPathRef = useRef(pathname);
 
   useEffect(() => {
     const onClick = (event: MouseEvent) => {
@@ -46,6 +46,7 @@ export function RouteNavigationLoader() {
         return;
       }
 
+      navigationFromPathRef.current = window.location.pathname;
       startRef.current = performance.now();
       setVisible(true);
     };
@@ -63,8 +64,8 @@ export function RouteNavigationLoader() {
   }, [visible]);
 
   useEffect(() => {
-    if (pathname === initialPathRef.current) return;
     if (!visible) return;
+    if (pathname === navigationFromPathRef.current) return;
 
     const elapsed = performance.now() - startRef.current;
     const remaining = Math.max(0, MIN_VISIBLE_MS - elapsed);

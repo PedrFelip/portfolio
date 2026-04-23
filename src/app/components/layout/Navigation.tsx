@@ -13,7 +13,7 @@ import {
   useState,
   useTransition,
 } from "react";
-import { Button } from "@/components/ui";
+import { Button, Logo } from "@/components/ui";
 import { Menu, X } from "@/components/ui/icons";
 import { useLanguage } from "@/lib/language-store";
 import { useLocalizedLink } from "@/lib/useLocalizedLink";
@@ -205,10 +205,11 @@ export const Navigation = memo(() => {
 
       <div className="mx-auto max-w-6xl px-4 sm:px-6 relative">
         <div className="relative z-50 flex h-16 items-center justify-between">
-          <Link href={getLocalizedLink("/")} className="group">
-            <div className="text-base font-semibold tracking-tight text-foreground transition-colors duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:text-muted-foreground">
+          <Link href={getLocalizedLink("/")} className="group flex items-center gap-2.5">
+            <Logo height={28} />
+            <span className="hidden sm:block text-base font-semibold tracking-tight text-foreground transition-colors duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:text-muted-foreground">
               Pedro Felipe
-            </div>
+            </span>
           </Link>
 
           <div

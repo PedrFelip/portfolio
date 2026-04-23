@@ -1,6 +1,7 @@
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { FaviconSwitcher } from "@/components/FaviconSwitcher";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import "./globals.css";
 
@@ -52,8 +53,8 @@ export const metadata: Metadata = {
   title: metadataConfig.en.title,
   description: metadataConfig.en.description,
   icons: {
-    icon: "/favicon.svg",
-    apple: "/favicon.svg",
+    icon: "/favicon-light.svg",
+    apple: "/favicon-light.svg",
   },
   openGraph: {
     type: "website",
@@ -88,7 +89,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased flex flex-col min-h-screen`}
       >
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <FaviconSwitcher />
+          {children}
+        </ThemeProvider>
         <SpeedInsights />
       </body>
     </html>

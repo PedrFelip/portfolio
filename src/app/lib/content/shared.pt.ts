@@ -33,7 +33,7 @@ export const sharedPt = {
     by: "por",
     navigation: "Navegacao",
     connect: "Conecte-se",
-    builtWith: "Feito com Next.js, Tailwind CSS & Bun",
+    builtWith: "Feito com Next.js, Tailwind CSS 4 & Bun",
   },
 
   header: {

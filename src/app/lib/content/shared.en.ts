@@ -33,7 +33,7 @@ export const sharedEn = {
     by: "by",
     navigation: "Navigation",
     connect: "Connect",
-    builtWith: "Built with Next.js, Tailwind CSS & Bun",
+    builtWith: "Built with Next.js, Tailwind CSS 4 & Bun",
   },
 
   header: {

@@ -1,15 +1,20 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { usePathname } from "next/navigation";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 interface ZenLayoutTransitionProps {
   children: ReactNode;
   element: "nav" | "footer";
 }
 
-export function ZenLayoutTransition({ children, element }: ZenLayoutTransitionProps) {
+const EASE_CURVE: [number, number, number, number] = [0.25, 1, 0.5, 1];
+
+export function ZenLayoutTransition({
+  children,
+  element,
+}: ZenLayoutTransitionProps) {
   const pathname = usePathname();
   
   // Detect if we are in a single blog post route
@@ -23,7 +28,7 @@ export function ZenLayoutTransition({ children, element }: ZenLayoutTransitionPr
       opacity: 1,
       transition: {
         duration: 0.5,
-        ease: [0.25, 1, 0.5, 1],
+        ease: EASE_CURVE,
       },
     },
     hidden: {
@@ -31,7 +36,7 @@ export function ZenLayoutTransition({ children, element }: ZenLayoutTransitionPr
       opacity: 0,
       transition: {
         duration: 0.4,
-        ease: [0.25, 1, 0.5, 1],
+        ease: EASE_CURVE,
       },
     },
   };

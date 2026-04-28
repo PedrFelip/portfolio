@@ -10,7 +10,6 @@ import {
   Reveal,
   SectionDivider,
 } from "@/components/blueprint";
-import { RouteLoadingText } from "@/components/common";
 import { GitHubSection } from "@/components/home/GitHubSection";
 import { GitHubSectionSkeleton } from "@/components/home/GitHubSectionSkeleton";
 import { HomeCtaSection } from "@/components/home/HomeCtaSection";
@@ -25,9 +24,6 @@ const SimpleTechStack = dynamic(
     import("@/components/home/SimpleTechStack").then(
       (mod) => mod.SimpleTechStack,
     ),
-  {
-    loading: () => <RouteLoadingText text="Loading section..." />,
-  },
 );
 
 const HomeToolkitSection = dynamic(
@@ -35,9 +31,6 @@ const HomeToolkitSection = dynamic(
     import("@/components/home/HomeToolkitSection").then(
       (mod) => mod.HomeToolkitSection,
     ),
-  {
-    loading: () => <RouteLoadingText text="Loading section..." />,
-  },
 );
 
 interface HomePageProps {
@@ -162,26 +155,22 @@ export default async function HomePage({ params }: HomePageProps) {
 
       <SectionDivider />
 
-      <Suspense fallback={<RouteLoadingText text="Loading section..." />}>
-        <HomeToolkitSection
-          badge={t.toolkit.badge}
-          title={t.toolkit.title}
-          description={t.toolkit.description}
-          items={t.toolkit.items}
-        />
-      </Suspense>
+      <HomeToolkitSection
+        badge={t.toolkit.badge}
+        title={t.toolkit.title}
+        description={t.toolkit.description}
+        items={t.toolkit.items}
+      />
 
       <SectionDivider />
 
-      <Suspense fallback={<RouteLoadingText text="Loading section..." />}>
-        <HomeCtaSection
-          lang={lang}
-          title={t.cta.title}
-          description={t.cta.description}
-          primary={t.cta.primary}
-          secondary={t.cta.secondary}
-        />
-      </Suspense>
+      <HomeCtaSection
+        lang={lang}
+        title={t.cta.title}
+        description={t.cta.description}
+        primary={t.cta.primary}
+        secondary={t.cta.secondary}
+      />
     </RailLayout>
   );
 }

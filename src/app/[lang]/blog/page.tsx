@@ -15,13 +15,6 @@ const blogContent = {
 
 const BlogListLazy = dynamic(
   () => import("@/components/blog/BlogList").then((mod) => mod.BlogList),
-  {
-    loading: () => (
-      <div className="rail-bounded border border-border px-6 py-16 text-center text-xs font-mono text-muted-foreground">
-        Loading posts...
-      </div>
-    ),
-  },
 );
 
 interface BlogPageProps {

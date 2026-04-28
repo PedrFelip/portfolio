@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { memo, useMemo } from "react";
 import { FooterGrid, FooterGridCell } from "@/components/blueprint";
-import { Label, MonoText } from "@/components/ui";
+import { Label, Logo, MonoText } from "@/components/ui";
 import { Github, Linkedin, Mail } from "@/components/ui/icons";
 import { XIcon } from "@/components/ui/x-icon";
 import { useLanguage } from "@/lib/language-store";
@@ -114,15 +114,23 @@ export const Footer = memo(() => {
         <FooterGrid>
           {/* Brand Column */}
           <FooterGridCell showCorners={false} showDotPattern={true}>
-            <Link
-              href={getLocalizedLink("/")}
-              className="text-base font-semibold tracking-tight text-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background touch-manipulation"
-            >
-              Pedro Felipe
-            </Link>
-            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-              Backend Engineer
-            </p>
+            <div className="flex items-center gap-3">
+              <Link
+                href={getLocalizedLink("/")}
+                className="text-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background touch-manipulation"
+              >
+                <Logo height={28} />
+              </Link>
+              <span className="h-8 w-px bg-border" aria-hidden="true" />
+              <div>
+                <p className="text-sm font-semibold tracking-tight text-foreground">
+                  Pedro Felipe
+                </p>
+                <p className="text-xs leading-relaxed text-muted-foreground">
+                  Backend Engineer
+                </p>
+              </div>
+            </div>
           </FooterGridCell>
 
           {/* Navigation Column */}
@@ -173,7 +181,7 @@ export const Footer = memo(() => {
             © {t.footer.year} Pedro Felipe
           </MonoText>
           <MonoText className="text-xs text-muted-foreground sm:text-sm">
-            v4.0.2
+            v4.1.0
           </MonoText>
         </div>
       </div>

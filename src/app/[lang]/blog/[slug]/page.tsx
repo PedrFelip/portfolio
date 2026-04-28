@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import rehypeHighlight from "rehype-highlight";
 import "highlight.js/styles/github-dark.css";
+import { ZenFloatingControls } from "@/components/blog/ZenFloatingControls";
 import { Callout } from "@/components/mdx/Callout";
 import { CodeBlockWrapper } from "@/components/mdx/CodeBlockWrapper";
 import { Figure } from "@/components/mdx/Figure";
@@ -184,30 +185,19 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const postUrl = `${process.env.NEXT_PUBLIC_SITE_URL || ""}/${lang}/blog/${post.slug}`;
 
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen animate-in-fade animate-duration-700">
+      <ZenFloatingControls />
+
       {/* Header Section */}
       <header className="border-b border-border">
-        <div className="mx-auto max-w-3xl px-6 py-12 sm:px-8 sm:py-16">
-          {/* Back link */}
-          <Link
-            href={`/${lang}/blog`}
-            className="group inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wide text-muted-foreground transition-colors duration-150 hover:text-foreground mb-8"
-            aria-label={`${t.back} - ${t.title}`}
-          >
-            <ArrowLeft
-              className="h-3.5 w-3.5 transition-transform duration-150 group-hover:-translate-x-1"
-              aria-hidden="true"
-            />
-            {t.back}
-          </Link>
-
+        <div className="mx-auto max-w-3xl px-6 py-12 sm:px-8 sm:py-24">
           {/* Title */}
-          <h1 className="text-3xl sm:text-4xl font-semibold tracking-[-0.02em] text-foreground mb-4">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-[-0.03em] text-foreground mb-6 animate-in-up">
             {post.title}
           </h1>
 
           {/* Meta row: date, reading time, tags */}
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs font-mono text-muted-foreground">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs font-mono text-muted-foreground animate-in-up animate-delay-100">
             <span className="inline-flex items-center gap-1.5">
               <Calendar className="h-3.5 w-3.5" aria-hidden="true" />
               <time dateTime={post.date}>{formattedDate}</time>
@@ -228,7 +218,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
           {/* Tags */}
           {post.tags.length > 0 && (
-            <div className="flex flex-wrap gap-2 mt-4">
+            <div className="flex flex-wrap gap-2 mt-6 animate-in-up animate-delay-150">
               {post.tags.map((tag) => (
                 <Badge
                   key={tag}
@@ -243,7 +233,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
           {/* Excerpt */}
           {post.excerpt && (
-            <p className="mt-6 text-base sm:text-lg leading-relaxed text-muted-foreground italic max-w-2xl">
+            <p className="mt-8 text-lg sm:text-xl leading-relaxed text-muted-foreground italic max-w-2xl animate-in-up animate-delay-200">
               {post.excerpt}
             </p>
           )}
@@ -254,7 +244,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       <div className="mx-auto max-w-5xl px-6 sm:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_200px] gap-8 lg:gap-12">
           {/* Main Article */}
-          <div className="py-10 sm:py-12">
+          <div className="py-10 sm:py-16 animate-in-up animate-delay-300">
             {/* Mobile TOC */}
             <details className="lg:hidden mb-8 group">
               <summary className="flex items-center justify-between cursor-pointer text-xs font-mono uppercase tracking-wide text-muted-foreground hover:text-foreground transition-colors py-3 border-b border-border">
@@ -269,7 +259,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             </details>
 
             {/* Article Content */}
-            <article className="prose prose-sm sm:prose-base max-w-none">
+            <article className="prose prose-sm sm:prose-base max-w-none prose-headings:tracking-tight prose-a:text-accent prose-a:no-underline hover:prose-a:underline prose-pre:bg-transparent prose-pre:p-0">
               <MDXRemote
                 source={post.content}
                 options={{
@@ -282,39 +272,34 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             </article>
 
             {/* Footer */}
-            <footer className="mt-12 pt-6 border-t border-border">
-              {/* Mobile Share */}
-              <div className="lg:hidden mb-6">
+            <footer className="mt-20 pt-12 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-8 animate-in-up animate-delay-400">
+              <div className="flex flex-col items-center sm:items-start gap-3">
+                <p className="text-sm text-muted-foreground font-mono">
+                  {lang === "pt" ? "Obrigado por ler!" : "Thanks for reading!"}
+                </p>
+                <Link
+                  href={`/${lang}/blog`}
+                  className="group inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  <ArrowLeft className="h-3 w-3 transition-transform group-hover:-translate-x-1" />
+                  {t.back}
+                </Link>
+              </div>
+
+              <div className="flex items-center gap-4">
                 <ShareButtons
                   title={post.title}
                   url={postUrl}
                   description={post.excerpt}
                 />
               </div>
-
-              <Link
-                href={`/${lang}/blog`}
-                className="group inline-flex items-center gap-2 text-sm font-mono text-muted-foreground transition-colors duration-150 hover:text-foreground"
-                aria-label={`${t.back} - ${t.title}`}
-              >
-                <ArrowLeft
-                  className="h-4 w-4 transition-transform duration-150 group-hover:-translate-x-1"
-                  aria-hidden="true"
-                />
-                {t.back}
-              </Link>
             </footer>
           </div>
 
           {/* Sidebar (Desktop) */}
-          <aside className="hidden lg:block">
-            <div className="sticky top-24 py-10 sm:py-12 space-y-8">
+          <aside className="hidden lg:block animate-in-right animate-delay-500">
+            <div className="sticky top-24 py-16 space-y-12">
               <TableOfContents headings={post.headings || []} />
-              <ShareButtons
-                title={post.title}
-                url={postUrl}
-                description={post.excerpt}
-              />
             </div>
           </aside>
         </div>

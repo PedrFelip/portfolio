@@ -21,11 +21,14 @@ export function ZenLayoutTransition({
   // Pattern: /[lang]/blog/[slug]
   // We exclude the base blog list pages
   const isBlogPost = pathname.match(/\/(en|pt)\/blog\/.+/);
+  const initialVariant = isBlogPost ? "hidden" : "visible";
 
   const variants = {
     visible: {
       y: 0,
       opacity: 1,
+      height: "auto",
+      display: "block",
       transition: {
         duration: 0.5,
         ease: EASE_CURVE,
@@ -34,19 +37,24 @@ export function ZenLayoutTransition({
     hidden: {
       y: element === "nav" ? -100 : 100,
       opacity: 0,
+      height: 0,
       transition: {
         duration: 0.4,
         ease: EASE_CURVE,
+      },
+      transitionEnd: {
+        display: "none",
       },
     },
   };
 
   return (
     <motion.div
-      initial="visible"
+      initial={initialVariant}
       animate={isBlogPost ? "hidden" : "visible"}
       variants={variants}
-      className={element === "nav" ? "sticky top-0 z-50" : "relative"}
+      className={element === "footer" ? "relative" : undefined}
+      style={{ overflow: "hidden" }}
     >
       {children}
     </motion.div>

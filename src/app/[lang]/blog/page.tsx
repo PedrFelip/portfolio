@@ -13,8 +13,8 @@ const blogContent = {
   pt: blogPt,
 };
 
-const BlogListLazy = dynamic(
-  () => import("@/components/blog/BlogList").then((mod) => mod.BlogList),
+const BlogListLazy = dynamic(() =>
+  import("@/components/blog/BlogList").then((mod) => mod.BlogList),
 );
 
 interface BlogPageProps {

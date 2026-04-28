@@ -16,7 +16,7 @@ export function ZenLayoutTransition({
   element,
 }: ZenLayoutTransitionProps) {
   const pathname = usePathname();
-  
+
   // Detect if we are in a single blog post route
   // Pattern: /[lang]/blog/[slug]
   // We exclude the base blog list pages

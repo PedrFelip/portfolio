@@ -187,7 +187,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   return (
     <main className="min-h-screen animate-in-fade animate-duration-700">
       <ZenFloatingControls />
-      
+
       {/* Header Section */}
       <header className="border-b border-border">
         <div className="mx-auto max-w-3xl px-6 py-12 sm:px-8 sm:py-24">

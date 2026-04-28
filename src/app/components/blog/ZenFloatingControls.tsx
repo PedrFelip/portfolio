@@ -2,10 +2,10 @@
 
 import { motion, useScroll, useSpring } from "framer-motion";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { ArrowLeft, Home } from "@/components/ui/icons";
 import { useLanguage } from "@/lib/language-store";
 import { useLocalizedLink } from "@/lib/useLocalizedLink";
-import { useEffect, useState } from "react";
 
 export function ZenFloatingControls() {
   const { t } = useLanguage();

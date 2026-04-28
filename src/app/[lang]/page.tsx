@@ -19,18 +19,16 @@ import { ArrowRight } from "@/components/ui/icons";
 import { homeEn } from "@/lib/content/home.en";
 import { homePt } from "@/lib/content/home.pt";
 
-const SimpleTechStack = dynamic(
-  () =>
-    import("@/components/home/SimpleTechStack").then(
-      (mod) => mod.SimpleTechStack,
-    ),
+const SimpleTechStack = dynamic(() =>
+  import("@/components/home/SimpleTechStack").then(
+    (mod) => mod.SimpleTechStack,
+  ),
 );
 
-const HomeToolkitSection = dynamic(
-  () =>
-    import("@/components/home/HomeToolkitSection").then(
-      (mod) => mod.HomeToolkitSection,
-    ),
+const HomeToolkitSection = dynamic(() =>
+  import("@/components/home/HomeToolkitSection").then(
+    (mod) => mod.HomeToolkitSection,
+  ),
 );
 
 interface HomePageProps {

@@ -14,8 +14,8 @@ interface FigureProps {
 export const Figure = memo(
   ({ src, alt, caption, width = 800, height = 400 }: FigureProps) => {
     return (
-      <figure className="my-8">
-        <div className="relative overflow-hidden">
+      <figure className="my-9">
+        <div className="relative overflow-hidden rounded-sm border border-border/60">
           <Image
             src={src}
             alt={alt}
@@ -25,7 +25,7 @@ export const Figure = memo(
           />
         </div>
         {caption && (
-          <figcaption className="mt-2 text-center text-xs text-muted-foreground">
+          <figcaption className="mt-3 text-center text-xs text-muted-foreground">
             {caption}
           </figcaption>
         )}

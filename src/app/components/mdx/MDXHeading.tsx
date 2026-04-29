@@ -20,7 +20,7 @@ export function createHeadingComponents(headings: Heading[]) {
       return (
         <h1
           id={id}
-          className="text-2xl font-semibold tracking-[-0.02em] text-foreground mt-10 mb-4 first:mt-0 sm:text-3xl"
+          className="text-2xl font-semibold tracking-[-0.02em] text-foreground mt-11 mb-4 first:mt-0 sm:text-3xl"
         >
           {children}
         </h1>
@@ -31,7 +31,7 @@ export function createHeadingComponents(headings: Heading[]) {
       return (
         <h2
           id={id}
-          className="text-xl font-semibold tracking-[-0.02em] text-foreground mt-10 mb-3 scroll-mt-24 sm:text-2xl"
+          className="text-xl font-semibold tracking-[-0.02em] text-foreground mt-10 mb-4 scroll-mt-24 sm:text-2xl"
         >
           {children}
         </h2>
@@ -42,7 +42,7 @@ export function createHeadingComponents(headings: Heading[]) {
       return (
         <h3
           id={id}
-          className="text-lg font-semibold tracking-[-0.02em] text-foreground mt-8 mb-2 scroll-mt-24 sm:text-xl"
+          className="text-lg font-semibold tracking-[-0.02em] text-foreground mt-8 mb-3 scroll-mt-24 sm:text-xl"
         >
           {children}
         </h3>

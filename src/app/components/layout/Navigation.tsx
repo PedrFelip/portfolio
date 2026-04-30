@@ -207,9 +207,9 @@ export const Navigation = memo(() => {
         <div className="relative z-50 flex h-16 items-center justify-between">
           <Link
             href={getLocalizedLink("/")}
-            className="group flex items-center gap-2.5"
+            className="group flex items-center gap-2.5 sm:pl-0 pl-3"
           >
-            <Logo height={28} />
+            <Logo height={28} className="h-6 sm:h-7 w-auto" />
             <span className="hidden sm:block text-base font-semibold tracking-tight text-foreground transition-colors duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:text-muted-foreground">
               Pedro Felipe
             </span>

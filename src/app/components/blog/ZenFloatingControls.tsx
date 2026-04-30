@@ -1,16 +1,21 @@
 "use client";
 
-import { motion, useScroll, useSpring } from "framer-motion";
-import Link from "next/link";
-import { useEffect, useState } from "react";
 import { ArrowLeft, Home } from "@/components/ui/icons";
 import { useLanguage } from "@/lib/language-store";
 import { useLocalizedLink } from "@/lib/useLocalizedLink";
+import {
+    motion,
+    useMotionValueEvent,
+    useScroll,
+    useSpring,
+} from "framer-motion";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export function ZenFloatingControls() {
   const { t } = useLanguage();
   const getLocalizedLink = useLocalizedLink();
-  const { scrollYProgress } = useScroll();
+  const { scrollY, scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
@@ -18,11 +23,34 @@ export function ZenFloatingControls() {
   });
 
   const [isVisible, setIsVisible] = useState(false);
+  const [isScrollingDown, setIsScrollingDown] = useState(false);
+  const [isIdle, setIsIdle] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 150);
     return () => clearTimeout(timer);
   }, []);
+
+  // Timer para detectar inatividade de scroll
+  useEffect(() => {
+    if (!isScrollingDown) return;
+
+    const idleTimer = setTimeout(() => {
+      setIsScrollingDown(false);
+    }, 500); // Reaparece após 300ms parado
+
+    return () => clearTimeout(idleTimer);
+  }, [isScrollingDown, scrollY.get()]);
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const previous = scrollY.getPrevious() ?? 0;
+
+    if (latest > previous && latest > 100) {
+      setIsScrollingDown(true);
+    } else {
+      setIsScrollingDown(false);
+    }
+  });
 
   return (
     <>
@@ -66,10 +94,16 @@ export function ZenFloatingControls() {
       <motion.div
         className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[60] flex md:hidden"
         initial={{ y: 20, opacity: 0 }}
-        animate={{ y: isVisible ? 0 : 20, opacity: isVisible ? 1 : 0 }}
-        transition={{ delay: 0.1 }}
+        animate={{
+          y: isVisible ? (isScrollingDown ? 80 : 0) : 20,
+          opacity: isVisible ? (isScrollingDown ? 0 : 1) : 0,
+        }}
+        transition={{
+          duration: 0.25,
+          ease: [0.25, 1, 0.5, 1],
+        }}
       >
-        <div className="flex h-11 items-stretch rounded-sm border border-overlay-border bg-background shadow-xl overflow-hidden touch-manipulation">
+        <div className="flex h-11 items-stretch rounded-sm border border-overlay-border bg-background shadow-md overflow-hidden touch-manipulation">
           <Link
             href={getLocalizedLink("/blog")}
             className="group flex items-center gap-2 px-6 text-[10px] font-mono uppercase tracking-widest text-foreground hover:bg-surface-4 transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] active:scale-[0.98]"

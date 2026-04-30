@@ -1028,14 +1028,14 @@ html {
   }
 
   .prose pre {
-    @apply border rounded-sm overflow-x-auto mb-6 mt-6;
+    @apply border rounded-sm overflow-x-auto my-4;
     border-color: var(--code-border);
     background: var(--code-bg);
     padding: 0;
   }
 
   .prose pre code {
-    @apply bg-transparent border-0 text-xs sm:text-sm leading-relaxed block p-4;
+    @apply bg-transparent border-0 text-xs sm:text-sm leading-relaxed block p-3.5;
     color: var(--hljs-fg);
   }
 

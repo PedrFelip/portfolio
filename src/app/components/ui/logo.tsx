@@ -38,7 +38,7 @@ export const Logo = ({ height = 28, className = "" }: LogoProps) => {
       alt="Pedro Felipe Logo"
       width={width}
       height={height}
-      className={`transition-opacity duration-300 ${className}`}
+      className={`block transition-opacity duration-300 ${className}`}
       priority
     />
   );

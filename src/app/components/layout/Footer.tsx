@@ -119,7 +119,7 @@ export const Footer = memo(() => {
                 href={getLocalizedLink("/")}
                 className="text-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background touch-manipulation"
               >
-                <Logo height={28} />
+                <Logo height={28} className="h-6 sm:h-7 w-auto" />
               </Link>
               <span className="h-8 w-px bg-border" aria-hidden="true" />
               <div>

@@ -1,16 +1,16 @@
 "use client";
 
-import { ArrowLeft, Home } from "@/components/ui/icons";
-import { useLanguage } from "@/lib/language-store";
-import { useLocalizedLink } from "@/lib/useLocalizedLink";
 import {
-    motion,
-    useMotionValueEvent,
-    useScroll,
-    useSpring,
+  motion,
+  useMotionValueEvent,
+  useScroll,
+  useSpring,
 } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { ArrowLeft, Home } from "@/components/ui/icons";
+import { useLanguage } from "@/lib/language-store";
+import { useLocalizedLink } from "@/lib/useLocalizedLink";
 
 export function ZenFloatingControls() {
   const { t } = useLanguage();
@@ -24,8 +24,6 @@ export function ZenFloatingControls() {
 
   const [isVisible, setIsVisible] = useState(false);
   const [isScrollingDown, setIsScrollingDown] = useState(false);
-  const [isIdle, setIsIdle] = useState(false);
-
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 150);
     return () => clearTimeout(timer);
@@ -40,7 +38,7 @@ export function ZenFloatingControls() {
     }, 500); // Reaparece após 300ms parado
 
     return () => clearTimeout(idleTimer);
-  }, [isScrollingDown, scrollY.get()]);
+  }, [isScrollingDown]);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     const previous = scrollY.getPrevious() ?? 0;

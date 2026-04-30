@@ -4,7 +4,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import rehypeHighlight from "rehype-highlight";
-import "highlight.js/styles/github-dark.css";
 import { ScrollToTop } from "@/components/blog/ScrollToTop";
 import { ZenFloatingControls } from "@/components/blog/ZenFloatingControls";
 import { Callout } from "@/components/mdx/Callout";
@@ -186,7 +185,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const postUrl = `${process.env.NEXT_PUBLIC_SITE_URL || ""}/${lang}/blog/${post.slug}`;
 
   return (
-    <main className="min-h-screen animate-in-fade animate-duration-700">
+    <main className="min-h-screen animate-in-fade animate-duration-700 pb-24 md:pb-0">
       <ScrollToTop />
       <ZenFloatingControls />
 

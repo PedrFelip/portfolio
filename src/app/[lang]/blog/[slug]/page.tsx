@@ -4,7 +4,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import rehypeHighlight from "rehype-highlight";
-import "highlight.js/styles/github-dark.css";
 import { ZenFloatingControls } from "@/components/blog/ZenFloatingControls";
 import { Callout } from "@/components/mdx/Callout";
 import { CodeBlockWrapper } from "@/components/mdx/CodeBlockWrapper";
@@ -72,7 +71,7 @@ const CodeComponent = ({
     return <code className={className}>{children}</code>;
   }
   return (
-    <code className="font-mono text-[13px] bg-[oklch(0.12_0.008_270)] px-1.5 py-0.5 rounded-sm text-foreground">
+    <code className="bg-[var(--code-bg)] text-[color:var(--code-fg)] px-1.5 py-0.5 rounded-sm">
       {children}
     </code>
   );
@@ -259,7 +258,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             </details>
 
             {/* Article Content */}
-            <article className="prose prose-sm sm:prose-base max-w-none prose-headings:tracking-tight prose-a:text-accent prose-a:no-underline hover:prose-a:underline prose-pre:bg-transparent prose-pre:p-0">
+            <article className="prose max-w-none">
               <MDXRemote
                 source={post.content}
                 options={{

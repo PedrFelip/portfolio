@@ -52,10 +52,10 @@ export const CodeBlockWrapper = memo(({ children }: CodeBlockWrapperProps) => {
   }, []);
 
   return (
-    <div className="group/code relative my-6">
+    <div className="group/code relative">
       <pre
         ref={preRef}
-        className="hljs overflow-x-auto rounded-sm border border-border/40 p-4 text-sm leading-relaxed"
+        className="hljs overflow-x-auto rounded-sm border border-[var(--code-border)] bg-[var(--code-bg)] p-4 text-sm leading-relaxed"
       >
         {children}
       </pre>
@@ -63,7 +63,7 @@ export const CodeBlockWrapper = memo(({ children }: CodeBlockWrapperProps) => {
       <button
         type="button"
         onClick={copyToClipboard}
-        className="absolute right-2 top-2 rounded-sm border border-border/40 bg-card/80 p-1.5 text-muted-foreground opacity-0 backdrop-blur-sm transition-[opacity,color,background-color] duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:bg-accent/[0.04] hover:text-foreground group-hover/code:opacity-100 motion-reduce:transition-none"
+        className="absolute right-2 top-2 rounded-sm border border-[var(--code-border)] bg-card/80 p-1.5 text-muted-foreground opacity-0 backdrop-blur-sm transition-[opacity,color,background-color] duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:bg-accent/[0.04] hover:text-foreground group-hover/code:opacity-100 motion-reduce:transition-none"
         title={t.blog.copyCode}
         aria-label={copied ? t.blog.codeCopied : t.blog.copyCode}
       >

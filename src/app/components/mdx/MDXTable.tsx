@@ -27,7 +27,7 @@ interface TableCellProps {
 
 export const MDXTable = memo(function MDXTable({ children }: TableProps) {
   return (
-    <div className="my-6 overflow-x-auto rounded-sm border border-border/60">
+    <div className="my-7 overflow-x-auto rounded-sm border border-border/60">
       <table className="w-full text-sm">{children}</table>
     </div>
   );
@@ -71,7 +71,7 @@ export const MDXTableCell = memo(function MDXTableCell({
   return (
     <td
       className={cn(
-        "px-3 py-2.5",
+        "px-3 py-2.5 sm:px-4 sm:py-3",
         isHeader
           ? "text-[11px] font-medium uppercase tracking-wide text-foreground"
           : "text-muted-foreground",

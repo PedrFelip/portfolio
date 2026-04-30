@@ -64,7 +64,7 @@ export const Callout = memo(
     return (
       <div
         className={cn(
-          "my-6 flex gap-3 rounded-sm border border-l-[3px] p-4",
+          "my-7 flex gap-3 rounded-sm border border-l-[3px] p-4 sm:p-5",
           config.bg,
           config.border,
           config.indicator,
@@ -73,11 +73,11 @@ export const Callout = memo(
         <div className={cn("mt-0.5 shrink-0", config.text)}>{config.icon}</div>
         <div className="min-w-0 flex-1">
           {title && (
-            <div className={cn("mb-1.5 text-sm font-semibold", config.text)}>
+            <div className={cn("mb-2 text-sm font-semibold", config.text)}>
               {title}
             </div>
           )}
-          <div className="text-sm leading-relaxed text-muted-foreground">
+          <div className="text-sm leading-relaxed text-muted-foreground sm:text-[15px]">
             {children}
           </div>
         </div>

@@ -987,15 +987,18 @@ html {
   }
 
   .prose h1 {
-    @apply text-2xl sm:text-3xl font-semibold tracking-tight text-foreground mb-4 mt-10 first:mt-0;
+    @apply text-2xl sm:text-3xl font-semibold text-foreground mb-4 mt-11 first:mt-0;
+    letter-spacing: -0.02em;
   }
 
   .prose h2 {
-    @apply text-xl sm:text-2xl font-semibold tracking-tight text-foreground mb-3 mt-10 scroll-mt-24;
+    @apply text-xl sm:text-2xl font-semibold text-foreground mb-4 mt-10 scroll-mt-24;
+    letter-spacing: -0.02em;
   }
 
   .prose h3 {
-    @apply text-lg sm:text-xl font-semibold text-foreground mb-2 mt-8 scroll-mt-24;
+    @apply text-lg sm:text-xl font-semibold text-foreground mb-3 mt-8 scroll-mt-24;
+    letter-spacing: -0.02em;
   }
 
   .prose h4 {
@@ -1032,7 +1035,7 @@ html {
   }
 
   .prose pre code {
-    @apply bg-transparent border-0 p-0 text-xs sm:text-sm leading-relaxed block p-4;
+    @apply bg-transparent border-0 text-xs sm:text-sm leading-relaxed block p-4;
     color: var(--hljs-fg);
   }
 
@@ -1064,6 +1067,11 @@ html {
     @apply list-decimal pl-6 space-y-2 mb-5 text-muted-foreground;
   }
 
+  .prose li > ul,
+  .prose li > ol {
+    @apply mt-1.5 mb-0;
+  }
+
   .prose blockquote {
     @apply border-l-2 border-border/60 pl-5 text-muted-foreground my-6;
   }
@@ -1092,13 +1100,13 @@ html {
     @apply rounded-sm border border-border/60 my-6;
   }
 
+  .prose figure img {
+    @apply border-0 rounded-none my-0;
+  }
+
   .prose li code,
   .prose p code {
     @apply text-[13px];
-  }
-
-  .prose pre[class*="language-"]::before {
-    @apply absolute top-2 right-2 text-xs text-muted-foreground font-mono;
   }
 
   /* Highlight.js token colors */

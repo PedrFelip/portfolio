@@ -4,6 +4,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import rehypeHighlight from "rehype-highlight";
+import "highlight.js/styles/github-dark.css";
+import { ScrollToTop } from "@/components/blog/ScrollToTop";
 import { ZenFloatingControls } from "@/components/blog/ZenFloatingControls";
 import { Callout } from "@/components/mdx/Callout";
 import { CodeBlockWrapper } from "@/components/mdx/CodeBlockWrapper";
@@ -185,6 +187,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   return (
     <main className="min-h-screen animate-in-fade animate-duration-700">
+      <ScrollToTop />
       <ZenFloatingControls />
 
       {/* Header Section */}

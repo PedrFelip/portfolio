@@ -20,8 +20,7 @@ export function ZenFloatingControls() {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    // Small delay to match the layout elements animating out
-    const timer = setTimeout(() => setIsVisible(true), 400);
+    const timer = setTimeout(() => setIsVisible(true), 150);
     return () => clearTimeout(timer);
   }, []);
 
@@ -40,7 +39,7 @@ export function ZenFloatingControls() {
         className="fixed top-6 left-6 z-[60] hidden md:flex"
         initial={{ x: -20, opacity: 0 }}
         animate={{ x: isVisible ? 0 : -20, opacity: isVisible ? 1 : 0 }}
-        transition={{ delay: 0.5 }}
+        transition={{ delay: 0.1 }}
       >
         <div className="flex h-9 items-stretch rounded-sm border border-overlay-border bg-background shadow-sm overflow-hidden touch-manipulation">
           <Link
@@ -68,7 +67,7 @@ export function ZenFloatingControls() {
         className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[60] flex md:hidden"
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: isVisible ? 0 : 20, opacity: isVisible ? 1 : 0 }}
-        transition={{ delay: 0.5 }}
+        transition={{ delay: 0.1 }}
       >
         <div className="flex h-11 items-stretch rounded-sm border border-overlay-border bg-background shadow-xl overflow-hidden touch-manipulation">
           <Link

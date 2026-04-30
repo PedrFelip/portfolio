@@ -13,6 +13,10 @@ interface BlogCardProps {
 export const BlogCard = memo(({ post }: BlogCardProps) => {
   const { t, language } = useLanguage();
 
+  const handleClick = () => {
+    sessionStorage.setItem("blog:scroll-to-top", "1");
+  };
+
   const formattedDate = useMemo(
     () =>
       new Date(post.date).toLocaleDateString(
@@ -25,6 +29,8 @@ export const BlogCard = memo(({ post }: BlogCardProps) => {
   return (
     <Link
       href={`/${language}/blog/${post.slug}`}
+      scroll={false}
+      onClick={handleClick}
       className="block px-6 py-5 sm:px-8 sm:py-6 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring focus-visible:ring-inset"
     >
       <div className="flex items-center gap-3 mb-2">

@@ -86,6 +86,16 @@ const TableCell = ({ children }: { children: React.ReactNode }) => (
   <MDXTableCell>{children}</MDXTableCell>
 );
 
+const MDXLink = ({
+  href,
+  children,
+  ...props
+}: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
+  <a href={href} target="_blank" rel="noopener noreferrer" {...props}>
+    {children}
+  </a>
+);
+
 export const revalidate = 604800;
 export const dynamicParams = true;
 
@@ -164,6 +174,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   const headingComponents = createHeadingComponents(post.headings || []);
   const MDX_COMPONENTS = {
+    a: MDXLink,
     pre: PreComponent,
     code: CodeComponent,
     Callout,

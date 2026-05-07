@@ -133,9 +133,11 @@ func square(x *int) *int {
 	return &z
 }
 ```
+
 > Nesse exemplo, a variável `z` é criada dentro da função `square`, mas como estamos retornando um **ponteiro** para `z`, ela "escapa" para a **Heap**. O compilador reconhece isso e aloca `z` na **Heap** em vez de na **Stack**.
 
 Vamos ver pelo compilador com o mesmo exemplo via a flag `-gcflags="-m"`:
+
 ```bash
 ❯ go build -gcflags "-m" main.go
 # command-line-arguments
@@ -232,6 +234,7 @@ Errado. Na verdade, a **struct** terá 16 bytes.
 Isso acontece porque a **CPU** não lê a memória byte a byte. Ela lê em blocos chamados **words** (geralmente de 8 bytes). Para que a leitura seja eficiente, o compilador do **Go** alinha os dados em endereços de memória que sejam múltiplos do seu próprio tamanho. Se um dado não "encaixa" perfeitamente na fronteira da **word**, o **Go** insere bytes vazios: o **padding**.
 
 1. badStruct
+
 ```go
 type badStruct struct {
     a bool  // 1 byte
@@ -244,6 +247,7 @@ type badStruct struct {
 ```
 
 2. goodStruct
+
 ```go
 type goodStruct struct {
     b int64 // 8 bytes
@@ -288,6 +292,7 @@ func main() {
 	fmt.Printf("Good: %d bytes\n", unsafe.Sizeof(goodStruct{}))
 }
 ```
+
 ```bash
 ❯ go run main.go
 Bad: 24 bytes

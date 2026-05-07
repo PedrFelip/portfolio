@@ -1,7 +1,7 @@
 ---
 title: Go Structs - Otimizando memória e performance no backend.
 description: Structs em Go são fundamentais para organizar dados, otimizar memória e melhorar performance. Entenda como usá-los eficientemente.
-date: "2026-04-29"
+date: "2026-05-07"
 categories:
   - Go
 published: true

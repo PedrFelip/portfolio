@@ -110,51 +110,49 @@ export const ShareButtons = memo(
             href={shareLinks.twitter}
             target="_blank"
             rel="noopener noreferrer"
-            className="terminal-glow inline-flex items-center gap-1 md:gap-2 rounded-md border border-border bg-card px-2 md:px-3 py-2 md:py-2 text-sm text-muted-foreground"
+            className="terminal-glow inline-flex h-11 md:h-9 items-center gap-2 rounded-md border border-border bg-card px-3 py-2 text-sm text-muted-foreground transition-all duration-200 hover:text-foreground active:scale-[0.97] touch-manipulation select-none"
             aria-label={`${tBlog.shareOn} X (Twitter)`}
           >
-            <XIcon className="h-3 w-3 md:h-3.5 md:w-3.5" />
-            <MonoText className="text-xs md:text-xs">[X]</MonoText>
+            <XIcon className="h-3.5 w-3.5" />
+            <MonoText className="text-xs">[X]</MonoText>
           </a>
 
           <a
             href={shareLinks.linkedin}
             target="_blank"
             rel="noopener noreferrer"
-            className="terminal-glow inline-flex items-center gap-1 md:gap-2 rounded-md border border-border bg-card px-2 md:px-3 py-2 md:py-2 text-sm text-muted-foreground"
+            className="terminal-glow inline-flex h-11 md:h-9 items-center gap-2 rounded-md border border-border bg-card px-3 py-2 text-sm text-muted-foreground transition-all duration-200 hover:text-foreground active:scale-[0.97] touch-manipulation select-none"
             aria-label={`${tBlog.shareOn} LinkedIn`}
           >
-            <Linkedin className="h-3 w-3 md:h-3.5 md:w-3.5" />
-            <MonoText className="text-xs md:text-xs">[LI]</MonoText>
+            <Linkedin className="h-3.5 w-3.5" />
+            <MonoText className="text-xs">[LI]</MonoText>
           </a>
 
           <a
             href={shareLinks.email}
-            className="terminal-glow inline-flex items-center gap-1 md:gap-2 rounded-md border border-border bg-card px-2 md:px-3 py-2 md:py-2 text-sm text-muted-foreground"
+            className="terminal-glow inline-flex h-11 md:h-9 items-center gap-2 rounded-md border border-border bg-card px-3 py-2 text-sm text-muted-foreground transition-all duration-200 hover:text-foreground active:scale-[0.97] touch-manipulation select-none"
             aria-label={`${tBlog.shareVia} Email`}
           >
-            <Mail className="h-3 w-3 md:h-3.5 md:w-3.5" />
-            <MonoText className="text-xs md:text-xs">[EMAIL]</MonoText>
+            <Mail className="h-3.5 w-3.5" />
+            <MonoText className="text-xs">[EMAIL]</MonoText>
           </a>
 
           <button
             type="button"
             onClick={copyToClipboard}
             disabled={isPending}
-            className="terminal-glow inline-flex items-center gap-1 md:gap-2 rounded-md border border-border bg-card px-2 md:px-3 py-2 md:py-2 text-sm text-muted-foreground disabled:opacity-50 disabled:cursor-not-allowed"
+            className="terminal-glow inline-flex h-11 md:h-9 items-center gap-2 rounded-md border border-border bg-card px-3 py-2 text-sm text-muted-foreground transition-all duration-200 hover:text-foreground active:scale-[0.97] disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation select-none"
             aria-label={copied ? tBlog.linkCopied : tBlog.copyLink}
           >
             {copied ? (
               <>
-                <Share2 className="h-3 w-3 md:h-3.5 md:w-3.5 text-accent" />
-                <MonoText className="text-xs md:text-xs text-accent">
-                  [COPIED]
-                </MonoText>
+                <Share2 className="h-3.5 w-3.5 text-accent" />
+                <MonoText className="text-xs text-accent">[COPIED]</MonoText>
               </>
             ) : (
               <>
-                <LinkIcon className="h-3 w-3 md:h-3.5 md:w-3.5" />
-                <MonoText className="text-xs md:text-xs">[COPY]</MonoText>
+                <LinkIcon className="h-3.5 w-3.5" />
+                <MonoText className="text-xs">[COPY]</MonoText>
               </>
             )}
           </button>

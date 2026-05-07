@@ -17,9 +17,9 @@ Antes de mostrar a sintaxe, é importante entender o que são as **structs** em 
 
 ```go
 type User struct {
-    Name  string
-    Age   int
-    Email string
+  Name  string
+  Age   int
+  Email string
 }
 ```
 
@@ -35,13 +35,13 @@ Por padrão, as **structs** em **Go** são **valores**, o que significa que quan
 
 ```go
 func main() {
-    user1 := User{Name: "Pedro", Age: 20, Email: "pedro@example.com"}
-    user2 := user1 // Cria uma cópia de user1
-    user2.Name = "João" // Modifica o nome em user2
+  user1 := User{Name: "Pedro", Age: 20, Email: "pedro@example.com"}
+  user2 := user1 // Cria uma cópia de user1
+  user2.Name = "João" // Modifica o nome em user2
 
-    fmt.Println(user1.Name) // Output: Pedro
-    fmt.Println(user2.Name) // Output: João
-    // user1 permanece inalterado, pois user2 é uma cópia
+  fmt.Println(user1.Name) // Output: Pedro
+  fmt.Println(user2.Name) // Output: João
+  // user1 permanece inalterado, pois user2 é uma cópia
 }
 ```
 
@@ -49,14 +49,14 @@ Agora, em uma função, o mesmo acontece:
 
 ```go
 func updateUser(user User) {
-    user.Name = "João" // Modifica o nome
+  user.Name = "João" // Modifica o nome
 }
 
 func main() {
-    user1 := User{Name: "Pedro", Age: 20, Email: "pedro@example.com"}
-    updateUser(user1)
+  user1 := User{Name: "Pedro", Age: 20, Email: "pedro@example.com"}
+  updateUser(user1)
 
-    fmt.Println(user1.Name) // Output: Pedro
+  fmt.Println(user1.Name) // Output: Pedro
 }
 ```
 
@@ -64,14 +64,14 @@ Ok, mas e se quisermos modificar o usuário dentro da função? Para isso, preci
 
 ```go
 func updateUser(user *User) {
-    user.Name = "João" // Modifica o nome
+  user.Name = "João" // Modifica o nome
 }
 
 func main() {
-    user1 := User{Name: "Pedro", Age: 20, Email: "pedro@example.com"}
-    updateUser(&user1) // Passa a referência de user1
+  user1 := User{Name: "Pedro", Age: 20, Email: "pedro@example.com"}
+  updateUser(&user1) // Passa a referência de user1
 
-    fmt.Println(user1.Name) // Output: João
+  fmt.Println(user1.Name) // Output: João
 }
 ```
 
@@ -88,20 +88,20 @@ Sobre a importação de **structs**, em **Go** não importamos **structs** diret
 package main
 
 import (
-    "fmt"
-    "github.com/pedrfelip/meupacote" // Supondo que meupacote tenha uma struct exportada chamada User
+  "fmt"
+  "github.com/pedrfelip/meupacote" // Supondo que meupacote tenha uma struct exportada chamada User
 )
 
 // Exemplo de struct não exportada (privada ao pacote)
 type config struct {
-    Port int
+  Port int
 }
 
 func main() {
-    // Conseguimos acessar a struct User do pacote meupacote porque ela é exportada (começa com letra maiúscula)
-    user := meupacote.User{Name: "Pedro", Age: 20}
+  // Conseguimos acessar a struct User do pacote meupacote porque ela é exportada (começa com letra maiúscula)
+  user := meupacote.User{Name: "Pedro", Age: 20}
 
-    fmt.Println(user.Name) // Output: Pedro
+  fmt.Println(user.Name) // Output: Pedro
 }
 ```
 
@@ -123,14 +123,14 @@ package main
 import "fmt"
 
 func main() {
-	x := 10
-	y := square(&x)
-	fmt.Println(*y)
+  x := 10
+  y := square(&x)
+  fmt.Println(*y)
 }
 
 func square(x *int) *int {
-	z := (*x) * (*x)
-	return &z
+  z := (*x) * (*x)
+  return &z
 }
 ```
 
@@ -158,14 +158,14 @@ O **Escape Analysis** constrói um **grafo direcionado ponderado**: cada nó é 
 
 ```go
 type location struct {
-	n         ir.Node  // represented variable or expression, if any
-	curfn     *ir.Func // enclosing function
-	edges     []edge   // incoming edges
-	loopDepth int      // loopDepth at declaration
+  n         ir.Node  // represented variable or expression, if any
+  curfn     *ir.Func // enclosing function
+  edges     []edge   // incoming edges
+  loopDepth int      // loopDepth at declaration
 
-	// derefs and walkgen are used during walkOne to track the
-	// minimal dereferences from the walk root.
-	derefs  int // >= -1
+  // derefs and walkgen are used during walkOne to track the
+  // minimal dereferences from the walk root.
+  derefs  int // >= -1
 }
 ```
 
@@ -237,11 +237,11 @@ Isso acontece porque a **CPU** não lê a memória byte a byte. Ela lê em bloco
 
 ```go
 type badStruct struct {
-    a bool  // 1 byte
-    // [Padding] 7 bytes para alinhar o próximo campo de 8 bytes
-    b int64 // 8 bytes
-    c bool  // 1 byte
-    // [Padding] 7 bytes para que a struct total seja múltipla de 8
+  a bool  // 1 byte
+  // [Padding] 7 bytes para alinhar o próximo campo de 8 bytes
+  b int64 // 8 bytes
+  c bool  // 1 byte
+  // [Padding] 7 bytes para que a struct total seja múltipla de 8
 }
 // Total: 24 bytes
 ```
@@ -250,10 +250,10 @@ type badStruct struct {
 
 ```go
 type goodStruct struct {
-    b int64 // 8 bytes
-    a bool  // 1 byte
-    c bool  // 1 byte
-    // [Padding] 6 bytes no final
+  b int64 // 8 bytes
+  a bool  // 1 byte
+  c bool  // 1 byte
+  // [Padding] 6 bytes no final
 }
 // Total: 16 bytes
 ```
@@ -264,32 +264,32 @@ O **Go** fornece o pacote `unsafe` para você medir exatamente o tamanho das sua
 package main
 
 import (
-	"fmt"
-	"unsafe"
+  "fmt"
+  "unsafe"
 )
 
 type badStruct struct {
-	a bool // 1 byte
-	// [Padding] 7 bytes para alinhar o próximo campo de 8 bytes
-	b int64 // 8 bytes
-	c bool  // 1 byte
-	// [Padding] 7 bytes para que a struct total seja múltipla de 8
+  a bool // 1 byte
+  // [Padding] 7 bytes para alinhar o próximo campo de 8 bytes
+  b int64 // 8 bytes
+  c bool  // 1 byte
+  // [Padding] 7 bytes para que a struct total seja múltipla de 8
 }
 
 // Total: 24 bytes
 
 type goodStruct struct {
-	b int64 // 8 bytes
-	a bool  // 1 byte
-	c bool  // 1 byte
-	// [Padding] 6 bytes no final
+  b int64 // 8 bytes
+  a bool  // 1 byte
+  c bool  // 1 byte
+  // [Padding] 6 bytes no final
 }
 
 // Total: 16 bytes
 
 func main() {
-	fmt.Printf("Bad: %d bytes\n", unsafe.Sizeof(badStruct{}))
-	fmt.Printf("Good: %d bytes\n", unsafe.Sizeof(goodStruct{}))
+  fmt.Printf("Bad: %d bytes\n", unsafe.Sizeof(badStruct{}))
+  fmt.Printf("Good: %d bytes\n", unsafe.Sizeof(goodStruct{}))
 }
 ```
 

@@ -147,9 +147,7 @@ export const ShareButtons = memo(
             {copied ? (
               <>
                 <Share2 className="h-3.5 w-3.5 text-accent" />
-                <MonoText className="text-xs text-accent">
-                  [COPIED]
-                </MonoText>
+                <MonoText className="text-xs text-accent">[COPIED]</MonoText>
               </>
             ) : (
               <>

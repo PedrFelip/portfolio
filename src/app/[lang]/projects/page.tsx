@@ -46,7 +46,7 @@ export default async function ProjectsPage({ params }: ProjectsPageProps) {
             <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
               {t.badge}
             </p>
-            <h2 className="mt-3 text-2xl font-bold tracking-tight sm:text-3xl">
+            <h2 className="mt-3 text-2xl font-semibold tracking-tight sm:text-3xl">
               {t.title}
             </h2>
             <p className="mt-2 max-w-lg text-base text-muted-foreground">

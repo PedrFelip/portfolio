@@ -42,7 +42,7 @@ export function HomeCtaSection({
           >
             <div className="relative z-10 flex flex-col items-center text-center">
               <Reveal asChild variant="left" delay={0.03}>
-                <h2 className="text-3xl font-bold tracking-tight sm:text-4xl transition-colors duration-200 group-hover:text-foreground">
+                <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl transition-colors duration-200 group-hover:text-foreground">
                   {title}
                 </h2>
               </Reveal>

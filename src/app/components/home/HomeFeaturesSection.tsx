@@ -46,7 +46,7 @@ export function HomeFeaturesSection({
             </p>
           </Reveal>
           <Reveal asChild variant="left" delay={0.05}>
-            <h2 className="mt-3 text-2xl font-bold tracking-tight sm:text-3xl">
+            <h2 className="mt-3 text-2xl font-semibold tracking-tight sm:text-3xl">
               {title}
             </h2>
           </Reveal>

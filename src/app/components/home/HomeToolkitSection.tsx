@@ -32,7 +32,7 @@ export function HomeToolkitSection({
             </p>
           </Reveal>
           <Reveal asChild delay={0.05} variant="left">
-            <h2 className="mt-3 text-2xl font-bold tracking-tight sm:text-3xl">
+            <h2 className="mt-3 text-2xl font-semibold tracking-tight sm:text-3xl">
               {title}
             </h2>
           </Reveal>

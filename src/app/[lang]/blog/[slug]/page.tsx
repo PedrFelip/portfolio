@@ -204,7 +204,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       <header className="border-b border-border">
         <div className="mx-auto max-w-3xl px-6 py-12 sm:px-8 sm:py-24">
           {/* Title */}
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-[-0.03em] text-foreground mb-6 animate-in-up">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-[-0.03em] text-foreground mb-6 animate-in-up">
             {post.title}
           </h1>
 

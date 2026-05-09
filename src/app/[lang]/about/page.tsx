@@ -95,7 +95,7 @@ export default async function AboutPage({ params }: AboutPageProps) {
               <p className="text-[10px] sm:text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground/60 animate-in-left">
                 {t.about.badge}
               </p>
-              <h1 className="mt-4 text-4xl font-bold tracking-tight sm:text-4xl lg:text-5xl animate-in-left animate-delay-100">
+              <h1 className="mt-4 text-4xl font-semibold tracking-tight sm:text-4xl lg:text-5xl animate-in-left animate-delay-100">
                 {t.about.title}
               </h1>
               <p className="mt-4 text-lg font-medium text-foreground/90 animate-in-left animate-delay-150">
@@ -135,7 +135,7 @@ export default async function AboutPage({ params }: AboutPageProps) {
               <p className="text-[10px] sm:text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground/60">
                 {t.work.badge}
               </p>
-              <h2 className="mt-4 text-3xl font-bold tracking-tight sm:text-3xl lg:text-4xl">
+              <h2 className="mt-4 text-3xl font-semibold tracking-tight sm:text-3xl lg:text-4xl">
                 {t.work.title}
               </h2>
             </div>
@@ -209,7 +209,7 @@ export default async function AboutPage({ params }: AboutPageProps) {
               <div className="relative z-10 grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] gap-12 items-center">
                 {/* Left side: Heading & Description */}
                 <div className="flex flex-col text-left max-w-xl">
-                  <h2 className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl transition-colors duration-200 group-hover:text-foreground mb-6">
+                  <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl lg:text-5xl transition-colors duration-200 group-hover:text-foreground mb-6">
                     {t.contact.title}
                   </h2>
                   <p className="text-base text-muted-foreground sm:text-lg leading-relaxed mb-8">

@@ -1,11 +1,6 @@
 "use client";
 
-import {
-  motion,
-  useMotionValueEvent,
-  useScroll,
-  useSpring,
-} from "framer-motion";
+import { m, useMotionValueEvent, useScroll, useSpring } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ArrowLeft, Home } from "@/components/ui/icons";
@@ -53,7 +48,7 @@ export function ZenFloatingControls() {
   return (
     <>
       {/* Top Reading Progress Bar */}
-      <motion.div
+      <m.div
         className="fixed top-0 left-0 right-0 h-1 bg-accent origin-left z-[60]"
         style={{ scaleX }}
         initial={{ opacity: 0 }}
@@ -61,7 +56,7 @@ export function ZenFloatingControls() {
       />
 
       {/* Desktop Floating Control Group */}
-      <motion.div
+      <m.div
         className="fixed top-6 left-6 z-[60] hidden md:flex"
         initial={{ x: -20, opacity: 0 }}
         animate={{ x: isVisible ? 0 : -20, opacity: isVisible ? 1 : 0 }}
@@ -86,10 +81,10 @@ export function ZenFloatingControls() {
             <Home className="size-3.5 transition-transform group-hover:scale-110" />
           </Link>
         </div>
-      </motion.div>
+      </m.div>
 
       {/* Mobile Sticky Bottom Bar */}
-      <motion.div
+      <m.div
         className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[60] flex md:hidden"
         initial={{ y: 20, opacity: 0 }}
         animate={{
@@ -120,7 +115,7 @@ export function ZenFloatingControls() {
             <Home className="size-4" />
           </Link>
         </div>
-      </motion.div>
+      </m.div>
     </>
   );
 }

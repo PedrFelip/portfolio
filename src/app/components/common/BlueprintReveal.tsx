@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 import { Children, memo, type ReactNode } from "react";
 import {
   blueprintDecorativeVariants,
@@ -74,7 +74,7 @@ export const BlueprintReveal = memo(function BlueprintReveal({
       : blueprintDrawVariants;
 
   return (
-    <motion.div
+    <m.div
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount }}
@@ -83,16 +83,16 @@ export const BlueprintReveal = memo(function BlueprintReveal({
     >
       {/* Main content: each child receives reveal variants through container stagger */}
       {Children.map(children, (child) => (
-        <motion.div variants={revealVariants.up}>{child}</motion.div>
+        <m.div variants={revealVariants.up}>{child}</m.div>
       ))}
 
       {/* Decoratives: reveal after content (delay via blueprintDecorativeVariants) */}
       {decoratives && (
-        <motion.div variants={blueprintDecorativeVariants} aria-hidden="true">
+        <m.div variants={blueprintDecorativeVariants} aria-hidden="true">
           {decoratives}
-        </motion.div>
+        </m.div>
       )}
-    </motion.div>
+    </m.div>
   );
 });
 

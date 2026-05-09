@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { useCallback, useRef, useState } from "react";
 import { FlickerOverlay } from "@/components/common/FlickerOverlay";
 import { MonoText, P } from "@/components/ui";
@@ -197,7 +197,7 @@ export function BlogList({
           <div className="relative z-0">
             <AnimatePresence mode="wait">
               {contentVisible && currentPosts.length > 0 ? (
-                <motion.div
+                <m.div
                   key={listKey}
                   ref={handleListRef}
                   variants={flickerContentVariants}
@@ -216,9 +216,9 @@ export function BlogList({
                       <BlogCard post={post} />
                     </div>
                   ))}
-                </motion.div>
+                </m.div>
               ) : contentVisible ? (
-                <motion.div
+                <m.div
                   key={`${listKey}-empty`}
                   ref={handleListRef}
                   variants={flickerContentVariants}
@@ -228,9 +228,9 @@ export function BlogList({
                   className="px-6 py-12 text-center text-muted-foreground text-sm"
                 >
                   {t.noPosts}
-                </motion.div>
+                </m.div>
               ) : (
-                <motion.div
+                <m.div
                   key="placeholder"
                   variants={flickerContentVariants}
                   initial="animate"
@@ -242,7 +242,7 @@ export function BlogList({
                   <div
                     style={minHeight !== undefined ? { minHeight } : undefined}
                   />
-                </motion.div>
+                </m.div>
               )}
             </AnimatePresence>
           </div>

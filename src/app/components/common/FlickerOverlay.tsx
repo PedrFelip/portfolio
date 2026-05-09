@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { FlickeringGrid } from "@/components/ui/flickering-grid";
 import type { FlickerPhase } from "@/hooks/useFlickerTransition";
 import { flickerOverlayVariants } from "@/lib/animations";
@@ -14,7 +14,7 @@ interface FlickerOverlayProps {
 
 export function FlickerOverlay({ phase, className }: FlickerOverlayProps) {
   return (
-    <motion.div
+    <m.div
       variants={flickerOverlayVariants}
       animate={phase}
       initial="idle"
@@ -32,6 +32,6 @@ export function FlickerOverlay({ phase, className }: FlickerOverlayProps) {
         maxOpacity={FLICKER_CONFIG.MAX_OPACITY}
         className="h-full w-full"
       />
-    </motion.div>
+    </m.div>
   );
 }

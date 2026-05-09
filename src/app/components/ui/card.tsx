@@ -30,14 +30,4 @@ function Card({
   );
 }
 
-function CardContent({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="card-content"
-      className={cn("mb-3 sm:mb-4", className)}
-      {...props}
-    />
-  );
-}
-
-export { Card, CardContent };
+export { Card };

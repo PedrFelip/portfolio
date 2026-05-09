@@ -87,9 +87,9 @@ export const Footer = memo(() => {
 
   const footerSocialLinks: SocialLinkProps[] = useMemo(
     () =>
-      socialLinks
-        .filter((l) => l.icon !== "portfolio")
-        .map((link) => ({
+      socialLinks.reduce<SocialLinkProps[]>((acc, link) => {
+        if (link.icon === "portfolio") return acc;
+        acc.push({
           href: link.url,
           label: link.label,
           icon:
@@ -102,7 +102,9 @@ export const Footer = memo(() => {
             ) : (
               <Mail className="size-4" />
             ),
-        })),
+        });
+        return acc;
+      }, []),
     [],
   );
 

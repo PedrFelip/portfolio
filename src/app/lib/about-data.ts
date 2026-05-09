@@ -60,22 +60,25 @@ export const getEducation = cache((language: "en" | "pt"): Education[] => {
 });
 
 export const getContactLinks = cache((_language: "en" | "pt") => {
-  const contactLinks = socialLinks
-    .filter(
-      (link) =>
-        link.icon === "github" ||
-        link.icon === "linkedin" ||
-        link.icon === "x" ||
-        link.icon === "email",
-    )
-    .map((link) => ({
+  const allowed = new Set(["github", "linkedin", "x", "email"]);
+  const contactLinks = socialLinks.reduce<
+    {
+      label: string;
+      url: string;
+      icon: "github" | "linkedin" | "x" | "email";
+    }[]
+  >((acc, link) => {
+    if (!allowed.has(link.icon)) return acc;
+    acc.push({
       label: link.label,
       url:
         link.icon === "email"
           ? link.url.replace("mailto:", "")
           : link.url.replace(/\/$/, ""),
       icon: link.icon as "github" | "linkedin" | "x" | "email",
-    }));
+    });
+    return acc;
+  }, []);
 
   return contactLinks;
 });

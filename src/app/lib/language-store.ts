@@ -17,7 +17,7 @@ interface LanguageState {
   _router: ReturnType<typeof useRouter> | null;
 }
 
-export const useLanguageStore = create<LanguageState>((set, get) => ({
+const useLanguageStore = create<LanguageState>((set, get) => ({
   language: DEFAULT_LANGUAGE,
   _router: null,
   setLanguage: (lang: Language) => {

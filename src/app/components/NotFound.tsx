@@ -67,7 +67,7 @@ export function NotFound() {
 
               {/* Technical Status Badge */}
               <div className="flex items-center gap-3 px-4 py-2 border border-border/40 bg-muted/20 w-fit rounded-sm">
-                <div className="h-2 w-2 rounded-full bg-destructive animate-pulse" />
+                <div className="size-2 rounded-full bg-destructive animate-pulse" />
                 <MonoText className="text-[10px] uppercase tracking-widest text-muted-foreground">
                   system.status: {t.notFound.subtitle}
                 </MonoText>
@@ -130,7 +130,7 @@ export function NotFound() {
                       />
                       <div className="flex flex-col gap-1">
                         <div className="flex items-center gap-2">
-                          <ArrowRight className="h-3 w-3 text-accent group-hover:translate-x-1 transition-transform" />
+                          <ArrowRight className="size-3 text-accent group-hover:translate-x-1 transition-transform" />
                           <span className="text-xs font-semibold uppercase tracking-wider">
                             {link.label}
                           </span>
@@ -151,7 +151,7 @@ export function NotFound() {
                   className="inline-flex items-center justify-center gap-3 px-8 py-3 bg-foreground text-background font-mono text-xs uppercase tracking-widest hover:bg-accent transition-colors duration-200 rounded-sm"
                 >
                   {t.notFound.cta}
-                  <ArrowRight className="h-3.5 w-3.5" />
+                  <ArrowRight className="size-3.5" />
                 </Link>
               </div>
             </div>

@@ -68,9 +68,9 @@ export const CodeBlockWrapper = memo(({ children }: CodeBlockWrapperProps) => {
         aria-label={copied ? t.blog.codeCopied : t.blog.copyCode}
       >
         {copied ? (
-          <Check className="h-3 w-3" aria-hidden="true" />
+          <Check className="size-3" aria-hidden="true" />
         ) : (
-          <Copy className="h-3 w-3" aria-hidden="true" />
+          <Copy className="size-3" aria-hidden="true" />
         )}
       </button>
     </div>

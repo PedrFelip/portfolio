@@ -32,28 +32,28 @@ const configs: Record<
     border: "border-[color:var(--callout-info-border)]",
     indicator: "border-l-[color:var(--callout-info-text)]",
     text: "text-[color:var(--callout-info-text)]",
-    icon: <Info className="h-3.5 w-3.5" />,
+    icon: <Info className="size-3.5" />,
   },
   warning: {
     bg: "bg-[color:var(--callout-warning-bg)]",
     border: "border-[color:var(--callout-warning-border)]",
     indicator: "border-l-[color:var(--callout-warning-text)]",
     text: "text-[color:var(--callout-warning-text)]",
-    icon: <AlertTriangle className="h-3.5 w-3.5" />,
+    icon: <AlertTriangle className="size-3.5" />,
   },
   success: {
     bg: "bg-[color:var(--callout-success-bg)]",
     border: "border-[color:var(--callout-success-border)]",
     indicator: "border-l-[color:var(--callout-success-text)]",
     text: "text-[color:var(--callout-success-text)]",
-    icon: <CheckCircle className="h-3.5 w-3.5" />,
+    icon: <CheckCircle className="size-3.5" />,
   },
   error: {
     bg: "bg-[color:var(--callout-error-bg)]",
     border: "border-[color:var(--callout-error-border)]",
     indicator: "border-l-[color:var(--callout-error-text)]",
     text: "text-[color:var(--callout-error-text)]",
-    icon: <AlertCircle className="h-3.5 w-3.5" />,
+    icon: <AlertCircle className="size-3.5" />,
   },
 };
 

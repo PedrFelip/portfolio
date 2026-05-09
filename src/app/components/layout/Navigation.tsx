@@ -79,8 +79,8 @@ const NavLinkItem = memo(
               <span
                 className={`rounded-full transition-all duration-250 ease-[cubic-bezier(0.25,1,0.5,1)] ${
                   isActive
-                    ? "h-2 w-2 bg-accent scale-100"
-                    : "h-1.5 w-1.5 bg-muted-foreground/30 scale-75"
+                    ? "size-2 bg-accent scale-100"
+                    : "size-1.5 bg-muted-foreground/30 scale-75"
                 }`}
                 aria-hidden="true"
               />
@@ -268,12 +268,12 @@ export const Navigation = memo(() => {
             >
               {isMenuOpen ? (
                 <X
-                  className="h-4 w-4 transition-transform duration-250 ease-[cubic-bezier(0.25,1,0.5,1)]"
+                  className="size-4 transition-transform duration-250 ease-[cubic-bezier(0.25,1,0.5,1)]"
                   aria-hidden="true"
                 />
               ) : (
                 <Menu
-                  className="h-4 w-4 transition-transform duration-250 ease-[cubic-bezier(0.25,1,0.5,1)]"
+                  className="size-4 transition-transform duration-250 ease-[cubic-bezier(0.25,1,0.5,1)]"
                   aria-hidden="true"
                 />
               )}

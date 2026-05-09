@@ -211,7 +211,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           {/* Meta row: date, reading time, tags */}
           <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs font-mono text-muted-foreground animate-in-up animate-delay-100">
             <span className="inline-flex items-center gap-1.5">
-              <Calendar className="h-3.5 w-3.5" aria-hidden="true" />
+              <Calendar className="size-3.5" aria-hidden="true" />
               <time dateTime={post.date}>{formattedDate}</time>
             </span>
 
@@ -221,7 +221,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                   ·
                 </span>
                 <span className="inline-flex items-center gap-1.5">
-                  <Clock className="h-3.5 w-3.5" aria-hidden="true" />
+                  <Clock className="size-3.5" aria-hidden="true" />
                   {post.readingTime} {t.readingTime}
                 </span>
               </>
@@ -293,7 +293,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                   href={`/${lang}/blog`}
                   className="group inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors"
                 >
-                  <ArrowLeft className="h-3 w-3 transition-transform group-hover:-translate-x-1" />
+                  <ArrowLeft className="size-3 transition-transform group-hover:-translate-x-1" />
                   {t.back}
                 </Link>
               </div>

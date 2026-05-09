@@ -62,7 +62,7 @@ export const ProjectCard = memo(({ project }: ProjectCardProps) => {
                 className="group/link"
               >
                 <Github
-                  className="mr-2 h-3.5 w-3.5 icon-hover-rotate group-hover/link:scale-110 sm:h-4 sm:w-4"
+                  className="mr-2 size-3.5 icon-hover-rotate group-hover/link:scale-110 sm:size-4"
                   aria-hidden="true"
                 />
                 {linkLabels.code}
@@ -78,7 +78,7 @@ export const ProjectCard = memo(({ project }: ProjectCardProps) => {
                 className="group/link"
               >
                 <ExternalLink
-                  className="mr-2 h-3.5 w-3.5 icon-hover-rotate group-hover/link:scale-110 sm:h-4 sm:w-4"
+                  className="mr-2 size-3.5 icon-hover-rotate group-hover/link:scale-110 sm:size-4"
                   aria-hidden="true"
                 />
                 {linkLabels.demo}
@@ -94,7 +94,7 @@ export const ProjectCard = memo(({ project }: ProjectCardProps) => {
                 className="group/link"
               >
                 <ExternalLink
-                  className="mr-2 h-3.5 w-3.5 icon-hover-rotate group-hover/link:scale-110 sm:h-4 sm:w-4"
+                  className="mr-2 size-3.5 icon-hover-rotate group-hover/link:scale-110 sm:size-4"
                   aria-hidden="true"
                 />
                 {linkLabels.website}

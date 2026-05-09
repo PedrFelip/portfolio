@@ -72,7 +72,7 @@ export function ZenFloatingControls() {
             href={getLocalizedLink("/blog")}
             className="group flex items-center gap-2 px-4 text-[10px] font-mono uppercase tracking-widest text-muted-foreground hover:text-foreground hover:bg-surface-4 transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)]"
           >
-            <ArrowLeft className="h-3 w-3 transition-transform group-hover:-translate-x-1" />
+            <ArrowLeft className="size-3 transition-transform group-hover:-translate-x-1" />
             <span>{t.blog.back}</span>
           </Link>
 
@@ -83,7 +83,7 @@ export function ZenFloatingControls() {
             className="group flex items-center justify-center px-4 text-muted-foreground hover:text-foreground hover:bg-surface-4 transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)]"
             aria-label={t.nav.home}
           >
-            <Home className="h-3.5 w-3.5 transition-transform group-hover:scale-110" />
+            <Home className="size-3.5 transition-transform group-hover:scale-110" />
           </Link>
         </div>
       </motion.div>
@@ -106,7 +106,7 @@ export function ZenFloatingControls() {
             href={getLocalizedLink("/blog")}
             className="group flex items-center gap-2 px-6 text-[10px] font-mono uppercase tracking-widest text-foreground hover:bg-surface-4 transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] active:scale-[0.98]"
           >
-            <ArrowLeft className="h-3.5 w-3.5" />
+            <ArrowLeft className="size-3.5" />
             <span>{t.blog.back}</span>
           </Link>
 
@@ -117,7 +117,7 @@ export function ZenFloatingControls() {
             className="group flex items-center justify-center px-5 text-muted-foreground hover:text-foreground hover:bg-surface-4 transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] active:scale-[0.98]"
             aria-label={t.nav.home}
           >
-            <Home className="h-4 w-4" />
+            <Home className="size-4" />
           </Link>
         </div>
       </motion.div>

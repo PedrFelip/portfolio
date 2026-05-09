@@ -29,9 +29,9 @@ const gapClasses = {
 };
 
 const iconSizes = {
-  sm: "h-3 w-3",
-  base: "h-4 w-4",
-  lg: "h-4 w-4",
+  sm: "size-3",
+  base: "size-4",
+  lg: "size-4",
 };
 
 /**

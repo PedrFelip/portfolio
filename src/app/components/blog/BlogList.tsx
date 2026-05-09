@@ -256,7 +256,7 @@ export function BlogList({
                 className="terminal-glow inline-flex items-center gap-2 rounded border border-border bg-card px-4 py-2 text-xs font-medium text-foreground disabled:cursor-not-allowed disabled:opacity-40 transition-colors duration-150 hover:border-foreground/30"
                 aria-label={t.previous}
               >
-                <ChevronLeft className="h-3.5 w-3.5" />
+                <ChevronLeft className="size-3.5" />
                 <span>{t.previous}</span>
               </button>
 
@@ -274,7 +274,7 @@ export function BlogList({
                 aria-label={t.next}
               >
                 <span>{t.next}</span>
-                <ChevronRight className="h-3.5 w-3.5" />
+                <ChevronRight className="size-3.5" />
               </button>
             </div>
           )}

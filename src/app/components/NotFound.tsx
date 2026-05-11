@@ -1,159 +1,138 @@
 "use client";
 
 import Link from "next/link";
-import {
-  AlignedFlickeringGrid,
-  CornerBrackets,
-  RailBounded,
-  RailLayout,
-} from "@/components/blueprint";
+import { useEffect, useState } from "react";
+import { RailBounded, RailLayout } from "@/components/blueprint";
 import { Footer } from "@/components/layout/Footer";
 import { Navigation } from "@/components/layout/Navigation";
-import { H1, Label, MonoText, P } from "@/components/ui";
-import { ArrowRight } from "@/components/ui/icons";
+import { MonoText } from "@/components/ui";
+import { ArrowLeft } from "@/components/ui/icons";
 import { useLanguage } from "@/lib/language-store";
 import { useLocalizedLink } from "@/lib/useLocalizedLink";
-import { cn } from "@/lib/utils";
 
 /**
- * NotFound component
+ * NotFound — Minimalist asymmetric blueprint 404 page
  *
- * Design principles (AGENTS.md & frontend-design skill):
- * - Architectural Precision: asymmetrical layouts, grid-aware composition
- * - Blueprint/Grid Decorations: visible grid lines, corner brackets
- * - 4px grid: consistent spacing throughout
- * - Monospace for technical data
+ * Design:
+ * - Single oversized "404" anchored top-left, bleeding off-screen
+ * - Thin coordinate/axis lines for blueprint feel
+ * - Content pushed to bottom-right (asymmetric)
+ * - Almost nothing else — intentional negative space
  */
+
+const NAV_ITEMS = [
+  { key: "home", href: "/" },
+  { key: "projects", href: "/projects" },
+  { key: "blog", href: "/blog" },
+  { key: "about", href: "/about" },
+] as const;
+
 export function NotFound() {
   const { t } = useLanguage();
   const getLocalizedLink = useLocalizedLink();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <RailLayout className="min-h-screen bg-background">
       <Navigation />
 
-      <main className="relative flex-1 flex flex-col justify-center overflow-hidden">
-        {/* Decorative Grid Background - Blueprint Atmosphere */}
-        <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.15] dark:opacity-[0.08]">
-          <AlignedFlickeringGrid
-            side="left"
-            className="absolute left-0 top-0 bottom-0 w-1/3"
-          />
-          <AlignedFlickeringGrid
-            side="right"
-            className="absolute right-0 top-0 bottom-0 w-1/3"
-          />
+      <main className="relative flex-1 flex flex-col overflow-hidden">
+        {/* ─── Coordinate Grid Lines ─── */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          aria-hidden="true"
+        >
+          {/* Horizontal axis */}
+          <div className="absolute top-[60%] left-0 right-0 h-px bg-border/20" />
+          {/* Vertical axis */}
+          <div className="absolute top-0 bottom-0 left-[45%] w-px bg-border/20" />
+          {/* Subtle crosshair tick marks */}
+          <div className="absolute top-[60%] left-[45%] -translate-x-1/2 -translate-y-1/2">
+            <div className="w-3 h-3 border border-border/15 rounded-full" />
+          </div>
         </div>
 
-        <RailBounded className="relative z-10 py-16 md:py-24 lg:py-32">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-            {/* Left Column: Huge 404 (Asymmetrical Architectural Detail) */}
-            <div className="lg:col-span-5 flex flex-col gap-6 animate-in-left">
-              <div className="relative group">
-                <CornerBrackets className="opacity-20 group-hover:opacity-40 transition-opacity duration-300" />
-                <div className="p-8 md:p-12 border border-border/40 bg-card/30 backdrop-blur-sm">
-                  {/* Decorative Background Text */}
-                  <span className="block font-mono text-8xl md:text-9xl font-bold tracking-tighter text-foreground/5 select-none leading-none">
-                    404
-                  </span>
-                  {/* Main Centered Text */}
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="font-mono text-6xl md:text-7xl font-bold tracking-tighter text-foreground animate-pulse-subtle">
-                      404
-                    </span>
-                  </div>
-                </div>
-              </div>
+        <RailBounded className="relative z-10 flex-1 flex flex-col justify-end py-16 md:py-24">
+          {/* ─── Oversized 404 — top-left, bleeds up ─── */}
+          <div
+            className={`
+              relative -mt-8 md:-mt-16 mb-auto
+              transition-all duration-700 ease-out
+              ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}
+            `}
+          >
+            <span
+              className="
+                block font-mono font-bold tracking-tighter leading-none
+                text-foreground/[0.04] select-none
+                text-[clamp(12rem,35vw,28rem)]
+              "
+              aria-hidden="true"
+            >
+              404
+            </span>
 
-              {/* Technical Status Badge */}
-              <div className="flex items-center gap-3 px-4 py-2 border border-border/40 bg-muted/20 w-fit rounded-sm">
-                <div className="h-2 w-2 rounded-full bg-destructive animate-pulse" />
-                <MonoText className="text-[10px] uppercase tracking-widest text-muted-foreground">
-                  system.status: {t.notFound.subtitle}
-                </MonoText>
-              </div>
+            {/* Small coordinate label */}
+            <MonoText className="absolute top-1 left-0 text-[9px] tracking-[0.25em] text-border/60 uppercase">
+              {t.notFound.errorCode}
+            </MonoText>
+          </div>
+
+          {/* ─── Content Block — bottom-right asymmetric ─── */}
+          <div
+            className={`
+              max-w-md ml-auto
+              space-y-10
+              transition-all duration-700 delay-200 ease-out
+              ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}
+            `}
+          >
+            {/* Text */}
+            <div className="space-y-3">
+              <h1
+                className="
+                  text-2xl md:text-3xl font-semibold
+                  leading-tight tracking-[-0.02em] text-foreground
+                "
+              >
+                {t.notFound.title}
+              </h1>
+              <p className="text-sm leading-relaxed text-muted-foreground max-w-sm">
+                {t.notFound.description}
+              </p>
             </div>
 
-            {/* Right Column: Content & Navigation */}
-            <div className="lg:col-span-7 space-y-8 md:space-y-10 animate-in-right animate-delay-150">
-              <div className="space-y-4">
-                <Label className="uppercase tracking-[0.2em] text-accent/80 font-semibold text-xs">
-                  {t.notFound.errorCode}
-                </Label>
-                <H1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight">
-                  {t.notFound.title}
-                </H1>
-                <P className="text-lg text-muted-foreground max-w-xl leading-relaxed">
-                  {t.notFound.description}
-                </P>
-              </div>
-
-              {/* Navigation Grid - Blueprint Inspired Interaction */}
-              <div className="space-y-4">
-                <Label className="text-[10px] uppercase tracking-widest text-muted-foreground/70">
-                  {t.notFound.quickNav}
-                </Label>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {[
-                    {
-                      label: t.nav.home,
-                      href: "/",
-                      desc: "Return to system root",
-                    },
-                    {
-                      label: t.nav.projects,
-                      href: "/projects",
-                      desc: "View technical builds",
-                    },
-                    {
-                      label: t.nav.blog,
-                      href: "/blog",
-                      desc: "Read engineering logs",
-                    },
-                    {
-                      label: t.nav.about,
-                      href: "/about",
-                      desc: "Architect specifications",
-                    },
-                  ].map((link, i) => (
-                    <Link
-                      key={link.href}
-                      href={getLocalizedLink(link.href)}
-                      className={cn(
-                        "group relative p-4 border border-border/40 bg-card/20 hover:bg-accent/[0.03] hover:border-accent/40 transition-all duration-200",
-                        `animate-in-up animate-delay-${(i + 4) * 50}`,
-                      )}
-                    >
-                      <CornerBrackets
-                        size={8}
-                        className="opacity-0 group-hover:opacity-100 transition-opacity"
-                      />
-                      <div className="flex flex-col gap-1">
-                        <div className="flex items-center gap-2">
-                          <ArrowRight className="h-3 w-3 text-accent group-hover:translate-x-1 transition-transform" />
-                          <span className="text-xs font-semibold uppercase tracking-wider">
-                            {link.label}
-                          </span>
-                        </div>
-                        <span className="text-[11px] text-muted-foreground group-hover:text-foreground/70 transition-colors">
-                          {link.desc}
-                        </span>
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-              </div>
-
-              {/* Primary Action */}
-              <div className="pt-8 border-t border-border/40">
+            {/* Minimal Nav Links */}
+            <div className="space-y-0">
+              {NAV_ITEMS.map((item) => (
                 <Link
-                  href={getLocalizedLink("/")}
-                  className="inline-flex items-center justify-center gap-3 px-8 py-3 bg-foreground text-background font-mono text-xs uppercase tracking-widest hover:bg-accent transition-colors duration-200 rounded-sm"
+                  key={item.key}
+                  href={getLocalizedLink(item.href)}
+                  className="
+                    group flex items-center justify-between
+                    py-2.5 border-b border-border/20
+                    hover:border-border/50
+                    transition-colors duration-150
+                  "
                 >
-                  {t.notFound.cta}
-                  <ArrowRight className="h-3.5 w-3.5" />
+                  <span className="text-xs font-medium uppercase tracking-[0.15em] text-muted-foreground group-hover:text-foreground transition-colors duration-150">
+                    {t.nav[item.key]}
+                  </span>
+                  <ArrowLeft className="h-3 w-3 text-border opacity-0 group-hover:opacity-100 -translate-x-1 group-hover:translate-x-0 transition-all duration-150" />
                 </Link>
-              </div>
+              ))}
+            </div>
+
+            {/* Status pill */}
+            <div className="flex items-center gap-2">
+              <div className="h-1 w-1 rounded-full bg-muted-foreground/40" />
+              <MonoText className="text-[9px] tracking-[0.2em] text-border uppercase">
+                status — {t.notFound.subtitle}
+              </MonoText>
             </div>
           </div>
         </RailBounded>

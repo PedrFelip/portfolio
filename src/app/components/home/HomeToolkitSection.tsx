@@ -1,5 +1,4 @@
 import React from "react";
-import { Reveal, StaggerGroup, StaggerItem } from "@/components/blueprint";
 import { TOOLKIT_CONFIG } from "@/lib/toolkit-data";
 
 interface ToolkitItem {
@@ -26,29 +25,23 @@ export function HomeToolkitSection({
     <section id="toolkit" className="relative">
       <div className="rail-bounded">
         <div className="px-6 pb-8 pt-12 sm:px-8">
-          <Reveal asChild variant="left" delay={0.02}>
-            <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-              {badge}
-            </p>
-          </Reveal>
-          <Reveal asChild delay={0.05} variant="left">
-            <h2 className="mt-3 text-2xl font-bold tracking-tight sm:text-3xl">
-              {title}
-            </h2>
-          </Reveal>
-          <Reveal asChild delay={0.08} variant="left">
-            <p className="mt-2 max-w-md text-sm text-muted-foreground">
-              {description}
-            </p>
-          </Reveal>
+          <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+            {badge}
+          </p>
+          <h2 className="mt-3 text-2xl font-bold tracking-tight sm:text-3xl">
+            {title}
+          </h2>
+          <p className="mt-2 max-w-md text-sm text-muted-foreground">
+            {description}
+          </p>
         </div>
       </div>
       <div className="rail-bounded border-t border-border">
-        <StaggerGroup className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {items.map((item, i) => {
             const itemConfig = TOOLKIT_CONFIG[item.id];
             return (
-              <StaggerItem
+              <div
                 key={item.id}
                 className={`group px-6 py-10 sm:px-6 transition-all duration-200 hover:bg-surface-2 hover:shadow-inner
                   ${i !== 0 ? "lg:border-l lg:border-dashed lg:border-border" : ""}
@@ -56,7 +49,6 @@ export function HomeToolkitSection({
                   ${i >= 2 ? "sm:max-lg:border-t sm:max-lg:border-dashed sm:max-lg:border-border" : ""}
                   ${i >= 1 ? "max-sm:border-t max-sm:border-dashed max-sm:border-border" : ""}
                 `}
-                variant="left"
               >
                 <div className="flex flex-col">
                   <div className="mb-5 flex items-center gap-2">
@@ -92,10 +84,10 @@ export function HomeToolkitSection({
                     {item.description}
                   </p>
                 </div>
-              </StaggerItem>
+              </div>
             );
           })}
-        </StaggerGroup>
+        </div>
       </div>
     </section>
   );

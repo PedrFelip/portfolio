@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import {
   AlignedFlickeringGrid,
@@ -24,6 +25,21 @@ interface BlogPageProps {
 }
 
 export const revalidate = 86400;
+
+export async function generateMetadata({
+  params,
+}: BlogPageProps): Promise<Metadata> {
+  const { lang } = await params;
+  const validLang = (lang === "pt" || lang === "en" ? lang : "en") as
+    | "en"
+    | "pt";
+  const t = blogContent[validLang].blog;
+
+  return {
+    title: t.title,
+    description: t.subtitle,
+  };
+}
 
 export default async function BlogPage({ params }: BlogPageProps) {
   const { lang } = await params;

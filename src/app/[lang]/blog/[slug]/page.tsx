@@ -115,12 +115,12 @@ export async function generateMetadata({
 
   const config = {
     en: {
-      title: `${post.title} | Pedro Felipe`,
+      title: post.title,
       description: post.excerpt,
       siteName: "Pedro Felipe Portfolio",
     },
     pt: {
-      title: `${post.title} | Pedro Felipe`,
+      title: post.title,
       description: post.excerpt,
       siteName: "Portfólio Pedro Felipe",
     },
@@ -141,7 +141,7 @@ export async function generateMetadata({
       locale: lang === "pt" ? "pt_BR" : "en_US",
       alternateLocale: lang === "pt" ? "en_US" : "pt_BR",
       url: postUrl,
-      title: config[lang].title,
+      title: `${post.title} | Pedro Felipe`,
       description: config[lang].description,
       siteName: config[lang].siteName,
       publishedTime: post.date,
@@ -149,7 +149,7 @@ export async function generateMetadata({
     },
     twitter: {
       card: "summary",
-      title: config[lang].title,
+      title: `${post.title} | Pedro Felipe`,
       description: config[lang].description,
       creator: "@pedrofelipe",
     },

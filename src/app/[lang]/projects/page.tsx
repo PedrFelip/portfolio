@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import { DotPattern, RailLayout, SectionDivider } from "@/components/blueprint";
 import { projectsEn } from "@/lib/content/projects.en";
@@ -21,6 +22,19 @@ type Lang = "en" | "pt";
 
 interface ProjectsPageProps {
   params: Promise<{ lang: Lang }>;
+}
+
+export async function generateMetadata({
+  params,
+}: ProjectsPageProps): Promise<Metadata> {
+  const { lang } = await params;
+  const validLang = (lang === "pt" || lang === "en" ? lang : "en") as Lang;
+  const t = projectsContent[validLang].projects;
+
+  return {
+    title: validLang === "pt" ? "Projetos" : "Projects",
+    description: t.description,
+  };
 }
 
 export default async function ProjectsPage({ params }: ProjectsPageProps) {

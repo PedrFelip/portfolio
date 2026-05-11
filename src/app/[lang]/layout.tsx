@@ -56,7 +56,10 @@ export async function generateMetadata({
   const config = metadataConfig[validLang as keyof typeof metadataConfig];
 
   return {
-    title: config.title,
+    title: {
+      default: config.title,
+      template: `%s | Pedro Felipe`,
+    },
     description: config.description,
     keywords: config.keywords,
     authors: [{ name: "Pedro Felipe" }],

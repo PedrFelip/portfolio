@@ -1,4 +1,5 @@
 import { History } from "lucide-react";
+import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import {
   AlignedFlickeringGrid,
@@ -61,6 +62,19 @@ const aboutContent = {
   en: aboutEn,
   pt: aboutPt,
 };
+
+export async function generateMetadata({
+  params,
+}: AboutPageProps): Promise<Metadata> {
+  const { lang } = await params;
+  const validLang = lang === "pt" || lang === "en" ? lang : "en";
+  const t = aboutContent[validLang as keyof typeof aboutContent] || aboutEn;
+
+  return {
+    title: validLang === "pt" ? "Sobre" : "About",
+    description: t.about.intro,
+  };
+}
 
 /**
  * AboutPage component - Blueprint Design

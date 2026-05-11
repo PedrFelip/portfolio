@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import { RailBounded, RailLayout } from "@/components/blueprint";
 import { Footer } from "@/components/layout/Footer";
 import { Navigation } from "@/components/layout/Navigation";
@@ -30,11 +29,6 @@ const NAV_ITEMS = [
 export function NotFound() {
   const { t } = useLanguage();
   const getLocalizedLink = useLocalizedLink();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   return (
     <RailLayout className="min-h-screen bg-background">
@@ -58,13 +52,7 @@ export function NotFound() {
 
         <RailBounded className="relative z-10 flex-1 flex flex-col justify-end py-16 md:py-24">
           {/* ─── Oversized 404 — top-left, bleeds up ─── */}
-          <div
-            className={`
-              relative -mt-8 md:-mt-16 mb-auto
-              transition-all duration-700 ease-out
-              ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}
-            `}
-          >
+          <div className="relative -mt-8 md:-mt-16 mb-auto">
             <span
               className="
                 block font-mono font-bold tracking-tighter leading-none
@@ -83,31 +71,24 @@ export function NotFound() {
           </div>
 
           {/* ─── Content Block — bottom-right asymmetric ─── */}
-          <div
-            className={`
-              max-w-md ml-auto
-              space-y-10
-              transition-all duration-700 delay-200 ease-out
-              ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}
-            `}
-          >
+          <div className="w-[22rem] ml-auto">
             {/* Text */}
-            <div className="space-y-3">
+            <div className="space-y-4 mb-10">
               <h1
                 className="
-                  text-2xl md:text-3xl font-semibold
-                  leading-tight tracking-[-0.02em] text-foreground
+                  text-xl sm:text-2xl md:text-3xl font-semibold
+                  leading-snug tracking-[-0.02em] text-foreground
                 "
               >
                 {t.notFound.title}
               </h1>
-              <p className="text-sm leading-relaxed text-muted-foreground max-w-sm">
+              <p className="text-sm leading-relaxed text-muted-foreground">
                 {t.notFound.description}
               </p>
             </div>
 
             {/* Minimal Nav Links */}
-            <div className="space-y-0">
+            <div className="space-y-0 mb-8">
               {NAV_ITEMS.map((item) => (
                 <Link
                   key={item.key}
@@ -128,7 +109,7 @@ export function NotFound() {
             </div>
 
             {/* Status pill */}
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 pt-6 border-t border-border/15">
               <div className="h-1 w-1 rounded-full bg-muted-foreground/40" />
               <MonoText className="text-[9px] tracking-[0.2em] text-border uppercase">
                 status — {t.notFound.subtitle}

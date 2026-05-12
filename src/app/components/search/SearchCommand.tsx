@@ -10,236 +10,96 @@ import {
   FileText,
   Home,
   Search,
-  User,
   X,
 } from "@/components/ui/icons";
 import { MonoText } from "@/components/ui/typography";
 import { useLanguage } from "@/lib/language-store";
 import { useSearchStore } from "@/lib/search-store";
+import type { SearchItem, SearchPage, SearchPost } from "@/lib/search-types";
 import { cn } from "@/lib/utils";
-
-// ─── Mock Data ──────────────────────────────────────────────
-
-interface NavItem {
-  id: string;
-  label: string;
-  href: string;
-  iconType: "home" | "user" | "file";
-  section: "navigation";
-}
-
-interface BlogPostItem {
-  id: string;
-  title: string;
-  slug: string;
-  excerpt: string;
-  date: string;
-  tags: string[];
-  readingTime: number;
-  section: "blog";
-}
-
-type SearchItem = NavItem | BlogPostItem;
-
-const MOCK_NAV_EN: NavItem[] = [
-  {
-    id: "nav-home",
-    label: "Home",
-    href: "/",
-    iconType: "home",
-    section: "navigation",
-  },
-  {
-    id: "nav-about",
-    label: "About / CV",
-    href: "/about",
-    iconType: "user",
-    section: "navigation",
-  },
-  {
-    id: "nav-projects",
-    label: "Projects",
-    href: "/projects",
-    iconType: "file",
-    section: "navigation",
-  },
-  {
-    id: "nav-blog",
-    label: "Blog",
-    href: "/blog",
-    iconType: "file",
-    section: "navigation",
-  },
-];
-
-const MOCK_NAV_PT: NavItem[] = [
-  {
-    id: "nav-home",
-    label: "Início",
-    href: "/",
-    iconType: "home",
-    section: "navigation",
-  },
-  {
-    id: "nav-about",
-    label: "Sobre / CV",
-    href: "/about",
-    iconType: "user",
-    section: "navigation",
-  },
-  {
-    id: "nav-projects",
-    label: "Projetos",
-    href: "/projects",
-    iconType: "file",
-    section: "navigation",
-  },
-  {
-    id: "nav-blog",
-    label: "Blog",
-    href: "/blog",
-    iconType: "file",
-    section: "navigation",
-  },
-];
-
-const MOCK_POSTS: BlogPostItem[] = [
-  {
-    id: "post-structs-go",
-    title: "Go Structs - Otimizando memória e performance no backend",
-    slug: "structs-go",
-    excerpt:
-      "Structs em Go são fundamentais para organizar dados, otimizar memória e melhorar performance.",
-    date: "2026-05-07",
-    tags: ["Go"],
-    readingTime: 8,
-    section: "blog",
-  },
-  {
-    id: "post-dip",
-    title: "DIP - Dependa de abstrações",
-    slug: "dip",
-    excerpt:
-      "Entenda o Princípio da Inversão de Dependência e sua importância na arquitetura de software.",
-    date: "2026-01-25",
-    tags: ["SOLID", "Design Patterns"],
-    readingTime: 10,
-    section: "blog",
-  },
-  {
-    id: "post-big-o",
-    title: "O que é Big-O?",
-    slug: "big-o",
-    excerpt:
-      "Entenda notação Big-O e sua importância na análise de algoritmos e estruturas de dados.",
-    date: "2025-11-22",
-    tags: ["Algoritmos", "Arquitetura de Software", "Data Structures"],
-    readingTime: 6,
-    section: "blog",
-  },
-  {
-    id: "post-dtos",
-    title: "O que são DTOs (Data Transfer Objects)?",
-    slug: "dtos",
-    excerpt:
-      "Entenda o papel dos DTOs na arquitetura de software e como eles ajudam na comunicação entre camadas.",
-    date: "2025-11-05",
-    tags: ["DTOs", "Boas Práticas", "Arquitetura de Software"],
-    readingTime: 7,
-    section: "blog",
-  },
-  {
-    id: "post-niri",
-    title: "Niri - um tiling baseado em scroll",
-    slug: "niri",
-    excerpt:
-      "Niri WM traz o conceito de scrollable tiling, janelas organizadas com navegação fluida.",
-    date: "2025-11-02",
-    tags: ["NiriWM", "Linux", "Window Managers"],
-    readingTime: 5,
-    section: "blog",
-  },
-  {
-    id: "post-primeiro",
-    title: "Bem-vindo ao Blog",
-    slug: "primeiro-post",
-    excerpt: "Primeiro post do blog com exemplos de Hello World.",
-    date: "2025-10-28",
-    tags: ["Blog"],
-    readingTime: 3,
-    section: "blog",
-  },
-];
 
 // ─── Helpers ────────────────────────────────────────────────
 
 function buildHref(item: SearchItem, lang: string): string {
-  if ("href" in item) {
+  if (item.type === "page") {
     return `/${lang}${item.href === "/" ? "" : item.href}`;
   }
-  return `/${lang}/blog/${(item as BlogPostItem).slug}`;
+  return `/${lang}/blog/${item.slug}`;
 }
 
-const iconMap = {
-  home: <Home className="size-3.5" />,
-  user: <User className="size-3.5" />,
-  file: <FileText className="size-3.5" />,
-} as const;
-
-// ─── Types ──────────────────────────────────────────────────
-
-type ActiveSection = "navigation" | "blog";
+const pageIconMap: Record<string, React.ReactNode> = {
+  "/": <Home className="size-3.5" />,
+};
 
 // ─── Component ──────────────────────────────────────────────
 
 export const SearchCommand = memo(function SearchCommand() {
   const isOpen = useSearchStore((s) => s.isOpen);
   const close = useSearchStore((s) => s.close);
+  const fuse = useSearchStore((s) => s.fuse);
+  const items = useSearchStore((s) => s.items);
+  const loaded = useSearchStore((s) => s.loaded);
+  const loading = useSearchStore((s) => s.loading);
+  const loadIndex = useSearchStore((s) => s.loadIndex);
   const router = useRouter();
   const { language } = useLanguage();
   const inputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
   const [query, setQuery] = useState("");
-  const [activeSection, setActiveSection] =
-    useState<ActiveSection>("navigation");
   const [activeIndex, setActiveIndex] = useState(0);
-
-  const navItems = language === "pt" ? MOCK_NAV_PT : MOCK_NAV_EN;
-
-  const sectionLabels =
-    language === "pt"
-      ? { navigation: "Navegação", blog: "Blog" }
-      : { navigation: "Navigation", blog: "Blog" };
+  const selectionMode = useRef<"keyboard" | "mouse">("keyboard");
 
   const placeholder =
     language === "pt"
       ? "Pesquisar páginas, posts..."
       : "Search pages, posts...";
 
-  // Filter items based on active section + query
-  const filteredItems = useMemo(() => {
-    const source = activeSection === "navigation" ? navItems : MOCK_POSTS;
-    if (!query.trim()) return source;
+  // Fetch index on first open
+  useEffect(() => {
+    if (isOpen && !loaded && !loading) {
+      loadIndex();
+    }
+  }, [isOpen, loaded, loading, loadIndex]);
 
-    const q = query.toLowerCase();
-    return source.filter((item) => {
-      if ("title" in item) {
-        return (
-          item.title.toLowerCase().includes(q) ||
-          item.excerpt.toLowerCase().includes(q) ||
-          item.tags.some((t) => t.toLowerCase().includes(q))
-        );
-      }
-      return item.label.toLowerCase().includes(q);
-    });
-  }, [activeSection, query, navItems]);
+  // Fuzzy search with Fuse.js — returns ranked results
+  const results = useMemo(() => {
+    if (!fuse) return [];
+    if (!query.trim()) return [];
+
+    return fuse.search(query).map((r) => r.item);
+  }, [fuse, query]);
+
+  // When no query, show all items grouped (pages first, then posts)
+  const displayItems = useMemo(() => {
+    if (query.trim()) return results;
+    if (!items) return [];
+
+    const pages = items.filter(
+      (item): item is SearchPage => item.type === "page",
+    );
+    const posts = items.filter(
+      (item): item is SearchPost => item.type === "post",
+    );
+    return [...pages, ...posts];
+  }, [query, results, items]);
+
+  // Lock body scroll when open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
 
   // Reset on open
   useEffect(() => {
     if (isOpen) {
       setQuery("");
       setActiveIndex(0);
-      setActiveSection("navigation");
       requestAnimationFrame(() => {
         inputRef.current?.focus();
       });
@@ -258,12 +118,11 @@ export const SearchCommand = memo(function SearchCommand() {
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, []);
 
-  // Reset active index when filter context changes
-  const filterKey = `${activeSection}-${query}`;
-  const prevFilterKeyRef = useRef(filterKey);
-  if (prevFilterKeyRef.current !== filterKey) {
-    prevFilterKeyRef.current = filterKey;
-    setActiveIndex(0);
+  // Reset active index when results change
+  const prevLenRef = useRef(displayItems.length);
+  if (prevLenRef.current !== displayItems.length) {
+    prevLenRef.current = displayItems.length;
+    if (activeIndex !== 0) setActiveIndex(0);
   }
 
   // Navigate to item
@@ -280,40 +139,41 @@ export const SearchCommand = memo(function SearchCommand() {
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent) => {
       if (e.key === "ArrowDown") {
+        if (displayItems.length === 0) return;
         e.preventDefault();
+        selectionMode.current = "keyboard";
         setActiveIndex((prev) =>
-          prev < filteredItems.length - 1 ? prev + 1 : 0,
+          prev < displayItems.length - 1 ? prev + 1 : 0,
         );
       } else if (e.key === "ArrowUp") {
+        if (displayItems.length === 0) return;
         e.preventDefault();
+        selectionMode.current = "keyboard";
         setActiveIndex((prev) =>
-          prev > 0 ? prev - 1 : filteredItems.length - 1,
+          prev > 0 ? prev - 1 : displayItems.length - 1,
         );
       } else if (e.key === "Enter") {
+        if (displayItems.length === 0) return;
         e.preventDefault();
-        const item = filteredItems[activeIndex];
+        const item = displayItems[activeIndex];
         if (item) navigateTo(item);
       } else if (e.key === "Escape") {
         close();
-      } else if (e.key === "Tab") {
-        e.preventDefault();
-        setActiveSection((prev) =>
-          prev === "navigation" ? "blog" : "navigation",
-        );
       }
     },
-    [filteredItems, activeIndex, close, navigateTo],
+    [displayItems, activeIndex, close, navigateTo],
   );
 
   // Scroll active item into view
   useEffect(() => {
+    if (selectionMode.current !== "keyboard") return;
     const el = listRef.current?.querySelector(`[data-index="${activeIndex}"]`);
     el?.scrollIntoView({ block: "nearest" });
   }, [activeIndex]);
 
   if (!isOpen) return null;
 
-  const isNav = activeSection === "navigation";
+  const isSearching = query.trim().length > 0;
 
   return (
     <div className="fixed inset-0 z-[100] flex items-start justify-center pt-[15vh]">
@@ -362,36 +222,13 @@ export const SearchCommand = memo(function SearchCommand() {
           </kbd>
         </div>
 
-        {/* Section Tabs */}
-        <div className="flex border-b border-border">
-          {(["navigation", "blog"] as const).map((section) => (
-            <button
-              key={section}
-              type="button"
-              onClick={() => setActiveSection(section)}
-              className={cn(
-                "flex items-center gap-2 px-4 py-2 text-xs font-medium transition-colors duration-150",
-                activeSection === section
-                  ? "text-foreground border-b border-foreground"
-                  : "text-muted-foreground/50 hover:text-muted-foreground",
-              )}
-            >
-              {section === "navigation" ? (
-                <Home className="size-3" />
-              ) : (
-                <FileText className="size-3" />
-              )}
-              {sectionLabels[section]}
-              <kbd className="inline-flex items-center justify-center h-3.5 min-w-[14px] px-0.5 rounded-[2px] border border-border/60 bg-surface-2 font-mono text-[8px] leading-none text-muted-foreground/40">
-                ⇥
-              </kbd>
-            </button>
-          ))}
-        </div>
-
         {/* Results */}
-        <div ref={listRef} className="max-h-[320px] overflow-y-auto">
-          {filteredItems.length === 0 ? (
+        <div ref={listRef} className="max-h-[380px] overflow-y-auto">
+          {!loaded && loading ? (
+            <div className="flex items-center justify-center py-10 text-muted-foreground/40">
+              <div className="size-4 border border-muted-foreground/20 border-t-muted-foreground/60 rounded-full animate-spin" />
+            </div>
+          ) : isSearching && displayItems.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-10 text-muted-foreground/40">
               <Search className="size-6 mb-2" />
               <p className="text-xs">
@@ -400,17 +237,27 @@ export const SearchCommand = memo(function SearchCommand() {
                   : "No results found"}
               </p>
             </div>
-          ) : (
-            <div className="py-1">
-              {filteredItems.map((item, index) => (
+          ) : !isSearching && displayItems.length === 0 ? null : (
+            <div
+              className="py-1"
+              role="listbox"
+              onMouseLeave={() => {
+                selectionMode.current = "keyboard";
+                setActiveIndex(0);
+              }}
+            >
+              {displayItems.map((item, index) => (
                 <ResultItem
-                  key={item.id}
+                  key={item.type === "page" ? item.href : item.slug}
                   item={item}
                   isActive={index === activeIndex}
                   index={index}
                   language={language}
                   onNavigate={navigateTo}
-                  onMouseEnter={() => setActiveIndex(index)}
+                  onMouseEnter={() => {
+                    selectionMode.current = "mouse";
+                    setActiveIndex(index);
+                  }}
                 />
               ))}
             </div>
@@ -433,12 +280,6 @@ export const SearchCommand = memo(function SearchCommand() {
               ↵
             </kbd>
             <span className="ml-0.5">open</span>
-          </span>
-          <span className="flex items-center gap-1 text-[10px] text-muted-foreground/30">
-            <kbd className="inline-flex items-center justify-center h-3.5 min-w-[14px] px-0.5 rounded-[2px] border border-border/60 bg-surface-2 font-mono text-[8px] leading-none text-muted-foreground/40">
-              ⇥
-            </kbd>
-            <span className="ml-0.5">{isNav ? "blog" : "nav"}</span>
           </span>
           <span className="flex items-center gap-1 text-[10px] text-muted-foreground/30 ml-auto">
             <kbd className="inline-flex items-center justify-center h-3.5 min-w-[14px] px-0.5 rounded-[2px] border border-border/60 bg-surface-2 font-mono text-[8px] leading-none text-muted-foreground/40">
@@ -483,10 +324,9 @@ const ResultItem = memo(function ResultItem({
     [onNavigate, item],
   );
 
-  const isNav = "href" in item;
+  if (item.type === "page") {
+    const icon = pageIconMap[item.href] ?? <FileText className="size-3.5" />;
 
-  if (isNav) {
-    const nav = item as NavItem;
     return (
       <Link
         href={href}
@@ -508,9 +348,9 @@ const ResultItem = memo(function ResultItem({
               : "text-muted-foreground/50",
           )}
         >
-          {iconMap[nav.iconType]}
+          {icon}
         </span>
-        <span className="text-sm font-medium">{nav.label}</span>
+        <span className="text-sm font-medium">{item.label}</span>
         <ArrowRight
           className={cn(
             "size-3 ml-auto transition-opacity duration-100",
@@ -522,8 +362,7 @@ const ResultItem = memo(function ResultItem({
     );
   }
 
-  const post = item as BlogPostItem;
-  const formattedDate = new Date(post.date).toLocaleDateString(
+  const formattedDate = new Date(item.date).toLocaleDateString(
     language === "pt" ? "pt-BR" : "en-US",
     { year: "numeric", month: "short", day: "numeric" },
   );
@@ -552,19 +391,19 @@ const ResultItem = memo(function ResultItem({
         <FileText className="size-3.5" />
       </span>
       <div className="flex-1 min-w-0">
-        <p className="text-sm font-medium truncate">{post.title}</p>
+        <p className="text-sm font-medium truncate">{item.title}</p>
         <div className="flex items-center gap-2 mt-0.5">
           <span className="inline-flex items-center gap-1 text-muted-foreground/50">
             <Calendar className="size-2.5" aria-hidden="true" />
             <MonoText className="text-[10px]">
-              <time dateTime={post.date}>{formattedDate}</time>
+              <time dateTime={item.date}>{formattedDate}</time>
             </MonoText>
           </span>
           <span className="inline-flex items-center gap-1 text-muted-foreground/50">
             <Clock className="size-2.5" aria-hidden="true" />
-            <MonoText className="text-[10px]">{post.readingTime}m</MonoText>
+            <MonoText className="text-[10px]">{item.readingTime}m</MonoText>
           </span>
-          {post.tags.slice(0, 2).map((tag) => (
+          {item.tags.slice(0, 2).map((tag) => (
             <span
               key={tag}
               className="text-[9px] font-mono px-1 py-px rounded-[2px] border border-border/40 text-muted-foreground/40"

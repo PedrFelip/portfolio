@@ -36,6 +36,5 @@ export {
   Menu,
   Search,
   Share2,
-  User,
   X,
 } from "lucide-react";

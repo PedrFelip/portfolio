@@ -12,7 +12,6 @@ import {
   useState,
   useTransition,
 } from "react";
-import { SearchCommand } from "@/components/search/SearchCommand";
 import { Button, Logo } from "@/components/ui";
 import { Menu, Search, X } from "@/components/ui/icons";
 import { useLanguage } from "@/lib/language-store";
@@ -216,122 +215,119 @@ export const Navigation = memo(() => {
   }, [isMenuOpen, closeMenu]);
 
   return (
-    <>
-      <SearchCommand />
-      <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-md">
-        <div className="mx-auto md:max-w-4xl px-4">
-          <div className="relative flex flex-col gap-px">
-            <div className="border-x border-border px-4 sm:px-6">
-              <div className="relative z-50 flex h-14 items-center justify-between gap-3">
-                <Link
-                  href={getLocalizedLink("/")}
-                  className="group flex items-center gap-2 shrink-0"
-                >
-                  <Logo height={28} className="h-5 sm:h-6 w-auto" />
-                  <span className="hidden sm:block text-sm font-semibold tracking-tight text-foreground transition-colors duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:text-muted-foreground">
-                    Pedro Felipe
-                  </span>
-                </Link>
+    <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-md">
+      <div className="mx-auto md:max-w-4xl px-4">
+        <div className="relative flex flex-col gap-px">
+          <div className="border-x border-border px-4 sm:px-6">
+            <div className="relative z-50 flex h-14 items-center justify-between gap-3">
+              <Link
+                href={getLocalizedLink("/")}
+                className="group flex items-center gap-2 shrink-0"
+              >
+                <Logo height={28} className="h-5 sm:h-6 w-auto" />
+                <span className="hidden sm:block text-sm font-semibold tracking-tight text-foreground transition-colors duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:text-muted-foreground">
+                  Pedro Felipe
+                </span>
+              </Link>
 
-                <div
-                  ref={navRef}
-                  className="hidden items-center gap-1 md:flex relative"
+              <div
+                ref={navRef}
+                className="hidden items-center gap-1 md:flex relative"
+              >
+                {pill && (
+                  <span
+                    className="absolute top-1/2 -translate-y-1/2 h-[calc(100%-8px)] rounded bg-accent/[0.10] transition-all duration-350 ease-[cubic-bezier(0.25,1,0.5,1)] motion-reduce:transition-none pointer-events-none"
+                    style={{ left: pill.left, width: pill.width }}
+                    aria-hidden="true"
+                  />
+                )}
+                {navLinks.map((link, index) => (
+                  <NavLinkItem
+                    key={link.href}
+                    ref={(el: HTMLAnchorElement | null) => {
+                      linkRefs.current[index] = el;
+                    }}
+                    label={link.label}
+                    isActive={isActive(link.href)}
+                    localizedHref={getLocalizedLink(link.href)}
+                    variant="desktop"
+                  />
+                ))}
+              </div>
+
+              <div className="flex items-center gap-1.5 shrink-0">
+                <SearchBar />
+
+                <Button
+                  variant="ghost"
+                  onClick={toggleLanguage}
+                  disabled={isPending}
+                  aria-label={`Switch language to ${
+                    language === "en" ? "Portuguese" : "English"
+                  }`}
+                  className="size-7 rounded border border-overlay-border bg-surface-3 font-mono text-[10px] font-medium transition-all duration-250 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-overlay-border-hover hover:bg-surface-4 active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-50"
                 >
-                  {pill && (
-                    <span
-                      className="absolute top-1/2 -translate-y-1/2 h-[calc(100%-8px)] rounded bg-accent/[0.10] transition-all duration-350 ease-[cubic-bezier(0.25,1,0.5,1)] motion-reduce:transition-none pointer-events-none"
-                      style={{ left: pill.left, width: pill.width }}
+                  {language === "en" ? "EN" : "PT"}
+                </Button>
+
+                <Button
+                  variant="ghost"
+                  className={`size-7 rounded border border-overlay-border transition-all duration-250 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-overlay-border-hover hover:bg-surface-4 active:scale-[0.97] md:hidden ${
+                    isMenuOpen
+                      ? "border-overlay-border-hover bg-surface-4"
+                      : "bg-surface-3"
+                  }`}
+                  onClick={toggleMenu}
+                  aria-label={t.nav.toggleMenu}
+                  aria-expanded={isMenuOpen}
+                >
+                  {isMenuOpen ? (
+                    <X
+                      className="size-3.5 transition-transform duration-250 ease-[cubic-bezier(0.25,1,0.5,1)]"
+                      aria-hidden="true"
+                    />
+                  ) : (
+                    <Menu
+                      className="size-3.5 transition-transform duration-250 ease-[cubic-bezier(0.25,1,0.5,1)]"
                       aria-hidden="true"
                     />
                   )}
-                  {navLinks.map((link, index) => (
-                    <NavLinkItem
-                      key={link.href}
-                      ref={(el: HTMLAnchorElement | null) => {
-                        linkRefs.current[index] = el;
-                      }}
-                      label={link.label}
-                      isActive={isActive(link.href)}
-                      localizedHref={getLocalizedLink(link.href)}
-                      variant="desktop"
-                    />
-                  ))}
-                </div>
-
-                <div className="flex items-center gap-1.5 shrink-0">
-                  <SearchBar />
-
-                  <Button
-                    variant="ghost"
-                    onClick={toggleLanguage}
-                    disabled={isPending}
-                    aria-label={`Switch language to ${
-                      language === "en" ? "Portuguese" : "English"
-                    }`}
-                    className="size-7 rounded border border-overlay-border bg-surface-3 font-mono text-[10px] font-medium transition-all duration-250 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-overlay-border-hover hover:bg-surface-4 active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-50"
-                  >
-                    {language === "en" ? "EN" : "PT"}
-                  </Button>
-
-                  <Button
-                    variant="ghost"
-                    className={`size-7 rounded border border-overlay-border transition-all duration-250 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-overlay-border-hover hover:bg-surface-4 active:scale-[0.97] md:hidden ${
-                      isMenuOpen
-                        ? "border-overlay-border-hover bg-surface-4"
-                        : "bg-surface-3"
-                    }`}
-                    onClick={toggleMenu}
-                    aria-label={t.nav.toggleMenu}
-                    aria-expanded={isMenuOpen}
-                  >
-                    {isMenuOpen ? (
-                      <X
-                        className="size-3.5 transition-transform duration-250 ease-[cubic-bezier(0.25,1,0.5,1)]"
-                        aria-hidden="true"
-                      />
-                    ) : (
-                      <Menu
-                        className="size-3.5 transition-transform duration-250 ease-[cubic-bezier(0.25,1,0.5,1)]"
-                        aria-hidden="true"
-                      />
-                    )}
-                  </Button>
-                </div>
+                </Button>
               </div>
             </div>
-
-            <div
-              className="border-x border-border h-px bg-border"
-              aria-hidden="true"
-            />
           </div>
 
-          {isMenuOpen && (
-            <>
-              <div
-                className="fixed inset-0 z-40 animate-in-fade bg-background/80 backdrop-blur-sm md:hidden"
-                onClick={closeMenu}
-                aria-hidden="true"
-              />
-              <div className="relative z-50 animate-in-slide-down border-t border-overlay-border bg-background/95 backdrop-blur-md md:hidden">
-                <div className="flex flex-col">
-                  {navLinks.map((link) => (
-                    <NavLinkItem
-                      key={link.href}
-                      label={link.label}
-                      isActive={isActive(link.href)}
-                      localizedHref={getLocalizedLink(link.href)}
-                      onClick={closeMenu}
-                      variant="mobile"
-                    />
-                  ))}
-                </div>
-              </div>
-            </>
-          )}
+          <div
+            className="border-x border-border h-px bg-border"
+            aria-hidden="true"
+          />
         </div>
-      </nav>
-    </>
+
+        {isMenuOpen && (
+          <>
+            <div
+              className="fixed inset-0 z-40 animate-in-fade bg-background/80 backdrop-blur-sm md:hidden"
+              onClick={closeMenu}
+              aria-hidden="true"
+            />
+            <div className="relative z-50 animate-in-slide-down border-t border-overlay-border bg-background/95 backdrop-blur-md md:hidden">
+              <div className="flex flex-col">
+                {navLinks.map((link) => (
+                  <NavLinkItem
+                    key={link.href}
+                    label={link.label}
+                    isActive={isActive(link.href)}
+                    localizedHref={getLocalizedLink(link.href)}
+                    onClick={closeMenu}
+                    variant="mobile"
+                  />
+                ))}
+              </div>
+            </div>
+          </>
+        )}
+      </div>
+    </nav>
   );
 });
 

@@ -53,12 +53,15 @@ export function SimpleTechStack({
               }
             >
               {/* Icon Container */}
-              <div className="mb-3 inline-flex size-9 items-center justify-center rounded-lg border border-overlay-border bg-surface-3 text-muted-foreground transition-all duration-300 group-hover:border-[var(--tech-color)]/30 group-hover:bg-[var(--tech-color)]/10 group-hover:text-[var(--tech-color)]">
+              <div
+                className="tech-icon-box mb-3 inline-flex size-9 items-center justify-center rounded-lg border border-overlay-border bg-surface-3 text-muted-foreground transition-all duration-300"
+                style={{ "--tech-color": tech.color } as React.CSSProperties}
+              >
                 <Icon className="size-4" />
               </div>
 
               {/* Tech Name */}
-              <h3 className="text-sm font-medium tracking-tight text-foreground transition-colors group-hover:text-accent">
+              <h3 className="text-sm font-medium tracking-tight text-foreground transition-colors duration-300 group-hover:text-[var(--tech-color)]">
                 {tech.name}
               </h3>
             </div>

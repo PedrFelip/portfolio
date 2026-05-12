@@ -77,7 +77,7 @@ export const Footer = memo(() => {
               Pedro Felipe
             </span>
           </Link>
-          <MonoText className="text-[10px] tracking-[0.2em] text-border uppercase hidden sm:block">
+          <MonoText className="text-[10px] tracking-[0.2em] text-muted-foreground/50 uppercase hidden sm:block">
             backend engineer
           </MonoText>
         </div>
@@ -111,7 +111,7 @@ export const Footer = memo(() => {
                     className="
                       inline-block h-px bg-border/40
                       transition-all duration-300 ease-[cubic-bezier(0.25,1,0.5,1)]
-                      w-3 group-hover:w-5 group-hover:bg-foreground/40
+                      w-3 group-hover:w-5 group-hover:bg-accent/40
                     "
                     aria-hidden="true"
                   />
@@ -124,8 +124,8 @@ export const Footer = memo(() => {
             <div className="hidden sm:block w-px" />
 
             {/* Social Column */}
-            <div className="flex flex-col items-start justify-center gap-2 border-t border-border/20 px-4 py-3 sm:border-t-0 sm:items-end sm:px-6">
-              <MonoText className="text-[9px] tracking-[0.2em] text-border/80 uppercase">
+            <div className="flex flex-col items-start justify-center gap-2 border-t border-border/30 px-4 py-3 sm:border-t-0 sm:items-end sm:px-6">
+              <MonoText className="text-[9px] tracking-[0.2em] text-muted-foreground/40 uppercase">
                 connect
               </MonoText>
               <div className="flex items-center gap-3">
@@ -137,11 +137,11 @@ export const Footer = memo(() => {
                     rel="noopener noreferrer"
                     aria-label={link.label}
                     className="
-                      text-muted-foreground/50 transition-all duration-300
-                      ease-[cubic-bezier(0.25,1,0.5,1)] hover:text-foreground
+                      text-muted-foreground/60 transition-all duration-200
+                      ease-[cubic-bezier(0.25,1,0.5,1)] hover:text-accent
                     "
                   >
-                    <span className="block transition-transform duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] hover:scale-110">
+                    <span className="block transition-transform duration-200 ease-[cubic-bezier(0.25,1,0.5,1)] hover:scale-110">
                       {link.icon}
                     </span>
                   </a>
@@ -153,11 +153,11 @@ export const Footer = memo(() => {
 
         {/* ─── Bottom Bar ─── */}
         <div className="bp-panel flex  bp-line-bottom items-center justify-between px-4 py-4 sm:px-6">
-          <MonoText className="text-[10px] tracking-[0.15em] text-border/80">
+          <MonoText className="text-[10px] tracking-[0.15em] text-muted-foreground/40">
             © {t.footer.year}
           </MonoText>
-          <MonoText className="text-[10px] tracking-[0.15em] text-border/80">
-            v5.0.2
+          <MonoText className="text-[10px] tracking-[0.15em] text-muted-foreground/40">
+            v5.0.3
           </MonoText>
         </div>
       </div>

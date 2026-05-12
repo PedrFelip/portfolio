@@ -18,7 +18,7 @@ export function SectionBadge({ children, className }: SectionBadgeProps) {
         flickerChance={0.3}
         color={FLICKER_CONFIG.COLOR}
         maxOpacity={0.15}
-        className="absolute inset-0 overflow-hidden"
+        className="pointer-events-none absolute inset-0 overflow-hidden"
       />
       <div className="relative z-10">{children}</div>
     </div>

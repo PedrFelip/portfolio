@@ -35,12 +35,12 @@ export function HeroGrid({
   ctaSecondaryHref,
 }: HeroGridProps) {
   return (
-    <div className="relative w-full overflow-hidden pb-10">
+    <div className="relative w-full overflow-x-hidden pb-10">
       <div className="mx-auto px-4 md:max-w-4xl">
         {/* Mobile / Tablet layout */}
         <div className="bp-line-top bp-line-bottom bp-panel lg:hidden">
           <svg
-            className="pointer-events-none absolute inset-0 text-border"
+            className="pointer-events-none absolute inset-0 overflow-visible text-border"
             viewBox="0 0 210 340"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -165,14 +165,14 @@ export function HeroGrid({
               ctaSecondaryHref={ctaSecondaryHref}
             />
 
-            <div className="h-24 sm:h-32 md:h-36" />
+            <div className="h-48 sm:h-56 md:h-64" />
           </div>
         </div>
 
         {/* Desktop layout */}
         <div className="bp-line-top bp-line-bottom bp-panel hidden lg:block">
           <svg
-            className="pointer-events-none absolute inset-0 text-border"
+            className="pointer-events-none absolute inset-0 overflow-visible text-border"
             viewBox="0 0 340 210"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -328,17 +328,17 @@ function MainContent({
       </p>
 
       <div className="mb-4 flex flex-col gap-3 sm:mb-6 sm:flex-row sm:gap-4">
-        <Button asChild variant="primary" size="sm" className="sm:md">
+        <Button asChild variant="primary" size="md">
           <a href={ctaHref}>{cta}</a>
         </Button>
 
-        <Button asChild variant="outline" size="sm" className="sm:md">
+        <Button asChild variant="outline" size="md">
           <a href={ctaSecondaryHref}>{ctaSecondary}</a>
         </Button>
       </div>
 
       <div className="relative -ml-4 lg:ml-0">
-        <div className="absolute -top-2 right-0 z-1 block h-10 w-16 sm:w-24 bg-background mask-[linear-gradient(to_left,white,transparent)] lg:hidden" />
+        <div className="absolute -top-2 right-0 z-10 block h-10 w-16 sm:w-24 bg-background mask-[linear-gradient(to_left,white,transparent)] lg:hidden" />
 
         <div className="no-scrollbar flex items-center gap-4 overflow-x-auto px-4 lg:px-0">
           <TechItem icon={<NodeIcon />} title="Node.js" color="#339933" />

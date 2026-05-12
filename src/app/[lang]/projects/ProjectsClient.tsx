@@ -119,7 +119,7 @@ export default function ProjectsClient({
                         <m.div
                           key={item.project.id}
                           variants={projectCardVariants}
-                          className={`relative px-4 py-6 transition-colors duration-200 group hover:bg-surface-2 ${getGridBorderClasses(
+                          className={`relative px-4 py-5 sm:px-5 sm:py-6 lg:px-6 lg:py-8 transition-colors duration-200 group hover:bg-surface-2 ${getGridBorderClasses(
                             index,
                           )}`}
                         >
@@ -183,7 +183,7 @@ export default function ProjectsClient({
                 item.project ? (
                   <div
                     key={item.project.id}
-                    className={`relative px-4 py-6 transition-colors duration-200 group hover:bg-surface-2 ${getGridBorderClasses(
+                    className={`relative px-4 py-5 sm:px-5 sm:py-6 lg:px-6 lg:py-8 transition-colors duration-200 group hover:bg-surface-2 ${getGridBorderClasses(
                       index,
                     )}`}
                   >

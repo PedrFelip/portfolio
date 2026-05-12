@@ -1,3 +1,4 @@
+import { SectionBadge } from "@/components/blueprint/SectionBadge";
 import { DEFAULT_TECH_STACK, type TechItem } from "@/lib/tech-stack";
 
 interface SimpleTechStackProps {
@@ -16,56 +17,56 @@ export function SimpleTechStack({
   items = DEFAULT_TECH_STACK,
 }: SimpleTechStackProps) {
   return (
-    <section id={id} className="relative">
-      {/* Section Header */}
-      <div className="rail-bounded">
-        <div className="px-6 pb-6 pt-12 sm:px-8 sm:pt-16">
-          <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-            {subtitle}
-          </p>
-          <h2 className="mt-3 text-2xl font-bold tracking-tight sm:text-3xl">
-            {title}
-          </h2>
-          <p className="mt-2 max-w-md text-sm text-muted-foreground sm:text-base">
-            {description}
-          </p>
-        </div>
-      </div>
+    <section id={id} data-slot="panel" className="bp-panel bp-line-bottom">
+      {/* Header */}
+      <SectionBadge className="bp-line-bottom px-4 py-3 sm:px-6">
+        <p className="text-[10px] sm:text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground/60">
+          {subtitle}
+        </p>
+        <h2 className="mt-1 text-lg font-semibold tracking-tight sm:text-xl">
+          {title}
+        </h2>
+        {description && (
+          <p className="mt-1 text-sm text-muted-foreground">{description}</p>
+        )}
+      </SectionBadge>
 
-      <div className="rail-bounded border-t border-border">
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
-          {items.map((tech, i) => {
-            const Icon = tech.icon;
-            return (
+      {/* Grid */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
+        {items.map((tech, i) => {
+          const Icon = tech.icon;
+          return (
+            <div
+              key={tech.name}
+              className={`group px-4 py-8 sm:px-5 transition-all duration-300 hover:bg-surface-2 touch-manipulation
+                ${i % 4 !== 0 ? "lg:border-l lg:border-dashed lg:border-border" : ""}
+                ${i % 3 !== 0 ? "sm:max-lg:border-l sm:max-lg:border-dashed sm:max-lg:border-border" : ""}
+                ${i % 2 !== 0 ? "max-sm:border-l max-sm:border-dashed max-sm:border-border" : ""}
+                ${i >= 4 ? "lg:border-t lg:border-dashed lg:border-border" : ""}
+                ${i >= 3 ? "sm:max-lg:border-t sm:max-lg:border-dashed sm:max-lg:border-border" : ""}
+                ${i >= 2 ? "max-sm:border-t max-sm:border-dashed max-sm:border-border" : ""}
+              `}
+              style={
+                {
+                  "--tech-color": tech.color,
+                } as React.CSSProperties
+              }
+            >
+              {/* Icon Container */}
               <div
-                key={tech.name}
-                className={`group px-6 py-10 sm:px-6 transition-all duration-300 hover:bg-surface-1 touch-manipulation
-                  ${i % 4 !== 0 ? "lg:border-l lg:border-dashed lg:border-border" : ""}
-                  ${i % 3 !== 0 ? "sm:max-lg:border-l sm:max-lg:border-dashed sm:max-lg:border-border" : ""}
-                  ${i % 2 !== 0 ? "max-sm:border-l max-sm:border-dashed max-sm:border-border" : ""}
-                  ${i >= 4 ? "lg:border-t lg:border-dashed lg:border-border" : ""}
-                  ${i >= 3 ? "sm:max-lg:border-t sm:max-lg:border-dashed sm:max-lg:border-border" : ""}
-                  ${i >= 2 ? "max-sm:border-t max-sm:border-dashed max-sm:border-border" : ""}
-                `}
-                style={
-                  {
-                    "--tech-color": tech.color,
-                  } as React.CSSProperties
-                }
+                className="tech-icon-box mb-3 inline-flex size-9 items-center justify-center rounded-lg border border-overlay-border bg-surface-3 text-muted-foreground transition-all duration-300"
+                style={{ "--tech-color": tech.color } as React.CSSProperties}
               >
-                {/* Icon Container */}
-                <div className="mb-4 inline-flex size-10 items-center justify-center rounded-xl border border-overlay-border bg-surface-3 text-muted-foreground transition-all duration-300 group-hover:border-[var(--tech-color)]/30 group-hover:bg-[var(--tech-color)]/10 group-hover:text-[var(--tech-color)] group-hover:shadow-[0_0_15px_rgba(0,0,0,0.2)] group-hover:shadow-[var(--tech-color)]/20">
-                  <Icon className="size-5" />
-                </div>
-
-                {/* Tech Name */}
-                <h3 className="text-sm font-medium tracking-tight text-foreground transition-colors group-hover:text-accent">
-                  {tech.name}
-                </h3>
+                <Icon className="size-4" />
               </div>
-            );
-          })}
-        </div>
+
+              {/* Tech Name */}
+              <h3 className="text-sm font-medium tracking-tight text-foreground transition-colors duration-300 group-hover:text-[var(--tech-color)]">
+                {tech.name}
+              </h3>
+            </div>
+          );
+        })}
       </div>
     </section>
   );

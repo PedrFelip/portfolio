@@ -2,7 +2,7 @@
 
 import { AnimatePresence, m } from "framer-motion";
 import { useCallback, useMemo, useState } from "react";
-import { SectionDivider } from "@/components/blueprint";
+import { PanelSpacer } from "@/components/blueprint";
 import { CardFlicker } from "@/components/projects/CardFlicker";
 import { FilterTags } from "@/components/projects/FilterTags";
 import { ProjectCard } from "@/components/projects/ProjectCard";
@@ -74,18 +74,22 @@ export default function ProjectsClient({
 
   return (
     <>
-      <section className="rail-bounded px-6 py-6 sm:px-8">
-        <FilterTags
-          selectedTags={selectedTags}
-          onTagChange={handleTagChange}
-          allTags={allTags}
-          tagCounts={tagCounts}
-        />
+      {/* Filter bar */}
+      <section data-slot="panel" className="bp-panel">
+        <div className="bp-line-bottom px-4 py-4 sm:px-6">
+          <FilterTags
+            selectedTags={selectedTags}
+            onTagChange={handleTagChange}
+            allTags={allTags}
+            tagCounts={tagCounts}
+          />
+        </div>
       </section>
 
-      <SectionDivider />
+      <PanelSpacer />
 
-      <div className="rail-bounded border border-border relative">
+      {/* Grid */}
+      <div data-slot="panel" className="bp-panel">
         {hasUsedFilter ? (
           <AnimatePresence mode="wait" initial={false}>
             {filteredProjects.length > 0 ? (
@@ -115,7 +119,7 @@ export default function ProjectsClient({
                         <m.div
                           key={item.project.id}
                           variants={projectCardVariants}
-                          className={`relative px-6 py-8 transition-colors duration-200 group hover:bg-surface-2 ${getGridBorderClasses(
+                          className={`relative px-4 py-5 sm:px-5 sm:py-6 lg:px-6 lg:py-8 transition-colors duration-200 group hover:bg-surface-2 ${getGridBorderClasses(
                             index,
                           )}`}
                         >
@@ -140,7 +144,7 @@ export default function ProjectsClient({
                 animate="animate"
                 exit="exit"
               >
-                <div className="flex flex-col items-center justify-center px-6 py-16 text-center">
+                <div className="flex flex-col items-center justify-center px-4 py-16 text-center">
                   <P className="mb-2 text-muted-foreground">
                     {emptyStateLabel}
                   </P>
@@ -179,7 +183,7 @@ export default function ProjectsClient({
                 item.project ? (
                   <div
                     key={item.project.id}
-                    className={`relative px-6 py-8 transition-colors duration-200 group hover:bg-surface-2 ${getGridBorderClasses(
+                    className={`relative px-4 py-5 sm:px-5 sm:py-6 lg:px-6 lg:py-8 transition-colors duration-200 group hover:bg-surface-2 ${getGridBorderClasses(
                       index,
                     )}`}
                   >
@@ -192,7 +196,7 @@ export default function ProjectsClient({
             })()}
           </div>
         ) : (
-          <div className="flex flex-col items-center justify-center px-6 py-16 text-center">
+          <div className="flex flex-col items-center justify-center px-4 py-16 text-center">
             <P className="mb-2 text-muted-foreground">{emptyStateLabel}</P>
             <div className="mb-4 text-xs font-mono text-muted-foreground/70">
               {filterLabels.active(selectedTags.length)}

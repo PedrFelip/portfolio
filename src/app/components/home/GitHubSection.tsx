@@ -1,6 +1,5 @@
 import dynamic from "next/dynamic";
-import { AlignedFlickeringGrid } from "@/components/blueprint/AlignedFlickeringGrid";
-import { DotPattern } from "@/components/blueprint/DotPattern";
+import { SectionBadge } from "@/components/blueprint/SectionBadge";
 import { fetchGitHubContributions } from "@/lib/github";
 import { cn } from "@/lib/utils";
 
@@ -32,14 +31,11 @@ interface GitHubSectionProps {
 }
 
 /**
- * GitHubSection - Complete section with 3-column header and contribution graph
- * Aligned with the blueprint/rail design system.
+ * GitHubSection - chanhdai.com inspired panel layout
  *
- * Design:
- * - 3-column header grid (Info, Stats, Decorative Grid)
- * - Dashed internal dividers
- * - Centered contribution graph
- * - Rail-bounded alignment
+ * Structure:
+ * - Header row: subtitle + title + stats (inline)
+ * - Content: contribution graph with dot pattern bg
  */
 export async function GitHubSection({
   className,
@@ -62,73 +58,47 @@ export async function GitHubSection({
   }
 
   return (
-    <section id="github-activity" className={cn("relative", className)}>
-      {/* 3-Column Header Grid aligned with Features Section Grid */}
-      <div className="rail-bounded overflow-hidden">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-          {/* Column 1: Info Content */}
-          <div className="px-6 py-12 sm:px-8 sm:py-12">
+    <section
+      id="github-activity"
+      data-slot="panel"
+      className={cn("bp-panel bp-line-bottom", className)}
+    >
+      {/* Header */}
+      <SectionBadge className="bp-line-bottom px-4 py-3 sm:px-6">
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2">
+          <div>
             <p className="text-[10px] sm:text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground/60">
               {subtitle}
             </p>
-            <h2 className="mt-4 text-3xl font-bold tracking-tight sm:text-3xl lg:text-4xl">
+            <h2 className="mt-1 text-lg font-semibold tracking-tight sm:text-xl">
               {title}
             </h2>
-            <p className="mt-3 max-w-md text-base leading-relaxed text-muted-foreground">
-              {description}
-            </p>
+            <p className="mt-1 text-sm text-muted-foreground">{description}</p>
           </div>
-
-          {/* Column 2: Commit Stats - Balanced & Centered */}
-          <div className="flex flex-col justify-center px-6 py-12 border-t border-dashed border-border sm:border-t-0 sm:border-l sm:py-12 lg:px-10 hover:bg-surface-3 dark:hover:bg-accent/10 transition-colors duration-300">
-            <div className="flex flex-col items-start sm:items-center text-left sm:text-center">
-              <span className="text-5xl font-bold tracking-tighter text-foreground dark:text-accent transition-colors duration-200 sm:text-6xl tabular-nums font-mono">
-                {data.totalContributions.toLocaleString()}
-              </span>
-              <span className="text-[10px] sm:text-xs font-semibold uppercase tracking-[0.15em] text-muted-foreground/70 mt-2">
-                {commitsLastYearLabel}
-              </span>
-            </div>
-          </div>
-
-          {/* Column 3: Decorative Flickering Grid - Responsive Display */}
-          <div className="relative border-t border-dashed border-border lg:border-t-0 lg:border-l sm:col-span-2 lg:col-span-1 overflow-hidden min-h-[200px] sm:min-h-[240px] lg:min-h-0 group hover:bg-accent/5 transition-colors duration-300">
-            <AlignedFlickeringGrid
-              side="right"
-              className="absolute inset-0 h-full w-full !flex"
-            />
-            {/* Blueprint corner detail */}
-            <div className="absolute right-2 bottom-2 size-2 border-r border-b border-accent/40 transition-colors group-hover:border-accent/60" />
+          <div className="flex flex-col items-start sm:items-end">
+            <span className="text-3xl font-bold tracking-tighter text-foreground tabular-nums font-mono sm:text-4xl">
+              {data.totalContributions.toLocaleString()}
+            </span>
+            <span className="text-[10px] font-semibold uppercase tracking-[0.15em] text-muted-foreground/70">
+              {commitsLastYearLabel}
+            </span>
           </div>
         </div>
-      </div>
+      </SectionBadge>
 
-      {/* Contribution Graph Area - Aligned to Rails with background texture */}
-      <div className="rail-bounded border-t border-dashed border-border bg-background overflow-hidden">
-        <div className="relative py-8 sm:py-16">
-          {/* Smooth background pattern with radial mask */}
-          <DotPattern
-            className="opacity-[0.15] pointer-events-none"
-            style={{
-              maskImage:
-                "radial-gradient(circle at center, white, transparent 80%)",
-              WebkitMaskImage:
-                "radial-gradient(circle at center, white, transparent 80%)",
-            }}
+      {/* Contribution Graph */}
+      <div className="relative py-6 sm:py-10 overflow-hidden">
+        <div className="relative z-10 px-4 sm:px-6">
+          <GitHubContributionGraph
+            data={data}
+            username={username}
+            swipeHint={swipeHint}
+            less={less}
+            more={more}
+            tapHint={tapHint}
+            commitLabel={commitLabel}
+            commitsLabel={commitsLabel}
           />
-
-          <div className="relative z-10">
-            <GitHubContributionGraph
-              data={data}
-              username={username}
-              swipeHint={swipeHint}
-              less={less}
-              more={more}
-              tapHint={tapHint}
-              commitLabel={commitLabel}
-              commitsLabel={commitsLabel}
-            />
-          </div>
         </div>
       </div>
     </section>

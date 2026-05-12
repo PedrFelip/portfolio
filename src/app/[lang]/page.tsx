@@ -1,19 +1,11 @@
 import dynamic from "next/dynamic";
-import Link from "next/link";
 import { Suspense } from "react";
-import {
-  CornerBrackets,
-  HatchSeparator,
-  Panel,
-  PanelSpacer,
-} from "@/components/blueprint";
+import { HatchSeparator, PanelSpacer } from "@/components/blueprint";
 import { GitHubSection } from "@/components/home/GitHubSection";
 import { GitHubSectionSkeleton } from "@/components/home/GitHubSectionSkeleton";
 import { HeroGrid } from "@/components/home/HeroGrid";
 import { HomeCtaSection } from "@/components/home/HomeCtaSection";
 import { HomeFeaturesSection } from "@/components/home/HomeFeaturesSection";
-import { Button, H1, Lead } from "@/components/ui";
-import { ArrowRight } from "@/components/ui/icons";
 import { homeEn } from "@/lib/content/home.en";
 import { homePt } from "@/lib/content/home.pt";
 

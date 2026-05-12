@@ -44,6 +44,7 @@ export function HeroGrid({
             viewBox="0 0 210 340"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
           >
             <g className="text-border">
               <path
@@ -175,6 +176,7 @@ export function HeroGrid({
             viewBox="0 0 340 210"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
           >
             <g className="text-border">
               <path
@@ -360,7 +362,8 @@ function TechItem({
   color: string;
 }) {
   return (
-    <div
+    <button
+      type="button"
       className="group flex items-center space-x-2 text-muted-foreground select-none transition-colors duration-150 [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-6 [&_svg]:transition-colors [&_svg]:duration-150"
       style={{ color: undefined }}
       onMouseEnter={(e) => {
@@ -372,6 +375,6 @@ function TechItem({
     >
       {icon}
       <span className="text-sm font-medium whitespace-nowrap">{title}</span>
-    </div>
+    </button>
   );
 }

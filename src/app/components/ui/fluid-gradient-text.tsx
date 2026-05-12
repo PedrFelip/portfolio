@@ -38,11 +38,15 @@ export function FluidGradientText({
     mass: 0.5,
   });
 
-  const updateGradient = (clientX: number, container: HTMLDivElement) => {
-    const rect = container.getBoundingClientRect();
-    const normalizedX = ((clientX - rect.left) / rect.width) * svgViewBoxWidth;
-    gradientX1Raw.set(Math.max(0, Math.min(svgViewBoxWidth, normalizedX)));
-  };
+  const updateGradient = useCallback(
+    (clientX: number, container: HTMLDivElement) => {
+      const rect = container.getBoundingClientRect();
+      const normalizedX =
+        ((clientX - rect.left) / rect.width) * svgViewBoxWidth;
+      gradientX1Raw.set(Math.max(0, Math.min(svgViewBoxWidth, normalizedX)));
+    },
+    [svgViewBoxWidth, gradientX1Raw],
+  );
 
   const resetGradient = () => {
     gradientX1Raw.set(svgViewBoxWidth / 2);

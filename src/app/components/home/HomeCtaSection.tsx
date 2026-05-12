@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { MonoText } from "@/components/ui";
 import { ArrowRight } from "@/components/ui/icons";
 
 interface HomeCtaSectionProps {

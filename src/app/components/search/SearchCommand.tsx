@@ -47,7 +47,6 @@ export const SearchCommand = memo(function SearchCommand() {
   const listRef = useRef<HTMLDivElement>(null);
   const [query, setQuery] = useState("");
   const [activeIndex, setActiveIndex] = useState(0);
-  const selectionMode = useRef<"keyboard" | "mouse">("keyboard");
 
   const placeholder =
     language === "pt"
@@ -141,14 +140,12 @@ export const SearchCommand = memo(function SearchCommand() {
       if (e.key === "ArrowDown") {
         if (displayItems.length === 0) return;
         e.preventDefault();
-        selectionMode.current = "keyboard";
         setActiveIndex((prev) =>
           prev < displayItems.length - 1 ? prev + 1 : 0,
         );
       } else if (e.key === "ArrowUp") {
         if (displayItems.length === 0) return;
         e.preventDefault();
-        selectionMode.current = "keyboard";
         setActiveIndex((prev) =>
           prev > 0 ? prev - 1 : displayItems.length - 1,
         );
@@ -166,7 +163,6 @@ export const SearchCommand = memo(function SearchCommand() {
 
   // Scroll active item into view
   useEffect(() => {
-    if (selectionMode.current !== "keyboard") return;
     const el = listRef.current?.querySelector(`[data-index="${activeIndex}"]`);
     el?.scrollIntoView({ block: "nearest" });
   }, [activeIndex]);
@@ -238,14 +234,7 @@ export const SearchCommand = memo(function SearchCommand() {
               </p>
             </div>
           ) : !isSearching && displayItems.length === 0 ? null : (
-            <div
-              className="py-1"
-              role="listbox"
-              onMouseLeave={() => {
-                selectionMode.current = "keyboard";
-                setActiveIndex(0);
-              }}
-            >
+            <div className="py-1" role="listbox">
               {displayItems.map((item, index) => (
                 <ResultItem
                   key={item.type === "page" ? item.href : item.slug}
@@ -254,10 +243,6 @@ export const SearchCommand = memo(function SearchCommand() {
                   index={index}
                   language={language}
                   onNavigate={navigateTo}
-                  onMouseEnter={() => {
-                    selectionMode.current = "mouse";
-                    setActiveIndex(index);
-                  }}
                 />
               ))}
             </div>
@@ -303,7 +288,6 @@ interface ResultItemProps {
   index: number;
   language: string;
   onNavigate: (item: SearchItem) => void;
-  onMouseEnter: () => void;
 }
 
 const ResultItem = memo(function ResultItem({
@@ -312,7 +296,6 @@ const ResultItem = memo(function ResultItem({
   index,
   language,
   onNavigate,
-  onMouseEnter,
 }: ResultItemProps) {
   const href = buildHref(item, language);
 
@@ -332,12 +315,11 @@ const ResultItem = memo(function ResultItem({
         href={href}
         onClick={handleClick}
         data-index={index}
-        onMouseEnter={onMouseEnter}
         className={cn(
           "flex items-center gap-3 px-4 py-2.5 mx-1 rounded-sm transition-colors duration-100",
           isActive
             ? "bg-accent/[0.08] text-foreground"
-            : "text-muted-foreground hover:bg-surface-2",
+            : "text-muted-foreground",
         )}
       >
         <span
@@ -372,12 +354,9 @@ const ResultItem = memo(function ResultItem({
       href={href}
       onClick={handleClick}
       data-index={index}
-      onMouseEnter={onMouseEnter}
       className={cn(
         "flex items-start gap-3 px-4 py-2.5 mx-1 rounded-sm transition-colors duration-100",
-        isActive
-          ? "bg-accent/[0.08] text-foreground"
-          : "text-muted-foreground hover:bg-surface-2",
+        isActive ? "bg-accent/[0.08] text-foreground" : "text-muted-foreground",
       )}
     >
       <span

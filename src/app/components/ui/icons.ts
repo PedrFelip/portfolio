@@ -26,6 +26,7 @@ export {
   Clock,
   Copy,
   ExternalLink,
+  FileText,
   Github,
   Home,
   Info,
@@ -35,5 +36,6 @@ export {
   Menu,
   Search,
   Share2,
+  User,
   X,
 } from "lucide-react";

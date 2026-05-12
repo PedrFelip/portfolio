@@ -9,6 +9,15 @@ html {
   scroll-padding-top: 5rem; /* Account for header height (80px desktop, 64px mobile) */
 }
 
+::selection {
+  background: oklch(0.55 0.15 155 / 35%);
+  color: inherit;
+}
+
+.dark ::selection {
+  background: oklch(0.65 0.15 155 / 35%);
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -1283,11 +1292,13 @@ html {
   content: "";
   position: absolute;
   top: 0;
-  left: -100vw;
-  z-index: 1;
+  left: 0;
+  right: 0;
+  margin-left: calc(-50vw + 50%);
+  width: 100vw;
   height: 1px;
-  width: 200vw;
   background: var(--border);
+  z-index: -1;
 }
 
 .bp-line-bottom {
@@ -1297,11 +1308,13 @@ html {
   content: "";
   position: absolute;
   bottom: 0;
-  left: -100vw;
-  z-index: 1;
+  left: 0;
+  right: 0;
+  margin-left: calc(-50vw + 50%);
+  width: 100vw;
   height: 1px;
-  width: 200vw;
   background: var(--border);
+  z-index: -1;
 }
 
 /* Panel: bordered section with side lines */
@@ -1310,22 +1323,23 @@ html {
   border-right: 1px solid var(--border);
 }
 
-/* Diagonal hatch separator between panels */
-.bp-separator {
+/* Hatch separator — full-viewport diagonal hatch band */
+.bp-hatch {
   position: relative;
-  display: flex;
-  height: 2rem;
-  width: 100%;
   border-left: 1px solid var(--border);
   border-right: 1px solid var(--border);
 }
-.bp-separator::before {
+/* Hatch fill — full viewport width, inside the lines */
+.bp-hatch::before {
   content: "";
   position: absolute;
-  left: -100vw;
-  z-index: 0;
-  height: 2rem;
-  width: 200vw;
+  top: 1px;
+  bottom: 1px;
+  left: 0;
+  right: 0;
+  margin-left: calc(-50vw + 50%);
+  width: 100vw;
+  z-index: -2;
   background: repeating-linear-gradient(
     315deg,
     var(--border) 0,
@@ -1334,7 +1348,32 @@ html {
     transparent 50%
   );
   background-size: 10px 10px;
-  opacity: 0.3;
+}
+
+/* Hatch top/bottom lines — full viewport width */
+.bp-hatch::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin-left: calc(-50vw + 50%);
+  width: 100vw;
+  z-index: -1;
+  background:
+    linear-gradient(var(--border), var(--border)) top / 100% 1px no-repeat,
+    linear-gradient(var(--border), var(--border)) bottom / 100% 1px no-repeat;
+}
+
+/* Compact spacer — thin band with just side borders */
+.bp-spacer {
+  display: flex;
+  width: 100%;
+  height: 2px;
+  border-left: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  background: var(--background);
 }
 
 /* Subtle dot pattern for section backgrounds */
@@ -1365,6 +1404,78 @@ html {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--overlay-border-hover);
+}
+
+/* ─── SVG Blueprint Draw Animation ─── */
+
+@keyframes bp-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.bp-draw-line {
+  opacity: 0;
+  stroke-dashoffset: 1000;
+  stroke-dasharray: 1000;
+  animation:
+    fade-in 400ms ease forwards,
+    bp-draw 1.4s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.bp-draw-dashed {
+  opacity: 0;
+  stroke-dashoffset: 2000;
+  stroke-dasharray: 2000 2000;
+  animation:
+    fade-in 500ms ease forwards,
+    bp-draw 1.8s cubic-bezier(0.25, 1, 0.5, 1) forwards,
+    bp-dashed-restore 600ms ease 2.3s forwards;
+}
+
+@keyframes bp-dashed-restore {
+  from {
+    stroke-dasharray: 2000 2000;
+  }
+  to {
+    stroke-dasharray: 4 2;
+  }
+}
+
+.bp-draw-rect {
+  opacity: 0;
+  stroke-dashoffset: 200;
+  stroke-dasharray: 200;
+  animation:
+    fade-in 400ms ease forwards,
+    bp-draw 1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.bp-draw-spiral {
+  opacity: 0;
+  stroke-dashoffset: 10000;
+  stroke-dasharray: 10000;
+  animation:
+    fade-in 500ms ease forwards,
+    bp-draw 3.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bp-draw-line,
+  .bp-draw-rect,
+  .bp-draw-spiral {
+    animation: none;
+    opacity: 1;
+    stroke-dashoffset: 0;
+    stroke-dasharray: none;
+  }
+
+  .bp-draw-dashed {
+    animation: none;
+    opacity: 1;
+    stroke-dashoffset: 0;
+    stroke-dasharray: 4 2;
+  }
 }
 
 /* Navigation Rail Connection

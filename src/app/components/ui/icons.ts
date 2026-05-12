@@ -33,6 +33,7 @@ export {
   Linkedin,
   Mail,
   Menu,
+  Search,
   Share2,
   X,
 } from "lucide-react";

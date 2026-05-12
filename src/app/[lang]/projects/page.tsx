@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
-import { DotPattern, RailLayout, SectionDivider } from "@/components/blueprint";
+import { HatchSeparator, SectionBadge } from "@/components/blueprint";
 import { projectsEn } from "@/lib/content/projects.en";
 import { projectsPt } from "@/lib/content/projects.pt";
 import { getProjects } from "@/lib/projects-data";
 
 const ProjectsClient = dynamic(() => import("./ProjectsClient"), {
   loading: () => (
-    <div className="rail-bounded border border-border px-6 py-16 text-center text-xs font-mono text-muted-foreground">
+    <div className="bp-panel px-4 py-16 text-center text-xs font-mono text-muted-foreground">
       Loading projects...
     </div>
   ),
@@ -44,38 +44,33 @@ export default async function ProjectsPage({ params }: ProjectsPageProps) {
   const projects = getProjects(lang);
 
   return (
-    <RailLayout>
-      <section className="relative">
-        <DotPattern
-          className="opacity-30 sm:opacity-10"
-          style={{
-            left: "var(--rail-offset)",
-            right: "var(--rail-offset)",
-            top: 0,
-            bottom: 0,
-          }}
-        />
-        <div className="rail-bounded">
-          <div className="relative z-10 px-6 pb-6 pt-16 sm:px-8">
-            <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-              {t.badge}
-            </p>
-            <h2 className="mt-3 text-2xl font-semibold tracking-tight sm:text-3xl">
-              {t.title}
-            </h2>
-            <p className="mt-2 max-w-lg text-base text-muted-foreground">
-              {t.description}
-            </p>
-          </div>
-        </div>
+    <div className="mx-auto md:max-w-4xl px-4">
+      {/* ─── Projects Header Panel ─── */}
+      <section
+        data-slot="panel"
+        className="bp-panel bp-line-top bp-line-bottom"
+      >
+        <SectionBadge className="px-4 py-8 sm:px-6">
+          <p className="text-[10px] sm:text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground/60">
+            {t.badge}
+          </p>
+          <h2 className="mt-3 text-2xl font-semibold tracking-tight sm:text-3xl">
+            {t.title}
+          </h2>
+          <p className="mt-2 max-w-lg text-sm text-muted-foreground">
+            {t.description}
+          </p>
+        </SectionBadge>
       </section>
 
-      <SectionDivider />
+      {/* ─── Hatch ─── */}
+      <HatchSeparator />
 
+      {/* ─── Projects Content ─── */}
       <ProjectsClient
         projects={projects}
         emptyStateLabel={t.filters.noResults}
       />
-    </RailLayout>
+    </div>
   );
 }

@@ -2,7 +2,9 @@
 
 import Link from "next/link";
 import { memo, useMemo } from "react";
+import { HatchSeparator } from "@/components/blueprint";
 import { Logo, MonoText } from "@/components/ui";
+import { FluidGradientText } from "@/components/ui/fluid-gradient-text";
 import { Github, Linkedin, Mail } from "@/components/ui/icons";
 import { XIcon } from "@/components/ui/x-icon";
 import { useLanguage } from "@/lib/language-store";
@@ -21,10 +23,6 @@ import { useLocalizedLink } from "@/lib/useLocalizedLink";
  *
  * All inside bp-panel (border-x) with screen-spanning horizontal lines
  */
-
-function Separator({ className }: { className?: string }) {
-  return <div className={className ?? "bp-separator"} />;
-}
 
 export const Footer = memo(() => {
   const { t } = useLanguage();
@@ -62,13 +60,13 @@ export const Footer = memo(() => {
   );
 
   return (
-    <footer className="max-w-screen overflow-x-hidden px-2">
-      <div className="mx-auto md:max-w-3xl">
+    <footer className="max-w-screen">
+      <div className="mx-auto md:max-w-4xl px-4">
         {/* ─── Hatch Separator ─── */}
-        <Separator />
+        <HatchSeparator />
 
         {/* ─── Brand Row ─── */}
-        <div className="bp-panel bp-line-bottom flex items-center justify-between px-4 py-4">
+        <div className="bp-panel bp-line-bottom flex items-center justify-between px-4 py-4 sm:px-6">
           <Link
             href={getLocalizedLink("/")}
             className="group flex items-center gap-3 text-foreground transition-colors duration-150 hover:text-muted-foreground"
@@ -98,7 +96,7 @@ export const Footer = memo(() => {
 
           <div className="relative grid grid-cols-1 sm:grid-cols-[1fr_auto_1fr]">
             {/* Nav Column */}
-            <nav className="flex flex-col gap-0 px-4 py-3">
+            <nav className="flex flex-col gap-0 px-4 py-3 sm:px-6">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
@@ -122,11 +120,11 @@ export const Footer = memo(() => {
               ))}
             </nav>
 
-            {/* Center divider */}
+            {/* Center divider (vertical on sm+, hidden on mobile) */}
             <div className="hidden sm:block w-px" />
 
             {/* Social Column */}
-            <div className="flex flex-col items-start justify-center gap-2 px-4 py-3 sm:items-end">
+            <div className="flex flex-col items-start justify-center gap-2 border-t border-border/20 px-4 py-3 sm:border-t-0 sm:items-end sm:px-6">
               <MonoText className="text-[9px] tracking-[0.2em] text-border/80 uppercase">
                 connect
               </MonoText>
@@ -154,7 +152,7 @@ export const Footer = memo(() => {
         </div>
 
         {/* ─── Bottom Bar ─── */}
-        <div className="bp-panel flex items-center justify-between px-4 py-4">
+        <div className="bp-panel flex  bp-line-bottom items-center justify-between px-4 py-4 sm:px-6">
           <MonoText className="text-[10px] tracking-[0.15em] text-border/80">
             © {t.footer.year}
           </MonoText>
@@ -163,11 +161,15 @@ export const Footer = memo(() => {
           </MonoText>
         </div>
       </div>
+      <div className="px-4 py-4 sm:px-6">
+        {/* Fluid Gradient Text */}
+        <div className="text-foreground h-24 sm:h-32 md:h-40">
+          <FluidGradientText text="Pedro Felipe" mobileText="Pedro" />
+        </div>
+      </div>
 
       {/* Safe area spacer */}
-      <div className="pb-[env(safe-area-inset-bottom,0px)]">
-        <div className="h-16" />
-      </div>
+      <div className="pb-[env(safe-area-inset-bottom,0px)]" />
     </footer>
   );
 });

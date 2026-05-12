@@ -12,6 +12,8 @@ interface SearchState {
   loaded: boolean;
   /** Loading in progress flag — prevents duplicate fetches */
   loading: boolean;
+  /** Error message if index fetch failed, null otherwise */
+  error: string | null;
 
   open: () => void;
   close: () => void;
@@ -21,6 +23,8 @@ interface SearchState {
    * Safe to call multiple times — only fetches once.
    */
   loadIndex: () => Promise<void>;
+  /** Reset error state and retry loading the index */
+  retry: () => void;
 }
 
 export const useSearchStore = create<SearchState>((set, get) => ({
@@ -29,10 +33,22 @@ export const useSearchStore = create<SearchState>((set, get) => ({
   fuse: null,
   loaded: false,
   loading: false,
+  error: null,
 
   open: () => set({ isOpen: true }),
   close: () => set({ isOpen: false }),
   toggle: () => set((s) => ({ isOpen: !s.isOpen })),
+
+  retry: () => {
+    set({
+      items: null,
+      fuse: null,
+      loaded: false,
+      loading: false,
+      error: null,
+    });
+    get().loadIndex();
+  },
 
   loadIndex: async () => {
     const state = get();
@@ -62,10 +78,12 @@ export const useSearchStore = create<SearchState>((set, get) => ({
         includeScore: true,
       });
 
-      set({ items, fuse, loaded: true, loading: false });
+      set({ items, fuse, loaded: true, loading: false, error: null });
     } catch (error) {
+      const message =
+        error instanceof Error ? error.message : "Failed to load search index";
       console.error("Failed to load search index:", error);
-      set({ loaded: false, loading: false });
+      set({ loaded: true, loading: false, error: message });
     }
   },
 }));

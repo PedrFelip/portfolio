@@ -40,6 +40,8 @@ export const SearchCommand = memo(function SearchCommand() {
   const items = useSearchStore((s) => s.items);
   const loaded = useSearchStore((s) => s.loaded);
   const loading = useSearchStore((s) => s.loading);
+  const error = useSearchStore((s) => s.error);
+  const retry = useSearchStore((s) => s.retry);
   const loadIndex = useSearchStore((s) => s.loadIndex);
   const router = useRouter();
   const { language } = useLanguage();
@@ -221,6 +223,22 @@ export const SearchCommand = memo(function SearchCommand() {
           {!loaded && loading ? (
             <div className="flex items-center justify-center py-10 text-muted-foreground/40">
               <div className="size-4 border border-muted-foreground/20 border-t-muted-foreground/60 rounded-full animate-spin" />
+            </div>
+          ) : error ? (
+            <div className="flex flex-col items-center justify-center py-10 text-muted-foreground/40">
+              <Search className="size-6 mb-2" />
+              <p className="text-xs mb-3">
+                {language === "pt"
+                  ? "Falha ao carregar o índice de busca"
+                  : "Failed to load search index"}
+              </p>
+              <button
+                type="button"
+                onClick={retry}
+                className="text-[10px] font-mono px-2 py-1 rounded-[2px] border border-border/60 bg-surface-2 text-muted-foreground/50 hover:text-muted-foreground hover:border-border transition-colors duration-150"
+              >
+                {language === "pt" ? "Tentar novamente" : "Retry"}
+              </button>
             </div>
           ) : isSearching && displayItems.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-10 text-muted-foreground/40">

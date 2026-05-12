@@ -1,4 +1,3 @@
-import { History } from "lucide-react";
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import {
@@ -16,10 +15,10 @@ import { aboutEn } from "@/lib/content/about.en";
 import { aboutPt } from "@/lib/content/about.pt";
 import { parseBoldMarkdown } from "@/lib/markdown";
 
-const WorkExperienceCard = dynamic(
+const WorkExperienceBlueprint = dynamic(
   () =>
-    import("@/components/about/WorkExperienceCard").then(
-      (mod) => mod.WorkExperienceCard,
+    import("@/components/about/WorkExperienceBlueprint").then(
+      (mod) => mod.WorkExperienceBlueprint,
     ),
   {
     loading: () => (
@@ -118,39 +117,12 @@ export default async function AboutPage({ params }: AboutPageProps) {
       <HatchSeparator />
 
       {/* ─── Work Experience Panel ─── */}
-      <section
-        id="experience"
-        data-slot="panel"
-        className="bp-panel bp-line-bottom"
-      >
-        {/* Header */}
-        <SectionBadge className="px-4 py-3 sm:px-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-[10px] sm:text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground/60">
-                {t.work.badge}
-              </p>
-              <h2 className="mt-1 text-lg font-semibold tracking-tight sm:text-xl">
-                {t.work.title}
-              </h2>
-            </div>
-            <History className="size-5 text-muted-foreground/20" />
-          </div>
-        </SectionBadge>
-
-        {/* Experience List */}
-        <div className="border-t border-dashed border-border/50">
-          {workExperience.map((exp, i) => (
-            <div
-              key={`${exp.company}-${exp.title}`}
-              className="dp-panel bg-background animate-in-up"
-              style={{ animationDelay: `${100 + i * 80}ms` }}
-            >
-              <WorkExperienceCard experience={exp} />
-            </div>
-          ))}
-        </div>
-      </section>
+      <WorkExperienceBlueprint
+        experiences={workExperience}
+        title={t.work.title}
+        badge={t.work.badge}
+        presentLabel={t.work.present}
+      />
 
       {/* ─── Spacer ─── */}
       <PanelSpacer />

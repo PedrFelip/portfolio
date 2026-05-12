@@ -1,7 +1,7 @@
 "use client";
 
-import { useCallback, useEffect, useRef } from "react";
 import { m, useMotionValue, useSpring } from "motion/react";
+import { useCallback, useEffect, useRef } from "react";
 
 export type FluidGradientTextProps = {
   text: string;

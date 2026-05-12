@@ -69,8 +69,6 @@ export function HomeCtaSection({
                 <ArrowRight className="size-3.5 text-muted-foreground/30 opacity-70 group-hover:translate-x-1.5 group-hover:opacity-100 group-hover:text-foreground transition-all duration-300 ease-[cubic-bezier(0.25,1,0.5,1)]" />
               </Link>
             </div>
-
-
           </div>
         </div>
       </div>

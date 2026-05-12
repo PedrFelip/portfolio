@@ -117,12 +117,10 @@ export const SearchCommand = memo(function SearchCommand() {
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, []);
 
-  // Reset active index when results change
-  const prevLenRef = useRef(displayItems.length);
-  if (prevLenRef.current !== displayItems.length) {
-    prevLenRef.current = displayItems.length;
-    if (activeIndex !== 0) setActiveIndex(0);
-  }
+  useEffect(() => {
+    void displayItems.length;
+    setActiveIndex(0);
+  }, [displayItems.length]);
 
   // Navigate to item
   const navigateTo = useCallback(

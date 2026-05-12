@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { useCallback, useRef, useState } from "react";
 import { FlickerOverlay } from "@/components/common/FlickerOverlay";
 import { MonoText, P } from "@/components/ui";
@@ -197,7 +197,7 @@ export function BlogList({
           <div className="relative z-0">
             <AnimatePresence mode="wait">
               {contentVisible && currentPosts.length > 0 ? (
-                <motion.div
+                <m.div
                   key={listKey}
                   ref={handleListRef}
                   variants={flickerContentVariants}
@@ -216,9 +216,9 @@ export function BlogList({
                       <BlogCard post={post} />
                     </div>
                   ))}
-                </motion.div>
+                </m.div>
               ) : contentVisible ? (
-                <motion.div
+                <m.div
                   key={`${listKey}-empty`}
                   ref={handleListRef}
                   variants={flickerContentVariants}
@@ -228,9 +228,9 @@ export function BlogList({
                   className="px-6 py-12 text-center text-muted-foreground text-sm"
                 >
                   {t.noPosts}
-                </motion.div>
+                </m.div>
               ) : (
-                <motion.div
+                <m.div
                   key="placeholder"
                   variants={flickerContentVariants}
                   initial="animate"
@@ -242,7 +242,7 @@ export function BlogList({
                   <div
                     style={minHeight !== undefined ? { minHeight } : undefined}
                   />
-                </motion.div>
+                </m.div>
               )}
             </AnimatePresence>
           </div>
@@ -256,7 +256,7 @@ export function BlogList({
                 className="terminal-glow inline-flex items-center gap-2 rounded border border-border bg-card px-4 py-2 text-xs font-medium text-foreground disabled:cursor-not-allowed disabled:opacity-40 transition-colors duration-150 hover:border-foreground/30"
                 aria-label={t.previous}
               >
-                <ChevronLeft className="h-3.5 w-3.5" />
+                <ChevronLeft className="size-3.5" />
                 <span>{t.previous}</span>
               </button>
 
@@ -274,7 +274,7 @@ export function BlogList({
                 aria-label={t.next}
               >
                 <span>{t.next}</span>
-                <ChevronRight className="h-3.5 w-3.5" />
+                <ChevronRight className="size-3.5" />
               </button>
             </div>
           )}

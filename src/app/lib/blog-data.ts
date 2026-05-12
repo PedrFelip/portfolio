@@ -29,7 +29,7 @@ function isPostPublished(frontmatter: Record<string, unknown>): boolean {
  * Slugify text for anchor IDs
  * Handles Portuguese characters (accents, ç)
  */
-export function slugify(text: string): string {
+function slugify(text: string): string {
   return text
     .toLowerCase()
     .normalize("NFD") // Decompose accents
@@ -49,7 +49,7 @@ export function slugify(text: string): string {
  * Best Practice 7.11 - Use Set/Map for O(1) Lookups
  * Uses Set to track duplicate IDs and append numeric suffixes
  */
-export function extractHeadings(content: string): Heading[] {
+function extractHeadings(content: string): Heading[] {
   const headingRegex = /^(#{2,3})\s+(.+?)$/gm;
   const headings: Heading[] = [];
   const idCounts = new Map<string, number>(); // Track ID occurrences for deduplication
@@ -91,10 +91,12 @@ export function getAllPostSlugs(): string[] {
   }
 
   const files = fs.readdirSync(BLOG_DIR);
-  return files
-    .filter((file) => file.endsWith(".md") || file.endsWith(".mdx"))
-    .map((file) => file.replace(/\.mdx?$/, ""))
-    .filter((slug) => getPostBySlug(slug) !== null);
+  return files.reduce<string[]>((acc, file) => {
+    if (!file.endsWith(".md") && !file.endsWith(".mdx")) return acc;
+    const slug = file.replace(/\.mdx?$/, "");
+    if (getPostBySlug(slug) !== null) acc.push(slug);
+    return acc;
+  }, []);
 }
 
 /**
@@ -146,27 +148,22 @@ export const getPostBySlug = cache((slug: string): BlogPost | null => {
 export const getAllPosts = cache((): BlogMetadata[] => {
   const slugs = getAllPostSlugs();
 
-  const posts = slugs
-    .map((slug) => {
-      const post = getPostBySlug(slug);
-      if (!post) return null;
+  const posts = slugs.reduce<BlogMetadata[]>((acc, slug) => {
+    const post = getPostBySlug(slug);
+    if (!post) return acc;
 
-      const readingTime = calculateReadingTime(post.content);
-
-      // Return only metadata for list view
-      return {
-        slug: post.slug,
-        title: post.title,
-        date: post.date,
-        excerpt: post.excerpt,
-        tags: post.tags,
-        readingTime,
-      } as BlogMetadata;
-    })
-    .filter((post): post is BlogMetadata => post !== null)
-    .sort((a, b) => {
-      return new Date(b.date).getTime() - new Date(a.date).getTime();
+    acc.push({
+      slug: post.slug,
+      title: post.title,
+      date: post.date,
+      excerpt: post.excerpt,
+      tags: post.tags,
+      readingTime: calculateReadingTime(post.content),
     });
+    return acc;
+  }, []);
+
+  posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
   return posts;
 });
@@ -192,7 +189,7 @@ export function getAllTags(): string[] {
  * Average reading speed: 200-250 words per minute
  * Uses 225 as the average
  */
-export function calculateReadingTime(content: string): number {
+function calculateReadingTime(content: string): number {
   const wordCount = content
     .split(/\s+/)
     .filter((word) => word.length > 0).length;

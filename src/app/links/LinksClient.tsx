@@ -81,7 +81,7 @@ const LinkItem = memo(({ label, url, icon, description }: LinkItemProps) => {
     >
       <div className="flex flex-shrink-0 items-center justify-center">
         <Icon
-          className={`h-6 w-6 sm:h-7 sm:w-7 lg:h-8 lg:w-8 text-muted-foreground transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-110 group-hover:rotate-3 ${colors.icon}`}
+          className={`size-6 sm:size-7 lg:size-8 text-muted-foreground transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-110 group-hover:rotate-3 ${colors.icon}`}
           strokeWidth={1.5}
           aria-hidden="true"
         />
@@ -99,7 +99,7 @@ const LinkItem = memo(({ label, url, icon, description }: LinkItemProps) => {
       </div>
 
       <ArrowRight
-        className={`h-5 w-5 sm:h-6 sm:w-6 lg:h-7 lg:w-7 flex-shrink-0 text-muted-foreground/40 transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:translate-x-1.5 group-hover:scale-110 group-hover:opacity-100 ${colors.icon}`}
+        className={`size-5 sm:size-6 lg:size-7 flex-shrink-0 text-muted-foreground/40 transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:translate-x-1.5 group-hover:scale-110 group-hover:opacity-100 ${colors.icon}`}
         strokeWidth={1.5}
         aria-hidden="true"
       />

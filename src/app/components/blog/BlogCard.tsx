@@ -35,7 +35,7 @@ export const BlogCard = memo(({ post }: BlogCardProps) => {
     >
       <div className="flex items-center gap-3 mb-2">
         <span className="inline-flex items-center gap-1.5 text-muted-foreground/70">
-          <Calendar className="h-3 w-3" aria-hidden="true" />
+          <Calendar className="size-3" aria-hidden="true" />
           <MonoText className="text-[11px]">
             <time dateTime={post.date}>{formattedDate}</time>
           </MonoText>
@@ -47,7 +47,7 @@ export const BlogCard = memo(({ post }: BlogCardProps) => {
               ·
             </span>
             <span className="inline-flex items-center gap-1 text-muted-foreground/70">
-              <Clock className="h-3 w-3" aria-hidden="true" />
+              <Clock className="size-3" aria-hidden="true" />
               <MonoText className="text-[11px]">
                 {post.readingTime} min
               </MonoText>
@@ -95,7 +95,7 @@ export const BlogCard = memo(({ post }: BlogCardProps) => {
         >
           {t.blog.readMore}
           <ArrowRight
-            className="h-3 w-3 transition-transform duration-150 group-hover:translate-x-0.5"
+            className="size-3 text-muted-foreground/30 translate-x-0 opacity-70 group-hover:translate-x-1.5 group-hover:opacity-100 group-hover:text-accent transition-all duration-300 ease-[cubic-bezier(0.25,1,0.5,1)]"
             aria-hidden="true"
           />
         </span>

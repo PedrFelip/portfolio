@@ -82,22 +82,22 @@ export const FooterGridCell = memo(function FooterGridCell({
         <>
           {/* Top-left corner */}
           <div
-            className="absolute left-2 top-2 h-3 w-3 border-l border-t border-border/20 transition-colors duration-200 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:border-border/50"
+            className="absolute left-2 top-2 size-3 border-l border-t border-border/20 transition-colors duration-200 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:border-border/50"
             aria-hidden="true"
           />
           {/* Top-right corner */}
           <div
-            className="absolute right-2 top-2 h-3 w-3 border-r border-t border-border/20 transition-colors duration-200 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:border-border/50"
+            className="absolute right-2 top-2 size-3 border-r border-t border-border/20 transition-colors duration-200 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:border-border/50"
             aria-hidden="true"
           />
           {/* Bottom-left corner */}
           <div
-            className="absolute bottom-2 left-2 h-3 w-3 border-b border-l border-border/20 transition-colors duration-200 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:border-border/50"
+            className="absolute bottom-2 left-2 size-3 border-b border-l border-border/20 transition-colors duration-200 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:border-border/50"
             aria-hidden="true"
           />
           {/* Bottom-right corner */}
           <div
-            className="absolute bottom-2 right-2 h-3 w-3 border-b border-r border-border/20 transition-colors duration-200 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:border-border/50"
+            className="absolute bottom-2 right-2 size-3 border-b border-r border-border/20 transition-colors duration-200 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:border-border/50"
             aria-hidden="true"
           />
         </>

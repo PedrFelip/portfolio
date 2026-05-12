@@ -1273,6 +1273,70 @@ html {
   background: var(--border);
 }
 
+/* ─── Blueprint Panel System (chanhdai.com inspired) ─── */
+
+/* Horizontal lines that span full viewport width, behind content */
+.bp-line-top {
+  position: relative;
+}
+.bp-line-top::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100vw;
+  z-index: 1;
+  height: 1px;
+  width: 200vw;
+  background: var(--border);
+}
+
+.bp-line-bottom {
+  position: relative;
+}
+.bp-line-bottom::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: -100vw;
+  z-index: 1;
+  height: 1px;
+  width: 200vw;
+  background: var(--border);
+}
+
+/* Panel: bordered section with side lines */
+.bp-panel {
+  border-left: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+}
+
+/* Diagonal hatch separator between panels */
+.bp-separator {
+  position: relative;
+  display: flex;
+  height: 2rem;
+  width: 100%;
+  border-left: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+}
+.bp-separator::before {
+  content: "";
+  position: absolute;
+  left: -100vw;
+  z-index: 0;
+  height: 2rem;
+  width: 200vw;
+  background: repeating-linear-gradient(
+    315deg,
+    var(--border) 0,
+    var(--border) 1px,
+    transparent 0,
+    transparent 50%
+  );
+  background-size: 10px 10px;
+  opacity: 0.3;
+}
+
 /* Subtle dot pattern for section backgrounds */
 .dot-pattern {
   background-image: radial-gradient(var(--surface-4) 1px, transparent 1px);

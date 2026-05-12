@@ -2,75 +2,30 @@
 
 import Link from "next/link";
 import { memo, useMemo } from "react";
-import { FooterGrid, FooterGridCell } from "@/components/blueprint";
-import { Label, Logo, MonoText } from "@/components/ui";
+import { Logo, MonoText } from "@/components/ui";
 import { Github, Linkedin, Mail } from "@/components/ui/icons";
 import { XIcon } from "@/components/ui/x-icon";
 import { useLanguage } from "@/lib/language-store";
 import { socialLinks } from "@/lib/links";
 import { useLocalizedLink } from "@/lib/useLocalizedLink";
 
-interface FooterLinkProps {
-  href: string;
-  children: React.ReactNode;
-  external?: boolean;
-}
-
 /**
- * FooterLink component - Internal navigation link
- * Structural Grid: subtle hover with underline animation
- */
-const FooterLink = memo(
-  ({ href, children, external = false }: FooterLinkProps) => (
-    <Link
-      href={href}
-      target={external ? "_blank" : undefined}
-      rel={external ? "noopener noreferrer" : undefined}
-      className="link-underline inline-flex min-h-[30px] items-center text-sm text-muted-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background touch-manipulation"
-    >
-      {children}
-    </Link>
-  ),
-);
-FooterLink.displayName = "FooterLink";
-
-interface SocialLinkProps {
-  href: string;
-  label: string;
-  icon: React.ReactNode;
-}
-
-/**
- * SocialLink component - External social/contact link
- * Structural Grid: Consistent blueprint-style button
- */
-const SocialLink = memo(({ href, label, icon }: SocialLinkProps) => (
-  <a
-    href={href}
-    target="_blank"
-    rel="noopener noreferrer"
-    aria-label={label}
-    className="group relative flex h-10 w-10 items-center justify-center rounded border border-overlay-border bg-surface-3 text-muted-foreground transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-overlay-border-hover hover:bg-faint hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background active:scale-[0.97] touch-manipulation"
-  >
-    <div className="relative z-10 transition-transform duration-150 group-hover:scale-110">
-      {icon}
-    </div>
-  </a>
-));
-SocialLink.displayName = "SocialLink";
-
-/**
- * Footer component
+ * Footer — chanhdai.com inspired blueprint layout
  *
- * Design principles (AGENTS.md + Structural Grid + Blueprint):
- * - Container alignment: matches Navigation (mx-auto max-w-6xl px-4 sm:px-6)
- * - Blueprint Grid: visible vertical grid lines connecting cells (architectural aesthetic)
- * - Corner brackets: L-shaped technical markers on all 4 corners of each cell
- * - Hover effects: subtle background + bracket glow (150ms transitions)
- * - 4px grid: consistent spacing throughout
- * - Symmetrical padding: px-6 (24px) and py-12 (48px) on each cell
- * - Dot pattern: restricted to non-contact cells to avoid visual clutter
+ * Structure (top to bottom):
+ * 1. Diagonal hatch separator
+ * 2. Brand row: logo + name | tagline mono
+ * 3. Two-column grid: nav links | social icons
+ *    - visible vertical grid line between columns
+ * 4. Bottom bar: copyright | version
+ *
+ * All inside bp-panel (border-x) with screen-spanning horizontal lines
  */
+
+function Separator({ className }: { className?: string }) {
+  return <div className={className ?? "bp-separator"} />;
+}
+
 export const Footer = memo(() => {
   const { t } = useLanguage();
   const getLocalizedLink = useLocalizedLink();
@@ -85,7 +40,7 @@ export const Footer = memo(() => {
     [t.nav],
   );
 
-  const footerSocialLinks: SocialLinkProps[] = useMemo(
+  const footerSocialLinks = useMemo(
     () =>
       socialLinks
         .filter((l) => l.icon !== "portfolio")
@@ -94,96 +49,124 @@ export const Footer = memo(() => {
           label: link.label,
           icon:
             link.icon === "github" ? (
-              <Github className="h-4 w-4" />
+              <Github className="size-3.5" />
             ) : link.icon === "linkedin" ? (
-              <Linkedin className="h-4 w-4" />
+              <Linkedin className="size-3.5" />
             ) : link.icon === "x" ? (
-              <XIcon className="h-4 w-4" />
+              <XIcon className="size-3.5" />
             ) : (
-              <Mail className="h-4 w-4" />
+              <Mail className="size-3.5" />
             ),
         })),
     [],
   );
 
   return (
-    <footer className="relative border-t border-border bg-background">
-      {/* Main container - matches Navigation max-w-6xl and padding */}
-      <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
-        {/* Blueprint Grid with visible grid lines and corner brackets */}
-        <FooterGrid>
-          {/* Brand Column */}
-          <FooterGridCell showCorners={false} showDotPattern={true}>
-            <div className="flex items-center gap-3">
-              <Link
-                href={getLocalizedLink("/")}
-                className="text-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background touch-manipulation"
-              >
-                <Logo height={28} className="h-6 sm:h-7 w-auto" />
-              </Link>
-              <span className="h-8 w-px bg-border" aria-hidden="true" />
-              <div>
-                <p className="text-sm font-semibold tracking-tight text-foreground">
-                  Pedro Felipe
-                </p>
-                <p className="text-xs leading-relaxed text-muted-foreground">
-                  Backend Engineer
-                </p>
-              </div>
-            </div>
-          </FooterGridCell>
+    <footer className="max-w-screen overflow-x-hidden px-2">
+      <div className="mx-auto md:max-w-3xl">
+        {/* ─── Hatch Separator ─── */}
+        <Separator />
 
-          {/* Navigation Column */}
-          <FooterGridCell showCorners={false} showDotPattern={true}>
-            <Label className="mb-4 block text-xs font-medium uppercase tracking-wide text-muted-foreground">
-              {t.footer.navigation}
-            </Label>
-            <nav className="flex flex-col gap-3">
-              {navLinks.map((link) => (
-                <FooterLink key={link.href} href={getLocalizedLink(link.href)}>
-                  {link.label}
-                </FooterLink>
-              ))}
-            </nav>
-          </FooterGridCell>
-
-          {/* Connect Column - NO DotPattern as requested */}
-          <FooterGridCell showCorners={false} showDotPattern={false}>
-            <Label className="mb-4 block text-xs font-medium uppercase tracking-wide text-muted-foreground">
-              {t.footer.connect}
-            </Label>
-            <div className="flex flex-wrap gap-3">
-              {footerSocialLinks.map((link) => (
-                <SocialLink
-                  key={link.href}
-                  href={link.href}
-                  label={link.label}
-                  icon={link.icon}
-                />
-              ))}
-            </div>
-          </FooterGridCell>
-
-          {/* Tech Stack Column */}
-          <FooterGridCell showCorners={false} showDotPattern={true}>
-            <Label className="mb-4 block text-xs font-medium uppercase tracking-wide text-muted-foreground">
-              Built With
-            </Label>
-            <MonoText className="text-sm leading-relaxed text-muted-foreground">
-              {t.footer.builtWith}
-            </MonoText>
-          </FooterGridCell>
-        </FooterGrid>
-
-        {/* Bottom Bar - matches Navigation container */}
-        <div className="flex flex-col items-start gap-4 border-t border-border py-8 sm:flex-row sm:items-center sm:justify-between sm:gap-0">
-          <MonoText className="text-xs text-muted-foreground sm:text-sm">
-            © {t.footer.year} Pedro Felipe
-          </MonoText>
-          <MonoText className="text-xs text-muted-foreground sm:text-sm">
-            v4.2.1
+        {/* ─── Brand Row ─── */}
+        <div className="bp-panel bp-line-bottom flex items-center justify-between px-4 py-4">
+          <Link
+            href={getLocalizedLink("/")}
+            className="group flex items-center gap-3 text-foreground transition-colors duration-150 hover:text-muted-foreground"
+          >
+            <Logo height={22} className="h-5 w-auto" />
+            <span className="h-4 w-px bg-border/40" aria-hidden="true" />
+            <span className="text-sm font-medium tracking-tight">
+              Pedro Felipe
+            </span>
+          </Link>
+          <MonoText className="text-[10px] tracking-[0.2em] text-border uppercase hidden sm:block">
+            backend engineer
           </MonoText>
         </div>
+
+        {/* ─── Two-column: Nav + Social ─── */}
+        <div className="bp-panel bp-line-bottom relative">
+          {/* Vertical grid lines */}
+          <div
+            className="pointer-events-none absolute inset-0 hidden sm:grid sm:grid-cols-[1fr_auto_1fr]"
+            aria-hidden="true"
+          >
+            <div />
+            <div className="border-x border-border/40" />
+            <div />
+          </div>
+
+          <div className="relative grid grid-cols-1 sm:grid-cols-[1fr_auto_1fr]">
+            {/* Nav Column */}
+            <nav className="flex flex-col gap-0 px-4 py-3">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={getLocalizedLink(link.href)}
+                  className="
+                    group flex items-center gap-2 py-1.5 text-sm text-muted-foreground
+                    transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)]
+                    hover:text-foreground
+                  "
+                >
+                  <span
+                    className="
+                      inline-block h-px bg-border/40
+                      transition-all duration-300 ease-[cubic-bezier(0.25,1,0.5,1)]
+                      w-3 group-hover:w-5 group-hover:bg-foreground/40
+                    "
+                    aria-hidden="true"
+                  />
+                  {link.label}
+                </Link>
+              ))}
+            </nav>
+
+            {/* Center divider */}
+            <div className="hidden sm:block w-px" />
+
+            {/* Social Column */}
+            <div className="flex flex-col items-start justify-center gap-2 px-4 py-3 sm:items-end">
+              <MonoText className="text-[9px] tracking-[0.2em] text-border/80 uppercase">
+                connect
+              </MonoText>
+              <div className="flex items-center gap-3">
+                {footerSocialLinks.map((link) => (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={link.label}
+                    className="
+                      text-muted-foreground/50 transition-all duration-300
+                      ease-[cubic-bezier(0.25,1,0.5,1)] hover:text-foreground
+                    "
+                  >
+                    <span className="block transition-transform duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] hover:scale-110">
+                      {link.icon}
+                    </span>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* ─── Bottom Bar ─── */}
+        <div className="bp-panel flex items-center justify-between px-4 py-4">
+          <MonoText className="text-[10px] tracking-[0.15em] text-border/80">
+            © {t.footer.year}
+          </MonoText>
+          <MonoText className="text-[10px] tracking-[0.15em] text-border/80">
+            v4.4.0
+          </MonoText>
+        </div>
+      </div>
+
+      {/* Safe area spacer */}
+      <div className="pb-[env(safe-area-inset-bottom,0px)]">
+        <div className="h-16" />
       </div>
     </footer>
   );

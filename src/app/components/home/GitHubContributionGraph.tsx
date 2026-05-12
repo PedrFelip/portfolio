@@ -138,7 +138,7 @@ export const GitHubContributionGraph = memo(
                         key={day.date}
                         type="button"
                         className={cn(
-                          "group relative h-[10px] w-[10px] rounded-[3px] border border-overlay-border transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)]",
+                          "group relative size-[10px] rounded-[3px] border border-overlay-border transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)]",
                           "hover:border-overlay-border-hover hover:scale-110 hover:z-10 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent",
                           selectedDay?.date === day.date &&
                             "border-accent ring-1 ring-accent z-10 scale-110",
@@ -204,7 +204,7 @@ export const GitHubContributionGraph = memo(
             {[0, 1, 2, 3, 4].map((lvl) => (
               <div
                 key={lvl}
-                className="h-2 w-2 rounded-[2px] border border-surface-4"
+                className="size-2 rounded-[2px] border border-surface-4"
                 style={{
                   backgroundColor: getContributionColor(
                     lvl as 0 | 1 | 2 | 3 | 4,

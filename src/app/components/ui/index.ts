@@ -9,6 +9,6 @@
 
 export { Badge } from "./badge";
 export { Button } from "./button";
-export { Card, CardContent } from "./card";
+export { Card } from "./card";
 export { Logo } from "./logo";
 export { H1, H3, Label, Lead, MonoText, P } from "./typography";

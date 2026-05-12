@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
+import { m, useInView } from "framer-motion";
 import { useRef } from "react";
 import { blueprintDrawVariants, revealVariants } from "@/lib/animations";
 import { cn } from "@/lib/utils";
@@ -40,7 +40,7 @@ export function BlueprintReveal({
   const isInView = useInView(ref, { once, margin: "-10% 0px -10% 0px" });
 
   return (
-    <motion.div
+    <m.div
       ref={ref}
       className={cn("relative", className)}
       variants={blueprintDrawVariants}
@@ -57,25 +57,21 @@ export function BlueprintReveal({
       </div>
 
       {(dotPattern || cornerBrackets || flickeringGrid) && (
-        <motion.div
+        <m.div
           className={cn("absolute inset-0 pointer-events-none", decorClassName)}
           variants={decorativeCascade}
         >
           {dotPattern ? (
-            <motion.div variants={revealVariants.fade}>{dotPattern}</motion.div>
+            <m.div variants={revealVariants.fade}>{dotPattern}</m.div>
           ) : null}
           {cornerBrackets ? (
-            <motion.div variants={revealVariants.fade}>
-              {cornerBrackets}
-            </motion.div>
+            <m.div variants={revealVariants.fade}>{cornerBrackets}</m.div>
           ) : null}
           {flickeringGrid ? (
-            <motion.div variants={revealVariants.fade}>
-              {flickeringGrid}
-            </motion.div>
+            <m.div variants={revealVariants.fade}>{flickeringGrid}</m.div>
           ) : null}
-        </motion.div>
+        </m.div>
       )}
-    </motion.div>
+    </m.div>
   );
 }

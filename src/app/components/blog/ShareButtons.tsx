@@ -113,7 +113,7 @@ export const ShareButtons = memo(
             className="terminal-glow inline-flex h-11 md:h-9 items-center gap-2 rounded-md border border-border bg-card px-3 py-2 text-sm text-muted-foreground transition-all duration-200 hover:text-foreground active:scale-[0.97] touch-manipulation select-none"
             aria-label={`${tBlog.shareOn} X (Twitter)`}
           >
-            <XIcon className="h-3.5 w-3.5" />
+            <XIcon className="size-3.5" />
             <MonoText className="text-xs">[X]</MonoText>
           </a>
 
@@ -124,7 +124,7 @@ export const ShareButtons = memo(
             className="terminal-glow inline-flex h-11 md:h-9 items-center gap-2 rounded-md border border-border bg-card px-3 py-2 text-sm text-muted-foreground transition-all duration-200 hover:text-foreground active:scale-[0.97] touch-manipulation select-none"
             aria-label={`${tBlog.shareOn} LinkedIn`}
           >
-            <Linkedin className="h-3.5 w-3.5" />
+            <Linkedin className="size-3.5" />
             <MonoText className="text-xs">[LI]</MonoText>
           </a>
 
@@ -133,7 +133,7 @@ export const ShareButtons = memo(
             className="terminal-glow inline-flex h-11 md:h-9 items-center gap-2 rounded-md border border-border bg-card px-3 py-2 text-sm text-muted-foreground transition-all duration-200 hover:text-foreground active:scale-[0.97] touch-manipulation select-none"
             aria-label={`${tBlog.shareVia} Email`}
           >
-            <Mail className="h-3.5 w-3.5" />
+            <Mail className="size-3.5" />
             <MonoText className="text-xs">[EMAIL]</MonoText>
           </a>
 
@@ -146,12 +146,12 @@ export const ShareButtons = memo(
           >
             {copied ? (
               <>
-                <Share2 className="h-3.5 w-3.5 text-accent" />
+                <Share2 className="size-3.5 text-accent" />
                 <MonoText className="text-xs text-accent">[COPIED]</MonoText>
               </>
             ) : (
               <>
-                <LinkIcon className="h-3.5 w-3.5" />
+                <LinkIcon className="size-3.5" />
                 <MonoText className="text-xs">[COPY]</MonoText>
               </>
             )}

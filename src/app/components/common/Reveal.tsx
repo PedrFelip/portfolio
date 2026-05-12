@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useReducedMotion, type Variants } from "framer-motion";
+import { m, useReducedMotion, type Variants } from "framer-motion";
 import { type ElementType, type JSX, memo, type ReactNode } from "react";
 import { revealFadeVariants, revealVariants } from "@/lib/animations";
 
@@ -41,7 +41,7 @@ export const Reveal = memo(function Reveal({
     return <Tag className={className}>{children}</Tag>;
   }
 
-  const MotionTag = motion[as as keyof typeof motion] as typeof motion.div;
+  const MotionTag = m[as as keyof typeof m] as typeof m.div;
 
   return (
     <MotionTag

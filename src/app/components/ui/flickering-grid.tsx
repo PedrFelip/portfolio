@@ -1,7 +1,7 @@
 "use client";
 
 import type React from "react";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { FLICKER_CONFIG } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
@@ -49,66 +49,20 @@ export const FlickeringGrid: React.FC<FlickeringGridProps> = ({
     return toRGBA(color);
   }, [color]);
 
-  const setupCanvas = useCallback(
-    (canvas: HTMLCanvasElement, width: number, height: number) => {
-      const dpr = window.devicePixelRatio || 1;
-      canvas.width = width * dpr;
-      canvas.height = height * dpr;
-      canvas.style.width = `${width}px`;
-      canvas.style.height = `${height}px`;
-      const cols = Math.ceil(width / (squareSize + gridGap));
-      const rows = Math.ceil(height / (squareSize + gridGap));
-
-      const squares = new Float32Array(cols * rows);
-      for (let i = 0; i < squares.length; i++) {
-        squares[i] = Math.random() * maxOpacity;
-      }
-
-      return { cols, rows, squares, dpr };
-    },
-    [squareSize, gridGap, maxOpacity],
-  );
-
-  const updateSquares = useCallback(
-    (squares: Float32Array, deltaTime: number) => {
-      for (let i = 0; i < squares.length; i++) {
-        if (Math.random() < flickerChance * deltaTime) {
-          squares[i] = Math.random() * maxOpacity;
-        }
-      }
-    },
-    [flickerChance, maxOpacity],
-  );
-
-  const drawGrid = useCallback(
-    (
-      ctx: CanvasRenderingContext2D,
-      width: number,
-      height: number,
-      cols: number,
-      rows: number,
-      squares: Float32Array,
-      dpr: number,
-    ) => {
-      ctx.clearRect(0, 0, width, height);
-      ctx.fillStyle = "transparent";
-      ctx.fillRect(0, 0, width, height);
-
-      for (let i = 0; i < cols; i++) {
-        for (let j = 0; j < rows; j++) {
-          const opacity = squares[i * rows + j];
-          ctx.fillStyle = `${memoizedColor}${opacity})`;
-          ctx.fillRect(
-            i * (squareSize + gridGap) * dpr,
-            j * (squareSize + gridGap) * dpr,
-            squareSize * dpr,
-            squareSize * dpr,
-          );
-        }
-      }
-    },
-    [memoizedColor, squareSize, gridGap],
-  );
+  const propsRef = useRef({
+    squareSize,
+    gridGap,
+    maxOpacity,
+    flickerChance,
+    memoizedColor,
+  });
+  propsRef.current = {
+    squareSize,
+    gridGap,
+    maxOpacity,
+    flickerChance,
+    memoizedColor,
+  };
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -117,6 +71,63 @@ export const FlickeringGrid: React.FC<FlickeringGridProps> = ({
     let animationFrameId: number | null = null;
     let resizeObserver: ResizeObserver | null = null;
     let intersectionObserver: IntersectionObserver | null = null;
+
+    const setupCanvas = (canvas: HTMLCanvasElement, w: number, h: number) => {
+      const { squareSize: sq, gridGap: gg, maxOpacity: mo } = propsRef.current;
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
+      canvas.style.cssText = `width:${w}px;height:${h}px;`;
+      const cols = Math.ceil(w / (sq + gg));
+      const rows = Math.ceil(h / (sq + gg));
+      const squares = new Float32Array(cols * rows);
+      for (let i = 0; i < squares.length; i++) {
+        squares[i] = Math.random() * mo;
+      }
+      return { cols, rows, squares, dpr };
+    };
+
+    const updateSquares = (squares: Float32Array, deltaTime: number) => {
+      const { flickerChance: fc, maxOpacity: mo } = propsRef.current;
+      for (let i = 0; i < squares.length; i++) {
+        if (Math.random() < fc * deltaTime) {
+          squares[i] = Math.random() * mo;
+        }
+      }
+    };
+
+    const drawGrid = (
+      ctx: CanvasRenderingContext2D,
+      w: number,
+      h: number,
+      cols: number,
+      rows: number,
+      squares: Float32Array,
+      dpr: number,
+    ) => {
+      const {
+        memoizedColor: mc,
+        squareSize: sq,
+        gridGap: gg,
+      } = propsRef.current;
+      ctx.clearRect(0, 0, w, h);
+      ctx.fillStyle = "transparent";
+      ctx.fillRect(0, 0, w, h);
+
+      for (let i = 0; i < cols; i++) {
+        for (let j = 0; j < rows; j++) {
+          const opacity = squares[i * rows + j];
+          ctx.fillStyle = `${mc}${opacity})`;
+          ctx.fillRect(
+            i * (sq + gg) * dpr,
+            j * (sq + gg) * dpr,
+            sq * dpr,
+            sq * dpr,
+          );
+        }
+      }
+    };
+
     let gridParams: ReturnType<typeof setupCanvas> | null = null;
 
     if (canvas && container && ctx) {
@@ -178,7 +189,7 @@ export const FlickeringGrid: React.FC<FlickeringGridProps> = ({
         intersectionObserver.disconnect();
       }
     };
-  }, [setupCanvas, updateSquares, drawGrid, width, height, isInView]);
+  }, [width, height, isInView]);
 
   return (
     <div

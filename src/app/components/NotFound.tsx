@@ -103,7 +103,9 @@ export function NotFound() {
                   <span className="text-xs font-medium uppercase tracking-[0.15em] text-muted-foreground group-hover:text-foreground transition-colors duration-150">
                     {t.nav[item.key]}
                   </span>
-                  <ArrowLeft className="h-3 w-3 text-border opacity-0 group-hover:opacity-100 -translate-x-1 group-hover:translate-x-0 transition-all duration-150" />
+                  <span className="relative flex size-6 items-center justify-center">
+                    <ArrowLeft className="relative size-3.5 text-muted-foreground/30 -translate-x-3 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 group-hover:text-foreground transition-all duration-300 ease-[cubic-bezier(0.25,1,0.5,1)]" />
+                  </span>
                 </Link>
               ))}
             </div>

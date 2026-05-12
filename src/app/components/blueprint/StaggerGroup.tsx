@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
+import { m, useInView } from "framer-motion";
 import { useRef } from "react";
 import { revealVariants, staggerContainer } from "@/lib/animations";
 import { cn } from "@/lib/utils";
@@ -20,7 +20,7 @@ export function StaggerGroup({
   const isInView = useInView(ref, { once, margin: "-10% 0px -10% 0px" });
 
   return (
-    <motion.div
+    <m.div
       ref={ref}
       className={cn(className)}
       variants={staggerContainer}
@@ -28,7 +28,7 @@ export function StaggerGroup({
       animate={isInView ? "visible" : "hidden"}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -46,12 +46,12 @@ export function StaggerItem({
   variant = "left",
 }: StaggerItemProps) {
   return (
-    <motion.div
+    <m.div
       className={cn(className)}
       style={style}
       variants={revealVariants[variant]}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }

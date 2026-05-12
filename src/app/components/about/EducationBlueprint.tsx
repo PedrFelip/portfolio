@@ -32,7 +32,7 @@ export const EducationBlueprint = memo(
             <p className="text-[10px] sm:text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground/60">
               {badge}
             </p>
-            <h2 className="mt-4 text-3xl font-bold tracking-tight sm:text-3xl lg:text-4xl">
+            <h2 className="mt-4 text-3xl font-semibold tracking-tight sm:text-3xl lg:text-4xl">
               {title}
             </h2>
           </div>
@@ -63,7 +63,7 @@ export const EducationBlueprint = memo(
                     <MonoText className="text-[11px] tabular-nums uppercase tracking-widest text-muted-foreground/40 mb-1">
                       {edu.start} — {edu.end}
                     </MonoText>
-                    <h3 className="text-xl font-bold text-foreground transition-colors group-hover:text-foreground">
+                    <h3 className="text-xl font-semibold text-foreground transition-colors group-hover:text-foreground">
                       {edu.school}
                     </h3>
                   </div>

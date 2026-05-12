@@ -73,7 +73,7 @@ export default async function HomePage({ params }: HomePageProps) {
                 <Button asChild size="lg" className="w-full sm:w-56">
                   <Link href={`/${lang}/projects`}>
                     {t.hero.cta}
-                    <ArrowRight className="size-4" />
+                    <ArrowRight className="size-4 translate-x-0 group-hover:translate-x-1 transition-all duration-300 ease-[cubic-bezier(0.25,1,0.5,1)]" />
                   </Link>
                 </Button>
                 <Button

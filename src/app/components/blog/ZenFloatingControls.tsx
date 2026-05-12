@@ -1,11 +1,6 @@
 "use client";
 
-import {
-  motion,
-  useMotionValueEvent,
-  useScroll,
-  useSpring,
-} from "framer-motion";
+import { m, useMotionValueEvent, useScroll, useSpring } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ArrowLeft, Home } from "@/components/ui/icons";
@@ -53,7 +48,7 @@ export function ZenFloatingControls() {
   return (
     <>
       {/* Top Reading Progress Bar */}
-      <motion.div
+      <m.div
         className="fixed top-0 left-0 right-0 h-1 bg-accent origin-left z-[60]"
         style={{ scaleX }}
         initial={{ opacity: 0 }}
@@ -61,7 +56,7 @@ export function ZenFloatingControls() {
       />
 
       {/* Desktop Floating Control Group */}
-      <motion.div
+      <m.div
         className="fixed top-6 left-6 z-[60] hidden md:flex"
         initial={{ x: -20, opacity: 0 }}
         animate={{ x: isVisible ? 0 : -20, opacity: isVisible ? 1 : 0 }}
@@ -72,7 +67,7 @@ export function ZenFloatingControls() {
             href={getLocalizedLink("/blog")}
             className="group flex items-center gap-2 px-4 text-[10px] font-mono uppercase tracking-widest text-muted-foreground hover:text-foreground hover:bg-surface-4 transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)]"
           >
-            <ArrowLeft className="h-3 w-3 transition-transform group-hover:-translate-x-1" />
+            <ArrowLeft className="size-3 transition-transform group-hover:-translate-x-1" />
             <span>{t.blog.back}</span>
           </Link>
 
@@ -83,13 +78,13 @@ export function ZenFloatingControls() {
             className="group flex items-center justify-center px-4 text-muted-foreground hover:text-foreground hover:bg-surface-4 transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)]"
             aria-label={t.nav.home}
           >
-            <Home className="h-3.5 w-3.5 transition-transform group-hover:scale-110" />
+            <Home className="size-3.5 transition-transform group-hover:scale-110" />
           </Link>
         </div>
-      </motion.div>
+      </m.div>
 
       {/* Mobile Sticky Bottom Bar */}
-      <motion.div
+      <m.div
         className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[60] flex md:hidden"
         initial={{ y: 20, opacity: 0 }}
         animate={{
@@ -106,7 +101,7 @@ export function ZenFloatingControls() {
             href={getLocalizedLink("/blog")}
             className="group flex items-center gap-2 px-6 text-[10px] font-mono uppercase tracking-widest text-foreground hover:bg-surface-4 transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] active:scale-[0.98]"
           >
-            <ArrowLeft className="h-3.5 w-3.5" />
+            <ArrowLeft className="size-3.5" />
             <span>{t.blog.back}</span>
           </Link>
 
@@ -117,10 +112,10 @@ export function ZenFloatingControls() {
             className="group flex items-center justify-center px-5 text-muted-foreground hover:text-foreground hover:bg-surface-4 transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] active:scale-[0.98]"
             aria-label={t.nav.home}
           >
-            <Home className="h-4 w-4" />
+            <Home className="size-4" />
           </Link>
         </div>
-      </motion.div>
+      </m.div>
     </>
   );
 }

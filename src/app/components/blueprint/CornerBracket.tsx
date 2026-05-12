@@ -20,7 +20,7 @@ const positionStyles: Record<CornerPosition, string> = {
  * CornerBracket - L-shaped decorative marker
  * Blueprint-inspired architectural detail for cards/sections
  */
-export const CornerBracket = memo(function CornerBracket({
+const CornerBracket = memo(function CornerBracket({
   position,
   size = 12,
   className,

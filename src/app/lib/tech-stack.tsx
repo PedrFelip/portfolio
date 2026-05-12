@@ -21,7 +21,7 @@ export interface TechItem {
   icon: React.FC<{ className?: string }>;
 }
 
-export const TECH_STACK: Record<string, TechItem> = {
+const TECH_STACK: Record<string, TechItem> = {
   nodejs: { name: "Node.js", ...createIcon(siNodedotjs) },
   typescript: { name: "TypeScript", ...createIcon(siTypescript) },
   nestjs: { name: "NestJS", ...createIcon(siNestjs) },

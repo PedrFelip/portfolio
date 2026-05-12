@@ -57,7 +57,7 @@ export default async function BlogPage({ params }: BlogPageProps) {
               <p className="text-[10px] sm:text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground/60">
                 {t.badge}
               </p>
-              <h1 className="mt-4 text-4xl font-bold tracking-tight sm:text-4xl lg:text-5xl animate-in-left animate-delay-100">
+              <h1 className="mt-4 text-4xl font-semibold tracking-tight sm:text-4xl lg:text-5xl animate-in-left animate-delay-100">
                 {t.title}
               </h1>
               <p className="mt-4 text-base leading-relaxed text-muted-foreground animate-in-left animate-delay-150">

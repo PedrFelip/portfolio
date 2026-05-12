@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { useCallback, useMemo, useState } from "react";
 import { SectionDivider } from "@/components/blueprint";
 import { CardFlicker } from "@/components/projects/CardFlicker";
@@ -89,7 +89,7 @@ export default function ProjectsClient({
         {hasUsedFilter ? (
           <AnimatePresence mode="wait" initial={false}>
             {filteredProjects.length > 0 ? (
-              <motion.div
+              <m.div
                 key={`grid-${filterKey}`}
                 variants={projectGridVariants}
                 initial="initial"
@@ -112,7 +112,7 @@ export default function ProjectsClient({
                     ];
                     return items.map((item, index) =>
                       item.project ? (
-                        <motion.div
+                        <m.div
                           key={item.project.id}
                           variants={projectCardVariants}
                           className={`relative px-6 py-8 transition-colors duration-200 group hover:bg-surface-2 ${getGridBorderClasses(
@@ -121,7 +121,7 @@ export default function ProjectsClient({
                         >
                           <CardFlicker />
                           <ProjectCard project={item.project} />
-                        </motion.div>
+                        </m.div>
                       ) : (
                         <div
                           key={item.key}
@@ -131,9 +131,9 @@ export default function ProjectsClient({
                     );
                   })()}
                 </div>
-              </motion.div>
+              </m.div>
             ) : (
-              <motion.div
+              <m.div
                 key="empty"
                 variants={projectGridVariants}
                 initial="initial"
@@ -157,7 +157,7 @@ export default function ProjectsClient({
                     </button>
                   )}
                 </div>
-              </motion.div>
+              </m.div>
             )}
           </AnimatePresence>
         ) : filteredProjects.length > 0 ? (

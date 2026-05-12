@@ -1,7 +1,7 @@
 "use client";
 
 import { Slot } from "@radix-ui/react-slot";
-import { motion, useInView } from "framer-motion";
+import { m, useInView } from "framer-motion";
 import { useRef } from "react";
 import { revealVariants } from "@/lib/animations";
 import { cn } from "@/lib/utils";
@@ -37,7 +37,7 @@ export function Reveal({
 
   if (as === "span") {
     return (
-      <motion.span
+      <m.span
         ref={setRef}
         className={cn(className)}
         variants={revealVariants[variant]}
@@ -46,13 +46,13 @@ export function Reveal({
         custom={delay}
       >
         <Comp>{children}</Comp>
-      </motion.span>
+      </m.span>
     );
   }
 
   if (as === "section") {
     return (
-      <motion.section
+      <m.section
         ref={setRef}
         className={cn(className)}
         variants={revealVariants[variant]}
@@ -61,13 +61,13 @@ export function Reveal({
         custom={delay}
       >
         <Comp>{children}</Comp>
-      </motion.section>
+      </m.section>
     );
   }
 
   if (as === "article") {
     return (
-      <motion.article
+      <m.article
         ref={setRef}
         className={cn(className)}
         variants={revealVariants[variant]}
@@ -76,13 +76,13 @@ export function Reveal({
         custom={delay}
       >
         <Comp>{children}</Comp>
-      </motion.article>
+      </m.article>
     );
   }
 
   if (as === "li") {
     return (
-      <motion.li
+      <m.li
         ref={setRef}
         className={cn(className)}
         variants={revealVariants[variant]}
@@ -91,12 +91,12 @@ export function Reveal({
         custom={delay}
       >
         <Comp>{children}</Comp>
-      </motion.li>
+      </m.li>
     );
   }
 
   return (
-    <motion.div
+    <m.div
       ref={setRef}
       className={cn(className)}
       variants={revealVariants[variant]}
@@ -105,6 +105,6 @@ export function Reveal({
       custom={delay}
     >
       <Comp>{children}</Comp>
-    </motion.div>
+    </m.div>
   );
 }

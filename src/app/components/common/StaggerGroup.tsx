@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 import { memo, type ReactNode } from "react";
 import {
   revealVariants,
@@ -57,7 +57,7 @@ export const StaggerGroup = memo(function StaggerGroup({
       : CONTAINER_MAP[speed];
 
   return (
-    <motion.div
+    <m.div
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount }}
@@ -65,7 +65,7 @@ export const StaggerGroup = memo(function StaggerGroup({
       className={className}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 });
 
@@ -97,13 +97,9 @@ export const StaggerItem = memo(function StaggerItem({
   }
 
   return (
-    <motion.div
-      variants={revealVariants.up}
-      className={className}
-      style={style}
-    >
+    <m.div variants={revealVariants.up} className={className} style={style}>
       {children}
-    </motion.div>
+    </m.div>
   );
 });
 

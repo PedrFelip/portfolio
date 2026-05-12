@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
-  forwardRef,
   memo,
   useCallback,
   useEffect,
@@ -29,69 +28,72 @@ interface NavLinkItemProps {
   localizedHref: string;
   onClick?: () => void;
   variant?: "desktop" | "mobile";
+  ref?: React.Ref<HTMLAnchorElement>;
 }
 
-const NavLinkItem = memo(
-  // eslint-disable-next-line react/display-name
-  forwardRef<HTMLAnchorElement, NavLinkItemProps>(
-    ({ label, isActive, localizedHref, onClick, variant = "desktop" }, ref) => {
-      const baseClasses =
-        "text-sm font-medium transition-all duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] motion-reduce:transition-none touch-manipulation";
+const NavLinkItem = memo(function NavLinkItem({
+  label,
+  isActive,
+  localizedHref,
+  onClick,
+  variant = "desktop",
+  ref,
+}: NavLinkItemProps) {
+  const baseClasses =
+    "text-sm font-medium transition-all duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] motion-reduce:transition-none touch-manipulation";
 
-      const variantClasses = {
-        desktop:
-          "group relative px-3 py-2 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-        mobile:
-          "block min-h-[48px] px-4 py-3 border-b border-dashed border-border last:border-b-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset active:bg-surface-4",
-      };
+  const variantClasses = {
+    desktop:
+      "group relative px-3 py-2 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+    mobile:
+      "block min-h-[48px] px-4 py-3 border-b border-dashed border-border last:border-b-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset active:bg-surface-4",
+  };
 
-      const stateClasses = {
-        desktop: isActive
-          ? "text-accent"
-          : "text-muted-foreground hover:text-foreground hover:bg-surface-4",
-        mobile: isActive
-          ? "text-accent border-l-[3px] border-l-accent bg-accent/[0.08]"
-          : "text-muted-foreground hover:text-foreground hover:bg-surface-2 border-l-[3px] border-l-transparent",
-      };
+  const stateClasses = {
+    desktop: isActive
+      ? "text-accent"
+      : "text-muted-foreground hover:text-foreground hover:bg-surface-4",
+    mobile: isActive
+      ? "text-accent border-l-[3px] border-l-accent bg-accent/[0.08]"
+      : "text-muted-foreground hover:text-foreground hover:bg-surface-2 border-l-[3px] border-l-transparent",
+  };
 
-      return (
-        <Link
-          ref={ref}
-          href={localizedHref}
-          onClick={onClick}
-          className={`${baseClasses} ${variantClasses[variant]} ${stateClasses[variant]}`}
-          aria-current={isActive ? "page" : undefined}
-        >
-          {variant === "desktop" ? (
-            <span className="relative inline-flex flex-col items-center">
-              {label}
-              <span
-                className={`absolute -bottom-2 left-1/2 h-[2px] rounded-full bg-accent -translate-x-1/2 transition-all duration-350 ease-[cubic-bezier(0.25,1,0.5,1)] ${
-                  isActive
-                    ? "w-4/5 opacity-100"
-                    : "w-0 group-hover:w-1/2 opacity-0 group-hover:opacity-100"
-                }`}
-                aria-hidden="true"
-              />
-            </span>
-          ) : (
-            <span className="flex items-center gap-3">
-              <span
-                className={`rounded-full transition-all duration-250 ease-[cubic-bezier(0.25,1,0.5,1)] ${
-                  isActive
-                    ? "h-2 w-2 bg-accent scale-100"
-                    : "h-1.5 w-1.5 bg-muted-foreground/30 scale-75"
-                }`}
-                aria-hidden="true"
-              />
-              {label}
-            </span>
-          )}
-        </Link>
-      );
-    },
-  ),
-);
+  return (
+    <Link
+      ref={ref}
+      href={localizedHref}
+      onClick={onClick}
+      className={`${baseClasses} ${variantClasses[variant]} ${stateClasses[variant]}`}
+      aria-current={isActive ? "page" : undefined}
+    >
+      {variant === "desktop" ? (
+        <span className="relative inline-flex flex-col items-center">
+          {label}
+          <span
+            className={`absolute -bottom-2 left-1/2 h-[2px] rounded-full bg-accent -translate-x-1/2 transition-all duration-350 ease-[cubic-bezier(0.25,1,0.5,1)] ${
+              isActive
+                ? "w-4/5 opacity-100"
+                : "w-0 group-hover:w-1/2 opacity-0 group-hover:opacity-100"
+            }`}
+            aria-hidden="true"
+          />
+        </span>
+      ) : (
+        <span className="flex items-center gap-3">
+          <span
+            className={`rounded-full transition-all duration-250 ease-[cubic-bezier(0.25,1,0.5,1)] ${
+              isActive
+                ? "size-2 bg-accent scale-100"
+                : "size-1.5 bg-muted-foreground/30 scale-75"
+            }`}
+            aria-hidden="true"
+          />
+          {label}
+        </span>
+      )}
+    </Link>
+  );
+});
 NavLinkItem.displayName = "NavLinkItem";
 
 export const Navigation = memo(() => {
@@ -268,12 +270,12 @@ export const Navigation = memo(() => {
             >
               {isMenuOpen ? (
                 <X
-                  className="h-4 w-4 transition-transform duration-250 ease-[cubic-bezier(0.25,1,0.5,1)]"
+                  className="size-4 transition-transform duration-250 ease-[cubic-bezier(0.25,1,0.5,1)]"
                   aria-hidden="true"
                 />
               ) : (
                 <Menu
-                  className="h-4 w-4 transition-transform duration-250 ease-[cubic-bezier(0.25,1,0.5,1)]"
+                  className="size-4 transition-transform duration-250 ease-[cubic-bezier(0.25,1,0.5,1)]"
                   aria-hidden="true"
                 />
               )}

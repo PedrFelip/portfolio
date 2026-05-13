@@ -1,5 +1,3 @@
-"use client";
-
 import type { JSX } from "react";
 
 import { siGo, siNestjs, siNodedotjs } from "simple-icons";
@@ -364,14 +362,8 @@ function TechItem({
   return (
     <button
       type="button"
-      className="group flex items-center space-x-2 text-muted-foreground select-none transition-colors duration-150 [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-6 [&_svg]:transition-colors [&_svg]:duration-150"
-      style={{ color: undefined }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.color = color;
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.color = "";
-      }}
+      className="group flex items-center space-x-2 text-muted-foreground hover:text-[var(--tech-color)] select-none transition-colors duration-150 [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-6 [&_svg]:transition-colors [&_svg]:duration-150"
+      style={{ "--tech-color": color } as React.CSSProperties}
     >
       {icon}
       <span className="text-sm font-medium whitespace-nowrap">{title}</span>

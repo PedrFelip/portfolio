@@ -25,6 +25,10 @@ interface HomePageProps {
   params: Promise<{ lang: string }>;
 }
 
+export function generateStaticParams() {
+  return [{ lang: "en" }, { lang: "pt" }];
+}
+
 const homeContent = {
   en: homeEn,
   pt: homePt,

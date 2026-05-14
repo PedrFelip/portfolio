@@ -145,19 +145,19 @@ export async function fetchGitHubContributions(
  * Get contribution color based on level (blueprint design)
  */
 const contributionColorsDark: Record<0 | 1 | 2 | 3 | 4, string> = {
-  0: "oklch(0.93 0 0 / 3%)",
-  1: "oklch(0.75 0 0 / 12%)",
-  2: "oklch(0.75 0 0 / 22%)",
-  3: "oklch(0.75 0 0 / 38%)",
-  4: "oklch(0.75 0 0 / 58%)",
+  0: "oklch(0.65 0.14 230 / 4%)",
+  1: "oklch(0.65 0.14 230 / 18%)",
+  2: "oklch(0.65 0.18 230 / 34%)",
+  3: "oklch(0.65 0.18 230 / 54%)",
+  4: "oklch(0.65 0.20 230 / 76%)",
 };
 
 const contributionColorsLight: Record<0 | 1 | 2 | 3 | 4, string> = {
-  0: "oklch(0.13 0 0 / 4%)",
-  1: "oklch(0.42 0 0 / 12%)",
-  2: "oklch(0.42 0 0 / 22%)",
-  3: "oklch(0.42 0 0 / 36%)",
-  4: "oklch(0.42 0 0 / 52%)",
+  0: "oklch(0.50 0.10 230 / 5%)",
+  1: "oklch(0.50 0.10 230 / 18%)",
+  2: "oklch(0.50 0.14 230 / 34%)",
+  3: "oklch(0.50 0.14 230 / 54%)",
+  4: "oklch(0.50 0.16 230 / 76%)",
 };
 
 export function getContributionColor(

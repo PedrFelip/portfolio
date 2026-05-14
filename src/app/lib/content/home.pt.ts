@@ -110,6 +110,7 @@ export const homePt = {
   },
 
   cta: {
+    badge: "Vamos Conversar",
     title: "Vamos construir algo juntos",
     description:
       "Estou sempre aberto a discutir novos projetos, ideias criativas ou oportunidades.",

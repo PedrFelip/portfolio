@@ -108,6 +108,7 @@ export const homeEn = {
   },
 
   cta: {
+    badge: "Let's Connect",
     title: "Let's build something together",
     description:
       "I'm always open to discussing new projects, creative ideas, or opportunities.",

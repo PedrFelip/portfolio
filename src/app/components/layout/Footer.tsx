@@ -157,7 +157,7 @@ export const Footer = memo(() => {
             © {t.footer.year}
           </MonoText>
           <MonoText className="text-[10px] tracking-[0.15em] text-muted-foreground/40">
-            v5.0.4
+            v5.1.0
           </MonoText>
         </div>
       </div>

@@ -1,14 +1,28 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { LanguageSync } from "@/components/LanguageSync";
-import { Footer } from "@/components/layout/Footer";
 import { Navigation } from "@/components/layout/Navigation";
 import { NotFound } from "@/components/NotFound";
+
+const Footer = dynamic(
+  () => import("@/components/layout/Footer").then((mod) => mod.Footer),
+  { ssr: false },
+);
+
+const SearchCommand = dynamic(
+  () =>
+    import("@/components/search/SearchCommand").then(
+      (mod) => mod.SearchCommand,
+    ),
+  { ssr: false },
+);
 
 export default function RootNotFound() {
   return (
     <LanguageSync>
       <Navigation />
+      <SearchCommand />
       <main className="flex-grow">
         <NotFound />
       </main>

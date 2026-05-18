@@ -182,7 +182,7 @@ export const SearchCommand = memo(function SearchCommand() {
 
       {/* Command Palette */}
       <div
-        className="relative z-10 w-full max-w-[560px] mx-4 border border-border rounded-sm bg-background shadow-2xl shadow-black/20 animate-scale-in overflow-hidden"
+        className="relative z-10 w-full max-w-[560px] mx-4 border border-border rounded-lg bg-background shadow-2xl shadow-black/20 animate-scale-in overflow-hidden"
         onKeyDown={handleKeyDown}
         role="dialog"
         aria-label="Search command palette"
@@ -332,7 +332,7 @@ const ResultItem = memo(function ResultItem({
         onClick={handleClick}
         data-index={index}
         className={cn(
-          "flex items-center gap-3 px-4 py-2.5 mx-1 rounded-sm transition-colors duration-100",
+          "flex items-center gap-3 px-4 py-2.5 mx-1 rounded-lg transition-colors duration-100",
           isActive
             ? "bg-accent/[0.08] text-foreground"
             : "text-muted-foreground",
@@ -340,7 +340,7 @@ const ResultItem = memo(function ResultItem({
       >
         <span
           className={cn(
-            "shrink-0 size-7 rounded-sm border border-border/60 flex items-center justify-center transition-colors duration-100",
+            "shrink-0 size-7 rounded-lg border border-border/60 flex items-center justify-center transition-colors duration-100",
             isActive
               ? "border-accent/30 text-accent bg-accent/[0.05]"
               : "text-muted-foreground/50",
@@ -371,13 +371,13 @@ const ResultItem = memo(function ResultItem({
       onClick={handleClick}
       data-index={index}
       className={cn(
-        "flex items-start gap-3 px-4 py-2.5 mx-1 rounded-sm transition-colors duration-100",
+        "flex items-start gap-3 px-4 py-2.5 mx-1 rounded-lg transition-colors duration-100",
         isActive ? "bg-accent/[0.08] text-foreground" : "text-muted-foreground",
       )}
     >
       <span
         className={cn(
-          "shrink-0 size-7 rounded-sm border border-border/60 flex items-center justify-center mt-0.5 transition-colors duration-100",
+          "shrink-0 size-7 rounded-lg border border-border/60 flex items-center justify-center mt-0.5 transition-colors duration-100",
           isActive
             ? "border-accent/30 text-accent bg-accent/[0.05]"
             : "text-muted-foreground/50",

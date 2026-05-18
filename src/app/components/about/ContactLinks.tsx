@@ -44,7 +44,7 @@ export const ContactLinks = memo(({ links }: ContactLinksProps) => {
             href={href}
             target={isEmail ? undefined : "_blank"}
             rel={isEmail ? undefined : "noopener noreferrer"}
-            className="group relative flex size-12 items-center justify-center border border-overlay-border bg-surface-2 transition-all duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-overlay-border-hover hover:bg-surface-4 focus:outline-none focus:ring-1 focus:ring-white/20"
+            className="group relative flex size-12 items-center justify-center rounded-lg border border-overlay-border bg-surface-2 transition-all duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-overlay-border-hover hover:bg-surface-4 focus:outline-none focus:ring-1 focus:ring-white/20"
             aria-label={`${link.label}: ${link.url}`}
             title={link.label}
           >

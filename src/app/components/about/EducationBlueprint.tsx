@@ -2,7 +2,11 @@
 
 import { GraduationCap } from "lucide-react";
 import { memo } from "react";
-import { CornerBrackets, SectionBadge } from "@/components/blueprint";
+import {
+  CornerBrackets,
+  SectionBadge,
+  SectionLabel,
+} from "@/components/blueprint";
 import { MonoText } from "@/components/ui";
 import type { Education } from "@/types/portfolio";
 
@@ -27,9 +31,7 @@ export const EducationBlueprint = memo(
       >
         {/* Header */}
         <SectionBadge className="bp-line-bottom px-4 py-3 sm:px-6">
-          <p className="text-[10px] sm:text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground/60">
-            {badge}
-          </p>
+          <SectionLabel>{badge}</SectionLabel>
           <h2 className="mt-1 text-lg font-semibold tracking-tight sm:text-xl">
             {title}
           </h2>

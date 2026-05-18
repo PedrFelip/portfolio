@@ -5,6 +5,7 @@ import { memo } from "react";
 import {
   CornerBrackets,
   SectionBadge,
+  SectionLabel,
   StaggerGroup,
   StaggerItem,
 } from "@/components/blueprint";
@@ -48,9 +49,7 @@ export const WorkExperienceBlueprint = memo(
         <SectionBadge className="bp-line-bottom px-4 py-3 sm:px-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-[10px] sm:text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground/60">
-                {badge}
-              </p>
+              <SectionLabel>{badge}</SectionLabel>
               <h2 className="mt-1 text-lg font-semibold tracking-tight sm:text-xl">
                 {title}
               </h2>

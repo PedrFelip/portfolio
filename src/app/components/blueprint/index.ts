@@ -16,5 +16,6 @@ export { RailBounded } from "./RailBounded";
 export { RailLayout } from "./RailLayout";
 export { Reveal } from "./Reveal";
 export { SectionBadge } from "./SectionBadge";
+export { SectionLabel } from "./SectionLabel";
 export { SectionDivider } from "./SectionDivider";
 export { StaggerGroup, StaggerItem } from "./StaggerGroup";

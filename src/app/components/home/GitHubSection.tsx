@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-import { SectionBadge } from "@/components/blueprint/SectionBadge";
+import { SectionBadge, SectionLabel } from "@/components/blueprint";
 import { fetchGitHubContributions } from "@/lib/github";
 import { cn } from "@/lib/utils";
 
@@ -67,9 +67,7 @@ export async function GitHubSection({
       <SectionBadge className="bp-line-bottom px-4 py-3 sm:px-6">
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2">
           <div>
-            <p className="text-[10px] sm:text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground/60">
-              {subtitle}
-            </p>
+            <SectionLabel>{subtitle}</SectionLabel>
             <h2 className="mt-1 text-lg font-semibold tracking-tight sm:text-xl">
               {title}
             </h2>

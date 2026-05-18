@@ -3,6 +3,7 @@
 import { AnimatePresence, m } from "framer-motion";
 import { useCallback, useRef, useState } from "react";
 import { FlickerOverlay } from "@/components/common/FlickerOverlay";
+import { SectionLabel } from "@/components/blueprint";
 import { MonoText, P } from "@/components/ui";
 import { ChevronLeft, ChevronRight } from "@/components/ui/icons";
 import { useFlickerTransition } from "@/hooks/useFlickerTransition";
@@ -116,9 +117,7 @@ export function BlogList({
       <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr]">
         <div className="hidden lg:block border-r border-dashed border-border">
           <div className="lg:sticky lg:top-24 py-8 pl-4 pr-6">
-            <p className="text-[10px] font-medium uppercase tracking-[0.2em] text-muted-foreground/60 mb-3">
-              {t.allTags}
-            </p>
+            <SectionLabel className="mb-3">{t.allTags}</SectionLabel>
             <div className="flex flex-col gap-0.5">
               <button
                 type="button"

@@ -62,7 +62,7 @@ export function ZenFloatingControls() {
         animate={{ x: isVisible ? 0 : -20, opacity: isVisible ? 1 : 0 }}
         transition={{ delay: 0.1 }}
       >
-        <div className="flex h-9 items-stretch rounded-sm border border-overlay-border bg-background shadow-sm overflow-hidden touch-manipulation">
+        <div className="flex h-9 items-stretch rounded-lg border border-overlay-border bg-background shadow-sm overflow-hidden touch-manipulation">
           <Link
             href={getLocalizedLink("/blog")}
             className="group flex items-center gap-2 px-4 text-[10px] font-mono uppercase tracking-widest text-muted-foreground hover:text-foreground hover:bg-surface-4 transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)]"
@@ -96,7 +96,7 @@ export function ZenFloatingControls() {
           ease: [0.25, 1, 0.5, 1],
         }}
       >
-        <div className="flex h-11 items-stretch rounded-sm border border-overlay-border bg-background shadow-md overflow-hidden touch-manipulation">
+        <div className="flex h-11 items-stretch rounded-lg border border-overlay-border bg-background shadow-md overflow-hidden touch-manipulation">
           <Link
             href={getLocalizedLink("/blog")}
             className="group flex items-center gap-2 px-6 text-[10px] font-mono uppercase tracking-widest text-foreground hover:bg-surface-4 transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] active:scale-[0.98]"

@@ -887,7 +887,7 @@ html {
 
   /* Commit Pill - badge monospace para tags */
   .commit-pill {
-    @apply inline-flex items-center font-mono text-xs px-2 py-1 rounded-md;
+    @apply inline-flex items-center font-mono text-xs px-2 py-1 rounded-lg;
     border: 0.5px solid oklch(var(--border));
     transition:
       border-color 150ms cubic-bezier(0.25, 1, 0.5, 1),
@@ -954,7 +954,7 @@ html {
    * - 150ms transition with cubic-bezier(0.25, 1, 0.5, 1)
    */
   .work-card-modern {
-    @apply rounded-md border border-border/60 bg-card;
+    @apply rounded-lg border border-border/60 bg-card;
     transition:
       border-color 150ms cubic-bezier(0.25, 1, 0.5, 1),
       background-color 150ms cubic-bezier(0.25, 1, 0.5, 1),
@@ -979,7 +979,7 @@ html {
    * - 150ms transition with cubic-bezier(0.25, 1, 0.5, 1)
    */
   .education-card-enhanced {
-    @apply rounded-none border-foreground/10 bg-card;
+    @apply rounded-lg border-foreground/10 bg-card;
     transition:
       border-color 150ms cubic-bezier(0.25, 1, 0.5, 1),
       background-color 150ms cubic-bezier(0.25, 1, 0.5, 1);
@@ -1033,13 +1033,13 @@ html {
   }
 
   .prose code {
-    @apply font-mono text-[13px] px-1.5 py-0.5 rounded-sm;
+    @apply font-mono text-[13px] px-1.5 py-0.5 rounded-lg;
     background: var(--code-bg);
     color: var(--code-fg);
   }
 
   .prose pre {
-    @apply border rounded-sm overflow-x-auto my-4;
+    @apply border rounded-lg overflow-x-auto my-4;
     border-color: var(--code-border);
     background: var(--code-bg);
     padding: 0;
@@ -1108,7 +1108,7 @@ html {
   }
 
   .prose img {
-    @apply rounded-sm border border-border/60 my-6;
+    @apply rounded-lg border border-border/60 my-6;
   }
 
   .prose figure img {

@@ -8,6 +8,7 @@ import { HomeCtaSection } from "@/components/home/HomeCtaSection";
 import { HomeFeaturesSection } from "@/components/home/HomeFeaturesSection";
 import { homeEn } from "@/lib/content/home.en";
 import { homePt } from "@/lib/content/home.pt";
+import { SUPPORTED_LANGS } from "@/lib/i18n";
 
 const SimpleTechStack = dynamic(() =>
   import("@/components/home/SimpleTechStack").then(
@@ -26,7 +27,7 @@ interface HomePageProps {
 }
 
 export function generateStaticParams() {
-  return [{ lang: "en" }, { lang: "pt" }];
+  return SUPPORTED_LANGS.map((lang) => ({ lang }));
 }
 
 const homeContent = {

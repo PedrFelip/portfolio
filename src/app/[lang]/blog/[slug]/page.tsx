@@ -22,6 +22,7 @@ import { ArrowLeft, Calendar, Clock } from "@/components/ui/icons";
 import { getAllPostSlugs, getPostBySlug } from "@/lib/blog-data";
 import { blogEn } from "@/lib/content/blog.en";
 import { blogPt } from "@/lib/content/blog.pt";
+import { SUPPORTED_LANGS } from "@/lib/i18n";
 
 const blogContent = {
   en: blogEn,
@@ -158,8 +159,9 @@ export async function generateMetadata({
 
 export async function generateStaticParams() {
   const slugs = getAllPostSlugs();
-  const langs = ["en", "pt"];
-  return slugs.flatMap((slug) => langs.map((lang) => ({ slug, lang })));
+  return slugs.flatMap((slug) =>
+    SUPPORTED_LANGS.map((lang) => ({ slug, lang })),
+  );
 }
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {

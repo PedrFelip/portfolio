@@ -13,13 +13,16 @@ import { projectsPt } from "./content/projects.pt";
 import { sharedEn } from "./content/shared.en";
 import { sharedPt } from "./content/shared.pt";
 
-export type Language = "en" | "pt";
+export const SUPPORTED_LOCALES = ["en", "pt"] as const;
+export const SUPPORTED_LANGS = SUPPORTED_LOCALES;
+
+export type Language = (typeof SUPPORTED_LOCALES)[number];
 
 export const DEFAULT_LANGUAGE: Language = "en";
 export const LANGUAGE_COOKIE = "NEXT_LOCALE";
 
 export function isLanguage(lang: string | null | undefined): lang is Language {
-  return lang === "en" || lang === "pt";
+  return (SUPPORTED_LOCALES as readonly string[]).includes(lang ?? "");
 }
 
 export const translations = {

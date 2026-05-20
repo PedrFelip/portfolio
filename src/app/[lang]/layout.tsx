@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { LanguageSync } from "@/components/LanguageSync";
 import { LayoutShell } from "@/components/layout/LayoutShell";
+import { isLanguage, SUPPORTED_LOCALES } from "@/lib/i18n";
 
 const metadataConfig = {
   en: {
@@ -47,7 +48,7 @@ const metadataConfig = {
 };
 
 export function generateStaticParams() {
-  return [{ lang: "en" }, { lang: "pt" }];
+  return SUPPORTED_LOCALES.map((lang) => ({ lang }));
 }
 
 export async function generateMetadata({
@@ -56,7 +57,7 @@ export async function generateMetadata({
   params: Promise<{ lang: string }>;
 }): Promise<Metadata> {
   const { lang } = await params;
-  const validLang = lang === "pt" || lang === "en" ? lang : "en";
+  const validLang = isLanguage(lang) ? lang : "en";
   const config = metadataConfig[validLang as keyof typeof metadataConfig];
 
   return {

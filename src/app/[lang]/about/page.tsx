@@ -60,6 +60,10 @@ const aboutContent = {
   pt: aboutPt,
 };
 
+export function generateStaticParams() {
+  return [{ lang: "en" }, { lang: "pt" }];
+}
+
 export async function generateMetadata({
   params,
 }: AboutPageProps): Promise<Metadata> {

@@ -46,6 +46,10 @@ const metadataConfig = {
   },
 };
 
+export function generateStaticParams() {
+  return [{ lang: "en" }, { lang: "pt" }];
+}
+
 export async function generateMetadata({
   params,
 }: {

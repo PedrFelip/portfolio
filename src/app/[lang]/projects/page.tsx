@@ -24,6 +24,10 @@ interface ProjectsPageProps {
   params: Promise<{ lang: Lang }>;
 }
 
+export function generateStaticParams() {
+  return [{ lang: "en" }, { lang: "pt" }];
+}
+
 export async function generateMetadata({
   params,
 }: ProjectsPageProps): Promise<Metadata> {

@@ -107,18 +107,6 @@ export const SearchCommand = memo(function SearchCommand() {
     }
   }, [isOpen]);
 
-  // Global Ctrl+K / ⌘K shortcut
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
-        e.preventDefault();
-        useSearchStore.getState().toggle();
-      }
-    };
-    document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
-  }, []);
-
   useEffect(() => {
     void displayItems.length;
     setActiveIndex(0);

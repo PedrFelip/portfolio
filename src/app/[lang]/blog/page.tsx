@@ -22,6 +22,10 @@ interface BlogPageProps {
 
 export const revalidate = 86400;
 
+export function generateStaticParams() {
+  return [{ lang: "en" }, { lang: "pt" }];
+}
+
 export async function generateMetadata({
   params,
 }: BlogPageProps): Promise<Metadata> {

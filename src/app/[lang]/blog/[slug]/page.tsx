@@ -97,7 +97,7 @@ const MDXLink = ({
 );
 
 export const revalidate = 604800;
-export const dynamicParams = true;
+export const dynamicParams = false;
 
 export async function generateMetadata({
   params,
@@ -159,8 +159,7 @@ export async function generateMetadata({
 export async function generateStaticParams() {
   const slugs = getAllPostSlugs();
   const langs = ["en", "pt"];
-  const recentSlugs = slugs.slice(0, 20);
-  return recentSlugs.flatMap((slug) => langs.map((lang) => ({ slug, lang })));
+  return slugs.flatMap((slug) => langs.map((lang) => ({ slug, lang })));
 }
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {

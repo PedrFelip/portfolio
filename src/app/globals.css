@@ -1500,3 +1500,9 @@ html {
   position: relative;
   overflow-x: clip;
 }
+
+/* Custom crosshair active state: hide default cursor on desktop when crosshair is active */
+.custom-cursor-active,
+.custom-cursor-active * {
+  cursor: none !important;
+}

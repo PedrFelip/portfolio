@@ -1,6 +1,7 @@
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Space_Grotesk } from "next/font/google";
+import { BlueprintCursor } from "@/components/blueprint";
 import { FaviconSwitcher } from "@/components/FaviconSwitcher";
 import { MotionProvider } from "@/components/MotionProvider";
 import { ThemeProvider } from "@/components/ThemeProvider";
@@ -99,6 +100,7 @@ export default function RootLayout({
         <ThemeProvider>
           <MotionProvider>
             <FaviconSwitcher />
+            <BlueprintCursor />
             {children}
           </MotionProvider>
         </ThemeProvider>

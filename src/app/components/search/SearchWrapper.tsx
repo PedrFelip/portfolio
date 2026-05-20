@@ -17,8 +17,15 @@ export function SearchWrapper() {
 
   useEffect(() => {
     const prefetch = () => {
-      import("./SearchCommand");
-      useSearchStore.getState().loadIndex();
+      void import("./SearchCommand").catch((err) => {
+        console.warn("Failed to prefetch SearchCommand:", err);
+      });
+      void useSearchStore
+        .getState()
+        .loadIndex()
+        .catch((err) => {
+          console.warn("Failed to prefetch search index:", err);
+        });
     };
 
     if (typeof window !== "undefined") {

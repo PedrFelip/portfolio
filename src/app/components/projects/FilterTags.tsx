@@ -71,7 +71,7 @@ export const FilterTags = memo(
                 type="button"
                 onClick={() => toggleTag(tag)}
                 className={cn(
-                  "border font-mono text-xs transition-[border-color,background-color,color] duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] motion-reduce:transition-none touch-manipulation min-h-[36px] px-3 py-1.5 sm:min-h-[36px] sm:px-3 sm:py-1.5",
+                  "border rounded-lg font-mono text-xs transition-[border-color,background-color,color] duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] motion-reduce:transition-none touch-manipulation min-h-[36px] px-3 py-1.5 sm:min-h-[36px] sm:px-3 sm:py-1.5",
                   isSelected
                     ? "border-foreground bg-foreground text-background"
                     : "border-border text-muted-foreground hover:border-foreground/40 hover:text-foreground",

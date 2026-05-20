@@ -1,127 +1,43 @@
 "use client";
 
 import Link from "next/link";
-import { RailBounded, RailLayout } from "@/components/blueprint";
-import { Footer } from "@/components/layout/Footer";
-import { Navigation } from "@/components/layout/Navigation";
+import { HatchSeparator } from "@/components/blueprint";
 import { MonoText } from "@/components/ui";
 import { ArrowLeft } from "@/components/ui/icons";
 import { useLanguage } from "@/lib/language-store";
 import { useLocalizedLink } from "@/lib/useLocalizedLink";
-
-/**
- * NotFound — Minimalist asymmetric blueprint 404 page
- *
- * Design:
- * - Single oversized "404" anchored top-left, bleeding off-screen
- * - Thin coordinate/axis lines for blueprint feel
- * - Content pushed to bottom-right (asymmetric)
- * - Almost nothing else — intentional negative space
- */
-
-const NAV_ITEMS = [
-  { key: "home", href: "/" },
-  { key: "projects", href: "/projects" },
-  { key: "blog", href: "/blog" },
-  { key: "about", href: "/about" },
-] as const;
 
 export function NotFound() {
   const { t } = useLanguage();
   const getLocalizedLink = useLocalizedLink();
 
   return (
-    <RailLayout className="min-h-screen bg-background">
-      <Navigation />
+    <div className="mx-auto md:max-w-4xl px-4">
+      <HatchSeparator />
 
-      <main className="relative flex-1 flex flex-col overflow-hidden">
-        {/* ─── Coordinate Grid Lines ─── */}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          aria-hidden="true"
-        >
-          {/* Horizontal axis */}
-          <div className="absolute top-[60%] left-0 right-0 h-px bg-border/20" />
-          {/* Vertical axis */}
-          <div className="absolute top-0 bottom-0 left-[45%] w-px bg-border/20" />
-          {/* Subtle crosshair tick marks */}
-          <div className="absolute top-[60%] left-[45%] -translate-x-1/2 -translate-y-1/2">
-            <div className="w-3 h-3 border border-border/15 rounded-full" />
-          </div>
+      <section className="bp-panel bp-line-bottom flex items-center justify-center px-4 py-24 sm:px-6">
+        <div className="flex flex-col items-center text-center">
+          <MonoText className="text-[10px] tracking-[0.3em] text-muted-foreground/40 uppercase">
+            {t.notFound.errorCode}
+          </MonoText>
+
+          <p className="mt-6 text-5xl font-light tracking-tighter text-foreground/90">
+            404
+          </p>
+
+          <p className="mt-3 max-w-xs text-sm leading-relaxed text-muted-foreground">
+            {t.notFound.description}
+          </p>
+
+          <Link
+            href={getLocalizedLink("/")}
+            className="group mt-8 inline-flex items-center gap-2 text-xs font-mono uppercase tracking-[0.15em] text-muted-foreground transition-colors duration-150 hover:text-foreground"
+          >
+            <ArrowLeft className="size-3 transition-transform duration-150 group-hover:-translate-x-0.5" />
+            {t.notFound.cta}
+          </Link>
         </div>
-
-        <RailBounded className="relative z-10 flex-1 flex flex-col justify-end py-16 md:py-24">
-          {/* ─── Oversized 404 — top-left, bleeds up ─── */}
-          <div className="relative -mt-8 md:-mt-16 mb-auto">
-            <span
-              className="
-                block font-mono font-bold tracking-tighter leading-none
-                text-foreground/[0.04] select-none
-                text-[clamp(12rem,35vw,28rem)]
-              "
-              aria-hidden="true"
-            >
-              404
-            </span>
-
-            {/* Small coordinate label */}
-            <MonoText className="absolute top-1 left-0 text-[9px] tracking-[0.25em] text-border/60 uppercase">
-              {t.notFound.errorCode}
-            </MonoText>
-          </div>
-
-          {/* ─── Content Block — bottom-right asymmetric ─── */}
-          <div className="w-[22rem] ml-auto">
-            {/* Text */}
-            <div className="space-y-4 mb-10">
-              <h1
-                className="
-                  text-xl sm:text-2xl md:text-3xl font-semibold
-                  leading-snug tracking-[-0.02em] text-foreground
-                "
-              >
-                {t.notFound.title}
-              </h1>
-              <p className="text-sm leading-relaxed text-muted-foreground">
-                {t.notFound.description}
-              </p>
-            </div>
-
-            {/* Minimal Nav Links */}
-            <div className="space-y-0 mb-8">
-              {NAV_ITEMS.map((item) => (
-                <Link
-                  key={item.key}
-                  href={getLocalizedLink(item.href)}
-                  className="
-                    group flex items-center justify-between
-                    py-2.5 border-b border-border/20
-                    hover:border-border/50
-                    transition-colors duration-150
-                  "
-                >
-                  <span className="text-xs font-medium uppercase tracking-[0.15em] text-muted-foreground group-hover:text-foreground transition-colors duration-150">
-                    {t.nav[item.key]}
-                  </span>
-                  <span className="relative flex size-6 items-center justify-center">
-                    <ArrowLeft className="relative size-3.5 text-muted-foreground/30 -translate-x-3 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 group-hover:text-foreground transition-all duration-300 ease-[cubic-bezier(0.25,1,0.5,1)]" />
-                  </span>
-                </Link>
-              ))}
-            </div>
-
-            {/* Status pill */}
-            <div className="flex items-center gap-2 pt-6 border-t border-border/15">
-              <div className="h-1 w-1 rounded-full bg-muted-foreground/40" />
-              <MonoText className="text-[9px] tracking-[0.2em] text-border uppercase">
-                status — {t.notFound.subtitle}
-              </MonoText>
-            </div>
-          </div>
-        </RailBounded>
-      </main>
-
-      <Footer />
-    </RailLayout>
+      </section>
+    </div>
   );
 }

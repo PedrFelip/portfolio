@@ -45,7 +45,7 @@ const NavLinkItem = memo(function NavLinkItem({
 
   const variantClasses = {
     desktop:
-      "group relative px-3 py-2 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+      "group relative px-3 py-2 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
     mobile:
       "block min-h-[48px] px-4 py-3 border-b border-dashed border-border last:border-b-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset active:bg-surface-4",
   };
@@ -103,7 +103,7 @@ function SearchBar() {
     <button
       type="button"
       onClick={openSearch}
-      className="hidden md:flex items-center gap-1.5 h-7 px-2.5 rounded border border-border bg-surface-2/50 text-muted-foreground/60 select-none transition-colors duration-150 hover:border-border/80 hover:bg-surface-3/50 hover:text-muted-foreground/80"
+      className="hidden md:flex items-center gap-1.5 h-7 px-2.5 rounded-lg border border-border bg-surface-2/50 text-muted-foreground/60 select-none transition-colors duration-150 hover:border-border/80 hover:bg-surface-3/50 hover:text-muted-foreground/80"
       aria-label="Search"
     >
       <Search className="size-3 shrink-0" />
@@ -236,7 +236,7 @@ export const Navigation = memo(() => {
               >
                 {pill && (
                   <span
-                    className="absolute top-1/2 -translate-y-1/2 h-[calc(100%-8px)] rounded bg-accent/[0.10] transition-all duration-350 ease-[cubic-bezier(0.25,1,0.5,1)] motion-reduce:transition-none pointer-events-none"
+                    className="absolute top-1/2 -translate-y-1/2 h-[calc(100%-8px)] rounded-lg bg-accent/[0.10] transition-all duration-350 ease-[cubic-bezier(0.25,1,0.5,1)] motion-reduce:transition-none pointer-events-none"
                     style={{ left: pill.left, width: pill.width }}
                     aria-hidden="true"
                   />
@@ -265,14 +265,14 @@ export const Navigation = memo(() => {
                   aria-label={`Switch language to ${
                     language === "en" ? "Portuguese" : "English"
                   }`}
-                  className="size-7 rounded border border-overlay-border bg-surface-3 font-mono text-[10px] font-medium transition-all duration-250 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-overlay-border-hover hover:bg-surface-4 active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-50"
+                  className="size-7 rounded-lg border border-overlay-border bg-surface-3 font-mono text-[10px] font-medium transition-all duration-250 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-overlay-border-hover hover:bg-surface-4 active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   {language === "en" ? "EN" : "PT"}
                 </Button>
 
                 <Button
                   variant="ghost"
-                  className={`size-7 rounded border border-overlay-border transition-all duration-250 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-overlay-border-hover hover:bg-surface-4 active:scale-[0.97] md:hidden ${
+                  className={`size-7 rounded-lg border border-overlay-border transition-all duration-250 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-overlay-border-hover hover:bg-surface-4 active:scale-[0.97] md:hidden ${
                     isMenuOpen
                       ? "border-overlay-border-hover bg-surface-4"
                       : "bg-surface-3"

@@ -1,76 +1,61 @@
+"use client";
+
 import Link from "next/link";
-import { ArrowRight } from "@/components/ui/icons";
+import { Reveal } from "@/components/blueprint/Reveal";
+import { SectionBadge } from "@/components/blueprint/SectionBadge";
+import { Button } from "@/components/ui/button";
+import { ArrowRight, ExternalLink } from "@/components/ui/icons";
 
 interface HomeCtaSectionProps {
   lang: string;
+  badge: string;
   title: string;
   description: string;
   primary: string;
   secondary: string;
 }
 
-/**
- * HomeCtaSection — chanhdai.com inspired CTA panel
- *
- * Panel with header line, two links with animated arrows,
- * status pill. No bottom line (last panel).
- */
 export function HomeCtaSection({
   lang,
+  badge,
   title,
   description,
   primary,
   secondary,
 }: HomeCtaSectionProps) {
   return (
-    <section data-slot="panel" className="bp-panel">
-      <div className="px-4 py-10 sm:px-6 sm:py-14">
-        <div className="flex flex-col items-center">
-          <div className="w-full max-w-sm">
-            <h2 className="text-lg font-semibold tracking-tight text-foreground sm:text-xl">
-              {title}
-            </h2>
-            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              {description}
-            </p>
+    <section data-slot="panel" className="bp-panel bp-line-top bp-line-bottom">
+      <SectionBadge className="bp-line-bottom px-4 py-3 sm:px-6">
+        <p className="text-[10px] sm:text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground/60">
+          {badge}
+        </p>
+        <h2 className="mt-1 text-lg font-semibold tracking-tight sm:text-xl">
+          {title}
+        </h2>
+        <p className="mt-1 text-sm text-muted-foreground">{description}</p>
+      </SectionBadge>
 
-            {/* Links */}
-            <div className="mt-8">
-              <Link
-                href={`/${lang}/projects`}
-                className="
-                  group flex items-center justify-between
-                  py-3 border-b border-border/20
-                  hover:border-border/50
-                  transition-colors duration-150
-                "
-              >
-                <span className="text-xs font-medium uppercase tracking-[0.15em] text-muted-foreground group-hover:text-foreground transition-colors duration-150">
-                  {primary}
-                </span>
-                <ArrowRight className="size-3.5 text-muted-foreground/30 opacity-70 group-hover:translate-x-1.5 group-hover:opacity-100 group-hover:text-foreground transition-all duration-300 ease-[cubic-bezier(0.25,1,0.5,1)]" />
-              </Link>
-
-              <Link
-                href="https://x.com/pedrofelipeek"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="
-                  group flex items-center justify-between
-                  py-3 border-b border-border/20
-                  hover:border-border/50
-                  transition-colors duration-150
-                "
-              >
-                <span className="text-xs font-medium uppercase tracking-[0.15em] text-muted-foreground group-hover:text-foreground transition-colors duration-150">
-                  {secondary}
-                </span>
-                <ArrowRight className="size-3.5 text-muted-foreground/30 opacity-70 group-hover:translate-x-1.5 group-hover:opacity-100 group-hover:text-foreground transition-all duration-300 ease-[cubic-bezier(0.25,1,0.5,1)]" />
-              </Link>
-            </div>
-          </div>
+      <Reveal variant="up" delay={0.1}>
+        <div className="flex flex-col items-center gap-3 px-4 py-10 sm:flex-row sm:justify-center sm:gap-4 sm:px-6 sm:py-14">
+          <Button asChild variant="primary" size="lg">
+            <Link href={`/${lang}/projects`}>
+              {primary}
+              <ArrowRight className="size-3.5" />
+            </Link>
+          </Button>
+          <Button asChild variant="outline" size="lg">
+            <Link
+              href="https://x.com/pedrofelipeek"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`${secondary} — opens in new tab`}
+            >
+              {secondary}
+              <ExternalLink className="size-3.5" />
+            </Link>
+          </Button>
         </div>
-      </div>
+      </Reveal>
     </section>
   );
 }

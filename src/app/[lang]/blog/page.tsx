@@ -4,6 +4,7 @@ import { HatchSeparator, SectionBadge } from "@/components/blueprint";
 import { getAllPosts, getAllTags } from "@/lib/blog-data";
 import { blogEn } from "@/lib/content/blog.en";
 import { blogPt } from "@/lib/content/blog.pt";
+import { isLanguage, SUPPORTED_LANGS } from "@/lib/i18n";
 
 const blogContent = {
   en: blogEn,
@@ -22,13 +23,15 @@ interface BlogPageProps {
 
 export const revalidate = 86400;
 
+export function generateStaticParams() {
+  return SUPPORTED_LANGS.map((lang) => ({ lang }));
+}
+
 export async function generateMetadata({
   params,
 }: BlogPageProps): Promise<Metadata> {
   const { lang } = await params;
-  const validLang = (lang === "pt" || lang === "en" ? lang : "en") as
-    | "en"
-    | "pt";
+  const validLang = (isLanguage(lang) ? lang : "en") as "en" | "pt";
   const t = blogContent[validLang].blog;
 
   return {

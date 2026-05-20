@@ -3,6 +3,7 @@ import dynamic from "next/dynamic";
 import { HatchSeparator, SectionBadge } from "@/components/blueprint";
 import { projectsEn } from "@/lib/content/projects.en";
 import { projectsPt } from "@/lib/content/projects.pt";
+import { isLanguage, SUPPORTED_LANGS } from "@/lib/i18n";
 import { getProjects } from "@/lib/projects-data";
 
 const ProjectsClient = dynamic(() => import("./ProjectsClient"), {
@@ -24,11 +25,15 @@ interface ProjectsPageProps {
   params: Promise<{ lang: Lang }>;
 }
 
+export function generateStaticParams() {
+  return SUPPORTED_LANGS.map((lang) => ({ lang }));
+}
+
 export async function generateMetadata({
   params,
 }: ProjectsPageProps): Promise<Metadata> {
   const { lang } = await params;
-  const validLang = (lang === "pt" || lang === "en" ? lang : "en") as Lang;
+  const validLang = (isLanguage(lang) ? lang : "en") as Lang;
   const t = projectsContent[validLang].projects;
 
   return {

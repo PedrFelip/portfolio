@@ -1,4 +1,5 @@
-import Fuse from "fuse.js";
+import type Fuse from "fuse.js";
+
 import { create } from "zustand";
 import type { SearchItem } from "@/lib/search-types";
 
@@ -62,7 +63,8 @@ export const useSearchStore = create<SearchState>((set, get) => ({
 
       const items: SearchItem[] = await res.json();
 
-      const fuse = new Fuse(items, {
+      const FuseClass = (await import("fuse.js")).default;
+      const fuse = new FuseClass(items, {
         keys: [
           { name: "title", weight: 2.0 },
           { name: "headings", weight: 1.5 },

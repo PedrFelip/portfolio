@@ -13,6 +13,7 @@ import {
 } from "@/lib/about-data";
 import { aboutEn } from "@/lib/content/about.en";
 import { aboutPt } from "@/lib/content/about.pt";
+import { isLanguage, SUPPORTED_LANGS } from "@/lib/i18n";
 import { parseBoldMarkdown } from "@/lib/markdown";
 
 const WorkExperienceBlueprint = dynamic(
@@ -60,11 +61,15 @@ const aboutContent = {
   pt: aboutPt,
 };
 
+export function generateStaticParams() {
+  return SUPPORTED_LANGS.map((lang) => ({ lang }));
+}
+
 export async function generateMetadata({
   params,
 }: AboutPageProps): Promise<Metadata> {
   const { lang } = await params;
-  const validLang = lang === "pt" || lang === "en" ? lang : "en";
+  const validLang = isLanguage(lang) ? lang : "en";
   const t = aboutContent[validLang as keyof typeof aboutContent] || aboutEn;
 
   return {

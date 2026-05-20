@@ -18,4 +18,5 @@ export { RailLayout } from "./RailLayout";
 export { Reveal } from "./Reveal";
 export { SectionBadge } from "./SectionBadge";
 export { SectionDivider } from "./SectionDivider";
+export { SectionLabel } from "./SectionLabel";
 export { StaggerGroup, StaggerItem } from "./StaggerGroup";

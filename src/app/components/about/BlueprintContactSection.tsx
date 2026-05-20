@@ -1,6 +1,6 @@
 import { memo } from "react";
+import { SectionBadge, SectionLabel } from "@/components/blueprint";
 import { CornerBrackets } from "@/components/blueprint/CornerBracket";
-import { SectionBadge } from "@/components/blueprint/SectionBadge";
 import { MonoText } from "@/components/ui";
 import { Github, Linkedin, Mail } from "@/components/ui/icons";
 import { XIcon } from "@/components/ui/x-icon";
@@ -45,9 +45,7 @@ export const BlueprintContactSection = memo(function BlueprintContactSection({
     <section id="contact" data-slot="panel" className="bp-panel">
       {/* Header */}
       <SectionBadge className="bp-line-bottom px-4 py-3 sm:px-6">
-        <p className="text-[10px] sm:text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground/60">
-          {badge}
-        </p>
+        <SectionLabel>{badge}</SectionLabel>
         <h2 className="mt-1 text-lg font-semibold tracking-tight sm:text-xl">
           {title}
         </h2>

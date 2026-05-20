@@ -4,6 +4,7 @@ import {
   HatchSeparator,
   PanelSpacer,
   SectionBadge,
+  SectionLabel,
 } from "@/components/blueprint";
 import { SimpleTechStack } from "@/components/home/SimpleTechStack";
 import {
@@ -98,9 +99,7 @@ export default async function AboutPage({ params }: AboutPageProps) {
         <div className="grid grid-cols-1 sm:grid-cols-2">
           {/* Column 1: Intro Info */}
           <SectionBadge className="px-4 py-8 sm:px-6 sm:py-12">
-            <p className="text-[10px] sm:text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground/60">
-              {t.about.badge}
-            </p>
+            <SectionLabel>{t.about.badge}</SectionLabel>
             <h1 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
               {t.about.title}
             </h1>

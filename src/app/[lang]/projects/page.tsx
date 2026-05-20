@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
-import { HatchSeparator, SectionBadge } from "@/components/blueprint";
+import {
+  HatchSeparator,
+  SectionBadge,
+  SectionLabel,
+} from "@/components/blueprint";
 import { projectsEn } from "@/lib/content/projects.en";
 import { projectsPt } from "@/lib/content/projects.pt";
 import { isLanguage, SUPPORTED_LANGS } from "@/lib/i18n";
@@ -56,9 +60,7 @@ export default async function ProjectsPage({ params }: ProjectsPageProps) {
         className="bp-panel bp-line-top bp-line-bottom"
       >
         <SectionBadge className="px-4 py-8 sm:px-6">
-          <p className="text-[10px] sm:text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground/60">
-            {t.badge}
-          </p>
+          <SectionLabel>{t.badge}</SectionLabel>
           <h2 className="mt-3 text-2xl font-semibold tracking-tight sm:text-3xl">
             {t.title}
           </h2>

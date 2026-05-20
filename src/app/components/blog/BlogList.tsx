@@ -2,8 +2,8 @@
 
 import { AnimatePresence, m } from "framer-motion";
 import { useCallback, useRef, useState } from "react";
-import { FlickerOverlay } from "@/components/common/FlickerOverlay";
 import { SectionLabel } from "@/components/blueprint";
+import { FlickerOverlay } from "@/components/common/FlickerOverlay";
 import { MonoText, P } from "@/components/ui";
 import { ChevronLeft, ChevronRight } from "@/components/ui/icons";
 import { useFlickerTransition } from "@/hooks/useFlickerTransition";

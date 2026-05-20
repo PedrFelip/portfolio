@@ -1,6 +1,6 @@
 import { memo } from "react";
-import { CornerBrackets } from "@/components/blueprint/CornerBracket";
 import { SectionBadge, SectionLabel } from "@/components/blueprint";
+import { CornerBrackets } from "@/components/blueprint/CornerBracket";
 import { MonoText } from "@/components/ui";
 import { Github, Linkedin, Mail } from "@/components/ui/icons";
 import { XIcon } from "@/components/ui/x-icon";

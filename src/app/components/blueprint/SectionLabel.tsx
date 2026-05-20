@@ -15,7 +15,7 @@ export function SectionLabel({ children, className }: SectionLabelProps) {
       )}
     >
       <span className="text-muted-foreground/25 select-none" aria-hidden>
-        //
+        {"//"}
       </span>
       <span className="font-medium text-muted-foreground/60">{children}</span>
       <span

@@ -163,7 +163,7 @@ export function BlogList({
             type="button"
             onClick={() => handleTagClick(null)}
             className={cn(
-              "text-xs px-2 py-1 rounded border transition-colors duration-150",
+              "text-xs min-h-[40px] md:min-h-0 px-3.5 py-2 md:px-2 md:py-1 rounded border transition-all duration-150 active:scale-[0.98] active:bg-accent/10",
               !activeTag
                 ? "border-accent/40 text-accent bg-accent/5"
                 : "border-border text-muted-foreground hover:text-foreground",
@@ -177,7 +177,7 @@ export function BlogList({
               type="button"
               onClick={() => handleTagClick(tag)}
               className={cn(
-                "text-xs px-2 py-1 rounded border transition-colors duration-150 font-mono",
+                "text-xs min-h-[40px] md:min-h-0 px-3.5 py-2 md:px-2 md:py-1 rounded border transition-all duration-150 font-mono active:scale-[0.98] active:bg-accent/10",
                 activeTag === tag
                   ? "border-accent/40 text-accent bg-accent/5"
                   : "border-border text-muted-foreground hover:text-foreground",
@@ -252,7 +252,7 @@ export function BlogList({
                 type="button"
                 onClick={handlePrevPage}
                 disabled={!hasPrevPage}
-                className="terminal-glow inline-flex items-center gap-2 rounded border border-border bg-card px-4 py-2 text-xs font-medium text-foreground disabled:cursor-not-allowed disabled:opacity-40 transition-colors duration-150 hover:border-foreground/30"
+                className="terminal-glow inline-flex min-h-[44px] md:min-h-[36px] items-center gap-2 rounded border border-border bg-card px-4 py-2 text-xs font-medium text-foreground disabled:cursor-not-allowed disabled:opacity-40 transition-colors duration-150 hover:border-foreground/30 active:scale-[0.97] active:bg-surface-2"
                 aria-label={t.previous}
               >
                 <ChevronLeft className="size-3.5" />
@@ -269,7 +269,7 @@ export function BlogList({
                 type="button"
                 onClick={handleNextPage}
                 disabled={!hasNextPage}
-                className="terminal-glow inline-flex items-center gap-2 rounded border border-border bg-card px-4 py-2 text-xs font-medium text-foreground disabled:cursor-not-allowed disabled:opacity-40 transition-colors duration-150 hover:border-foreground/30"
+                className="terminal-glow inline-flex min-h-[44px] md:min-h-[36px] items-center gap-2 rounded border border-border bg-card px-4 py-2 text-xs font-medium text-foreground disabled:cursor-not-allowed disabled:opacity-40 transition-colors duration-150 hover:border-foreground/30 active:scale-[0.97] active:bg-surface-2"
                 aria-label={t.next}
               >
                 <span>{t.next}</span>

@@ -155,7 +155,7 @@ export default function ProjectsClient({
                     <button
                       type="button"
                       onClick={() => handleTagChange([])}
-                      className="text-xs font-medium text-accent transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:text-accent/80"
+                      className="min-h-[40px] px-4 py-2 text-xs font-medium text-accent transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:text-accent/80 active:scale-[0.98] active:opacity-90"
                     >
                       {filterLabels.clearButton}
                     </button>

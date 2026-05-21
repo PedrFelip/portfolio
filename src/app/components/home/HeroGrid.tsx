@@ -360,13 +360,12 @@ function TechItem({
   color: string;
 }) {
   return (
-    <button
-      type="button"
+    <div
       className="group flex items-center space-x-2 text-muted-foreground hover:text-[var(--tech-color)] select-none transition-colors duration-150 [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-6 [&_svg]:transition-colors [&_svg]:duration-150"
       style={{ "--tech-color": color } as React.CSSProperties}
     >
       {icon}
       <span className="text-sm font-medium whitespace-nowrap">{title}</span>
-    </button>
+    </div>
   );
 }

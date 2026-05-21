@@ -195,7 +195,7 @@ export const SearchCommand = memo(function SearchCommand() {
                 setQuery("");
                 inputRef.current?.focus();
               }}
-              className="shrink-0 text-muted-foreground/40 hover:text-muted-foreground transition-colors duration-150"
+              className="shrink-0 size-9 md:size-8 flex items-center justify-center text-muted-foreground/40 hover:text-muted-foreground transition-colors duration-150 active:scale-90"
               aria-label="Clear search"
             >
               <X className="size-3.5" />
@@ -320,7 +320,7 @@ const ResultItem = memo(function ResultItem({
         onClick={handleClick}
         data-index={index}
         className={cn(
-          "flex items-center gap-3 px-4 py-2.5 mx-1 rounded-lg transition-colors duration-100",
+          "flex items-center gap-3 px-4 py-3 md:py-2.5 mx-1 rounded-lg transition-all duration-100 active:scale-[0.99] active:bg-accent/[0.12]",
           isActive
             ? "bg-accent/[0.08] text-foreground"
             : "text-muted-foreground",
@@ -359,7 +359,7 @@ const ResultItem = memo(function ResultItem({
       onClick={handleClick}
       data-index={index}
       className={cn(
-        "flex items-start gap-3 px-4 py-2.5 mx-1 rounded-lg transition-colors duration-100",
+        "flex items-start gap-3 px-4 py-3 md:py-2.5 mx-1 rounded-lg transition-all duration-100 active:scale-[0.99] active:bg-accent/[0.12]",
         isActive ? "bg-accent/[0.08] text-foreground" : "text-muted-foreground",
       )}
     >

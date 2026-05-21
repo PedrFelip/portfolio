@@ -110,7 +110,7 @@ export const ShareButtons = memo(
             href={shareLinks.twitter}
             target="_blank"
             rel="noopener noreferrer"
-            className="terminal-glow inline-flex h-9 items-center gap-2 rounded-lg border border-border bg-card px-3 py-2 text-sm text-muted-foreground transition-all duration-200 hover:text-foreground active:scale-[0.97] touch-manipulation select-none"
+            className="terminal-glow inline-flex h-11 md:h-9 items-center gap-2 rounded-lg border border-border bg-card px-4 md:px-3 text-sm text-muted-foreground transition-all duration-200 hover:text-foreground active:scale-[0.98] active:opacity-90 touch-manipulation select-none"
             aria-label={`${tBlog.shareOn} X (Twitter)`}
           >
             <XIcon className="size-3.5" />
@@ -121,7 +121,7 @@ export const ShareButtons = memo(
             href={shareLinks.linkedin}
             target="_blank"
             rel="noopener noreferrer"
-            className="terminal-glow inline-flex h-9 items-center gap-2 rounded-lg border border-border bg-card px-3 py-2 text-sm text-muted-foreground transition-all duration-200 hover:text-foreground active:scale-[0.97] touch-manipulation select-none"
+            className="terminal-glow inline-flex h-11 md:h-9 items-center gap-2 rounded-lg border border-border bg-card px-4 md:px-3 text-sm text-muted-foreground transition-all duration-200 hover:text-foreground active:scale-[0.98] active:opacity-90 touch-manipulation select-none"
             aria-label={`${tBlog.shareOn} LinkedIn`}
           >
             <Linkedin className="size-3.5" />
@@ -130,7 +130,7 @@ export const ShareButtons = memo(
 
           <a
             href={shareLinks.email}
-            className="terminal-glow inline-flex h-9 items-center gap-2 rounded-lg border border-border bg-card px-3 py-2 text-sm text-muted-foreground transition-all duration-200 hover:text-foreground active:scale-[0.97] touch-manipulation select-none"
+            className="terminal-glow inline-flex h-11 md:h-9 items-center gap-2 rounded-lg border border-border bg-card px-4 md:px-3 text-sm text-muted-foreground transition-all duration-200 hover:text-foreground active:scale-[0.98] active:opacity-90 touch-manipulation select-none"
             aria-label={`${tBlog.shareVia} Email`}
           >
             <Mail className="size-3.5" />
@@ -141,7 +141,7 @@ export const ShareButtons = memo(
             type="button"
             onClick={copyToClipboard}
             disabled={isPending}
-            className="terminal-glow inline-flex h-9 items-center gap-2 rounded-lg border border-border bg-card px-3 py-2 text-sm text-muted-foreground transition-all duration-200 hover:text-foreground active:scale-[0.97] disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation select-none"
+            className="terminal-glow inline-flex h-11 md:h-9 items-center gap-2 rounded-lg border border-border bg-card px-4 md:px-3 text-sm text-muted-foreground transition-all duration-200 hover:text-foreground active:scale-[0.98] active:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation select-none"
             aria-label={copied ? tBlog.linkCopied : tBlog.copyLink}
           >
             {copied ? (

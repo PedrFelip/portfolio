@@ -54,7 +54,7 @@ export const FilterTags = memo(
             <button
               type="button"
               onClick={clearAll}
-              className="text-xs font-mono text-muted-foreground/60 transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:text-foreground active:opacity-70 touch-manipulation min-h-[36px] px-2"
+              className="text-xs font-mono text-muted-foreground/60 transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:text-foreground active:opacity-70 touch-manipulation min-h-[44px] md:min-h-[36px] px-3"
             >
               {filterLabels.clear}
             </button>

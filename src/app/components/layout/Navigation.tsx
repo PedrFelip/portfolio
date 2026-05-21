@@ -14,6 +14,7 @@ import {
 } from "react";
 import { Button, Logo } from "@/components/ui";
 import { Menu, Search, X } from "@/components/ui/icons";
+import { useIsTouchDevice } from "@/hooks/useIsTouchDevice";
 import { useLanguage } from "@/lib/language-store";
 import { useSearchStore } from "@/lib/search-store";
 import { useLocalizedLink } from "@/lib/useLocalizedLink";
@@ -125,6 +126,7 @@ export const Navigation = memo(() => {
   const { language, setLanguage, t } = useLanguage();
   const getLocalizedLink = useLocalizedLink();
   const openSearch = useSearchStore((s) => s.open);
+  const isTouch = useIsTouchDevice();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
   const navRef = useRef<HTMLDivElement>(null);
@@ -259,14 +261,16 @@ export const Navigation = memo(() => {
               <div className="flex items-center gap-1.5 shrink-0">
                 <SearchBar />
 
-                <Button
-                  variant="ghost"
-                  onClick={openSearch}
-                  aria-label="Search"
-                  className="size-9 rounded-lg border border-overlay-border bg-surface-3 flex md:hidden items-center justify-center transition-all duration-250 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-overlay-border-hover hover:bg-surface-4 active:scale-[0.97]"
-                >
-                  <Search className="size-4" aria-hidden="true" />
-                </Button>
+                {!isTouch && (
+                  <Button
+                    variant="ghost"
+                    onClick={openSearch}
+                    aria-label="Search"
+                    className="size-11 md:size-7 rounded-lg border border-overlay-border bg-surface-3 flex md:hidden items-center justify-center transition-all duration-250 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-overlay-border-hover hover:bg-surface-4 active:scale-[0.97] touch-manipulation"
+                  >
+                    <Search className="size-4" aria-hidden="true" />
+                  </Button>
+                )}
 
                 <Button
                   variant="ghost"
@@ -275,14 +279,14 @@ export const Navigation = memo(() => {
                   aria-label={`Switch language to ${
                     language === "en" ? "Portuguese" : "English"
                   }`}
-                  className="size-9 md:size-7 rounded-lg border border-overlay-border bg-surface-3 font-mono text-[10px] font-medium transition-all duration-250 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-overlay-border-hover hover:bg-surface-4 active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-50"
+                  className="size-11 md:size-7 rounded-lg border border-overlay-border bg-surface-3 font-mono text-[10px] font-medium transition-all duration-250 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-overlay-border-hover hover:bg-surface-4 active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-50 touch-manipulation"
                 >
                   {language === "en" ? "EN" : "PT"}
                 </Button>
 
                 <Button
                   variant="ghost"
-                  className={`size-9 md:size-7 rounded-lg border border-overlay-border transition-all duration-250 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-overlay-border-hover hover:bg-surface-4 active:scale-[0.97] md:hidden ${
+                  className={`size-11 md:size-7 rounded-lg border border-overlay-border transition-all duration-250 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-overlay-border-hover hover:bg-surface-4 active:scale-[0.97] md:hidden touch-manipulation ${
                     isMenuOpen
                       ? "border-overlay-border-hover bg-surface-4"
                       : "bg-surface-3"

@@ -163,7 +163,7 @@ export function BlogList({
             type="button"
             onClick={() => handleTagClick(null)}
             className={cn(
-              "text-xs min-h-[40px] md:min-h-0 px-3.5 py-2 md:px-2 md:py-1 rounded border transition-all duration-150 active:scale-[0.98] active:bg-accent/10",
+              "text-xs min-h-[44px] md:min-h-0 px-3.5 py-2 md:px-2 md:py-1 rounded border transition-all duration-150 active:scale-[0.98] active:bg-accent/10 touch-manipulation",
               !activeTag
                 ? "border-accent/40 text-accent bg-accent/5"
                 : "border-border text-muted-foreground hover:text-foreground",
@@ -177,7 +177,7 @@ export function BlogList({
               type="button"
               onClick={() => handleTagClick(tag)}
               className={cn(
-                "text-xs min-h-[40px] md:min-h-0 px-3.5 py-2 md:px-2 md:py-1 rounded border transition-all duration-150 font-mono active:scale-[0.98] active:bg-accent/10",
+                "text-xs min-h-[44px] md:min-h-0 px-3.5 py-2 md:px-2 md:py-1 rounded border transition-all duration-150 font-mono active:scale-[0.98] active:bg-accent/10 touch-manipulation",
                 activeTag === tag
                   ? "border-accent/40 text-accent bg-accent/5"
                   : "border-border text-muted-foreground hover:text-foreground",

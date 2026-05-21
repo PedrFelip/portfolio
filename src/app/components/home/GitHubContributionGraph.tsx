@@ -142,8 +142,8 @@ export const GitHubContributionGraph = memo(
                           "hover:border-overlay-border-hover hover:scale-110 hover:z-10 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent",
                           selectedDay?.date === day.date &&
                             "border-accent ring-1 ring-accent z-10 scale-110",
-                          // Larger touch target (hidden)
-                          "before:absolute before:-inset-2 before:z-[-1]",
+                          // Larger touch target (hidden) — 44px on mobile, 26px on desktop
+                          "before:absolute before:-inset-3 md:before:-inset-2 before:z-[-1]",
                         )}
                         style={{
                           backgroundColor: getContributionColor(

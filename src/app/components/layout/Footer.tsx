@@ -137,10 +137,10 @@ export const Footer = memo(() => {
                     rel="noopener noreferrer"
                     aria-label={link.label}
                     className="
-                      size-9 flex items-center justify-center rounded-lg border border-transparent
+                      size-11 sm:size-9 flex items-center justify-center rounded-lg border border-transparent
                       text-muted-foreground/60 transition-all duration-200 ease-[cubic-bezier(0.25,1,0.5,1)]
                       hover:text-accent hover:border-accent/20 hover:bg-accent/5
-                      active:scale-[0.9] active:bg-accent/10
+                      active:scale-[0.9] active:bg-accent/10 touch-manipulation
                     "
                   >
                     {link.icon}

@@ -61,7 +61,6 @@ export function FluidGradientText({
   const handleTouchMove = useCallback(
     (e: TouchEvent) => {
       if (e.touches.length > 0 && containerRef.current) {
-        e.preventDefault();
         updateGradient(e.touches[0].clientX, containerRef.current);
       }
     },
@@ -71,7 +70,7 @@ export function FluidGradientText({
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
-    el.addEventListener("touchmove", handleTouchMove, { passive: false });
+    el.addEventListener("touchmove", handleTouchMove, { passive: true });
     return () => el.removeEventListener("touchmove", handleTouchMove);
   }, [handleTouchMove]);
 

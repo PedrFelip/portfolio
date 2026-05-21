@@ -21,6 +21,7 @@ export {
   Calendar,
   Check,
   CheckCircle,
+  ChevronDown,
   ChevronLeft,
   ChevronRight,
   Clock,
@@ -36,5 +37,6 @@ export {
   Menu,
   Search,
   Share2,
+  Star,
   X,
 } from "lucide-react";

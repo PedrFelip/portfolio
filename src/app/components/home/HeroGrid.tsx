@@ -33,7 +33,7 @@ export function HeroGrid({
   ctaSecondaryHref,
 }: HeroGridProps) {
   return (
-    <div className="relative w-full overflow-x-hidden pb-10">
+    <div className="relative w-full overflow-x-clip pb-10 sm:pb-16">
       <div className="mx-auto px-4 md:max-w-4xl">
         {/* Mobile / Tablet layout */}
         <div className="bp-line-top bp-line-bottom bp-panel lg:hidden">

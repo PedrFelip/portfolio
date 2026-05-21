@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { useEffect } from "react";
+import { useIsTouchDevice } from "@/hooks/useIsTouchDevice";
 import { useSearchStore } from "@/lib/search-store";
 
 const SearchCommand = dynamic(
@@ -14,6 +15,7 @@ const SearchCommand = dynamic(
 export function SearchWrapper() {
   const isOpen = useSearchStore((s) => s.isOpen);
   const toggle = useSearchStore((s) => s.toggle);
+  const isTouch = useIsTouchDevice();
 
   useEffect(() => {
     const prefetch = () => {
@@ -47,6 +49,9 @@ export function SearchWrapper() {
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [toggle]);
+
+  // Desabilita modal de pesquisa em dispositivos touch
+  if (isTouch) return null;
 
   return isOpen ? <SearchCommand /> : null;
 }

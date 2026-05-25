@@ -33,10 +33,10 @@ export function HeroGrid({
   ctaSecondaryHref,
 }: HeroGridProps) {
   return (
-    <div className="relative w-full overflow-x-clip pb-10 sm:pb-16">
-      <div className="mx-auto px-4 md:max-w-4xl">
+    <div className="relative w-full overflow-x-clip overflow-y-visible">
+      <div className="mx-auto md:max-w-4xl px-4">
         {/* Mobile / Tablet layout */}
-        <div className="bp-line-top bp-line-bottom bp-panel lg:hidden">
+        <div className="bp-line-top bp-panel lg:hidden">
           <svg
             className="pointer-events-none absolute inset-0 overflow-visible text-border"
             viewBox="0 0 210 340"
@@ -152,8 +152,9 @@ export function HeroGrid({
             />
           </svg>
 
-          <div className="relative flex flex-col">
+          <div className="relative grid aspect-[1/1.618] grid-cols-[1.618fr_minmax(0,1fr)] grid-rows-[1.618fr_1fr]">
             <MainContent
+              className="col-[1/span_2] row-1"
               title={title}
               subtitle={subtitle}
               description={description}
@@ -163,12 +164,14 @@ export function HeroGrid({
               ctaSecondaryHref={ctaSecondaryHref}
             />
 
-            <div className="h-48 sm:h-56 md:h-64" />
+            <div className="col-2 row-2" />
+
+            <div className="col-1 row-2 flex flex-col items-center justify-center overflow-hidden p-2 sm:p-4" />
           </div>
         </div>
 
         {/* Desktop layout */}
-        <div className="bp-line-top bp-line-bottom bp-panel hidden lg:block">
+        <div className="bp-line-top bp-panel hidden lg:block">
           <svg
             className="pointer-events-none absolute inset-0 overflow-visible text-border"
             viewBox="0 0 340 210"
@@ -312,33 +315,38 @@ function MainContent({
   return (
     <div
       className={cn(
-        "flex flex-col justify-center overflow-hidden p-4 md:p-6 lg:p-8",
+        "flex flex-col justify-center overflow-hidden p-4 sm:p-6 lg:p-8",
         className,
       )}
     >
-      <h1 className="mb-3 text-2xl leading-none font-semibold tracking-tight text-foreground sm:mb-4 sm:text-3xl md:text-4xl lg:text-5xl">
+      <h1 className="mb-3 text-3xl leading-none font-semibold tracking-tight text-foreground sm:mb-4 sm:text-4xl md:text-5xl lg:text-5xl">
         <span className="block">{title}</span>
         <span className="block text-muted-foreground/60">{subtitle}</span>
       </h1>
 
-      <p className="mb-4 text-sm leading-normal text-muted-foreground sm:mb-6 md:text-base lg:text-lg">
+      <p className="mb-5 text-sm leading-normal text-muted-foreground sm:mb-6 sm:text-base md:text-lg">
         {description}
       </p>
 
-      <div className="mb-4 flex flex-col gap-3 sm:mb-6 sm:flex-row sm:gap-4">
-        <Button asChild variant="primary" size="md">
+      <div className="mb-5 flex flex-col gap-2 sm:mb-6 sm:flex-row sm:gap-3">
+        <Button
+          asChild
+          variant="primary"
+          size="md"
+          className="border-none px-4 sm:px-6"
+        >
           <a href={ctaHref}>{cta}</a>
         </Button>
 
-        <Button asChild variant="outline" size="md">
+        <Button asChild variant="outline" size="md" className="px-4 sm:px-6">
           <a href={ctaSecondaryHref}>{ctaSecondary}</a>
         </Button>
       </div>
 
       <div className="relative -ml-4 lg:ml-0">
-        <div className="absolute -top-2 right-0 z-10 block h-10 w-16 sm:w-24 bg-background mask-[linear-gradient(to_left,white,transparent)] lg:hidden" />
+        <div className="absolute -top-2 right-0 z-10 block h-10 w-20 bg-background mask-[linear-gradient(to_left,white,transparent)] lg:hidden" />
 
-        <div className="no-scrollbar flex items-center gap-4 overflow-x-auto px-4 lg:px-0">
+        <div className="no-scrollbar flex items-center gap-3 overflow-x-auto px-4 lg:px-0">
           <TechItem icon={<NodeIcon />} title="Node.js" color="#339933" />
           <TechItem icon={<NestIcon />} title="NestJS" color="#E0234E" />
           <TechItem icon={<GoIcon />} title="Go" color="#00ADD8" />
@@ -361,11 +369,13 @@ function TechItem({
 }) {
   return (
     <div
-      className="group flex items-center space-x-2 text-muted-foreground hover:text-[var(--tech-color)] select-none transition-colors duration-150 [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-6 [&_svg]:transition-colors [&_svg]:duration-150"
+      className="group flex items-center space-x-1.5 text-muted-foreground hover:text-[var(--tech-color)] select-none transition-colors duration-150 [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-5 [&_svg]:transition-colors [&_svg]:duration-150"
       style={{ "--tech-color": color } as React.CSSProperties}
     >
       {icon}
-      <span className="text-sm font-medium whitespace-nowrap">{title}</span>
+      <span className="text-xs sm:text-sm font-medium whitespace-nowrap">
+        {title}
+      </span>
     </div>
   );
 }

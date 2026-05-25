@@ -286,10 +286,11 @@ export const Navigation = memo(() => {
 
                 <Button
                   variant="ghost"
-                  className={`size-11 md:size-7 rounded-lg border border-overlay-border transition-all duration-250 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-overlay-border-hover hover:bg-surface-4 active:scale-[0.97] md:hidden touch-manipulation ${
+                  size="icon"
+                  className={`rounded-lg border transition-all duration-250 ease-[cubic-bezier(0.25,1,0.5,1)] active:scale-[0.97] md:hidden touch-manipulation ${
                     isMenuOpen
-                      ? "border-overlay-border-hover bg-surface-4"
-                      : "bg-surface-3"
+                      ? "border-foreground/20 bg-surface-4 text-foreground"
+                      : "border-overlay-border bg-surface-3 text-foreground"
                   }`}
                   onClick={toggleMenu}
                   aria-label={t.nav.toggleMenu}
@@ -297,12 +298,14 @@ export const Navigation = memo(() => {
                 >
                   {isMenuOpen ? (
                     <X
-                      className="size-4 md:size-3.5 transition-transform duration-250 ease-[cubic-bezier(0.25,1,0.5,1)]"
+                      className="size-5 text-foreground transition-transform duration-250 ease-[cubic-bezier(0.25,1,0.5,1)]"
+                      strokeWidth={2}
                       aria-hidden="true"
                     />
                   ) : (
                     <Menu
-                      className="size-4 md:size-3.5 transition-transform duration-250 ease-[cubic-bezier(0.25,1,0.5,1)]"
+                      className="size-5 text-foreground transition-transform duration-250 ease-[cubic-bezier(0.25,1,0.5,1)]"
+                      strokeWidth={2}
                       aria-hidden="true"
                     />
                   )}
@@ -319,11 +322,11 @@ export const Navigation = memo(() => {
           {isMenuOpen && (
             <>
               <div
-                className="fixed inset-0 z-40 animate-in-fade bg-background/80 backdrop-blur-sm md:hidden"
+                className="fixed inset-0 z-40 bg-background md:hidden"
                 onClick={closeMenu}
                 aria-hidden="true"
               />
-              <div className="absolute top-full left-0 right-0 z-50 animate-in-slide-down border-x border-b border-border bg-background/95 backdrop-blur-md shadow-lg md:hidden">
+              <div className="absolute top-full left-0 right-0 z-50 border-x border-b border-border bg-background shadow-lg md:hidden">
                 <div className="flex flex-col">
                   {navLinks.map((link) => (
                     <NavLinkItem

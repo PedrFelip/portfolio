@@ -31,7 +31,7 @@ export const BlogCard = memo(({ post }: BlogCardProps) => {
       href={`/${language}/blog/${post.slug}`}
       scroll={false}
       onClick={handleClick}
-      className="block px-6 py-5 sm:px-8 sm:py-6 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring focus-visible:ring-inset"
+      className="block px-6 py-5 sm:px-8 sm:py-6 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring focus-visible:ring-inset active:scale-[0.99] active:bg-surface-2/40 transition-all duration-150 touch-manipulation min-h-[80px]"
     >
       <div className="flex items-center gap-3 mb-2">
         <span className="inline-flex items-center gap-1.5 text-muted-foreground/70">

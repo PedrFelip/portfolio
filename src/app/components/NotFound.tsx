@@ -31,7 +31,7 @@ export function NotFound() {
 
           <Link
             href={getLocalizedLink("/")}
-            className="group mt-8 inline-flex items-center gap-2 text-xs font-mono uppercase tracking-[0.15em] text-muted-foreground transition-colors duration-150 hover:text-foreground"
+            className="group mt-8 inline-flex items-center gap-2 text-xs font-mono uppercase tracking-[0.15em] text-muted-foreground transition-colors duration-150 hover:text-foreground min-h-[44px] touch-manipulation"
           >
             <ArrowLeft className="size-3 transition-transform duration-150 group-hover:-translate-x-0.5" />
             {t.notFound.cta}

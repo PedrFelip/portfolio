@@ -63,14 +63,14 @@ export const CodeBlockWrapper = memo(({ children }: CodeBlockWrapperProps) => {
       <button
         type="button"
         onClick={copyToClipboard}
-        className="absolute right-2 top-2 rounded-sm border border-[var(--code-border)] bg-card/80 p-1.5 text-muted-foreground opacity-0 backdrop-blur-sm transition-[opacity,color,background-color] duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:bg-accent/[0.04] hover:text-foreground group-hover/code:opacity-100 motion-reduce:transition-none"
+        className="absolute right-2 top-2 rounded-sm border border-[var(--code-border)] bg-card/80 text-muted-foreground opacity-100 md:opacity-0 backdrop-blur-sm transition-[opacity,color,background-color] duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:bg-accent/[0.04] hover:text-foreground md:group-hover/code:opacity-100 motion-reduce:transition-none min-h-[44px] min-w-[44px] flex items-center justify-center touch-manipulation"
         title={t.blog.copyCode}
         aria-label={copied ? t.blog.codeCopied : t.blog.copyCode}
       >
         {copied ? (
-          <Check className="size-3" aria-hidden="true" />
+          <Check className="size-4" aria-hidden="true" />
         ) : (
-          <Copy className="size-3" aria-hidden="true" />
+          <Copy className="size-4" aria-hidden="true" />
         )}
       </button>
     </div>

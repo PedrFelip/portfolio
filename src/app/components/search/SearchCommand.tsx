@@ -160,7 +160,7 @@ export const SearchCommand = memo(function SearchCommand() {
   const isSearching = query.trim().length > 0;
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-start justify-center pt-[15vh]">
+    <div className="fixed inset-0 z-[100] flex items-start justify-center pt-[10vh] sm:pt-[15vh]">
       {/* Backdrop */}
       <div
         className="absolute inset-0 bg-background/60 backdrop-blur-sm animate-in"
@@ -184,7 +184,7 @@ export const SearchCommand = memo(function SearchCommand() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder={placeholder}
-            className="flex-1 bg-transparent text-sm text-foreground placeholder:text-muted-foreground/40 outline-none"
+            className="flex-1 bg-transparent text-base md:text-sm text-foreground placeholder:text-muted-foreground/40 outline-none"
             autoComplete="off"
             spellCheck={false}
           />
@@ -195,7 +195,7 @@ export const SearchCommand = memo(function SearchCommand() {
                 setQuery("");
                 inputRef.current?.focus();
               }}
-              className="shrink-0 text-muted-foreground/40 hover:text-muted-foreground transition-colors duration-150"
+              className="shrink-0 min-h-[44px] min-w-[44px] md:size-8 flex items-center justify-center text-muted-foreground/40 hover:text-muted-foreground transition-colors duration-150 active:scale-90 touch-manipulation"
               aria-label="Clear search"
             >
               <X className="size-3.5" />
@@ -320,7 +320,7 @@ const ResultItem = memo(function ResultItem({
         onClick={handleClick}
         data-index={index}
         className={cn(
-          "flex items-center gap-3 px-4 py-2.5 mx-1 rounded-lg transition-colors duration-100",
+          "flex items-center gap-3 px-4 py-3 md:py-2.5 mx-1 rounded-lg transition-all duration-100 active:scale-[0.99] active:bg-accent/[0.12] min-h-[48px] md:min-h-0 touch-manipulation",
           isActive
             ? "bg-accent/[0.08] text-foreground"
             : "text-muted-foreground",
@@ -359,7 +359,7 @@ const ResultItem = memo(function ResultItem({
       onClick={handleClick}
       data-index={index}
       className={cn(
-        "flex items-start gap-3 px-4 py-2.5 mx-1 rounded-lg transition-colors duration-100",
+        "flex items-start gap-3 px-4 py-3 md:py-2.5 mx-1 rounded-lg transition-all duration-100 active:scale-[0.99] active:bg-accent/[0.12] min-h-[48px] md:min-h-0 touch-manipulation",
         isActive ? "bg-accent/[0.08] text-foreground" : "text-muted-foreground",
       )}
     >

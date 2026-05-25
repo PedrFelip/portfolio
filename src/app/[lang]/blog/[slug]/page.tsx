@@ -18,7 +18,7 @@ import {
   MDXTableRow,
 } from "@/components/mdx/MDXTable";
 import { Badge } from "@/components/ui";
-import { ArrowLeft, Calendar, Clock } from "@/components/ui/icons";
+import { ArrowLeft, Calendar, ChevronDown, Clock } from "@/components/ui/icons";
 import { getAllPostSlugs, getPostBySlug } from "@/lib/blog-data";
 import { blogEn } from "@/lib/content/blog.en";
 import { blogPt } from "@/lib/content/blog.pt";
@@ -260,11 +260,12 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           <div className="py-10 sm:py-16 animate-in-up animate-delay-300">
             {/* Mobile TOC */}
             <details className="lg:hidden mb-8 group">
-              <summary className="flex items-center justify-between cursor-pointer text-xs font-mono uppercase tracking-wide text-muted-foreground hover:text-foreground transition-colors py-3 border-b border-border">
+              <summary className="flex items-center justify-between cursor-pointer text-xs font-mono uppercase tracking-wide text-muted-foreground hover:text-foreground transition-colors py-3 border-b border-border min-h-[48px] touch-manipulation">
                 <span>{t.onThisPage || "On this page"}</span>
-                <span className="text-[10px] transition-transform group-open:rotate-180">
-                  ▼
-                </span>
+                <ChevronDown
+                  className="size-3 transition-transform group-open:rotate-180"
+                  aria-hidden="true"
+                />
               </summary>
               <div className="pt-4 pb-2">
                 <TableOfContents headings={post.headings || []} />
@@ -292,7 +293,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 </p>
                 <Link
                   href={`/${lang}/blog`}
-                  className="group inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors"
+                  className="group inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors min-h-[44px] touch-manipulation"
                 >
                   <ArrowLeft className="size-3 text-muted-foreground group-hover:text-foreground group-hover:-translate-x-1.5 transition-all duration-300 ease-[cubic-bezier(0.25,1,0.5,1)]" />
                   {t.back}

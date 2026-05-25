@@ -65,7 +65,7 @@ export const BlueprintContactSection = memo(function BlueprintContactSection({
               href={href}
               target={isEmail ? undefined : "_blank"}
               rel={isEmail ? undefined : "noopener noreferrer"}
-              className={`group relative flex items-center gap-3 px-4 py-4 transition-colors hover:bg-surface-2 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring focus-visible:ring-inset touch-manipulation ${iconColors[link.icon]}
+              className={`group relative flex items-center gap-3 px-4 py-4 transition-all duration-150 hover:bg-surface-2 active:scale-[0.98] active:opacity-90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring focus-visible:ring-inset touch-manipulation ${iconColors[link.icon]}
                 ${i % 2 !== 0 ? "border-l border-dashed border-border" : ""}
                 ${i >= 2 ? "border-t border-dashed border-border" : ""}
               `}

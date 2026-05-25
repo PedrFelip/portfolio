@@ -7,6 +7,12 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 5rem; /* Account for header height (80px desktop, 64px mobile) */
+  overflow-x: hidden;
+}
+
+body {
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
 }
 
 ::selection {
@@ -909,9 +915,17 @@ html {
 
   /* TOC - clean editorial list */
   .toc-item {
-    @apply relative block py-1.5 pl-3 text-sm leading-snug
-      transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)];
+    @apply relative flex items-center py-3 md:py-1.5 pl-3 text-sm leading-snug
+      transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)]
+      active:scale-[0.98] active:opacity-90;
+    min-height: 44px;
     border-left: 2px solid transparent;
+  }
+
+  @media (min-width: 768px) {
+    .toc-item {
+      min-height: 0;
+    }
   }
 
   .toc-item--nested {

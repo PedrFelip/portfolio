@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import { LanguageSync } from "@/components/LanguageSync";
 import { Navigation } from "@/components/layout/Navigation";
 import { NotFound } from "@/components/NotFound";
+import { useIsTouchDevice } from "@/hooks/useIsTouchDevice";
 
 const Footer = dynamic(
   () => import("@/components/layout/Footer").then((mod) => mod.Footer),
@@ -19,10 +20,12 @@ const SearchCommand = dynamic(
 );
 
 export default function RootNotFound() {
+  const isTouch = useIsTouchDevice();
+
   return (
     <LanguageSync>
       <Navigation />
-      <SearchCommand />
+      {!isTouch && <SearchCommand />}
       <main className="flex-grow">
         <NotFound />
       </main>

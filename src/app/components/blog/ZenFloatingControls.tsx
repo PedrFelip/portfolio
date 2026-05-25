@@ -85,7 +85,7 @@ export function ZenFloatingControls() {
 
       {/* Mobile Sticky Bottom Bar */}
       <m.div
-        className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[60] flex md:hidden"
+        className="fixed bottom-[calc(1.5rem+env(safe-area-inset-bottom,0px))] left-1/2 -translate-x-1/2 z-[60] flex md:hidden"
         initial={{ y: 20, opacity: 0 }}
         animate={{
           y: isVisible ? (isScrollingDown ? 80 : 0) : 20,
@@ -99,7 +99,7 @@ export function ZenFloatingControls() {
         <div className="flex h-11 items-stretch rounded-lg border border-overlay-border bg-background shadow-md overflow-hidden touch-manipulation">
           <Link
             href={getLocalizedLink("/blog")}
-            className="group flex items-center gap-2 px-6 text-[10px] font-mono uppercase tracking-widest text-foreground hover:bg-surface-4 transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] active:scale-[0.98]"
+            className="group flex items-center gap-2 px-6 text-[10px] font-mono uppercase tracking-widest text-foreground hover:bg-surface-4 transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] active:scale-[0.98] active:opacity-90"
           >
             <ArrowLeft className="size-3.5" />
             <span>{t.blog.back}</span>
@@ -109,7 +109,7 @@ export function ZenFloatingControls() {
 
           <Link
             href={getLocalizedLink("/")}
-            className="group flex items-center justify-center px-5 text-muted-foreground hover:text-foreground hover:bg-surface-4 transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] active:scale-[0.98]"
+            className="group flex items-center justify-center px-5 text-muted-foreground hover:text-foreground hover:bg-surface-4 transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] active:scale-[0.98] active:opacity-90"
             aria-label={t.nav.home}
           >
             <Home className="size-4" />

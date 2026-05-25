@@ -102,7 +102,7 @@ export const Footer = memo(() => {
                   key={link.href}
                   href={getLocalizedLink(link.href)}
                   className="
-                    group flex items-center gap-2 py-1.5 text-sm text-muted-foreground
+                    group flex items-center gap-2 py-2.5 sm:py-1.5 text-sm text-muted-foreground
                     transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)]
                     hover:text-foreground
                   "
@@ -137,13 +137,13 @@ export const Footer = memo(() => {
                     rel="noopener noreferrer"
                     aria-label={link.label}
                     className="
-                      text-muted-foreground/60 transition-all duration-200
-                      ease-[cubic-bezier(0.25,1,0.5,1)] hover:text-accent
+                      size-11 sm:size-9 flex items-center justify-center rounded-lg border border-transparent
+                      text-muted-foreground/60 transition-all duration-200 ease-[cubic-bezier(0.25,1,0.5,1)]
+                      hover:text-accent hover:border-accent/20 hover:bg-accent/5
+                      active:scale-[0.9] active:bg-accent/10 touch-manipulation
                     "
                   >
-                    <span className="block transition-transform duration-200 ease-[cubic-bezier(0.25,1,0.5,1)] hover:scale-110">
-                      {link.icon}
-                    </span>
+                    {link.icon}
                   </a>
                 ))}
               </div>

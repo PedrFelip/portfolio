@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { memo } from "react";
 import { Badge, Button, H3, MonoText, P } from "@/components/ui";
-import { ExternalLink, Github } from "@/components/ui/icons";
+import { ExternalLink, Github, Star } from "@/components/ui/icons";
 import { useLanguage } from "@/lib/language-store";
 import type { Project } from "@/types/portfolio";
 
@@ -21,9 +21,10 @@ export const ProjectCard = memo(({ project }: ProjectCardProps) => {
       <div className="flex flex-col gap-1.5 sm:flex-row sm:items-start sm:justify-between sm:gap-3">
         <H3 className="text-sm sm:text-base break-words pr-0 sm:pr-2 flex items-start gap-2 transition-colors duration-200 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover/card:text-accent">
           {project.featured && (
-            <MonoText className="mt-px shrink-0 text-[10px] sm:text-xs text-accent opacity-95 font-semibold animate-pulse hover:animate-none transition-all duration-150">
-              ★
-            </MonoText>
+            <Star
+              className="mt-px shrink-0 size-3 sm:size-3.5 text-accent opacity-95 animate-pulse hover:animate-none transition-all duration-150"
+              aria-hidden="true"
+            />
           )}
           {project.title}
         </H3>

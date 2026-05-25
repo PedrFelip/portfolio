@@ -1,5 +1,4 @@
 export { AlignedFlickeringGrid } from "./AlignedFlickeringGrid";
-export { BlueprintCursor } from "./BlueprintCursor";
 export { BlueprintReveal } from "./BlueprintReveal";
 export { CornerBrackets } from "./CornerBracket";
 export { DotPattern } from "./DotPattern";

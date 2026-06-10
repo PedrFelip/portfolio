@@ -42,7 +42,7 @@ export function HomeCtaSection({
           </Button>
           <Button asChild variant="outline" size="md" className="min-w-[180px]">
             <Link
-              href="https://x.com/pedrofelipeek"
+              href="https://x.com/pdrdotdev"
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`${secondary} — opens in new tab`}

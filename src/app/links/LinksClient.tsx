@@ -114,10 +114,11 @@ function LinksContent() {
 
   const descriptionMap: Record<string, string> = {
     portfolio: t.links.portfolioDescription,
-    github: t.links.githubDescription,
-    linkedin: t.links.linkedinDescription,
-    x: t.links.xDescription,
-    email: t.links.emailDescription,
+    ...Object.fromEntries(
+      socialLinks
+        .filter((l) => l.icon !== "portfolio")
+        .map((l) => [l.icon, l.handle]),
+    ),
   };
 
   return (

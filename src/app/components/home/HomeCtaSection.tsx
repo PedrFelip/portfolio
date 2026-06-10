@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Reveal, SectionBadge, SectionLabel } from "@/components/blueprint";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ExternalLink } from "@/components/ui/icons";
+import { getSocialUrl } from "@/lib/links";
 
 interface HomeCtaSectionProps {
   lang: string;
@@ -42,7 +43,7 @@ export function HomeCtaSection({
           </Button>
           <Button asChild variant="outline" size="md" className="min-w-[180px]">
             <Link
-              href="https://x.com/pdrdotdev"
+              href={getSocialUrl("x")}
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`${secondary} — opens in new tab`}

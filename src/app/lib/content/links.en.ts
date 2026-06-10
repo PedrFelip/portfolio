@@ -9,9 +9,5 @@ export const linksEn = {
     footerText: "Made with precision for backend engineering",
     availableForWork: "Available for work",
     portfolioDescription: "View my projects",
-    githubDescription: "@pedrfelip",
-    linkedinDescription: "/in/pedrfelip",
-    xDescription: "@pedrofelipeek",
-    emailDescription: "pfsilva190406@gmail.com",
   },
 };

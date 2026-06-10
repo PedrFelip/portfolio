@@ -23,6 +23,7 @@ import { getAllPostSlugs, getPostBySlug } from "@/lib/blog-data";
 import { blogEn } from "@/lib/content/blog.en";
 import { blogPt } from "@/lib/content/blog.pt";
 import { SUPPORTED_LANGS } from "@/lib/i18n";
+import { getSocialHandle } from "@/lib/links";
 
 const blogContent = {
   en: blogEn,
@@ -152,7 +153,7 @@ export async function generateMetadata({
       card: "summary",
       title: `${post.title} | Pedro Felipe`,
       description: config[lang].description,
-      creator: "@pedrofelipe",
+      creator: getSocialHandle("x"),
     },
   };
 }

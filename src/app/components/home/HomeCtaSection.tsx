@@ -35,13 +35,13 @@ export function HomeCtaSection({
 
       <Reveal variant="up" delay={0.1}>
         <div className="flex flex-col items-center gap-3 px-4 py-10 sm:flex-row sm:justify-center sm:gap-4 sm:px-6 sm:py-14">
-          <Button asChild variant="primary" size="md" className="min-w-[180px]">
+          <Button asChild variant="primary" size="md" className="w-full min-w-[180px]">
             <Link href={`/${lang}/projects`}>
               {primary}
               <ArrowRight className="size-3.5" />
             </Link>
           </Button>
-          <Button asChild variant="outline" size="md" className="min-w-[180px]">
+          <Button asChild variant="outline" size="md" className="w-full min-w-[180px]">
             <Link
               href={getSocialUrl("x")}
               target="_blank"

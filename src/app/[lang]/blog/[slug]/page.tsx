@@ -152,7 +152,7 @@ export async function generateMetadata({
       card: "summary",
       title: `${post.title} | Pedro Felipe`,
       description: config[lang].description,
-      creator: "@pedrofelipe",
+      creator: "@pdrdotdev",
     },
   };
 }

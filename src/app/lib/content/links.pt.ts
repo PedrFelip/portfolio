@@ -11,7 +11,7 @@ export const linksPt = {
     portfolioDescription: "Ver meus projetos",
     githubDescription: "@pedrfelip",
     linkedinDescription: "/in/pedrfelip",
-    xDescription: "@pedrofelipeek",
+    xDescription: "@pdrdotdev",
     emailDescription: "pfsilva190406@gmail.com",
   },
 };

@@ -14,8 +14,8 @@ const textProps = {
   y: "50%",
   textAnchor: "middle" as const,
   dominantBaseline: "central" as const,
-  stroke: "currentColor",
-  strokeOpacity: 0.6,
+  stroke: "var(--accent)",
+  strokeOpacity: 0.5,
   strokeWidth: 2,
 };
 
@@ -27,7 +27,7 @@ const textStyle = {
 export function FluidGradientText({
   text,
   svgViewBoxWidth = 2400,
-  svgViewBoxHeight = 300,
+  svgViewBoxHeight = 320,
 }: FluidGradientTextProps) {
   const gradientX1Raw = useMotionValue(svgViewBoxWidth / 2);
   const gradientX1 = useSpring(gradientX1Raw, {
@@ -77,7 +77,7 @@ export function FluidGradientText({
       ref={containerRef}
       role="img"
       aria-hidden="true"
-      className="relative size-full overflow-hidden after:absolute after:bottom-0 after:h-px after:w-full after:bg-current/10"
+      className="relative size-full overflow-hidden after:absolute after:bottom-0 after:h-px after:w-full after:bg-current/8"
       onMouseMove={handleMouseMove}
       onMouseLeave={resetGradient}
       onTouchEnd={resetGradient}
@@ -105,8 +105,8 @@ export function FluidGradientText({
             y2={svgViewBoxHeight}
             gradientUnits="userSpaceOnUse"
           >
-            <stop offset="0.55" stopColor="currentColor" stopOpacity="0" />
-            <stop offset="1" stopColor="currentColor" stopOpacity="0.60" />
+            <stop offset="0.50" stopColor="var(--accent)" stopOpacity="0" />
+            <stop offset="1" stopColor="var(--accent)" stopOpacity="0.85" />
           </m.linearGradient>
         </defs>
       </svg>

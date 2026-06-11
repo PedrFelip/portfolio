@@ -21,7 +21,7 @@ const textProps = {
 };
 
 const textStyle = {
-  fontFamily: "var(--font-space-grotesk)",
+  fontFamily: "var(--font-ibm-plex-mono)",
   fontWeight: "bold",
 } as const;
 

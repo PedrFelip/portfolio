@@ -5,7 +5,6 @@ import { useCallback, useEffect, useRef } from "react";
 
 export type FluidGradientTextProps = {
   text: string;
-  mobileText?: string;
   svgViewBoxWidth?: number;
   svgViewBoxHeight?: number;
 };
@@ -27,8 +26,7 @@ const textStyle = {
 
 export function FluidGradientText({
   text,
-  mobileText,
-  svgViewBoxWidth = 1200,
+  svgViewBoxWidth = 2400,
   svgViewBoxHeight = 300,
 }: FluidGradientTextProps) {
   const gradientX1Raw = useMotionValue(svgViewBoxWidth / 2);
@@ -74,8 +72,6 @@ export function FluidGradientText({
     return () => el.removeEventListener("touchmove", handleTouchMove);
   }, [handleTouchMove]);
 
-  const hasMobileText = mobileText && mobileText !== text;
-
   return (
     <div
       ref={containerRef}
@@ -93,34 +89,13 @@ export function FluidGradientText({
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden="true"
       >
-        {hasMobileText ? (
-          <>
-            <text
-              {...textProps}
-              fill="url(#fluid_gradient_text_linear)"
-              className="inline sm:hidden"
-              style={{ ...textStyle, fontSize: svgViewBoxHeight }}
-            >
-              {mobileText}
-            </text>
-            <text
-              {...textProps}
-              fill="url(#fluid_gradient_text_linear)"
-              className="hidden sm:inline"
-              style={{ ...textStyle, fontSize: svgViewBoxHeight }}
-            >
-              {text}
-            </text>
-          </>
-        ) : (
-          <text
-            {...textProps}
-            fill="url(#fluid_gradient_text_linear)"
-            style={{ ...textStyle, fontSize: svgViewBoxHeight }}
-          >
-            {text}
-          </text>
-        )}
+        <text
+          {...textProps}
+          fill="url(#fluid_gradient_text_linear)"
+          style={{ ...textStyle, fontSize: svgViewBoxHeight }}
+        >
+          {text}
+        </text>
         <defs>
           <m.linearGradient
             id="fluid_gradient_text_linear"

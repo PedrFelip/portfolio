@@ -164,7 +164,7 @@ export const Footer = memo(() => {
       <div className="px-4 py-4 sm:px-6">
         {/* Fluid Gradient Text */}
         <div className="text-foreground h-24 sm:h-32 md:h-40">
-          <FluidGradientText text="Pedro Felipe" mobileText="Pedro" />
+          <FluidGradientText text="Pedro Felipe" />
         </div>
       </div>
 

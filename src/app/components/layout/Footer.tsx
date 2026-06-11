@@ -3,10 +3,11 @@
 import Link from "next/link";
 import { memo, useMemo } from "react";
 import { HatchSeparator } from "@/components/blueprint";
-import { Logo, MonoText } from "@/components/ui";
+import { EncryptedText, Logo, MonoText } from "@/components/ui";
 import { FluidGradientText } from "@/components/ui/fluid-gradient-text";
 import { Github, Linkedin, Mail } from "@/components/ui/icons";
 import { XIcon } from "@/components/ui/x-icon";
+import { useScrambleText } from "@/hooks/useScrambleText";
 import { useLanguage } from "@/lib/language-store";
 import { socialLinks } from "@/lib/links";
 import { useLocalizedLink } from "@/lib/useLocalizedLink";
@@ -69,12 +70,15 @@ export const Footer = memo(() => {
         <div className="bp-panel bp-line-bottom flex items-center justify-between px-4 py-4 sm:px-6">
           <Link
             href={getLocalizedLink("/")}
-            className="group flex items-center gap-3 text-foreground transition-colors duration-150 hover:text-muted-foreground"
+            className="group flex items-center gap-3 text-foreground"
           >
             <Logo height={22} className="h-5 w-auto" />
             <span className="h-4 w-px bg-border/40" aria-hidden="true" />
             <span className="text-sm font-medium tracking-tight">
-              Pedro Felipe
+              <EncryptedText
+                text="Pedro Felipe"
+                targets={["@PedrFelip", "@pdrdotdev"]}
+              />
             </span>
           </Link>
           <MonoText className="text-[10px] tracking-[0.2em] text-muted-foreground/50 uppercase hidden sm:block">
@@ -161,12 +165,7 @@ export const Footer = memo(() => {
           </MonoText>
         </div>
       </div>
-      <div className="px-4 py-4 sm:px-6">
-        {/* Fluid Gradient Text */}
-        <div className="text-foreground h-24 sm:h-32 md:h-40">
-          <FluidGradientText text="Pedro Felipe" />
-        </div>
-      </div>
+      <FooterGradientText />
 
       {/* Safe area spacer */}
       <div className="pb-[env(safe-area-inset-bottom,0px)]" />
@@ -175,3 +174,26 @@ export const Footer = memo(() => {
 });
 
 Footer.displayName = "Footer";
+
+function FooterGradientText() {
+  const { display, handleMouseEnter, handleMouseLeave } = useScrambleText({
+    text: "Pedro Felipe",
+    targets: ["pdrdotdev", "pdr.dev"],
+  });
+
+  return (
+    // biome-ignore lint/a11y/useSemanticElements: Decorative hover effect container
+    <div
+      className="px-4 py-4 sm:px-6"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      role="button"
+      tabIndex={0}
+      aria-label="Pedro Felipe"
+    >
+      <div className="text-foreground h-24 sm:h-32 md:h-40">
+        <FluidGradientText text={display} />
+      </div>
+    </div>
+  );
+}

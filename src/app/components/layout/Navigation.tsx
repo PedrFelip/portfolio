@@ -12,7 +12,7 @@ import {
   useState,
   useTransition,
 } from "react";
-import { Button, Logo } from "@/components/ui";
+import { Button, EncryptedText, Logo } from "@/components/ui";
 import { Menu, Search, X } from "@/components/ui/icons";
 import { useIsTouchDevice } from "@/hooks/useIsTouchDevice";
 import { useLanguage } from "@/lib/language-store";
@@ -228,8 +228,11 @@ export const Navigation = memo(() => {
                 className="group flex items-center gap-2 shrink-0"
               >
                 <Logo height={28} className="h-5 sm:h-6 w-auto" />
-                <span className="hidden sm:block text-sm font-semibold tracking-tight text-foreground transition-colors duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:text-muted-foreground">
-                  Pedro Felipe
+                <span className="hidden sm:block text-sm font-semibold tracking-tight text-foreground">
+                  <EncryptedText
+                    text="Pedro Felipe"
+                    targets={["@PedrFelip", "@pdrdotdev"]}
+                  />
                 </span>
               </Link>
 

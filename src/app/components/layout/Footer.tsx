@@ -7,7 +7,6 @@ import { EncryptedText, Logo, MonoText } from "@/components/ui";
 import { FluidGradientText } from "@/components/ui/fluid-gradient-text";
 import { Github, Linkedin, Mail } from "@/components/ui/icons";
 import { XIcon } from "@/components/ui/x-icon";
-import { useScrambleText } from "@/hooks/useScrambleText";
 import { useLanguage } from "@/lib/language-store";
 import { socialLinks } from "@/lib/links";
 import { useLocalizedLink } from "@/lib/useLocalizedLink";
@@ -176,23 +175,10 @@ export const Footer = memo(() => {
 Footer.displayName = "Footer";
 
 function FooterGradientText() {
-  const { display, handleMouseEnter, handleMouseLeave } = useScrambleText({
-    text: "Pedro Felipe",
-    targets: ["pdrdotdev", "pdr.dev"],
-  });
-
   return (
-    // biome-ignore lint/a11y/useSemanticElements: Decorative hover effect container
-    <div
-      className="px-4 py-4 sm:px-6"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      role="button"
-      tabIndex={0}
-      aria-label="Pedro Felipe"
-    >
+    <div className="px-4 py-4 sm:px-6">
       <div className="text-foreground h-24 sm:h-32 md:h-40">
-        <FluidGradientText text={display} />
+        <FluidGradientText text="Pedro Felipe" />
       </div>
     </div>
   );

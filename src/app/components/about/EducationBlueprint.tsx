@@ -1,5 +1,3 @@
-"use client";
-
 import { GraduationCap } from "lucide-react";
 import { memo } from "react";
 import {

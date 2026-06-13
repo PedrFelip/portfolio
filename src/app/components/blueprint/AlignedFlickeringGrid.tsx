@@ -1,5 +1,3 @@
-"use client";
-
 import type React from "react";
 import { FlickeringGrid } from "@/components/ui/flickering-grid";
 import { FLICKER_CONFIG } from "@/lib/constants";

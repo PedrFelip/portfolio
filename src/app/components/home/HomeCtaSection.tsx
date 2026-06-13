@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import { Reveal, SectionBadge, SectionLabel } from "@/components/blueprint";
 import { Button } from "@/components/ui/button";

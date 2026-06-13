@@ -14,10 +14,10 @@ export function SectionLabel({ children, className }: SectionLabelProps) {
         className,
       )}
     >
-      <span className="text-muted-foreground/25 select-none" aria-hidden>
+      <span className="text-accent/30 select-none" aria-hidden>
         {"//"}
       </span>
-      <span className="font-medium text-muted-foreground/60">{children}</span>
+      <span className="font-medium text-accent/70">{children}</span>
       <span
         className="ml-1 flex-1 border-b border-dashed border-border/30"
         aria-hidden

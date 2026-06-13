@@ -48,7 +48,7 @@ export function HomeFeaturesSection({
         <h2 className="mt-1 text-lg font-semibold tracking-tight sm:text-xl">
           {title}
         </h2>
-        <p className="mt-1 text-sm text-muted-foreground">{description}</p>
+        <p className="mt-1 text-sm text-foreground/70">{description}</p>
       </SectionBadge>
 
       {/* Grid */}
@@ -66,17 +66,17 @@ export function HomeFeaturesSection({
                 ${i >= 1 ? "max-sm:border-t max-sm:border-dashed max-sm:border-border" : ""}
               `}
             >
-              <div className="mb-3 inline-flex size-9 items-center justify-center rounded-lg border border-overlay-border bg-surface-3 text-muted-foreground transition-all duration-200 group-hover:text-foreground group-hover:border-overlay-border-hover group-hover:bg-faint">
+              <div className="mb-3 inline-flex size-9 items-center justify-center rounded-lg border border-accent/15 bg-accent/[0.04] text-accent/60 transition-all duration-200 group-hover:text-accent group-hover:border-accent/30 group-hover:bg-accent/10">
                 <Icon
                   size={16}
                   strokeWidth={1.5}
                   className="transition-transform duration-200 group-hover:rotate-3"
                 />
               </div>
-              <h3 className="text-sm font-semibold tracking-tight transition-colors duration-150 group-hover:text-foreground">
+              <h3 className="text-sm font-semibold tracking-tight transition-colors duration-150 group-hover:text-accent">
                 {item.title}
               </h3>
-              <p className="mt-1.5 text-[13px] leading-relaxed text-muted-foreground">
+              <p className="mt-1.5 text-[13px] leading-relaxed text-foreground/60">
                 {item.description}
               </p>
             </div>

@@ -21,7 +21,7 @@ export function NotFound() {
             {t.notFound.errorCode}
           </MonoText>
 
-          <p className="mt-6 text-5xl font-light tracking-tighter text-foreground/90">
+          <p className="mt-6 text-5xl font-normal tracking-tighter text-foreground/90">
             404
           </p>
 

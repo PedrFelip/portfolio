@@ -178,7 +178,7 @@ function FooterGradientText() {
   return (
     <div className="px-4 py-4 sm:px-6">
       <div className="text-foreground h-24 sm:h-32 md:h-40">
-        <FluidGradientText text="Pedro Felipe" />
+        <FluidGradientText text="PEDRO FELIPE" />
       </div>
     </div>
   );

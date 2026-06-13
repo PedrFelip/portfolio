@@ -16,13 +16,13 @@ body {
 }
 
 ::selection {
-  background: oklch(0.95 0 0 / 90%);
-  color: oklch(0.1 0 0);
+  background: oklch(0.42 0.16 270);
+  color: oklch(0.98 0 0);
 }
 
 .dark ::selection {
-  background: oklch(0.95 0 0 / 90%);
-  color: oklch(0.1 0 0);
+  background: oklch(0.66 0.16 270);
+  color: oklch(0.04 0 0);
 }
 
 @theme inline {
@@ -83,21 +83,21 @@ body {
   --card-foreground: oklch(0.06 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.06 0 0);
-  --primary: oklch(0.25 0.12 250);
-  --primary-foreground: oklch(0.98 0.02 250);
+  --primary: oklch(0.25 0.12 270);
+  --primary-foreground: oklch(0.98 0.02 270);
   --secondary: oklch(0.96 0 0);
   --secondary-foreground: oklch(0.08 0 0);
   --muted: oklch(0.96 0 0);
   --muted-foreground: oklch(0.38 0 0);
   --faint: oklch(0.93 0 0);
-  /* Blueprint Blue — hue 250 · chroma 0.14 */
-  --accent: oklch(0.35 0.14 250);
+  /* Linear Indigo — hue 270 · chroma 0.16 */
+  --accent: oklch(0.42 0.16 270);
   --accent-foreground: oklch(1 0 0);
   --destructive: oklch(0.4 0 0);
   --border: oklch(0.86 0 0);
   --border-subtle: oklch(0.86 0 0 / 50%);
   --input: oklch(0.86 0 0);
-  --ring: oklch(0.35 0.14 250 / 40%);
+  --ring: oklch(0.35 0.16 270 / 40%);
   --chart-1: oklch(0.5 0 0);
   --chart-2: oklch(0.4 0 0);
   --chart-3: oklch(0.3 0 0);
@@ -105,15 +105,15 @@ body {
   --chart-5: oklch(0.2 0 0);
   --sidebar: oklch(1 0 0);
   --sidebar-foreground: oklch(0.06 0 0);
-  --sidebar-primary: oklch(0.25 0.12 250);
-  --sidebar-primary-foreground: oklch(0.98 0.02 250);
+  --sidebar-primary: oklch(0.25 0.12 270);
+  --sidebar-primary-foreground: oklch(0.98 0.02 270);
   --sidebar-accent: oklch(0.96 0 0);
   --sidebar-accent-foreground: oklch(0.08 0 0);
   --sidebar-border: oklch(0.86 0 0);
-  --sidebar-ring: oklch(0.35 0.14 250 / 20%);
-  --callout-info-bg: oklch(0.35 0.14 250 / 8%);
-  --callout-info-border: oklch(0.35 0.14 250 / 20%);
-  --callout-info-text: oklch(0.35 0.14 250);
+  --sidebar-ring: oklch(0.35 0.16 270 / 20%);
+  --callout-info-bg: oklch(0.35 0.16 270 / 8%);
+  --callout-info-border: oklch(0.35 0.16 270 / 20%);
+  --callout-info-text: oklch(0.35 0.16 270);
   --callout-warning-bg: oklch(0.4 0 0 / 8%);
   --callout-warning-border: oklch(0.4 0 0 / 20%);
   --callout-warning-text: oklch(0.4 0 0);
@@ -127,7 +127,7 @@ body {
   --brand-linkedin: oklch(0.62 0.12 255);
   --brand-twitter: oklch(0.72 0.02 270);
   --brand-email: oklch(0.62 0.1 25);
-  --brand-blue: oklch(0.35 0.14 250);
+  --brand-blue: oklch(0.35 0.16 270);
   --brand-emerald: oklch(0.22 0 0);
   --brand-violet: oklch(0.22 0 0);
   --brand-amber: oklch(0.22 0 0);
@@ -136,7 +136,7 @@ body {
   --status-success: oklch(0.3 0 0);
   --status-warning: oklch(0.4 0 0);
   --status-error: oklch(0.35 0 0);
-  --status-info: oklch(0.35 0.14 250);
+  --status-info: oklch(0.35 0.16 270);
   --status-neutral: oklch(0.4 0 0);
   --code-bg: #f2f0e5;
   --code-fg: #403e3c;
@@ -168,11 +168,11 @@ body {
   --hljs-regexp: #24837b;
   --hljs-property: #24837b;
   --hljs-subst: #575653;
-  --syn-keyword: oklch(0.35 0.14 250);
+  --syn-keyword: oklch(0.35 0.16 270);
   --syn-type: oklch(0.42 0 0);
-  --syn-string: oklch(0.38 0.08 250);
+  --syn-string: oklch(0.38 0.08 270);
   --syn-function: oklch(0.42 0 0);
-  --syn-number: oklch(0.32 0.12 250);
+  --syn-number: oklch(0.32 0.12 270);
   --syn-punctuation: oklch(0.48 0 0);
   --syn-comment: oklch(0.52 0 0);
   --surface-1: oklch(0.13 0 0 / 1%);
@@ -190,20 +190,20 @@ body {
   --card-foreground: oklch(0.98 0 0);
   --popover: oklch(0.065 0 0);
   --popover-foreground: oklch(0.98 0 0);
-  --primary: oklch(0.85 0.1 250);
-  --primary-foreground: oklch(0.15 0.08 250);
+  --primary: oklch(0.85 0.1 270);
+  --primary-foreground: oklch(0.15 0.08 270);
   --secondary: oklch(0.1 0 0);
   --secondary-foreground: oklch(0.98 0 0);
   --muted: oklch(0.1 0 0);
   --muted-foreground: oklch(0.62 0 0);
   --faint: oklch(0.15 0 0);
-  --accent: oklch(0.7 0.14 250);
+  --accent: oklch(0.66 0.16 270);
   --accent-foreground: oklch(0.04 0 0);
   --destructive: oklch(0.72 0 0);
   --border: oklch(0.98 0 0 / 13%);
   --border-subtle: oklch(0.98 0 0 / 8%);
   --input: oklch(0.98 0 0 / 16%);
-  --ring: oklch(0.7 0.14 250 / 36%);
+  --ring: oklch(0.7 0.16 270 / 36%);
   --chart-1: oklch(0.74 0 0);
   --chart-2: oklch(0.64 0 0);
   --chart-3: oklch(0.54 0 0);
@@ -211,15 +211,15 @@ body {
   --chart-5: oklch(0.44 0 0);
   --sidebar: oklch(0.03 0 0);
   --sidebar-foreground: oklch(0.98 0 0);
-  --sidebar-primary: oklch(0.85 0.1 250);
-  --sidebar-primary-foreground: oklch(0.15 0.08 250);
+  --sidebar-primary: oklch(0.85 0.1 270);
+  --sidebar-primary-foreground: oklch(0.15 0.08 270);
   --sidebar-accent: oklch(0.1 0 0);
   --sidebar-accent-foreground: oklch(0.98 0 0);
   --sidebar-border: oklch(0.98 0 0 / 13%);
-  --sidebar-ring: oklch(0.7 0.14 250 / 24%);
-  --callout-info-bg: oklch(0.7 0.14 250 / 10%);
-  --callout-info-border: oklch(0.7 0.14 250 / 24%);
-  --callout-info-text: oklch(0.7 0.14 250);
+  --sidebar-ring: oklch(0.7 0.16 270 / 24%);
+  --callout-info-bg: oklch(0.7 0.16 270 / 10%);
+  --callout-info-border: oklch(0.7 0.16 270 / 24%);
+  --callout-info-text: oklch(0.7 0.16 270);
   --callout-warning-bg: oklch(0.84 0 0 / 10%);
   --callout-warning-border: oklch(0.84 0 0 / 24%);
   --callout-warning-text: oklch(0.84 0 0);
@@ -233,7 +233,7 @@ body {
   --brand-linkedin: oklch(0.78 0.1 255);
   --brand-twitter: oklch(0.85 0.01 270);
   --brand-email: oklch(0.82 0.08 25);
-  --brand-blue: oklch(0.7 0.14 250);
+  --brand-blue: oklch(0.7 0.16 270);
   --brand-emerald: oklch(0.88 0 0);
   --brand-violet: oklch(0.88 0 0);
   --brand-amber: oklch(0.88 0 0);
@@ -242,7 +242,7 @@ body {
   --status-success: oklch(0.8 0 0);
   --status-warning: oklch(0.84 0 0);
   --status-error: oklch(0.72 0 0);
-  --status-info: oklch(0.7 0.14 250);
+  --status-info: oklch(0.7 0.16 270);
   --status-neutral: oklch(0.72 0 0);
   --code-bg: #343331;
   --code-fg: #cecdc3;
@@ -274,11 +274,11 @@ body {
   --hljs-regexp: #3aa99f;
   --hljs-property: #3aa99f;
   --hljs-subst: #b7b5ac;
-  --syn-keyword: oklch(0.72 0.14 250);
+  --syn-keyword: oklch(0.72 0.16 270);
   --syn-type: oklch(0.84 0 0);
-  --syn-string: oklch(0.68 0.08 250);
+  --syn-string: oklch(0.68 0.08 270);
   --syn-function: oklch(0.84 0 0);
-  --syn-number: oklch(0.72 0.12 250);
+  --syn-number: oklch(0.72 0.12 270);
   --syn-punctuation: oklch(0.68 0 0);
   --syn-comment: oklch(0.58 0 0);
   --surface-1: oklch(0.98 0 0 / 2%);

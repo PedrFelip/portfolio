@@ -319,12 +319,12 @@ function MainContent({
         className,
       )}
     >
-      <h1 className="mb-3 text-3xl leading-none font-semibold tracking-tight text-foreground sm:mb-4 sm:text-4xl md:text-5xl lg:text-5xl">
+      <h1 className="mb-3 text-3xl leading-none font-semibold tracking-tight bg-gradient-to-b from-foreground via-foreground to-accent bg-clip-text text-transparent sm:mb-4 sm:text-4xl md:text-5xl lg:text-5xl">
         <span className="block">{title}</span>
-        <span className="block text-muted-foreground/60">{subtitle}</span>
+        <span className="block">{subtitle}</span>
       </h1>
 
-      <p className="mb-5 text-sm leading-normal text-muted-foreground sm:mb-6 sm:text-base md:text-lg">
+      <p className="mb-5 text-sm leading-normal text-foreground/70 sm:mb-6 sm:text-base md:text-lg">
         {description}
       </p>
 

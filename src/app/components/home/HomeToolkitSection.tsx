@@ -71,7 +71,7 @@ export function HomeToolkitSection({
                   ))}
                 </div>
 
-                <p className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground/60 transition-colors duration-150 group-hover:text-muted-foreground">
+                <p className="text-[10px] font-medium tracking-wider text-muted-foreground/60 transition-colors duration-150 group-hover:text-muted-foreground">
                   {item.title}
                 </p>
                 <h3 className="mt-1 text-sm font-semibold tracking-tight transition-colors duration-150 group-hover:text-foreground">

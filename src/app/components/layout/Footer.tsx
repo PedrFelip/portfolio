@@ -80,7 +80,7 @@ export const Footer = memo(() => {
               />
             </span>
           </Link>
-          <MonoText className="text-[10px] tracking-[0.2em] text-muted-foreground/50 uppercase hidden sm:block">
+          <MonoText className="text-[10px] tracking-[0.2em] text-muted-foreground/50 hidden sm:block">
             backend engineer
           </MonoText>
         </div>
@@ -128,7 +128,7 @@ export const Footer = memo(() => {
 
             {/* Social Column */}
             <div className="flex flex-col items-start justify-center gap-2 border-t border-border/30 px-4 py-3 sm:border-t-0 sm:items-end sm:px-6">
-              <MonoText className="text-[9px] tracking-[0.2em] text-muted-foreground/40 uppercase">
+              <MonoText className="text-[9px] tracking-[0.2em] text-muted-foreground/40">
                 connect
               </MonoText>
               <div className="flex items-center gap-3">

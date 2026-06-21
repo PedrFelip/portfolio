@@ -16,6 +16,7 @@ interface FlickeringGridProps extends React.HTMLAttributes<HTMLDivElement> {
   maxOpacity?: number;
 }
 
+// TODO(refactor)[P1]: React.FC discouraged
 export const FlickeringGrid: React.FC<FlickeringGridProps> = ({
   squareSize = FLICKER_CONFIG.SQUARE_SIZE,
   gridGap = FLICKER_CONFIG.GRID_GAP,

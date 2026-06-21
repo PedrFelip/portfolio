@@ -13,6 +13,9 @@ import { XIcon } from "@/components/ui/x-icon";
 import { useLanguage } from "@/lib/language-store";
 import { socialLinks } from "@/lib/links";
 
+// TODO(refactor)[P2]: social icon+color map duplicated in
+// Footer + BlueprintContactSection — extract
+// lib/social-icons.tsx
 const iconMap = {
   portfolio: Home,
   github: Github,
@@ -74,6 +77,7 @@ const LinkItem = memo(({ label, url, icon, description }: LinkItemProps) => {
       }
     : { href: url };
 
+  // TODO(refactor)[P2]: link row className byte-identical to NotFound.tsx
   return (
     <a
       {...linkProps}

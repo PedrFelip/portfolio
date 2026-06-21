@@ -12,6 +12,7 @@ export const CodeBlockWrapper = memo(({ children }: CodeBlockWrapperProps) => {
   const [copied, setCopied] = useState(false);
   const { t } = useLanguage();
   const preRef = useRef<HTMLPreElement>(null);
+  // TODO(refactor)[P1]: use ReturnType<typeof setTimeout> in browser code
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
@@ -22,6 +23,7 @@ export const CodeBlockWrapper = memo(({ children }: CodeBlockWrapperProps) => {
     };
   }, []);
 
+  // TODO(refactor)[P2]: copy+timeout duplicated in ShareButtons
   const copyToClipboard = useCallback(async () => {
     try {
       if (!navigator?.clipboard) {

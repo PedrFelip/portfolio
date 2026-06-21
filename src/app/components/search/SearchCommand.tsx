@@ -84,6 +84,7 @@ export const SearchCommand = memo(function SearchCommand() {
     return [...pages, ...posts];
   }, [query, results, items]);
 
+  // TODO(refactor)[P2]: body-scroll-lock duplicated in Navigation
   // Lock body scroll when open
   useEffect(() => {
     if (isOpen) {
@@ -107,6 +108,7 @@ export const SearchCommand = memo(function SearchCommand() {
     }
   }, [isOpen]);
 
+  // TODO(refactor)[P1]: void displayItems.length is a no-op
   useEffect(() => {
     void displayItems.length;
     setActiveIndex(0);
@@ -239,6 +241,7 @@ export const SearchCommand = memo(function SearchCommand() {
             </div>
           ) : !isSearching && displayItems.length === 0 ? null : (
             <div className="py-1" role="listbox">
+              {/* TODO(refactor)[P2]: role="listbox" but children are Links */}
               {displayItems.map((item, index) => (
                 <ResultItem
                   key={item.type === "page" ? item.href : item.slug}
@@ -254,6 +257,7 @@ export const SearchCommand = memo(function SearchCommand() {
         </div>
 
         {/* Footer */}
+        {/* TODO(refactor)[P2]: 4 identical kbd className strings */}
         <div className="flex items-center gap-4 px-4 py-2 border-t border-border bg-surface-1/50">
           <span className="flex items-center gap-1 text-[10px] text-muted-foreground/30">
             <kbd className="inline-flex items-center justify-center h-3.5 min-w-[14px] px-0.5 rounded-[2px] border border-border/60 bg-surface-2 font-mono text-[8px] leading-none text-muted-foreground/40">

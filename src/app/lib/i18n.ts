@@ -14,7 +14,6 @@ import { sharedEn } from "./content/shared.en";
 import { sharedPt } from "./content/shared.pt";
 
 export const SUPPORTED_LOCALES = ["en", "pt"] as const;
-export const SUPPORTED_LANGS = SUPPORTED_LOCALES;
 
 export type Language = (typeof SUPPORTED_LOCALES)[number];
 
@@ -25,6 +24,7 @@ export function isLanguage(lang: string | null | undefined): lang is Language {
   return (SUPPORTED_LOCALES as readonly string[]).includes(lang ?? "");
 }
 
+// TODO(refactor)[P0]: spread merge silently overwrites duplicate keys (skills in home+about)
 export const translations = {
   en: {
     ...sharedEn,
@@ -45,3 +45,5 @@ export const translations = {
     ...projectsPt,
   },
 };
+
+// TODO(refactor)[P2]: export type Translation = typeof translations.en for type-safe t.skills.title access

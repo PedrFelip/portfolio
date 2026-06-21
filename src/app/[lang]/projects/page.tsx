@@ -7,7 +7,7 @@ import {
 } from "@/components/blueprint";
 import { projectsEn } from "@/lib/content/projects.en";
 import { projectsPt } from "@/lib/content/projects.pt";
-import { isLanguage, SUPPORTED_LANGS } from "@/lib/i18n";
+import { isLanguage, SUPPORTED_LOCALES } from "@/lib/i18n";
 import { getProjects } from "@/lib/projects-data";
 
 const ProjectsClient = dynamic(() => import("./ProjectsClient"), {
@@ -29,8 +29,10 @@ interface ProjectsPageProps {
   params: Promise<{ lang: Lang }>;
 }
 
+// TODO(refactor)[P1]: generateStaticParams duplicated
+// extract langStaticParams helper
 export function generateStaticParams() {
-  return SUPPORTED_LANGS.map((lang) => ({ lang }));
+  return SUPPORTED_LOCALES.map((lang) => ({ lang }));
 }
 
 export async function generateMetadata({
@@ -48,6 +50,8 @@ export async function generateMetadata({
 
 export default async function ProjectsPage({ params }: ProjectsPageProps) {
   const { lang } = await params;
+  // TODO(refactor)[P1]: no fallback for invalid lang
+  // isLanguage() check or getContentForLang(lang) helper
   const t = projectsContent[lang].projects;
 
   const projects = getProjects(lang);

@@ -23,6 +23,7 @@ export function HomeCtaSection({
 }: HomeCtaSectionProps) {
   return (
     <section data-slot="panel" className="bp-panel bp-line-top bp-line-bottom">
+      {/* TODO(refactor)[P2]: section header duplicated 8+ times */}
       <SectionBadge className="bp-line-bottom px-4 py-3 sm:px-6">
         <SectionLabel>{badge}</SectionLabel>
         <h2 className="mt-1 text-lg font-semibold tracking-tight sm:text-xl">

@@ -66,6 +66,7 @@ export const MDXTableCell = memo(function MDXTableCell({
   children,
   isHeader,
 }: TableCellProps) {
+  // TODO(refactor)[P0]: isHeader only changes style, still renders <td>
   return (
     <td
       className={cn(

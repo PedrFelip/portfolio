@@ -72,6 +72,16 @@ export const homeEn = {
     tapHint: "Tap a cell for details",
   },
 
+  latestPost: {
+    badge: "Latest Writing",
+    title: "From the blog",
+    description: "Notes on systems, performance, and backend craft.",
+    readMore: "Read post",
+    readingTime: "min read",
+    serial: "Most recent",
+    empty: "No posts yet",
+  },
+
   techStack: {
     badge: "Technologies",
     title: "Tech Stack",
@@ -116,12 +126,17 @@ export const homeEn = {
     secondary: "DM me on Twitter",
   },
 
+  // TODO(refactor)[P0]: skills key duplicated in about.en.ts
   skills: {
     badge: "Skills",
     title: "Core Technical Skills",
+    // TODO(refactor)[P1]: unused translation key
     backend: "Backend",
+    // TODO(refactor)[P1]: unused translation key
     databases: "Databases",
+    // TODO(refactor)[P1]: unused translation key
     devops: "DevOps & Infrastructure",
+    // TODO(refactor)[P1]: unused translation key
     tools: "Tools & Practices",
   },
 };

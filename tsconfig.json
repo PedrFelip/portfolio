@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    // TODO(refactor)[P1]: target ES2017 is dated for Next 16
+    // + Bun — bump to ES2022
     "target": "ES2017",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
@@ -22,6 +24,8 @@
       "@/*": ["./src/app/*"]
     }
   },
+  // TODO(refactor)[P1]: consider adding
+  // verbatimModuleSyntax: true for strict import/type separation
   "include": [
     "next-env.d.ts",
     "**/*.ts",

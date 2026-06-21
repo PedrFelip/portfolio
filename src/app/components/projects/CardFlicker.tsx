@@ -1,5 +1,6 @@
 "use client";
 
+// TODO(refactor)[P1]: import from framer-motion
 import { AnimatePresence, m } from "framer-motion";
 import { useEffect, useState } from "react";
 import { FlickeringGrid } from "@/components/ui/flickering-grid";

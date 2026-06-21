@@ -61,6 +61,7 @@ export const FilterTags = memo(
             const isSelected = selectedTagsSet.has(tag);
             const count = tagCounts.get(tag) ?? 0;
             return (
+              // TODO(refactor)[P1]: missing aria-pressed on toggle buttons
               <Button
                 key={tag}
                 variant="filter"

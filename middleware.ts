@@ -35,6 +35,7 @@ export function middleware(request: NextRequest) {
 
   // 2. Fallback to Accept-Language header (robust parsing with weights)
   const acceptLanguage = request.headers.get("accept-language") || "";
+  // TODO(refactor)[P1]: implicit fallback via initializer — make explicit preferredLanguage assignment
   let preferredLanguage: Language = DEFAULT_LANGUAGE;
 
   // Parse "en-US,en;q=0.9,pt-BR;q=0.8,pt;q=0.7"
@@ -65,6 +66,7 @@ export function middleware(request: NextRequest) {
   return NextResponse.redirect(newUrl);
 }
 
+// TODO(refactor)[P1]: skip-prefix check duplicated vs matcher — move /links exclusion into matcher regex
 export const config = {
   matcher: ["/((?!api|_next|.*\\..*).*)"],
 };

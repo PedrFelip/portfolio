@@ -31,12 +31,17 @@ export const aboutEn = {
       "Feel free to reach out through any of these channels. I'm always open to discussing new projects, technical challenges, or collaboration opportunities.",
   },
 
+  // TODO(refactor)[P0]: skills key duplicated in home.en.ts
   skills: {
     badge: "Skills",
     title: "Core Technical Skills",
+    // TODO(refactor)[P1]: unused translation key
     backend: "Backend",
+    // TODO(refactor)[P1]: unused translation key
     databases: "Databases",
+    // TODO(refactor)[P1]: unused translation key
     devops: "DevOps & Infrastructure",
+    // TODO(refactor)[P1]: unused translation key
     tools: "Tools & Practices",
   },
 };

@@ -15,6 +15,7 @@ interface LogoProps {
 export const Logo = ({ height = 28, className }: LogoProps) => {
   const width = Math.round(height * ASPECT_RATIO);
   const { resolvedTheme } = useTheme();
+  // TODO(refactor)[P2]: mounted flag useEffect duplicated in FaviconSwitcher
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {

@@ -51,6 +51,7 @@ export const TableOfContents = memo(({ headings }: TableOfContentsProps) => {
     activeIdRef.current = activeId;
   }, [activeId]);
 
+  // TODO(refactor)[P2]: getBoundingClientRect called every scroll tick
   const updateHeadingPositions = useCallback(() => {
     const positions = new Map<string, number>();
 

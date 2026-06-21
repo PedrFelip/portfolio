@@ -9,12 +9,15 @@ export const projectsEn = {
     subtitle: "Check out my latest work",
     description:
       "I've worked on a variety of projects, from simple websites to complex web applications. Here are a few of my favorites.",
+    // TODO(refactor)[P1]: unused translation key
     viewAll: "View all projects",
+    // TODO(refactor)[P1]: unused translation key
     links: {
       code: "Code",
       demo: "Demo",
       website: "Website",
     },
+    // TODO(refactor)[P1]: unused translation key (only noResults consumed)
     filters: {
       active: (count: number) =>
         `${count} filter${count > 1 ? "s" : ""} active`,

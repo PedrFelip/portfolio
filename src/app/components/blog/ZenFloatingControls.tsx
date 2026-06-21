@@ -31,6 +31,7 @@ export function ZenFloatingControls() {
     const idleTimer = setTimeout(() => {
       setIsScrollingDown(false);
     }, 500); // Reaparece após 300ms parado
+    // TODO(refactor)[P1]: comment says 300ms but code is 500ms
 
     return () => clearTimeout(idleTimer);
   }, [isScrollingDown]);
@@ -56,6 +57,7 @@ export function ZenFloatingControls() {
       />
 
       {/* Desktop Floating Control Group */}
+      {/* TODO(refactor)[P2]: desktop+mobile control groups near-identical */}
       <m.div
         className="fixed top-6 left-6 z-[60] hidden md:flex"
         initial={{ x: -20, opacity: 0 }}

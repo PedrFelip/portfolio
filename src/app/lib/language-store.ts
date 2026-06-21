@@ -14,6 +14,7 @@ import {
 interface LanguageState {
   language: Language;
   setLanguage: (lang: Language) => void;
+  // TODO(refactor)[P3]: router stored in global Zustand
   _router: ReturnType<typeof useRouter> | null;
 }
 
@@ -22,6 +23,7 @@ const useLanguageStore = create<LanguageState>((set, get) => ({
   _router: null,
   setLanguage: (lang: Language) => {
     set({ language: lang });
+    // TODO(refactor)[P1]: duplicated cookie-write string
     // biome-ignore lint/suspicious/noDocumentCookie: Cookie Store API has limited browser support
     document.cookie = `${LANGUAGE_COOKIE}=${lang}; path=/; max-age=31536000; SameSite=Lax`;
 
@@ -43,6 +45,7 @@ const useLanguageStore = create<LanguageState>((set, get) => ({
   },
 }));
 
+// TODO(refactor)[P2]: hook does 5 things (register router, seed, sync URL, sync cookie, fallback)
 export function useLanguageSync(initialLanguage?: Language) {
   const router = useRouter();
   const pathname = usePathname();
@@ -53,6 +56,7 @@ export function useLanguageSync(initialLanguage?: Language) {
   }, [router]);
 
   useEffect(() => {
+    // TODO(refactor)[P0]: synced flag short-circuits permanently
     if (synced) return;
 
     const currentStoreLang = useLanguageStore.getState().language;
@@ -64,15 +68,18 @@ export function useLanguageSync(initialLanguage?: Language) {
     }
 
     const pathParts = pathname.split("/").filter(Boolean);
+    // TODO(refactor)[P1]: unsafe as Language before type guard
     const langFromUrl = pathParts[0] as Language;
 
     if (isLanguage(langFromUrl)) {
       if (currentStoreLang !== langFromUrl) {
         useLanguageStore.setState({ language: langFromUrl });
+        // TODO(refactor)[P1]: duplicated cookie-write string (see L26)
         // biome-ignore lint/suspicious/noDocumentCookie: Cookie Store API has limited browser support
         document.cookie = `${LANGUAGE_COOKIE}=${langFromUrl}; path=/; max-age=31536000; SameSite=Lax`;
       }
     } else {
+      // TODO(refactor)[P1]: hand-rolled cookie parsing
       const cookieLang = document.cookie
         .split("; ")
         .find((row) => row.startsWith(`${LANGUAGE_COOKIE}=`))

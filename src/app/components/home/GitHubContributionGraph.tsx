@@ -7,6 +7,7 @@ import type { ContributionData, ContributionDay } from "@/lib/github";
 import { getContributionColor } from "@/lib/github";
 import { cn } from "@/lib/utils";
 
+// TODO(refactor)[P1]: re-implements useTheme via MutationObserver
 function useTheme(): "dark" | "light" {
   const [theme, setTheme] = useState<"dark" | "light">("dark");
 
@@ -71,6 +72,7 @@ export const GitHubContributionGraph = memo(
     const scrollContainerRef = useRef<HTMLDivElement>(null);
 
     // Detect mobile for adaptive week slicing
+    // TODO(refactor)[P1]: resize listener without debounce + flash
     useEffect(() => {
       const checkMobile = () => setIsMobile(window.innerWidth < 768);
       checkMobile();
@@ -102,6 +104,7 @@ export const GitHubContributionGraph = memo(
     }, [hasScrolled]);
 
     // Initial scroll check and effect
+    // TODO(refactor)[P1]: effect re-runs on handleScroll identity change
     useEffect(() => {
       handleScroll();
     }, [handleScroll]);
@@ -128,6 +131,7 @@ export const GitHubContributionGraph = memo(
         >
           <div className="relative inline-flex flex-shrink-0">
             {/* Minimal contribution grid */}
+            {/* TODO(refactor)[P3]: 364 buttons without virtualization */}
             <div className="flex gap-1.5 sm:gap-1">
               {recentWeeks.map((week, index) => {
                 const weekKey = week.days[0]?.date || `week-${index}`;

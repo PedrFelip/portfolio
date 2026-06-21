@@ -89,6 +89,7 @@ export default function ProjectsClient({
       <PanelSpacer />
 
       {/* Grid */}
+      {/* TODO(refactor)[P2]: filtered and no-filter grid layout near-identical */}
       <div data-slot="panel" className="bp-panel">
         {hasUsedFilter ? (
           <AnimatePresence mode="wait" initial={false}>

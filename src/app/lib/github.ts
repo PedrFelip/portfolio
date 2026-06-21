@@ -9,7 +9,7 @@ export interface ContributionDay {
   level: 0 | 1 | 2 | 3 | 4;
 }
 
-export interface ContributionWeek {
+interface ContributionWeek {
   days: ContributionDay[];
 }
 
@@ -41,6 +41,7 @@ async function fetchGraphQL<T>(
 ): Promise<T> {
   const token = process.env.GITHUB_TOKEN;
 
+  // TODO(refactor)[P2]: throw typed GitHubConfigurationError for missing env
   if (!token) {
     throw new Error("GITHUB_TOKEN environment variable is not set");
   }
@@ -52,6 +53,7 @@ async function fetchGraphQL<T>(
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ query, variables }),
+    // TODO(refactor)[P1]: revalidate=86400 duplicated across 4 files
     next: { revalidate: 86400 },
   });
 
@@ -62,9 +64,11 @@ async function fetchGraphQL<T>(
   const data = await response.json();
 
   if (data.errors) {
+    // TODO(refactor)[P1]: data.errors[0] without length check
     throw new Error(`GraphQL error: ${data.errors[0].message}`);
   }
 
+  // TODO(refactor)[P3]: blind as T cast on unvalidated GraphQL JSON
   return data.data as T;
 }
 
@@ -109,6 +113,7 @@ export async function fetchGitHubContributions(
 
   const calendar = data.user.contributionsCollection.contributionCalendar;
 
+  // TODO(refactor)[P1]: levelMap recreated on every call
   const levelMap: Record<string, 0 | 1 | 2 | 3 | 4> = {
     NONE: 0,
     FIRST_QUARTILE: 1,
@@ -160,6 +165,7 @@ const contributionColorsLight: Record<0 | 1 | 2 | 3 | 4, string> = {
   4: "oklch(0.50 0.10 220 / 76%)",
 };
 
+// TODO(refactor)[P1]: UI color helper in data module
 export function getContributionColor(
   level: 0 | 1 | 2 | 3 | 4,
   theme: "dark" | "light" = "dark",

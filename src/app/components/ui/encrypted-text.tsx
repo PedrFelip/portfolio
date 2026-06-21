@@ -22,6 +22,7 @@ export function EncryptedText({
     });
 
   return (
+    // TODO(refactor)[P1]: role="button" with tabIndex but no Enter/Space handler
     // biome-ignore lint/a11y/useSemanticElements: Visual effect inside parent Link
     <span
       onMouseEnter={handleMouseEnter}

@@ -4,6 +4,8 @@ import { LanguageSync } from "@/components/LanguageSync";
 import { LayoutShell } from "@/components/layout/LayoutShell";
 import { isLanguage, SUPPORTED_LOCALES } from "@/lib/i18n";
 
+// TODO(refactor)[P2]: metadata config duplicated with root
+// layout — centralize in lib/metadata.ts
 const metadataConfig = {
   en: {
     title: "Pedro Felipe - Backend Engineer & System Architect",

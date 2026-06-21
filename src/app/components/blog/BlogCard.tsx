@@ -13,7 +13,9 @@ interface BlogCardProps {
 export const BlogCard = memo(({ post }: BlogCardProps) => {
   const { t, language } = useLanguage();
 
+  // TODO(refactor)[P1]: handleClick not memoized
   const handleClick = () => {
+    // TODO(refactor)[P1]: magic sessionStorage key
     sessionStorage.setItem("blog:scroll-to-top", "1");
   };
 
@@ -33,6 +35,7 @@ export const BlogCard = memo(({ post }: BlogCardProps) => {
       onClick={handleClick}
       className="block px-6 py-5 sm:px-8 sm:py-6 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring focus-visible:ring-inset active:scale-[0.99] active:bg-surface-2/40 transition-all duration-150 touch-manipulation min-h-[80px]"
     >
+      {/* TODO(refactor)[P2]: date+readingTime row duplicated */}
       <div className="flex items-center gap-3 mb-2">
         <span className="inline-flex items-center gap-1.5 text-muted-foreground/70">
           <Calendar className="size-3" aria-hidden="true" />
@@ -65,6 +68,7 @@ export const BlogCard = memo(({ post }: BlogCardProps) => {
       </p>
 
       <div className="flex items-center justify-between gap-3">
+        {/* TODO(refactor)[P2]: tag badge className duplicated */}
         {post.tags.length > 0 ? (
           <div className="flex flex-wrap gap-1.5 min-w-0">
             {post.tags.slice(0, 3).map((tag) => (
@@ -89,6 +93,7 @@ export const BlogCard = memo(({ post }: BlogCardProps) => {
           <span />
         )}
 
+        {/* TODO(refactor)[P2]: read-more arrow duplicated */}
         <span
           className="inline-flex shrink-0 items-center gap-1 text-[11px] font-medium text-muted-foreground/50 transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:text-accent group-hover:gap-1.5"
           aria-hidden="true"

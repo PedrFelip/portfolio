@@ -1,6 +1,7 @@
 import { useCallback } from "react";
 import { useLanguage } from "./language-store";
 
+// TODO(refactor)[P1]: Portuguese comments in English codebase
 /**
  * Hook para construir links localizados que incluem o prefixo de idioma
  * Exemplo: /projects vira /en/projects ou /pt/projects
@@ -11,6 +12,7 @@ export function useLocalizedLink() {
   return useCallback(
     (path: string) => {
       // Remove leading slash se existir
+      // TODO(refactor)[P1]: misleading name "cleanPath"
       const cleanPath = path.startsWith("/") ? path : `/${path}`;
 
       // Se o caminho já começa com /lang/, não adicionar novamente

@@ -22,7 +22,7 @@ import { ArrowLeft, Calendar, ChevronDown, Clock } from "@/components/ui/icons";
 import { getAllPostSlugs, getPostBySlug } from "@/lib/blog-data";
 import { blogEn } from "@/lib/content/blog.en";
 import { blogPt } from "@/lib/content/blog.pt";
-import { SUPPORTED_LANGS } from "@/lib/i18n";
+import { SUPPORTED_LOCALES } from "@/lib/i18n";
 import { getSocialHandle } from "@/lib/links";
 
 const blogContent = {
@@ -88,6 +88,9 @@ const TableCell = ({ children }: { children: React.ReactNode }) => (
   <MDXTableCell>{children}</MDXTableCell>
 );
 
+// TODO(refactor)[P0]: MDXLink opens all links in new tab
+// detect internal links (starts with "/" or "#") and render
+// plain <a>
 const MDXLink = ({
   href,
   children,
@@ -99,6 +102,8 @@ const MDXLink = ({
 );
 
 export const revalidate = 604800;
+// TODO(refactor)[P2]: dynamicParams=false blocks new posts
+// until full rebuild — set true or use on-demand revalidation
 export const dynamicParams = false;
 
 export async function generateMetadata({
@@ -111,6 +116,8 @@ export async function generateMetadata({
     return {};
   }
 
+  // TODO(refactor)[P1]: postUrl construction duplicated in
+  // generateMetadata — extract getPostUrl helper
   const baseUrl =
     process.env.NEXT_PUBLIC_SITE_URL || "https://portfolio.vercel.app";
   const postUrl = `${baseUrl}/${lang}/blog/${slug}`;
@@ -161,12 +168,14 @@ export async function generateMetadata({
 export async function generateStaticParams() {
   const slugs = getAllPostSlugs();
   return slugs.flatMap((slug) =>
-    SUPPORTED_LANGS.map((lang) => ({ slug, lang })),
+    SUPPORTED_LOCALES.map((lang) => ({ slug, lang })),
   );
 }
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { slug, lang } = await params;
+  // TODO(refactor)[P1]: no fallback for invalid lang
+  // isLanguage() check
   const post = getPostBySlug(slug);
   const t = blogContent[lang].blog;
 
@@ -174,6 +183,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     notFound();
   }
 
+  // TODO(refactor)[P1]: static MDX components rebuilt every
+  // render — hoist to module scope, only vary headingComponents
   const headingComponents = createHeadingComponents(post.headings || []);
   const MDX_COMPONENTS = {
     a: MDXLink,
@@ -217,6 +228,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               <time dateTime={post.date}>{formattedDate}</time>
             </span>
 
+            {/* TODO(refactor)[P0]: post.readingTime always undefined */}
             {post.readingTime && (
               <>
                 <span className="text-border" aria-hidden="true">
@@ -290,6 +302,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             <footer className="mt-20 pt-12 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-8 animate-in-up animate-delay-400">
               <div className="flex flex-col items-center sm:items-start gap-3">
                 <p className="text-sm text-muted-foreground font-mono">
+                  {/* TODO(refactor)[P1]: hardcoded "Thanks for reading" strings */}
                   {lang === "pt" ? "Obrigado por ler!" : "Thanks for reading!"}
                 </p>
                 <Link

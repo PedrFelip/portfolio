@@ -15,6 +15,7 @@ const GitHubContributionGraph = dynamic(
   },
 );
 
+// TODO(refactor)[P2]: 11 translation props drilled
 interface GitHubSectionProps {
   className?: string;
   title?: string;
@@ -43,6 +44,7 @@ export async function GitHubSection({
   subtitle = "Commit History",
   description = "Daily contributions and coding activity over the past year.",
   username = "pedrfelip",
+  // TODO(refactor)[P1]: hardcoded username default
   swipeHint = "Swipe",
   less = "Less",
   more = "More",
@@ -50,6 +52,7 @@ export async function GitHubSection({
   commitLabel = "commit",
   commitsLabel = "commits",
   commitsLastYearLabel = "Commits last year",
+  // TODO(refactor)[P1]: hardcoded English defaults despite i18n
 }: GitHubSectionProps) {
   const data = await fetchGitHubContributions(username).catch(() => null);
 
@@ -64,6 +67,7 @@ export async function GitHubSection({
       className={cn("bp-panel bp-line-bottom", className)}
     >
       {/* Header */}
+      {/* TODO(refactor)[P2]: section header pattern duplicated 8+ times */}
       <SectionBadge className="bp-line-bottom px-4 py-3 sm:px-6">
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2">
           <div>

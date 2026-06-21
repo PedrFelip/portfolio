@@ -10,6 +10,7 @@ interface SearchState {
   /** Fuse.js instance — initialized once with the index */
   fuse: Fuse<SearchItem> | null;
   /** Whether the index has been loaded (success or error) */
+  // TODO(refactor)[P1]: loaded means "attempted" not "ready"
   loaded: boolean;
   /** Loading in progress flag — prevents duplicate fetches */
   loading: boolean;
@@ -61,9 +62,11 @@ export const useSearchStore = create<SearchState>((set, get) => ({
       const res = await fetch("/api/search");
       if (!res.ok) throw new Error(`Search index fetch failed: ${res.status}`);
 
+      // TODO(refactor)[P2]: res.json() result trusted as SearchItem[]
       const items: SearchItem[] = await res.json();
 
       const FuseClass = (await import("fuse.js")).default;
+      // TODO(refactor)[P1]: Fuse options recreated on every loadIndex
       const fuse = new FuseClass(items, {
         keys: [
           { name: "title", weight: 2.0 },

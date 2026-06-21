@@ -14,6 +14,7 @@ export const sharedPt = {
     toggleMenu: "Alternar menu",
   },
 
+  // TODO(refactor)[P1]: common block not consumed anywhere
   common: {
     home: "Início",
     about: "Sobre",
@@ -36,6 +37,7 @@ export const sharedPt = {
     builtWith: "Feito com Next.js, Tailwind CSS 4 & Bun",
   },
 
+  // TODO(refactor)[P1]: header block not consumed
   header: {
     name: "Pedro Felipe",
     subtitle: "Engenheiro Backend & Arquiteto de Sistemas",

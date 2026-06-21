@@ -52,6 +52,7 @@ export const ShareButtons = memo(
     const [isPending, startTransition] = useTransition();
     const { t } = useLanguage();
     const tBlog = t.blog;
+    // TODO(refactor)[P1]: use ReturnType<typeof setTimeout> in browser code
     const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
     const shareLinks = useMemo(() => {
@@ -74,6 +75,7 @@ export const ShareButtons = memo(
       };
     }, []);
 
+    // TODO(refactor)[P2]: copy+timeout duplicated in CodeBlockWrapper
     const copyToClipboard = useCallback(async () => {
       try {
         if (timeoutRef.current) {
@@ -105,6 +107,7 @@ export const ShareButtons = memo(
           {tBlog.share}
         </MonoText>
 
+        {/* TODO(refactor)[P2]: 4 near-identical className strings */}
         <div className="flex flex-wrap gap-2 md:gap-3">
           <a
             href={shareLinks.twitter}

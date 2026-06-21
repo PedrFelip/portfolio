@@ -21,6 +21,8 @@ const ibmPlexMono = IBM_Plex_Mono({
   display: "swap",
 });
 
+// TODO(refactor)[P1]: hardcoded #fcfcfc / #0a0a0a duplicates
+// --background — use CSS var or derive
 export const viewport: Viewport = {
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#fcfcfc" },
@@ -32,6 +34,8 @@ export const viewport: Viewport = {
   userScalable: true,
 };
 
+// TODO(refactor)[P2]: metadata config duplicated with
+// [lang]/layout.tsx — centralize in lib/metadata.ts
 const metadataConfig = {
   en: {
     title: "Pedro Felipe - Backend Engineer & System Architect",
@@ -64,6 +68,8 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     alternateLocale: ["pt_BR"],
+    // TODO(refactor)[P1]: hardcoded portfolio.vercel.app URL
+    // read from NEXT_PUBLIC_SITE_URL env
     url: "https://portfolio.vercel.app",
     siteName: "Pedro Felipe",
     title: metadataConfig.en.title,
@@ -89,6 +95,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
+    // TODO(refactor)[P0]: lang="en" hardcoded
+    // routes get wrong lang attribute (SEO+a11y), add client
+    // component to set document.documentElement.lang
     <html lang="en" suppressHydrationWarning>
       <body
         className={`${ibmPlexSans.variable} ${ibmPlexMono.variable} font-sans antialiased flex flex-col min-h-screen`}

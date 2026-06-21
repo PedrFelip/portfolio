@@ -4,6 +4,7 @@ interface HeadingProps {
   children: React.ReactNode;
 }
 
+// TODO(refactor)[P0]: shared let index across h1/h2/h3 breaks if any H1 appears
 export function createHeadingComponents(headings: Heading[]) {
   let index = 0;
 

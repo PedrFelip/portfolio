@@ -6,9 +6,10 @@ import { GitHubSectionSkeleton } from "@/components/home/GitHubSectionSkeleton";
 import { HeroGrid } from "@/components/home/HeroGrid";
 import { HomeCtaSection } from "@/components/home/HomeCtaSection";
 import { HomeFeaturesSection } from "@/components/home/HomeFeaturesSection";
+import { LatestPostSection } from "@/components/home/LatestPostSection";
 import { homeEn } from "@/lib/content/home.en";
 import { homePt } from "@/lib/content/home.pt";
-import { SUPPORTED_LANGS } from "@/lib/i18n";
+import { SUPPORTED_LOCALES } from "@/lib/i18n";
 
 const SimpleTechStack = dynamic(() =>
   import("@/components/home/SimpleTechStack").then(
@@ -26,8 +27,10 @@ interface HomePageProps {
   params: Promise<{ lang: string }>;
 }
 
+// TODO(refactor)[P1]: generateStaticParams duplicated across 5
+// page files — extract langStaticParams helper from lib/i18n.ts
 export function generateStaticParams() {
-  return SUPPORTED_LANGS.map((lang) => ({ lang }));
+  return SUPPORTED_LOCALES.map((lang) => ({ lang }));
 }
 
 const homeContent = {
@@ -95,6 +98,20 @@ export default async function HomePage({ params }: HomePageProps) {
 
         {/* ─── Spacer ─── */}
         <PanelSpacer />
+
+        {/* ─── Latest Post Panel ─── */}
+        <LatestPostSection
+          lang={lang}
+          badge={t.latestPost.badge}
+          title={t.latestPost.title}
+          description={t.latestPost.description}
+          readMore={t.latestPost.readMore}
+          readingTimeLabel={t.latestPost.readingTime}
+          serial={t.latestPost.serial}
+        />
+
+        {/* ─── Hatch ─── */}
+        <HatchSeparator />
 
         {/* ─── Toolkit Panel ─── */}
         <HomeToolkitSection

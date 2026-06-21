@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+/* TODO(refactor)[P1]: ease-[cubic-bezier(0.25,1,0.5,1)] repeated 52x in components */
 @custom-variant dark (&:is(.dark *));
 
 /* Smooth scroll behavior with enhanced animation */
@@ -95,7 +96,6 @@ body {
   --accent-foreground: oklch(1 0 0);
   --destructive: oklch(0.4 0 0);
   --border: oklch(0.86 0 0);
-  --border-subtle: oklch(0.86 0 0 / 50%);
   --input: oklch(0.86 0 0);
   --ring: oklch(0.35 0.1 220 / 40%);
   --chart-1: oklch(0.5 0 0);
@@ -111,6 +111,7 @@ body {
   --sidebar-accent-foreground: oklch(0.08 0 0);
   --sidebar-border: oklch(0.86 0 0);
   --sidebar-ring: oklch(0.35 0.1 220 / 20%);
+  /* TODO(refactor)[P1]: callout tokens not registered in @theme inline — forces verbose [color:var(--...)] in components */
   --callout-info-bg: oklch(0.35 0.1 220 / 8%);
   --callout-info-border: oklch(0.35 0.1 220 / 20%);
   --callout-info-text: oklch(0.35 0.1 220);
@@ -127,17 +128,13 @@ body {
   --brand-linkedin: oklch(0.62 0.12 255);
   --brand-twitter: oklch(0.72 0.02 220);
   --brand-email: oklch(0.62 0.1 25);
-  --brand-blue: oklch(0.35 0.1 220);
-  --brand-emerald: oklch(0.22 0 0);
-  --brand-violet: oklch(0.22 0 0);
-  --brand-amber: oklch(0.22 0 0);
-  --brand-cyan: oklch(0.22 0 0);
-  --brand-slate: oklch(0.22 0 0);
   --status-success: oklch(0.3 0 0);
   --status-warning: oklch(0.4 0 0);
   --status-error: oklch(0.35 0 0);
   --status-info: oklch(0.35 0.1 220);
   --status-neutral: oklch(0.4 0 0);
+  /* TODO(refactor)[P1]: 29 hex codes for hljs tokens */
+  /* TODO(refactor)[P1]: code tokens not registered in @theme inline */
   --code-bg: #f2f0e5;
   --code-fg: #403e3c;
   --code-border: oklch(0.89 0 0 / 40%);
@@ -201,7 +198,6 @@ body {
   --accent-foreground: oklch(0.04 0 0);
   --destructive: oklch(0.72 0 0);
   --border: oklch(0.98 0 0 / 13%);
-  --border-subtle: oklch(0.98 0 0 / 8%);
   --input: oklch(0.98 0 0 / 16%);
   --ring: oklch(0.7 0.1 220 / 36%);
   --chart-1: oklch(0.74 0 0);
@@ -233,17 +229,12 @@ body {
   --brand-linkedin: oklch(0.78 0.1 255);
   --brand-twitter: oklch(0.85 0.01 220);
   --brand-email: oklch(0.82 0.08 25);
-  --brand-blue: oklch(0.7 0.1 220);
-  --brand-emerald: oklch(0.88 0 0);
-  --brand-violet: oklch(0.88 0 0);
-  --brand-amber: oklch(0.88 0 0);
-  --brand-cyan: oklch(0.88 0 0);
-  --brand-slate: oklch(0.88 0 0);
   --status-success: oklch(0.8 0 0);
   --status-warning: oklch(0.84 0 0);
   --status-error: oklch(0.72 0 0);
   --status-info: oklch(0.7 0.1 220);
   --status-neutral: oklch(0.72 0 0);
+  /* TODO(refactor)[P1]: 29 hex codes for hljs tokens */
   --code-bg: #343331;
   --code-fg: #cecdc3;
   --code-border: oklch(0.93 0 0 / 8%);
@@ -289,6 +280,7 @@ body {
   --overlay-border-hover: oklch(0.98 0 0 / 20%);
 }
 
+/* TODO(refactor)[P1]: utility/component classes inside @layer base */
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -423,181 +415,12 @@ body {
     opacity: 0;
   }
 
-  .animate-in-slide-down {
-    animation: slide-down-menu 320ms cubic-bezier(0.25, 1, 0.5, 1) forwards;
-    opacity: 0;
-  }
-
-  .animate-in-left {
-    animation: fade-in-left 200ms cubic-bezier(0.25, 1, 0.5, 1) forwards;
-    opacity: 0;
-  }
-
-  .animate-in-right {
-    animation: fade-in-right 200ms cubic-bezier(0.25, 1, 0.5, 1) forwards;
-    opacity: 0;
-  }
-
-  .animate-scale-in {
-    animation: scale-in 150ms cubic-bezier(0.25, 1, 0.5, 1) forwards;
-    opacity: 0;
-  }
-
-  .animate-slide-down {
-    animation: slide-in-top 150ms cubic-bezier(0.25, 1, 0.5, 1);
-  }
-
-  /* Scale Utilities for Touch Feedback
-   * Provides immediate visual feedback on mobile
-   */
-  .scale-on-active:active {
-    transform: scale(0.98);
-  }
-
-  /* Stagger Delays - AGENTS.md 4px Grid System
-   * Increments of 50ms for smooth cascade effect
-   */
-  .animate-delay-50 {
-    animation-delay: 50ms;
-  }
-
-  .animate-delay-100 {
-    animation-delay: 100ms;
-  }
-
-  .animate-delay-150 {
-    animation-delay: 150ms;
-  }
-
-  .animate-delay-200 {
-    animation-delay: 200ms;
-  }
-
-  .animate-delay-250 {
-    animation-delay: 250ms;
-  }
-
-  .animate-delay-300 {
-    animation-delay: 300ms;
-  }
-
-  .animate-delay-400 {
-    animation-delay: 400ms;
-  }
-
-  .animate-delay-500 {
-    animation-delay: 500ms;
-  }
-
-  /* Hover Utilities - Phase 1: Card Components
-   * All animations use 150ms cubic-bezier(0.25, 1, 0.5, 1)
-   */
-
-  .hover-lift-subtle {
-    transition:
-      transform 150ms cubic-bezier(0.25, 1, 0.5, 1),
-      box-shadow 150ms cubic-bezier(0.25, 1, 0.5, 1),
-      border-color 150ms cubic-bezier(0.25, 1, 0.5, 1);
-  }
-
-  .hover-lift-subtle:hover {
-    transform: translateY(-2px) scale(1.02);
-    box-shadow: 0 4px 20px -4px oklch(var(--foreground) / 0.1);
-    border-color: oklch(var(--foreground) / 0.2);
-  }
-
-  .icon-hover-rotate {
-    transition: transform 150ms cubic-bezier(0.25, 1, 0.5, 1);
-  }
-
-  .icon-hover-rotate:hover {
-    transform: scale(1.1) rotate(3deg);
-  }
-
-  .icon-hover-slide {
-    transition: transform 150ms cubic-bezier(0.25, 1, 0.5, 1);
-  }
-
-  .icon-hover-slide:hover {
-    transform: translateX(2px);
-  }
-
-  .badge-hover {
-    transition:
-      transform 150ms cubic-bezier(0.25, 1, 0.5, 1),
-      filter 150ms cubic-bezier(0.25, 1, 0.5, 1);
-  }
-
-  .badge-hover:hover {
-    transform: scale(1.05);
-    filter: brightness(1.1);
-  }
-
-  .timeline-dot-hover {
-    transition:
-      transform 150ms cubic-bezier(0.25, 1, 0.5, 1),
-      box-shadow 150ms cubic-bezier(0.25, 1, 0.5, 1),
-      background-color 150ms cubic-bezier(0.25, 1, 0.5, 1);
-  }
-
-  .timeline-dot-hover:hover {
-    transform: scale(1.25);
-    box-shadow: 0 0 10px oklch(var(--foreground) / 0.3);
-    background-color: oklch(var(--foreground));
-  }
-
-  /* Link Underline Animation */
-  .link-underline {
-    position: relative;
-    text-decoration: none;
-  }
-
-  .link-underline::after {
-    content: "";
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 0;
-    height: 1px;
-    background-color: oklch(var(--foreground));
-    transition: width 150ms cubic-bezier(0.25, 1, 0.5, 1);
-  }
-
-  .link-underline:hover::after {
-    width: 100%;
-  }
-
   /* Code Editor Utilities - AGENTS.md Design Principles
    * - 4px grid: consistent spacing throughout
    * - Monospace for data/code
    * - 150-250ms animations with cubic-bezier easing
    * - Color for meaning only (syntax highlighting)
    */
-
-  /* Blink Cursor Animation */
-  @keyframes blink-cursor {
-    0%,
-    50% {
-      opacity: 1;
-    }
-    51%,
-    100% {
-      opacity: 0;
-    }
-  }
-
-  .animate-blink-cursor {
-    animation: blink-cursor 1s step-end infinite;
-  }
-
-  /* Code Block Container */
-  .code-block {
-    font-family:
-      var(--font-ibm-plex-mono), "SF Mono", "Fira Code", "Fira Mono",
-      "Roboto Mono", "Lucida Console", Monaco, monospace;
-    line-height: 1.6;
-    font-size: 13px;
-  }
 
   /* Code Line Numbers */
   .line-number {
@@ -641,211 +464,6 @@ body {
 
   .syntax-number {
     color: var(--syn-number);
-  }
-
-  /* Additional Stagger Delays */
-  .animate-delay-350 {
-    animation-delay: 350ms;
-  }
-
-  .animate-delay-450 {
-    animation-delay: 450ms;
-  }
-
-  .animate-delay-550 {
-    animation-delay: 550ms;
-  }
-
-  .animate-delay-600 {
-    animation-delay: 600ms;
-  }
-
-  .animate-delay-700 {
-    animation-delay: 700ms;
-  }
-
-  /* Touch & Mobile Interaction Utilities
-   * AGENTS.md Design Principles:
-   * - Minimum 44x44px touch targets (Apple HIG / Material Design)
-   * - 150ms transitions for instant feedback
-   * - No spring/bouncy effects
-   * - Active states for tactile feedback
-   */
-
-  /* Touch Target Sizing - Ensure Minimum Hit Areas */
-  .touch-target {
-    min-height: 44px;
-    min-width: 44px;
-  }
-
-  .touch-target-sm {
-    min-height: 40px;
-    min-width: 40px;
-  }
-
-  .touch-target-xs {
-    min-height: 36px;
-    min-width: 36px;
-  }
-
-  /* Touch Feedback - Active State Animations */
-  .touch-feedback {
-    transition:
-      transform 150ms cubic-bezier(0.25, 1, 0.5, 1),
-      opacity 150ms cubic-bezier(0.25, 1, 0.5, 1);
-  }
-
-  .touch-feedback:active {
-    transform: scale(0.97);
-    opacity: 0.8;
-  }
-
-  .touch-feedback-subtle {
-    transition:
-      transform 150ms cubic-bezier(0.25, 1, 0.5, 1),
-      opacity 150ms cubic-bezier(0.25, 1, 0.5, 1);
-  }
-
-  .touch-feedback-subtle:active {
-    transform: scale(0.99);
-    opacity: 0.9;
-  }
-
-  .touch-feedback-scale {
-    transition: transform 150ms cubic-bezier(0.25, 1, 0.5, 1);
-  }
-
-  .touch-feedback-scale:active {
-    transform: scale(0.95);
-  }
-
-  /* Touch Action - Prevent Double-Tap Zoom */
-  .touch-manipulation {
-    touch-action: manipulation;
-  }
-
-  .touch-pan-x {
-    touch-action: pan-x;
-  }
-
-  .touch-pan-y {
-    touch-action: pan-y;
-  }
-
-  /* Tap Highlight Control - Remove Native Highlight */
-  *,
-  *::before,
-  *::after {
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  /* Touch-Optimized Spacing - Increase tap area spacing on mobile */
-  @media (max-width: 640px) {
-    .touch-spacing {
-      gap: 12px; /* 3 * 4px grid */
-    }
-  }
-
-  /* Keyframe Animations */
-  @keyframes float-idle {
-    0%,
-    100% {
-      transform: translateY(0px);
-    }
-    50% {
-      transform: translateY(-2px);
-    }
-  }
-
-  .animate-float-idle {
-    animation: float-idle 3s ease-in-out infinite;
-  }
-
-  @keyframes pulse-subtle {
-    0%,
-    100% {
-      opacity: 1;
-      transform: scale(1);
-    }
-    50% {
-      opacity: 0.7;
-      transform: scale(1.1);
-    }
-  }
-
-  .animate-pulse-subtle {
-    animation: pulse-subtle 2s cubic-bezier(0.25, 1, 0.5, 1) infinite;
-  }
-
-  /* Commit Log Aesthetic - AGENTS.md Design Principles
-   * - Terminal-modern + GitHub dark aesthetic
-   * - 4px grid: consistent spacing throughout
-   * - Monospace for data: hashes, dates, tags
-   * - 150ms animations with cubic-bezier(0.25, 1, 0.5, 1) easing
-   * - Borders-only approach: subtle glow, no lift/scale
-   * - Color for meaning only: accent reserved for hover/active
-   */
-
-  /* Commit Log Item - estilo GitHub commit */
-  .commit-log-item {
-    @apply rounded-lg border border-border/50 p-4;
-    transition:
-      border-color 150ms cubic-bezier(0.25, 1, 0.5, 1),
-      background-color 150ms cubic-bezier(0.25, 1, 0.5, 1),
-      box-shadow 150ms cubic-bezier(0.25, 1, 0.5, 1);
-  }
-
-  .commit-log-item:hover {
-    border-color: oklch(var(--accent) / 0.5);
-    background-color: oklch(var(--accent) / 0.05);
-    box-shadow: 0 0 20px -5px oklch(var(--accent) / 0.1);
-  }
-
-  /* Commit Meta - hash + date row */
-  .commit-meta {
-    @apply flex items-center gap-3 mb-3 text-xs;
-  }
-
-  /* Commit Hash - estilo git hash */
-  .commit-hash {
-    @apply font-mono tabular-nums text-accent/60;
-    transition: opacity 150ms cubic-bezier(0.25, 1, 0.5, 1);
-  }
-
-  .commit-log-item:hover .commit-hash {
-    opacity: 1;
-  }
-
-  /* Commit Date - formato editorial mas monospace */
-  .commit-date {
-    @apply font-mono tabular-nums text-muted-foreground/80;
-    transition: color 150ms cubic-bezier(0.25, 1, 0.5, 1);
-  }
-
-  .commit-log-item:hover .commit-date {
-    color: oklch(var(--accent));
-  }
-
-  /* Commit Pill - badge monospace para tags */
-  .commit-pill {
-    @apply inline-flex items-center font-mono text-xs px-2 py-1 rounded-lg;
-    border: 0.5px solid oklch(var(--border));
-    transition:
-      border-color 150ms cubic-bezier(0.25, 1, 0.5, 1),
-      background-color 150ms cubic-bezier(0.25, 1, 0.5, 1),
-      color 150ms cubic-bezier(0.25, 1, 0.5, 1);
-  }
-
-  .commit-pill:hover {
-    border-color: oklch(var(--accent) / 0.5);
-    background-color: oklch(var(--accent) / 0.1);
-    color: oklch(var(--accent));
-  }
-
-  .commit-pill--accent {
-    background-color: oklch(var(--accent) / 0.1);
-    border-color: oklch(var(--accent) / 0.5);
-    color: oklch(var(--accent));
   }
 
   /* TOC - clean editorial list */
@@ -893,52 +511,6 @@ body {
     border-color: oklch(var(--accent) / 0.5);
     background-color: oklch(var(--accent) / 0.05);
     box-shadow: 0 0 20px -5px oklch(var(--accent) / 0.1);
-  }
-
-  /* Modern Data Card - Work Experience
-   * - 2px border-radius (slightly rounded)
-   * - 1px border (defined)
-   * - 4px left border indicator (blue accent)
-   * - Hover: border accent + bg tint + minimal shadow + lift
-   * - 150ms transition with cubic-bezier(0.25, 1, 0.5, 1)
-   */
-  .work-card-modern {
-    @apply rounded-lg border border-border/60 bg-card;
-    transition:
-      border-color 150ms cubic-bezier(0.25, 1, 0.5, 1),
-      background-color 150ms cubic-bezier(0.25, 1, 0.5, 1),
-      box-shadow 150ms cubic-bezier(0.25, 1, 0.5, 1),
-      transform 150ms cubic-bezier(0.25, 1, 0.5, 1);
-    border-left: 4px solid oklch(var(--foreground) / 0.12);
-  }
-
-  .work-card-modern:hover {
-    border-color: oklch(var(--foreground) / 0.25);
-    border-left-color: oklch(var(--foreground) / 0.4);
-    background-color: oklch(var(--foreground) / 0.02);
-    box-shadow: 0 2px 12px -2px oklch(var(--foreground) / 0.06);
-    transform: translateY(-1px);
-  }
-
-  /* Enhanced Brutalist Card - Education
-   * - 0px border radius (angular, raw)
-   * - 1px border (more prominent than 0.5px)
-   * - 4px left border indicator (emerald accent)
-   * - Hover: border accent + bg tint (no lift/shadow for grounded feel)
-   * - 150ms transition with cubic-bezier(0.25, 1, 0.5, 1)
-   */
-  .education-card-enhanced {
-    @apply rounded-lg border-foreground/10 bg-card;
-    transition:
-      border-color 150ms cubic-bezier(0.25, 1, 0.5, 1),
-      background-color 150ms cubic-bezier(0.25, 1, 0.5, 1);
-    border-left: 4px solid oklch(var(--foreground) / 0.1);
-  }
-
-  .education-card-enhanced:hover {
-    border-color: oklch(var(--foreground) / 0.2);
-    border-left-color: oklch(var(--foreground) / 0.35);
-    background-color: oklch(var(--foreground) / 0.02);
   }
 
   /* Blog Post Markdown Styles */
@@ -1452,6 +1024,7 @@ body {
 }
 
 /* Custom crosshair active state: hide default cursor on desktop when crosshair is active */
+/* TODO(refactor)[P1]: only !important in repo */
 .custom-cursor-active,
 .custom-cursor-active * {
   cursor: none !important;

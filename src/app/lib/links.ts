@@ -1,3 +1,4 @@
+// TODO(refactor)[P1]: SocialIcon and SocialLink not exported
 type SocialIcon = "portfolio" | "github" | "linkedin" | "x" | "email";
 
 interface SocialLink {
@@ -16,6 +17,7 @@ export const socialLinks: SocialLink[] = [
   },
   {
     label: "GitHub",
+    // TODO(refactor)[P1]: GitHub username hardcoded
     url: "https://github.com/pedrfelip",
     handle: "@pedrfelip",
     icon: "github",
@@ -40,7 +42,7 @@ export const socialLinks: SocialLink[] = [
   },
 ];
 
-export function getSocialLink(icon: SocialIcon): SocialLink | undefined {
+function getSocialLink(icon: SocialIcon): SocialLink | undefined {
   return socialLinks.find((link) => link.icon === icon);
 }
 

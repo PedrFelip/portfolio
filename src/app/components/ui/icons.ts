@@ -1,3 +1,4 @@
+// TODO(refactor)[P1]: manual barrel redundant with optimizePackageImports in next.config
 /**
  * Icon barrel export for lucide-react
  *
@@ -26,7 +27,6 @@ export {
   ChevronLeft,
   ChevronRight,
   Clock,
-  Code2,
   Copy,
   ExternalLink,
   FileText,

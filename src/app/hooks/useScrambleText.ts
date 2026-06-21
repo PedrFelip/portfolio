@@ -89,6 +89,9 @@ export function useScrambleText({
     };
 
     runNext(current, 0);
+    // TODO(refactor)[P0]: display in handleMouseEnter deps
+    // callback recreated ~33x/sec during scramble, use
+    // displayRef instead
   }, [scrambleTo, display, targets, scrambleDuration, pauseDuration]);
 
   const handleMouseLeave = useCallback(() => {
@@ -97,6 +100,8 @@ export function useScrambleText({
     phaseRef.current = 0;
     setCurrentTarget(originalRef.current);
     scrambleTo(display, originalRef.current, scrambleDuration);
+    // TODO(refactor)[P0]: display in handleMouseLeave deps
+    // same derived-state anti-pattern, read from ref
   }, [scrambleTo, display, scrambleDuration]);
 
   useEffect(() => {

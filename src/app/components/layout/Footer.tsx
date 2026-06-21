@@ -1,3 +1,4 @@
+// TODO(refactor)[P2]: entire footer is client just for useLanguage + motion
 "use client";
 
 import Link from "next/link";
@@ -28,6 +29,7 @@ export const Footer = memo(() => {
   const { t } = useLanguage();
   const getLocalizedLink = useLocalizedLink();
 
+  // TODO(refactor)[P2]: nav links duplicated w/ Navigation
   const navLinks = useMemo(
     () => [
       { href: "/", label: t.nav.home },
@@ -38,6 +40,7 @@ export const Footer = memo(() => {
     [t.nav],
   );
 
+  // TODO(refactor)[P2]: social icon map duplicated
   const footerSocialLinks = useMemo(
     () =>
       socialLinks
@@ -80,6 +83,7 @@ export const Footer = memo(() => {
               />
             </span>
           </Link>
+          {/* TODO(refactor)[P1]: hardcoded English "backend engineer" */}
           <MonoText className="text-[10px] tracking-[0.2em] text-muted-foreground/50 hidden sm:block">
             backend engineer
           </MonoText>
@@ -128,6 +132,7 @@ export const Footer = memo(() => {
 
             {/* Social Column */}
             <div className="flex flex-col items-start justify-center gap-2 border-t border-border/30 px-4 py-3 sm:border-t-0 sm:items-end sm:px-6">
+              {/* TODO(refactor)[P1]: hardcoded English "connect" */}
               <MonoText className="text-[9px] tracking-[0.2em] text-muted-foreground/40">
                 connect
               </MonoText>
@@ -154,7 +159,8 @@ export const Footer = memo(() => {
           </div>
         </div>
 
-        {/* ─── Bottom Bar ─── */}
+        {/* TODO(refactor)[P1]: double space in className typo */}
+        {/* TODO(refactor)[P1]: hardcoded "v5.2.0" */}
         <div className="bp-panel flex  bp-line-bottom items-center justify-between px-4 py-4 sm:px-6">
           <MonoText className="text-[10px] tracking-[0.15em] text-muted-foreground/40">
             © {t.footer.year}

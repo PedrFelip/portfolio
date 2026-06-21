@@ -17,6 +17,7 @@ import { useLanguage } from "@/lib/language-store";
 import { useSearchStore } from "@/lib/search-store";
 import type { SearchItem, SearchPage, SearchPost } from "@/lib/search-types";
 import { cn } from "@/lib/utils";
+import { APP_VERSION } from "@/lib/version";
 
 // ─── Helpers ────────────────────────────────────────────────
 
@@ -259,6 +260,9 @@ export const SearchCommand = memo(function SearchCommand() {
         {/* Footer */}
         {/* TODO(refactor)[P2]: 4 identical kbd className strings */}
         <div className="flex items-center gap-4 px-4 py-2 border-t border-border bg-surface-1/50">
+          <MonoText className="text-[10px] tracking-[0.15em] text-muted-foreground/30">
+            {APP_VERSION}
+          </MonoText>
           <span className="flex items-center gap-1 text-[10px] text-muted-foreground/30">
             <kbd className="inline-flex items-center justify-center h-3.5 min-w-[14px] px-0.5 rounded-[2px] border border-border/60 bg-surface-2 font-mono text-[8px] leading-none text-muted-foreground/40">
               ↑

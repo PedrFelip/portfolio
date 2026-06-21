@@ -4,8 +4,10 @@ import Link from "next/link";
 import type { JSX } from "react";
 import { memo } from "react";
 import { ArrowRight, BookOpen, FolderGit2, Home } from "@/components/ui/icons";
+import { MonoText } from "@/components/ui/typography";
 import { useLanguage } from "@/lib/language-store";
 import { useLocalizedLink } from "@/lib/useLocalizedLink";
+import { APP_VERSION } from "@/lib/version";
 
 interface NavItem {
   label: string;
@@ -98,6 +100,10 @@ export function NotFound() {
             <NotFoundLinkItem key={item.href} item={item} />
           ))}
         </div>
+
+        <MonoText className="mt-8 block text-center text-[10px] tracking-[0.15em] text-muted-foreground/30">
+          {APP_VERSION}
+        </MonoText>
       </div>
     </div>
   );

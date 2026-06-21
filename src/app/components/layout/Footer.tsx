@@ -11,6 +11,7 @@ import { XIcon } from "@/components/ui/x-icon";
 import { useLanguage } from "@/lib/language-store";
 import { socialLinks } from "@/lib/links";
 import { useLocalizedLink } from "@/lib/useLocalizedLink";
+import { APP_VERSION } from "@/lib/version";
 
 /**
  * Footer — chanhdai.com inspired blueprint layout
@@ -159,14 +160,12 @@ export const Footer = memo(() => {
           </div>
         </div>
 
-        {/* TODO(refactor)[P1]: double space in className typo */}
-        {/* TODO(refactor)[P1]: hardcoded "v5.2.0" */}
-        <div className="bp-panel flex  bp-line-bottom items-center justify-between px-4 py-4 sm:px-6">
+        <div className="bp-panel flex bp-line-bottom items-center justify-between px-4 py-4 sm:px-6">
           <MonoText className="text-[10px] tracking-[0.15em] text-muted-foreground/40">
             © {t.footer.year}
           </MonoText>
           <MonoText className="text-[10px] tracking-[0.15em] text-muted-foreground/40">
-            v5.2.0
+            {APP_VERSION}
           </MonoText>
         </div>
       </div>

@@ -9,9 +9,11 @@ import {
   Linkedin,
   Mail,
 } from "@/components/ui/icons";
+import { MonoText } from "@/components/ui/typography";
 import { XIcon } from "@/components/ui/x-icon";
 import { useLanguage } from "@/lib/language-store";
 import { socialLinks } from "@/lib/links";
+import { APP_VERSION } from "@/lib/version";
 
 // TODO(refactor)[P2]: social icon+color map duplicated in
 // Footer + BlueprintContactSection — extract
@@ -147,6 +149,10 @@ function LinksContent() {
             />
           ))}
         </div>
+
+        <MonoText className="mt-8 block text-center text-[10px] tracking-[0.15em] text-muted-foreground/30">
+          {APP_VERSION}
+        </MonoText>
       </div>
     </div>
   );

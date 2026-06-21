@@ -26,5 +26,6 @@ export const blogPt = {
     copyCode: "Copiar código",
     codeCopied: "Copiado!",
     failedToCopy: "Falha ao copiar",
+    publishedCount: "Artigos publicados",
   },
 };

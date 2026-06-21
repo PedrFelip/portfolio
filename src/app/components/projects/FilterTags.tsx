@@ -1,9 +1,8 @@
 "use client";
 
 import { memo, useCallback, useMemo } from "react";
-import { MonoText } from "@/components/ui";
+import { Button, MonoText } from "@/components/ui";
 import { useLanguage } from "@/lib/language-store";
-import { cn } from "@/lib/utils";
 
 interface FilterTagsProps {
   selectedTags: string[];
@@ -51,13 +50,9 @@ export const FilterTags = memo(
               : filterLabels.empty}
           </MonoText>
           {selectedTags.length > 0 && (
-            <button
-              type="button"
-              onClick={clearAll}
-              className="text-xs font-mono text-muted-foreground/60 transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:text-foreground active:opacity-70 touch-manipulation min-h-[44px] md:min-h-[36px] px-3"
-            >
+            <Button variant="ghost" size="filter" onClick={clearAll}>
               {filterLabels.clear}
-            </button>
+            </Button>
           )}
         </div>
 
@@ -66,20 +61,16 @@ export const FilterTags = memo(
             const isSelected = selectedTagsSet.has(tag);
             const count = tagCounts.get(tag) ?? 0;
             return (
-              <button
+              <Button
                 key={tag}
-                type="button"
+                variant="filter"
+                size="filter"
+                data-state={isSelected ? "on" : "off"}
                 onClick={() => toggleTag(tag)}
-                className={cn(
-                  "border rounded-lg font-mono text-xs transition-[border-color,background-color,color] duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] motion-reduce:transition-none touch-manipulation min-h-[44px] md:min-h-[36px] px-3 py-2 md:py-1.5 active:scale-[0.98] active:opacity-90",
-                  isSelected
-                    ? "border-foreground bg-foreground text-background"
-                    : "border-border text-muted-foreground hover:border-foreground/40 hover:text-foreground",
-                )}
               >
                 {tag}
                 <MonoText className="ml-1 opacity-40">({count})</MonoText>
-              </button>
+              </Button>
             );
           })}
         </div>

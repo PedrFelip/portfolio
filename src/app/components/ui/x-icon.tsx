@@ -1,3 +1,5 @@
+import type * as React from "react";
+
 /**
  * XIcon component - Official X (formerly Twitter) logo
  *

@@ -142,22 +142,22 @@ export async function fetchGitHubContributions(
 }
 
 /**
- * Get contribution color based on level (indigo accent)
+ * Get contribution color based on level (blueprint cyan accent)
  */
 const contributionColorsDark: Record<0 | 1 | 2 | 3 | 4, string> = {
-  0: "oklch(0.66 0.16 270 / 4%)",
-  1: "oklch(0.66 0.16 270 / 18%)",
-  2: "oklch(0.66 0.18 270 / 34%)",
-  3: "oklch(0.66 0.18 270 / 54%)",
-  4: "oklch(0.66 0.20 270 / 76%)",
+  0: "oklch(0.66 0.10 220 / 4%)",
+  1: "oklch(0.66 0.10 220 / 18%)",
+  2: "oklch(0.66 0.11 220 / 34%)",
+  3: "oklch(0.66 0.11 220 / 54%)",
+  4: "oklch(0.66 0.12 220 / 76%)",
 };
 
 const contributionColorsLight: Record<0 | 1 | 2 | 3 | 4, string> = {
-  0: "oklch(0.50 0.10 270 / 5%)",
-  1: "oklch(0.50 0.10 270 / 18%)",
-  2: "oklch(0.50 0.14 270 / 34%)",
-  3: "oklch(0.50 0.14 270 / 54%)",
-  4: "oklch(0.50 0.16 270 / 76%)",
+  0: "oklch(0.50 0.06 220 / 5%)",
+  1: "oklch(0.50 0.06 220 / 18%)",
+  2: "oklch(0.50 0.09 220 / 34%)",
+  3: "oklch(0.50 0.09 220 / 54%)",
+  4: "oklch(0.50 0.10 220 / 76%)",
 };
 
 export function getContributionColor(

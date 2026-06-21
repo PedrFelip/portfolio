@@ -16,12 +16,15 @@ const buttonVariants = cva(
         ghost: "text-muted-foreground hover:text-foreground hover:bg-muted/30",
         destructive:
           "bg-destructive text-destructive-foreground border border-destructive hover:bg-transparent hover:text-destructive",
+        filter:
+          "border border-border bg-transparent text-muted-foreground hover:border-foreground/40 hover:text-foreground data-[state=on]:border-foreground data-[state=on]:bg-foreground data-[state=on]:text-background",
       },
       size: {
         sm: "h-11 md:h-9 px-4",
         md: "h-12 md:h-10 px-6",
         lg: "h-14 md:h-12 px-8",
         icon: "size-11 md:size-10",
+        filter: "min-h-[44px] md:min-h-[36px] px-3 py-2 md:py-1.5",
       },
     },
     defaultVariants: {

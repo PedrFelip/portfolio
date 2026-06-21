@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
+import { cn } from "@/lib/utils";
 
 const ASPECT_RATIO = 416 / 542;
 
@@ -11,7 +12,7 @@ interface LogoProps {
   className?: string;
 }
 
-export const Logo = ({ height = 28, className = "" }: LogoProps) => {
+export const Logo = ({ height = 28, className }: LogoProps) => {
   const width = Math.round(height * ASPECT_RATIO);
   const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
@@ -24,13 +25,13 @@ export const Logo = ({ height = 28, className = "" }: LogoProps) => {
     return (
       <div
         style={{ width, height }}
-        className={`bg-surface-3 rounded animate-pulse ${className}`}
+        className={cn("bg-surface-3 rounded animate-pulse", className)}
       />
     );
   }
 
   const isDark = resolvedTheme === "dark";
-  const logoSrc = isDark ? "/logo-dark.svg" : "/logo-ligth.svg";
+  const logoSrc = isDark ? "/logo-light.svg" : "/logo-dark.svg";
 
   return (
     <Image
@@ -38,7 +39,7 @@ export const Logo = ({ height = 28, className = "" }: LogoProps) => {
       alt="Pedro Felipe Logo"
       width={width}
       height={height}
-      className={`block transition-opacity duration-300 ${className}`}
+      className={cn("block transition-opacity duration-300", className)}
       priority
     />
   );

@@ -76,7 +76,7 @@ export default async function BlogPage({ params }: BlogPageProps) {
               {allPosts.length}
             </span>
             <span className="text-[10px] font-semibold uppercase tracking-[0.15em] text-muted-foreground/60 mt-1">
-              {lang === "pt" ? "Artigos publicados" : "Published articles"}
+              {t.publishedCount}
             </span>
           </div>
         </div>

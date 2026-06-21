@@ -17,17 +17,7 @@ const badgeVariants = cva(
           "border-destructive/30 bg-destructive/10 text-destructive hover:bg-destructive/20",
         outline:
           "border-border bg-transparent text-muted-foreground hover:border-foreground/30 hover:text-foreground hover:bg-foreground/[0.04]",
-        work: "border-foreground/20 bg-foreground/[0.06] text-foreground/80 hover:bg-foreground/10 hover:border-foreground/35",
-        education:
-          "border-foreground/20 bg-foreground/[0.06] text-foreground/80 hover:bg-foreground/10 hover:border-foreground/35",
-        expertise:
-          "border-foreground/20 bg-foreground/[0.06] text-foreground/80 hover:bg-foreground/10 hover:border-foreground/35",
-        projects:
-          "border-foreground/20 bg-foreground/[0.06] text-foreground/80 hover:bg-foreground/10 hover:border-foreground/35",
-        blog: "border-foreground/20 bg-foreground/[0.06] text-foreground/80 hover:bg-foreground/10 hover:border-foreground/35",
-        contact:
-          "border-foreground/20 bg-foreground/[0.06] text-foreground/80 hover:bg-foreground/10 hover:border-foreground/35",
-        about:
+        subtle:
           "border-foreground/20 bg-foreground/[0.06] text-foreground/80 hover:bg-foreground/10 hover:border-foreground/35",
       },
     },

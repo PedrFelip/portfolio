@@ -74,7 +74,7 @@ const CodeComponent = ({
     return <code className={className}>{children}</code>;
   }
   return (
-    <code className="bg-[var(--code-bg)] text-[color:var(--code-fg)] px-1.5 py-0.5 rounded-sm">
+    <code className="bg-[var(--code-bg)] text-[color:var(--code-fg)] px-1.5 py-0.5 rounded-lg">
       {children}
     </code>
   );
@@ -198,13 +198,13 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const postUrl = `${process.env.NEXT_PUBLIC_SITE_URL || ""}/${lang}/blog/${post.slug}`;
 
   return (
-    <main className="min-h-screen animate-in-fade animate-duration-700 pb-24 md:pb-0">
+    <div className="animate-in-fade animate-duration-700 pb-24 md:pb-0">
       <ScrollToTop />
       <ZenFloatingControls />
 
       {/* Header Section */}
       <header className="border-b border-border">
-        <div className="mx-auto max-w-4xl px-6 py-12 sm:px-8 sm:py-24">
+        <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6 sm:py-12">
           {/* Title */}
           <h1 className="w-fit max-w-full pr-1 text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-[-0.03em] leading-[1.2] pb-1 mb-6 animate-in-up bg-gradient-to-br from-foreground to-accent bg-clip-text [-webkit-background-clip:text] [-webkit-text-fill-color:transparent] [box-decoration-break:clone]">
             {post.title}
@@ -255,7 +255,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       </header>
 
       {/* Content Section */}
-      <div className="mx-auto max-w-5xl px-6 sm:px-8">
+      <div className="mx-auto max-w-4xl px-4 sm:px-6">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_200px] gap-8 lg:gap-12">
           {/* Main Article */}
           <div className="py-10 sm:py-16 animate-in-up animate-delay-300">
@@ -319,6 +319,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </aside>
         </div>
       </div>
-    </main>
+    </div>
   );
 }

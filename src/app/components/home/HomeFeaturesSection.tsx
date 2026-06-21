@@ -48,7 +48,7 @@ export function HomeFeaturesSection({
         <h2 className="mt-1 text-lg font-semibold tracking-tight sm:text-xl">
           {title}
         </h2>
-        <p className="mt-1 text-sm text-foreground/70">{description}</p>
+        <p className="mt-1 text-sm text-muted-foreground">{description}</p>
       </SectionBadge>
 
       {/* Grid */}

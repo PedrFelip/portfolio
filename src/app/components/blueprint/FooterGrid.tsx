@@ -1,5 +1,6 @@
 import { memo } from "react";
 import { cn } from "@/lib/utils";
+import { CornerBrackets } from "./CornerBracket";
 import { DotPattern } from "./DotPattern";
 
 interface FooterGridProps {
@@ -79,28 +80,10 @@ export const FooterGridCell = memo(function FooterGridCell({
 
       {/* Corner brackets - blueprint architectural detail */}
       {showCorners && (
-        <>
-          {/* Top-left corner */}
-          <div
-            className="absolute left-2 top-2 size-3 border-l border-t border-border/20 transition-colors duration-200 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:border-border/50"
-            aria-hidden="true"
-          />
-          {/* Top-right corner */}
-          <div
-            className="absolute right-2 top-2 size-3 border-r border-t border-border/20 transition-colors duration-200 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:border-border/50"
-            aria-hidden="true"
-          />
-          {/* Bottom-left corner */}
-          <div
-            className="absolute bottom-2 left-2 size-3 border-b border-l border-border/20 transition-colors duration-200 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:border-border/50"
-            aria-hidden="true"
-          />
-          {/* Bottom-right corner */}
-          <div
-            className="absolute bottom-2 right-2 size-3 border-b border-r border-border/20 transition-colors duration-200 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:border-border/50"
-            aria-hidden="true"
-          />
-        </>
+        <CornerBrackets
+          size={12}
+          className="!border-border/20 group-hover:!border-border/50 transition-colors duration-200 ease-[cubic-bezier(0.25,1,0.5,1)]"
+        />
       )}
 
       {/* Cell content */}

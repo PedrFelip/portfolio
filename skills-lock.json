@@ -6,6 +6,12 @@
       "sourceType": "github",
       "computedHash": "c6caae2e9bde463bab6e817a9c0ad98c0848f0aea69d7eaf35b11c2ba16c944c"
     },
+    "redesign-existing-projects": {
+      "source": "leonxlnx/taste-skill",
+      "sourceType": "github",
+      "skillPath": "skills/redesign-skill/SKILL.md",
+      "computedHash": "b405eee0e0e80fc243f731d9aa368bca307e356db7e6157d27101d369dac6726"
+    },
     "structural-grid": {
       "source": "nabinkhair42/structural-grid-skill",
       "sourceType": "github",

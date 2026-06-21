@@ -38,6 +38,29 @@ export function H1({
 H1.displayName = "H1";
 
 /**
+ * H2 - Section headline
+ * @example <H2>Features</H2>
+ */
+export function H2({
+  className,
+  as: Component = "h2",
+  ref,
+  ...props
+}: TypographyProps) {
+  return (
+    <Component
+      ref={ref}
+      className={cn(
+        "text-xl font-semibold tracking-[-0.02em] text-foreground sm:text-2xl",
+        className,
+      )}
+      {...props}
+    />
+  );
+}
+H2.displayName = "H2";
+
+/**
  * H3 - Subsection headline
  * @example <H3>Work Experience</H3>
  */
@@ -59,6 +82,29 @@ export function H3({
   );
 }
 H3.displayName = "H3";
+
+/**
+ * H4 - Minor headline
+ * @example <H4>Details</H4>
+ */
+export function H4({
+  className,
+  as: Component = "h4",
+  ref,
+  ...props
+}: TypographyProps) {
+  return (
+    <Component
+      ref={ref}
+      className={cn(
+        "text-sm font-semibold tracking-[-0.01em] text-foreground sm:text-base",
+        className,
+      )}
+      {...props}
+    />
+  );
+}
+H4.displayName = "H4";
 
 /**
  * P - Body paragraph

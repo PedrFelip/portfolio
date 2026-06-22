@@ -14,7 +14,7 @@ const SearchCommand = dynamic(
 
 export function SearchWrapper() {
   const isOpen = useSearchStore((s) => s.isOpen);
-  const toggle = useSearchStore((s) => s.toggle);
+  const open = useSearchStore((s) => s.open);
   const isTouch = useIsTouchDevice();
 
   useEffect(() => {
@@ -42,13 +42,14 @@ export function SearchWrapper() {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+        if (isOpen) return;
         e.preventDefault();
-        toggle();
+        open();
       }
     };
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [toggle]);
+  }, [isOpen, open]);
 
   // Desabilita modal de pesquisa em dispositivos touch
   if (isTouch) return null;

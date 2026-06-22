@@ -125,7 +125,19 @@ export const SearchCommand = memo(function SearchCommand() {
   // Keyboard navigation
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent) => {
-      if (e.key === "ArrowDown") {
+      if ((e.metaKey || e.ctrlKey) && (e.key === "j" || e.key === "k")) {
+        if (displayItems.length === 0) return;
+        e.preventDefault();
+        setActiveIndex((prev) =>
+          e.key === "j"
+            ? prev < displayItems.length - 1
+              ? prev + 1
+              : 0
+            : prev > 0
+              ? prev - 1
+              : displayItems.length - 1,
+        );
+      } else if (e.key === "ArrowDown") {
         if (displayItems.length === 0) return;
         e.preventDefault();
         setActiveIndex((prev) =>
@@ -266,6 +278,15 @@ export const SearchCommand = memo(function SearchCommand() {
           </span>
           <span className="flex items-center gap-1 text-[10px] text-muted-foreground/30">
             <kbd className="inline-flex items-center justify-center h-3.5 min-w-[14px] px-0.5 rounded-[2px] border border-border/60 bg-surface-2 font-mono text-[8px] leading-none text-muted-foreground/40">
+              ⌘J
+            </kbd>
+            <kbd className="inline-flex items-center justify-center h-3.5 min-w-[14px] px-0.5 rounded-[2px] border border-border/60 bg-surface-2 font-mono text-[8px] leading-none text-muted-foreground/40">
+              ⌘K
+            </kbd>
+            <span className="ml-0.5">vim</span>
+          </span>
+          <span className="flex items-center gap-1 text-[10px] text-muted-foreground/30">
+            <kbd className="inline-flex items-center justify-center h-3.5 min-w-[14px] px-0.5 rounded-[2px] border border-border/60 bg-surface-2 font-mono text-[8px] leading-none text-muted-foreground/40">
               ↵
             </kbd>
             <span className="ml-0.5">open</span>
@@ -320,7 +341,7 @@ const ResultItem = memo(function ResultItem({
         onClick={handleClick}
         data-index={index}
         className={cn(
-          "flex items-center gap-3 px-4 py-3 md:py-2.5 mx-1 rounded-lg transition-all duration-100 active:scale-[0.99] active:bg-accent/[0.12] min-h-[48px] md:min-h-0 touch-manipulation",
+          "flex items-center gap-3 px-4 py-3 md:py-2.5 mx-1 rounded-lg transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] active:scale-[0.99] active:bg-accent/[0.12] min-h-[48px] md:min-h-0 touch-manipulation",
           isActive
             ? "bg-accent/[0.08] text-foreground"
             : "text-muted-foreground",
@@ -328,7 +349,7 @@ const ResultItem = memo(function ResultItem({
       >
         <span
           className={cn(
-            "shrink-0 size-7 rounded-lg border border-border/60 flex items-center justify-center transition-colors duration-100",
+            "shrink-0 size-7 rounded-lg border border-border/60 flex items-center justify-center transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)]",
             isActive
               ? "border-accent/30 text-accent bg-accent/[0.05]"
               : "text-muted-foreground/50",
@@ -339,8 +360,10 @@ const ResultItem = memo(function ResultItem({
         <span className="text-sm font-medium">{item.label}</span>
         <ArrowRight
           className={cn(
-            "size-3 ml-auto transition-opacity duration-100",
-            isActive ? "opacity-60" : "opacity-0",
+            "size-3 ml-auto transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)]",
+            isActive
+              ? "opacity-60 translate-x-0.5 scale-110"
+              : "opacity-0 translate-x-0 scale-100",
           )}
           aria-hidden="true"
         />
@@ -359,13 +382,13 @@ const ResultItem = memo(function ResultItem({
       onClick={handleClick}
       data-index={index}
       className={cn(
-        "flex items-start gap-3 px-4 py-3 md:py-2.5 mx-1 rounded-lg transition-all duration-100 active:scale-[0.99] active:bg-accent/[0.12] min-h-[48px] md:min-h-0 touch-manipulation",
+        "flex items-start gap-3 px-4 py-3 md:py-2.5 mx-1 rounded-lg transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] active:scale-[0.99] active:bg-accent/[0.12] min-h-[48px] md:min-h-0 touch-manipulation",
         isActive ? "bg-accent/[0.08] text-foreground" : "text-muted-foreground",
       )}
     >
       <span
         className={cn(
-          "shrink-0 size-7 rounded-lg border border-border/60 flex items-center justify-center mt-0.5 transition-colors duration-100",
+          "shrink-0 size-7 rounded-lg border border-border/60 flex items-center justify-center mt-0.5 transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)]",
           isActive
             ? "border-accent/30 text-accent bg-accent/[0.05]"
             : "text-muted-foreground/50",
@@ -398,8 +421,10 @@ const ResultItem = memo(function ResultItem({
       </div>
       <ArrowRight
         className={cn(
-          "size-3 shrink-0 mt-1.5 transition-opacity duration-100",
-          isActive ? "opacity-60" : "opacity-0",
+          "size-3 shrink-0 mt-1.5 transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)]",
+          isActive
+            ? "opacity-60 translate-x-0.5 scale-110"
+            : "opacity-0 translate-x-0 scale-100",
         )}
         aria-hidden="true"
       />

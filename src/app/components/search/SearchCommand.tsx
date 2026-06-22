@@ -341,7 +341,7 @@ const ResultItem = memo(function ResultItem({
         onClick={handleClick}
         data-index={index}
         className={cn(
-          "flex items-center gap-3 px-4 py-3 md:py-2.5 mx-1 rounded-lg transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] active:scale-[0.99] active:bg-accent/[0.12] min-h-[48px] md:min-h-0 touch-manipulation",
+          "flex items-center gap-3 px-4 py-3 md:py-2.5 mx-1 rounded-lg transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] active:scale-[0.99] active:bg-accent/[0.12] min-h-[48px] md:min-h-[56px] touch-manipulation",
           isActive
             ? "bg-accent/[0.08] text-foreground"
             : "text-muted-foreground",
@@ -362,8 +362,8 @@ const ResultItem = memo(function ResultItem({
           className={cn(
             "size-3 ml-auto transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)]",
             isActive
-              ? "opacity-60 translate-x-0.5 scale-110"
-              : "opacity-0 translate-x-0 scale-100",
+              ? "opacity-60 translate-x-0"
+              : "opacity-0 -translate-x-1.5",
           )}
           aria-hidden="true"
         />
@@ -382,7 +382,7 @@ const ResultItem = memo(function ResultItem({
       onClick={handleClick}
       data-index={index}
       className={cn(
-        "flex items-start gap-3 px-4 py-3 md:py-2.5 mx-1 rounded-lg transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] active:scale-[0.99] active:bg-accent/[0.12] min-h-[48px] md:min-h-0 touch-manipulation",
+        "flex items-start gap-3 px-4 py-3 md:py-2.5 mx-1 rounded-lg transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] active:scale-[0.99] active:bg-accent/[0.12] min-h-[48px] md:min-h-[56px] touch-manipulation",
         isActive ? "bg-accent/[0.08] text-foreground" : "text-muted-foreground",
       )}
     >
@@ -422,9 +422,7 @@ const ResultItem = memo(function ResultItem({
       <ArrowRight
         className={cn(
           "size-3 shrink-0 mt-1.5 transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)]",
-          isActive
-            ? "opacity-60 translate-x-0.5 scale-110"
-            : "opacity-0 translate-x-0 scale-100",
+          isActive ? "opacity-60 translate-x-0" : "opacity-0 -translate-x-1.5",
         )}
         aria-hidden="true"
       />

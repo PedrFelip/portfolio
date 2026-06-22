@@ -421,7 +421,7 @@ const ResultItem = memo(function ResultItem({
       </div>
       <ArrowRight
         className={cn(
-          "size-3 shrink-0 mt-1.5 transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)]",
+          "size-3 shrink-0 self-center transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)]",
           isActive ? "opacity-60 translate-x-0" : "opacity-0 -translate-x-1.5",
         )}
         aria-hidden="true"

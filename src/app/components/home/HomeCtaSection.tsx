@@ -40,9 +40,9 @@ export function HomeCtaSection({
             size="md"
             className="w-full min-w-[180px]"
           >
-            <Link href={`/${lang}/projects`}>
+            <Link href={`/${lang}/projects`} className="group/link">
               {primary}
-              <ArrowRight className="size-3.5" />
+              <ArrowRight className="size-3.5 transition-transform duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover/link:translate-x-1 group-hover/link:scale-110" />
             </Link>
           </Button>
           <Button
@@ -56,9 +56,10 @@ export function HomeCtaSection({
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`${secondary} — opens in new tab`}
+              className="no-external-indicator group/link"
             >
               {secondary}
-              <ExternalLink className="size-3.5" />
+              <ExternalLink className="size-3.5 transition-transform duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover/link:translate-x-1 group-hover/link:scale-110" />
             </Link>
           </Button>
         </div>

@@ -64,7 +64,7 @@ export const ExternalLinkAnchor = memo(
         target="_blank"
         rel="noopener noreferrer"
         className={cn(
-          "group/link inline-flex items-center",
+          "group/link inline-flex items-center no-external-indicator",
           gapClasses[size],
           sizeClasses[size],
           weightClasses[weight],
@@ -80,7 +80,7 @@ export const ExternalLinkAnchor = memo(
         <ExternalLink
           className={cn(
             iconSizes[size],
-            "flex-shrink-0 text-muted-foreground/60 transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover/link:translate-x-0.5 group-hover/link:scale-110 opacity-0 group-hover/link:opacity-100",
+            "flex-shrink-0 text-muted-foreground/60 transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover/link:translate-x-1 group-hover/link:scale-110 opacity-0 group-hover/link:opacity-100",
           )}
           aria-hidden="true"
         />

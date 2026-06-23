@@ -150,6 +150,7 @@ export const Footer = memo(() => {
                       text-muted-foreground/60 transition-all duration-200 ease-[cubic-bezier(0.25,1,0.5,1)]
                       hover:text-accent hover:border-accent/20 hover:bg-accent/5
                       active:scale-[0.9] active:bg-accent/10 touch-manipulation
+                      no-external-indicator icon-link-hover
                     "
                   >
                     {link.icon}

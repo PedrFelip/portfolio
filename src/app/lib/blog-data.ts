@@ -130,6 +130,10 @@ function extractHeadings(content: string): Heading[] {
 
   // biome-ignore lint/suspicious/noAssignInExpressions: regex exec pattern requires assignment in loop
   while ((match = headingRegex.exec(content)) !== null) {
+    const precedingText = content.slice(0, match.index);
+    const openFences = (precedingText.match(/^```[^\n]*$/gm) || []).length;
+    if (openFences % 2 === 1) continue;
+
     const level = match[1].length as 2 | 3;
     const text = match[2]
       .trim()

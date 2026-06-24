@@ -325,10 +325,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </div>
 
           {/* Sidebar (Desktop) */}
-          <aside className="hidden lg:block animate-in-right animate-delay-500">
-            <div className="sticky top-24 py-16 space-y-12">
-              <TableOfContents headings={post.headings || []} />
-            </div>
+          <aside className="hidden lg:block sticky top-24 self-start py-16 animate-in-right animate-delay-500">
+            <TableOfContents headings={post.headings || []} />
           </aside>
         </div>
       </div>

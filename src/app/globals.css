@@ -4,15 +4,17 @@
 /* TODO(refactor)[P1]: ease-[cubic-bezier(0.25,1,0.5,1)] repeated 52x in components */
 @custom-variant dark (&:is(.dark *));
 
-/* Smooth scroll behavior with enhanced animation */
+/* Smooth scroll behavior with enhanced animation
+ * NOTE: `overflow-x: clip` (not `hidden`) — `hidden` creates a scroll
+ * container and breaks `position: sticky` in descendants. */
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 5rem; /* Account for header height (80px desktop, 64px mobile) */
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 body {
-  overflow-x: hidden;
+  overflow-x: clip;
   -webkit-overflow-scrolling: touch;
 }
 

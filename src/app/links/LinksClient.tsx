@@ -83,7 +83,7 @@ const LinkItem = memo(({ label, url, icon, description }: LinkItemProps) => {
   return (
     <a
       {...linkProps}
-      className={`group flex items-center gap-4 px-4 py-3.5 sm:px-5 sm:py-4 lg:px-6 lg:py-5 rounded-lg border border-transparent transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:bg-surface-4 hover:-translate-y-0.5 hover:border-current/10 active:translate-y-0 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background ${colors.border} ${colors.bg}`}
+      className={`group flex items-center gap-4 px-4 py-3.5 sm:px-5 sm:py-4 lg:px-6 lg:py-5 rounded-lg border border-transparent transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:bg-surface-4 hover:-translate-y-0.5 hover:border-current/10 active:translate-y-0 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background ${colors.border} ${colors.bg} ${isExternal ? "no-external-indicator" : ""}`}
     >
       <div className="flex flex-shrink-0 items-center justify-center">
         <Icon

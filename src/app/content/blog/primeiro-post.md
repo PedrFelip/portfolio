@@ -9,9 +9,9 @@ published: true
 
 ## Hello World dos Blog
 
-Bem-vindo ao meu primeiro post no blog! Aqui você encontra conteúdo sobre backend, arquitetura de software, Linux e ferramentas que uso.
+Bem-vindo ao meu primeiro post! Por aqui, o foco é backend, arquitetura de software, Linux e ferramentas que uso no dia a dia.
 
-Vamos começar com alguns "Hello World" clássicos em diferentes linguagens:
+Pra começar, nada melhor que o clássico "Hello World" em algumas linguagens:
 
 ### TypeScript
 

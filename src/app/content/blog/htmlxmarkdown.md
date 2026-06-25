@@ -9,13 +9,13 @@ published: true
 
 ## Forma de interação com agentes
 
-Cada vez mais a gente usa IA no trabalho com ferramentas como Opencode, Claude Code e Codex. E quase sempre, a interação acontece por meio de **Markdown**.
+Cada vez mais a gente usa IA no trabalho, com ferramentas como Opencode, Claude Code e Codex. E quase sempre, a interação acontece por meio de **Markdown**.
 
 E sim, o Markdown é uma ótima forma de interação. Mas tem suas **limitações**.
 
 Ele é forte porque é estruturado e hierárquico (como JSON e HTML). O mais importante: é fácil de ler e escrever pra humanos.
 
-Listas, tabelas, links, formatação de texto, tudo isso é facilmente representado em Markdown, com diferentes níveis de hierarquia usando `#` ou `*`.
+Listas, tabelas, links, formatação de texto — tudo isso é facilmente representado em Markdown, com diferentes níveis de hierarquia usando `#` ou `*`.
 
 Outra coisa: **consome menos tokens** que o HTML. E com LLMs, economizar tokens pode ser crucial pra conseguir respostas mais longas e detalhadas.
 
@@ -31,7 +31,7 @@ E não é difícil. Basta colocar no prompt algo como "faça um arquivo HTML" ou
 
 HTML é **muito mais rico em informação** que o Markdown. Pra um parágrafo simples, Markdown resolve.
 
-Mas pra algo complexo como uma tabela, um gráfico ou um layout. O HTML é **bem mais eficaz**.
+Mas pra algo complexo como uma tabela, um gráfico ou um layout, o HTML é **bem mais eficaz**.
 
 - Dados tabulares usando tabelas `<table>`
 - Dados de design com CSS

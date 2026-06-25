@@ -11,24 +11,24 @@ published: true
 
 ## Introdução ao Big-O
 
-**Complexidade de um algoritmo** diz respeito à escalabilidade - como o algoritmo se comporta conforme aumentamos o tamanho de dados. 
+**Complexidade de um algoritmo** diz respeito à escalabilidade — como o algoritmo se comporta conforme aumentamos o tamanho dos dados.
 
-Quando falamos de complexidade, respondemos: **O quão bem (ou mal) esse algoritmo escala quando dados crescem?**
+Quando falamos de complexidade, respondemos: **o quão bem (ou mal) esse algoritmo escala quando os dados crescem?**
 
-> **Não é sobre velocidade ou tempo de execução** - é uma forma de analisar eficiência **independente de hardware ou linguagem**. A diferença entre Bubble Sort e Quick Sort é irrelevante com 10 elementos, mas **gritante com 1 milhão**.
+> **Não é sobre velocidade ou tempo de execução** — é uma forma de analisar eficiência **independente de hardware ou linguagem**. A diferença entre Bubble Sort e Quick Sort é irrelevante com 10 elementos, mas **gritante com 1 milhão**.
 
 ### Por que não medir tempo real?
 
 Existem dois tipos de medida: **tempo real** e **tempo assintótico**.
 
 **Tempo real:**
-- Mede tempo exato de execução em milissegundos
+- Mede o tempo exato de execução em milissegundos
 - Varia conforme CPU, cache, temperatura e fatores externos
 - **Não é confiável**
 
 **Tempo assintótico:**
 - Medida matemática do crescimento de operações
-- Focado no comportamento conforme entrada cresce
+- Focado no comportamento conforme a entrada cresce
 - Ignora fatores externos (hardware, linguagem)
 - **É a métrica que importa**
 
@@ -48,11 +48,11 @@ function copiarArray(lista: number[]) {
 
 ## Principais Complexidades
 
-Detalhando as complexidades mais importantes e usadas em entrevistas técnicas.
+Detalhando as complexidades mais importantes e cobradas em entrevistas técnicas.
 
 ### O(1) - Constante
 
-**O(1)** significa operações que **não dependem** do tamanho de entrada n. Exemplos: leitura de valor em hash table, acesso ao array por índice.
+**O(1)** significa operações que **não dependem** do tamanho de entrada `n`. Exemplos: leitura em hash table, acesso a array por índice.
 
 ```ts
 const x = arr[10];
@@ -60,7 +60,7 @@ const x = arr[10];
 
 ### O(n) - Linear
 
-**O(n)** significa operações que crescem **proporcionalmente** ao tamanho n. Se n dobra, custo dobra.
+**O(n)** significa operações que crescem **proporcionalmente** ao tamanho `n`. Se `n` dobra, o custo dobra.
 
 **Somar valores do array:**
 
@@ -87,11 +87,11 @@ function inclui(arr: number[], alvo: number) {
 }
 ```
 
-> Pior caso: percorre todos n elementos → **O(n)**
+> Pior caso: percorre todos os `n` elementos → **O(n)**
 
 ### O(n²) - Quadrática
 
-**O(n²)** descreve operações que crescem **ao quadrado**. Se n dobra, operações quadruplicam. Típico de **loops aninhados**:
+**O(n²)** descreve operações que crescem **ao quadrado**. Se `n` dobra, as operações quadruplicam. Típico de **loops aninhados**:
 
 ```ts
 for (let i = 0; i < n; i++) {
@@ -101,11 +101,11 @@ for (let i = 0; i < n; i++) {
 }
 ```
 
-**Exemplos:** Bubble Sort, Selection Sort, Insertion Sort
+**Exemplos:** Bubble Sort, Selection Sort, Insertion Sort.
 
 ### O(log n) - Logarítmica
 
-**O(log n)** cresce **muito lentamente** conforme n aumenta. Exemplo clássico: **busca binária** em array de 1.000.000 elementos precisa apenas **~20 passos**!
+**O(log n)** cresce **muito lentamente** conforme `n` aumenta. Exemplo clássico: a **busca binária** em um array de 1.000.000 de elementos precisa de apenas **~20 passos**!
 
 ```
 log₂(1.000.000) ≈ 20
@@ -136,4 +136,6 @@ function buscaBinaria(arr: number[], alvo: number): number {
 
 ## Conclusão
 
-Big-O é conceito **fundamental** para qualquer desenvolvedor que queira entender algoritmos, estruturas de dados e tomar decisões arquiteturais informadas. Cai frequentemente em entrevistas técnicas e é essencial para código que escala bem.
+Big-O é conceito **fundamental** pra qualquer dev que queira entender algoritmos, estruturas de dados e tomar decisões arquiteturais com consciência.
+
+Cai o tempo todo em entrevistas técnicas e é essencial pra escrever código que escala bem de verdade.

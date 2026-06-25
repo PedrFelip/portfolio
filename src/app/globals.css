@@ -69,6 +69,35 @@ body {
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
+  --color-code-bg: var(--code-bg);
+  --color-code-fg: var(--code-fg);
+  --color-code-border: var(--code-border);
+  --color-code-keyword: var(--code-keyword);
+  --color-code-type: var(--code-type);
+  --color-code-built-in: var(--code-built-in);
+  --color-code-tag: var(--code-tag);
+  --color-code-attr: var(--code-attr);
+  --color-code-selector-tag: var(--code-selector-tag);
+  --color-code-selector-class: var(--code-selector-class);
+  --color-code-selector-id: var(--code-selector-id);
+  --color-code-function: var(--code-function);
+  --color-code-title: var(--code-title);
+  --color-code-variable: var(--code-variable);
+  --color-code-name: var(--code-name);
+  --color-code-section: var(--code-section);
+  --color-code-subst: var(--code-subst);
+  --color-code-params: var(--code-params);
+  --color-code-string: var(--code-string);
+  --color-code-number: var(--code-number);
+  --color-code-regexp: var(--code-regexp);
+  --color-code-property: var(--code-property);
+  --color-code-literal: var(--code-literal);
+  --color-code-symbol: var(--code-symbol);
+  --color-code-comment: var(--code-comment);
+  --color-code-meta: var(--code-meta);
+  --color-code-punctuation: var(--code-punctuation);
+  --color-code-addition: var(--code-addition);
+  --color-code-deletion: var(--code-deletion);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -135,45 +164,40 @@ body {
   --status-error: oklch(0.35 0 0);
   --status-info: oklch(0.35 0.1 220);
   --status-neutral: oklch(0.4 0 0);
-  /* TODO(refactor)[P1]: 29 hex codes for hljs tokens */
-  /* TODO(refactor)[P1]: code tokens not registered in @theme inline */
-  --code-bg: #f2f0e5;
-  --code-fg: #403e3c;
-  --code-border: oklch(0.89 0 0 / 40%);
-  --hljs-fg: #575653;
-  --hljs-keyword: #205ea6;
-  --hljs-type: #ad8301;
-  --hljs-string: #24837b;
-  --hljs-function: #205ea6;
-  --hljs-number: #a02f6f;
-  --hljs-literal: #bc5215;
-  --hljs-attr: #ad8301;
-  --hljs-built-in: #ad8301;
-  --hljs-comment: #8b8a80;
-  --hljs-meta: #8b8a80;
-  --hljs-punctuation: #575653;
-  --hljs-title: #205ea6;
-  --hljs-variable: #205ea6;
-  --hljs-selector-class: #ad8301;
-  --hljs-selector-tag: #66800b;
-  --hljs-selector-id: #205ea6;
-  --hljs-params: #575653;
-  --hljs-section: #205ea6;
-  --hljs-symbol: #bc5215;
-  --hljs-tag: #66800b;
-  --hljs-name: #205ea6;
-  --hljs-addition: #66800b;
-  --hljs-deletion: #af3029;
-  --hljs-regexp: #24837b;
-  --hljs-property: #24837b;
-  --hljs-subst: #575653;
-  --syn-keyword: oklch(0.35 0.1 220);
-  --syn-type: oklch(0.42 0 0);
-  --syn-string: oklch(0.38 0.08 220);
-  --syn-function: oklch(0.42 0 0);
-  --syn-number: oklch(0.32 0.12 220);
-  --syn-punctuation: oklch(0.48 0 0);
-  --syn-comment: oklch(0.52 0 0);
+  /* Blueprint code palette — 4-color discipline
+   * - Structural (keyword/type/tag) → cyan accent family
+   * - Identifiers (function/title/variable) → ink
+   * - Values (string/number) → warm copper
+   * - Muted (comment/meta) → gray */
+  --code-bg: oklch(0.96 0.006 220);
+  --code-fg: oklch(0.25 0.015 220);
+  --code-border: oklch(0.86 0.01 220 / 50%);
+  --code-keyword: oklch(0.42 0.13 220);
+  --code-type: oklch(0.48 0.1 240);
+  --code-built-in: oklch(0.48 0.1 240);
+  --code-tag: oklch(0.42 0.13 220);
+  --code-attr: oklch(0.48 0.1 240);
+  --code-selector-tag: oklch(0.42 0.13 220);
+  --code-selector-class: oklch(0.48 0.1 240);
+  --code-selector-id: oklch(0.25 0.015 220);
+  --code-function: oklch(0.25 0.015 220);
+  --code-title: oklch(0.25 0.015 220);
+  --code-variable: oklch(0.25 0.015 220);
+  --code-name: oklch(0.25 0.015 220);
+  --code-section: oklch(0.25 0.015 220);
+  --code-subst: oklch(0.25 0.015 220);
+  --code-params: oklch(0.35 0.01 220);
+  --code-string: oklch(0.48 0.1 50);
+  --code-number: oklch(0.48 0.1 50);
+  --code-regexp: oklch(0.48 0.1 50);
+  --code-property: oklch(0.48 0.1 50);
+  --code-literal: oklch(0.52 0.12 30);
+  --code-symbol: oklch(0.52 0.12 30);
+  --code-comment: oklch(0.62 0.01 220);
+  --code-meta: oklch(0.62 0.01 220);
+  --code-punctuation: oklch(0.45 0.01 220);
+  --code-addition: oklch(0.5 0.1 145);
+  --code-deletion: oklch(0.5 0.18 25);
   --surface-1: oklch(0.13 0 0 / 1%);
   --surface-2: oklch(0.13 0 0 / 2%);
   --surface-3: oklch(0.13 0 0 / 3%);
@@ -236,44 +260,36 @@ body {
   --status-error: oklch(0.72 0 0);
   --status-info: oklch(0.7 0.1 220);
   --status-neutral: oklch(0.72 0 0);
-  /* TODO(refactor)[P1]: 29 hex codes for hljs tokens */
-  --code-bg: #343331;
-  --code-fg: #cecdc3;
-  --code-border: oklch(0.93 0 0 / 8%);
-  --hljs-fg: #cecdc3;
-  --hljs-keyword: #4385be;
-  --hljs-type: #d0a215;
-  --hljs-string: #3aa99f;
-  --hljs-function: #4385be;
-  --hljs-number: #ce5d97;
-  --hljs-literal: #d4772a;
-  --hljs-attr: #d0a215;
-  --hljs-built-in: #d0a215;
-  --hljs-comment: #6f6e69;
-  --hljs-meta: #6f6e69;
-  --hljs-punctuation: #b7b5ac;
-  --hljs-title: #4385be;
-  --hljs-variable: #4385be;
-  --hljs-selector-class: #d0a215;
-  --hljs-selector-tag: #879a39;
-  --hljs-selector-id: #4385be;
-  --hljs-params: #b7b5ac;
-  --hljs-section: #4385be;
-  --hljs-symbol: #d4772a;
-  --hljs-tag: #879a39;
-  --hljs-name: #4385be;
-  --hljs-addition: #879a39;
-  --hljs-deletion: #d14d41;
-  --hljs-regexp: #3aa99f;
-  --hljs-property: #3aa99f;
-  --hljs-subst: #b7b5ac;
-  --syn-keyword: oklch(0.72 0.1 220);
-  --syn-type: oklch(0.84 0 0);
-  --syn-string: oklch(0.68 0.08 220);
-  --syn-function: oklch(0.84 0 0);
-  --syn-number: oklch(0.72 0.12 220);
-  --syn-punctuation: oklch(0.68 0 0);
-  --syn-comment: oklch(0.58 0 0);
+  /* Blueprint code palette — dark */
+  --code-bg: oklch(0.2 0.008 220);
+  --code-fg: oklch(0.85 0.008 220);
+  --code-border: oklch(0.93 0.01 220 / 10%);
+  --code-keyword: oklch(0.72 0.12 220);
+  --code-type: oklch(0.76 0.1 240);
+  --code-built-in: oklch(0.76 0.1 240);
+  --code-tag: oklch(0.72 0.12 220);
+  --code-attr: oklch(0.76 0.1 240);
+  --code-selector-tag: oklch(0.72 0.12 220);
+  --code-selector-class: oklch(0.76 0.1 240);
+  --code-selector-id: oklch(0.85 0.008 220);
+  --code-function: oklch(0.85 0.008 220);
+  --code-title: oklch(0.85 0.008 220);
+  --code-variable: oklch(0.85 0.008 220);
+  --code-name: oklch(0.85 0.008 220);
+  --code-section: oklch(0.85 0.008 220);
+  --code-subst: oklch(0.85 0.008 220);
+  --code-params: oklch(0.78 0.01 220);
+  --code-string: oklch(0.72 0.1 50);
+  --code-number: oklch(0.72 0.1 50);
+  --code-regexp: oklch(0.72 0.1 50);
+  --code-property: oklch(0.72 0.1 50);
+  --code-literal: oklch(0.74 0.12 30);
+  --code-symbol: oklch(0.74 0.12 30);
+  --code-comment: oklch(0.55 0.01 220);
+  --code-meta: oklch(0.55 0.01 220);
+  --code-punctuation: oklch(0.68 0.01 220);
+  --code-addition: oklch(0.72 0.1 145);
+  --code-deletion: oklch(0.72 0.16 25);
   --surface-1: oklch(0.98 0 0 / 2%);
   --surface-2: oklch(0.98 0 0 / 3%);
   --surface-3: oklch(0.98 0 0 / 5%);
@@ -443,31 +459,6 @@ body {
     background-color: oklch(var(--muted) / 0.6);
   }
 
-  /* Syntax Highlighting Colors */
-  .syntax-keyword {
-    color: var(--syn-keyword);
-  }
-
-  .syntax-type {
-    color: var(--syn-type);
-  }
-
-  .syntax-string {
-    color: var(--syn-string);
-  }
-
-  .syntax-function {
-    color: var(--syn-function);
-  }
-
-  .syntax-punctuation {
-    color: var(--syn-punctuation);
-  }
-
-  .syntax-number {
-    color: var(--syn-number);
-  }
-
   /* TOC - clean editorial list */
   .toc-item {
     @apply relative flex items-center py-3 md:py-1.5 pl-3 text-sm leading-snug
@@ -612,7 +603,7 @@ body {
 
   .prose pre code {
     @apply bg-transparent border-0 text-xs sm:text-sm leading-relaxed block p-3.5;
-    color: var(--hljs-fg);
+    color: var(--code-fg);
   }
 
   .prose li {
@@ -685,114 +676,65 @@ body {
     @apply text-[13px];
   }
 
-  /* Highlight.js token colors */
+  /* Highlight.js token colors — blueprint palette */
   .hljs {
     background: transparent;
-    color: var(--hljs-fg);
+    color: var(--code-fg);
   }
 
-  .hljs-keyword {
-    color: var(--hljs-keyword);
+  .hljs-keyword,
+  .hljs-tag,
+  .hljs-selector-tag {
+    color: var(--code-keyword);
   }
 
-  .hljs-type {
-    color: var(--hljs-type);
+  .hljs-type,
+  .hljs-built_in,
+  .hljs-attr,
+  .hljs-selector-class {
+    color: var(--code-type);
+    font-style: italic;
   }
 
-  .hljs-string {
-    color: var(--hljs-string);
+  .hljs-string,
+  .hljs-number,
+  .hljs-regexp,
+  .hljs-property {
+    color: var(--code-string);
   }
 
-  .hljs-function {
-    color: var(--hljs-function);
+  .hljs-literal,
+  .hljs-symbol {
+    color: var(--code-literal);
   }
 
-  .hljs-number {
-    color: var(--hljs-number);
+  .hljs-function,
+  .hljs-title,
+  .hljs-variable,
+  .hljs-name,
+  .hljs-section,
+  .hljs-subst,
+  .hljs-selector-id,
+  .hljs-params {
+    color: var(--code-function);
   }
 
-  .hljs-literal {
-    color: var(--hljs-literal);
-  }
-
-  .hljs-attr {
-    color: var(--hljs-attr);
-  }
-
-  .hljs-built_in {
-    color: var(--hljs-built-in);
-  }
-
-  .hljs-comment {
-    color: var(--hljs-comment);
-  }
-
+  .hljs-comment,
   .hljs-meta {
-    color: var(--hljs-meta);
+    color: var(--code-comment);
+    font-style: italic;
   }
 
   .hljs-punctuation {
-    color: var(--hljs-punctuation);
-  }
-
-  .hljs-title {
-    color: var(--hljs-title);
-  }
-
-  .hljs-variable {
-    color: var(--hljs-variable);
-  }
-
-  .hljs-selector-class {
-    color: var(--hljs-selector-class);
-  }
-
-  .hljs-selector-tag {
-    color: var(--hljs-selector-tag);
-  }
-
-  .hljs-selector-id {
-    color: var(--hljs-selector-id);
-  }
-
-  .hljs-params {
-    color: var(--hljs-params);
-  }
-
-  .hljs-section {
-    color: var(--hljs-section);
-  }
-
-  .hljs-symbol {
-    color: var(--hljs-symbol);
-  }
-
-  .hljs-tag {
-    color: var(--hljs-tag);
-  }
-
-  .hljs-name {
-    color: var(--hljs-name);
+    color: var(--code-punctuation);
   }
 
   .hljs-addition {
-    color: var(--hljs-addition);
+    color: var(--code-addition);
   }
 
   .hljs-deletion {
-    color: var(--hljs-deletion);
-  }
-
-  .hljs-regexp {
-    color: var(--hljs-regexp);
-  }
-
-  .hljs-property {
-    color: var(--hljs-property);
-  }
-
-  .hljs-subst {
-    color: var(--hljs-subst);
+    color: var(--code-deletion);
   }
 }
 

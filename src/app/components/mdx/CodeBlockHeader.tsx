@@ -1,5 +1,7 @@
 import type { ReactNode } from "react";
 
+import { cn } from "@/lib/utils";
+
 interface CodeBlockHeaderProps {
   filename: string;
   language?: string | null;
@@ -14,24 +16,30 @@ export function CodeBlockHeader({
   const showLang = language && !filename.endsWith(`.${language.toLowerCase()}`);
 
   return (
-    <div className="flex items-center justify-between gap-3 border-b border-[var(--code-border)] bg-[var(--code-bg)]/60 px-3 py-1.5">
-      <div className="flex min-w-0 items-center gap-1.5">
+    <div
+      className={cn(
+        "relative flex items-center justify-between gap-3",
+        "border-b border-code-border bg-code-bg/70 backdrop-blur-[2px]",
+        "px-3.5 py-2",
+      )}
+    >
+      <div className="flex min-w-0 items-center gap-2">
         <span
-          className="font-mono text-[10px] text-accent/30 select-none sm:text-xs"
           aria-hidden
+          className="select-none font-mono text-[10px] text-accent/40 sm:text-xs"
         >
           {"//"}
         </span>
         <span
-          className="truncate font-mono text-[10px] font-medium text-accent/70 sm:text-xs"
           title={filename}
+          className="truncate font-mono text-[11px] font-medium text-accent/90 sm:text-xs"
         >
           {filename}
         </span>
       </div>
       <div className="flex shrink-0 items-center gap-2">
         {showLang ? (
-          <span className="font-mono text-[10px] uppercase tracking-wide text-muted-foreground/60">
+          <span className="rounded-sm border border-code-border/60 bg-code-bg/40 px-1.5 font-mono text-[9px] uppercase tracking-wider text-muted-foreground/70 sm:text-[10px]">
             .{language}
           </span>
         ) : null}

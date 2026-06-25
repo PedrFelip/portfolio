@@ -85,7 +85,7 @@ const CodeComponent = ({
     return <code className={className}>{children}</code>;
   }
   return (
-    <code className="bg-[var(--code-bg)] text-[color:var(--code-fg)] px-1.5 py-0.5 rounded-lg">
+    <code className="bg-code-bg text-code-fg px-1.5 py-0.5 rounded-lg">
       {children}
     </code>
   );
@@ -242,7 +242,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             {/* TODO(refactor)[P0]: post.readingTime always undefined */}
             {post.readingTime && (
               <>
-                <span className="text-border" aria-hidden="true">
+                <span className="text-accent/40" aria-hidden="true">
                   ·
                 </span>
                 <span className="inline-flex items-center gap-1.5">
@@ -284,7 +284,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           <div className="py-10 sm:py-16 animate-in-up animate-delay-300">
             {/* Mobile TOC */}
             <details className="lg:hidden mb-8 group">
-              <summary className="flex items-center justify-between cursor-pointer text-xs font-mono uppercase tracking-wide text-muted-foreground hover:text-foreground transition-colors py-3 border-b border-border min-h-[48px] touch-manipulation">
+              <summary className="flex items-center justify-between cursor-pointer text-xs font-mono uppercase tracking-wide text-muted-foreground hover:text-accent transition-colors py-3 border-b border-border min-h-[48px] touch-manipulation">
                 <span>{t.onThisPage || "On this page"}</span>
                 <ChevronDown
                   className="size-3 transition-transform group-open:rotate-180"
@@ -322,9 +322,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 </p>
                 <Link
                   href={`/${lang}/blog`}
-                  className="group inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors min-h-[44px] touch-manipulation"
+                  className="group inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-muted-foreground hover:text-accent transition-colors min-h-[44px] touch-manipulation"
                 >
-                  <ArrowLeft className="size-3 text-muted-foreground group-hover:text-foreground group-hover:-translate-x-1.5 transition-all duration-300 ease-[cubic-bezier(0.25,1,0.5,1)]" />
+                  <ArrowLeft className="size-3 text-muted-foreground group-hover:text-accent group-hover:-translate-x-1.5 transition-all duration-300 ease-[cubic-bezier(0.25,1,0.5,1)]" />
                   {t.back}
                 </Link>
               </div>

@@ -65,23 +65,33 @@ export const CodeBlockWrapper = memo(
         title={t.blog.copyCode}
         aria-label={copied ? t.blog.codeCopied : t.blog.copyCode}
         className={cn(
-          "flex items-center justify-center rounded-sm border border-[var(--code-border)] text-muted-foreground transition-[color,background-color,opacity] duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:bg-accent/[0.04] hover:text-foreground motion-reduce:transition-none touch-manipulation",
+          "flex items-center justify-center rounded-sm border border-code-border text-muted-foreground",
+          "transition-[color,background-color,opacity,border-color] duration-150 ease-[cubic-bezier(0.25,1,0.5,1)]",
+          "hover:border-accent/30 hover:bg-accent/[0.04] hover:text-foreground",
+          "focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent/50",
+          "motion-reduce:transition-none touch-manipulation",
           filename
-            ? "h-7 w-7"
-            : "absolute right-2 top-2 min-h-[44px] min-w-[44px] bg-card/80 opacity-100 backdrop-blur-sm md:opacity-0 md:group-hover/code:opacity-100",
+            ? "size-7"
+            : "absolute right-2 top-2 z-10 min-h-[44px] min-w-[44px] bg-code-bg/80 opacity-100 backdrop-blur-sm md:opacity-0 md:group-hover/code:opacity-100",
         )}
       >
         {copied ? (
-          <Check className="size-4" aria-hidden="true" />
+          <Check className="size-3.5 text-accent" aria-hidden="true" />
         ) : (
-          <Copy className="size-4" aria-hidden="true" />
+          <Copy className="size-3.5" aria-hidden="true" />
         )}
       </button>
     );
 
     if (filename) {
       return (
-        <div className="group/code relative my-4 overflow-hidden rounded-sm border border-[var(--code-border)] bg-[var(--code-bg)]">
+        <div
+          className={cn(
+            "group/code relative my-4 overflow-hidden rounded-sm",
+            "border border-code-border bg-code-bg",
+            "shadow-[0_1px_0_oklch(0.5_0.05_220/0.04)]",
+          )}
+        >
           <CodeBlockHeader
             filename={filename}
             language={language}
@@ -98,10 +108,15 @@ export const CodeBlockWrapper = memo(
     }
 
     return (
-      <div className="group/code relative">
+      <div
+        className={cn(
+          "group/code relative my-4 overflow-hidden rounded-sm",
+          "border border-code-border bg-code-bg",
+        )}
+      >
         <pre
           ref={preRef}
-          className="my-4 overflow-x-auto rounded-sm border border-[var(--code-border)] bg-[var(--code-bg)] text-sm leading-relaxed"
+          className="m-0 overflow-x-auto rounded-none border-0 bg-transparent p-0 text-sm leading-relaxed"
         >
           {children}
         </pre>

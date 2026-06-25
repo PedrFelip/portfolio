@@ -17,7 +17,7 @@ Elas são usadas pra representar entidades com múltiplos atributos.
 
 > Por exemplo: pra representar um usuário, podemos criar uma **struct** `User` com campos como `Name`, `Age` e `Email`.
 
-```go
+```go title="user.go"
 type User struct {
   Name  string
   Age   int
@@ -253,13 +253,13 @@ Se um dado não "encaixa" perfeitamente na fronteira da **word**, o **Go** inser
 
 1. badStruct
 
-```go
+```go title="main.go"
 type badStruct struct {
   a bool  // 1 byte
-  // [Padding] 7 bytes pra alinhar o próximo campo de 8 bytes
+  // [Padding] 7 bytes para alinhar o próximo campo de 8 bytes
   b int64 // 8 bytes
   c bool  // 1 byte
-  // [Padding] 7 bytes pra que a struct total seja múltipla de 8
+  // [Padding] 7 bytes para que a struct total seja múltipla de 8
 }
 // Total: 24 bytes
 ```

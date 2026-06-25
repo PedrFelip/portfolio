@@ -24,6 +24,8 @@ import { blogEn } from "@/lib/content/blog.en";
 import { blogPt } from "@/lib/content/blog.pt";
 import { SUPPORTED_LOCALES } from "@/lib/i18n";
 import { getSocialHandle } from "@/lib/links";
+import rehypeCodeMeta from "@/lib/mdx/rehype-code-meta";
+import remarkCodeMeta from "@/lib/mdx/remark-code-meta";
 
 const blogContent = {
   en: blogEn,
@@ -59,8 +61,17 @@ interface BlogPostPageProps {
   }>;
 }
 
-const PreComponent = ({ children }: { children: React.ReactNode }) => (
-  <CodeBlockWrapper>{children}</CodeBlockWrapper>
+const PreComponent = ({
+  children,
+  "data-code-title": filename,
+  "data-code-language": language,
+}: React.HTMLAttributes<HTMLPreElement> & {
+  "data-code-title"?: string;
+  "data-code-language"?: string;
+}) => (
+  <CodeBlockWrapper filename={filename} language={language}>
+    {children}
+  </CodeBlockWrapper>
 );
 
 const CodeComponent = ({
@@ -291,7 +302,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 source={post.content}
                 options={{
                   mdxOptions: {
-                    rehypePlugins: [[rehypeHighlight, { detect: true }]],
+                    remarkPlugins: [remarkCodeMeta],
+                    rehypePlugins: [
+                      rehypeCodeMeta,
+                      [rehypeHighlight, { detect: true }],
+                    ],
                   },
                 }}
                 components={MDX_COMPONENTS}

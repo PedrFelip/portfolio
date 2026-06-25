@@ -77,7 +77,7 @@ Mas o **DIP inverte essa dependência**. Ambos os módulos devem depender de **a
 
 ## Exemplo no sistema de pagamentos fictício
 
-```ts
+```ts title="payments/domain.ts"
 // Abstrações (definidas pelo domínio / core)
 
 export interface PaymentGateway {

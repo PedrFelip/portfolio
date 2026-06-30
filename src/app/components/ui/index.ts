@@ -9,7 +9,9 @@
 
 export { Badge } from "./badge";
 export { Button } from "./button";
-export { Card } from "./card";
 export { EncryptedText } from "./encrypted-text";
+export { FlickeringGrid } from "./flickering-grid";
+export { FluidGradientText } from "./fluid-gradient-text";
 export { Logo } from "./logo";
-export { H1, H3, Label, Lead, MonoText, P } from "./typography";
+export { H1, H3, MonoText, P } from "./typography";
+export { XIcon } from "./x-icon";

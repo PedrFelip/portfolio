@@ -36,6 +36,7 @@ export function HeroGrid({
     <div className="relative w-full overflow-x-clip overflow-y-visible">
       <div className="mx-auto md:max-w-4xl px-4">
         {/* Mobile / Tablet layout */}
+        {/* TODO(refactor)[P2]: mobile and desktop SVG blocks 90% duplicated */}
         <div className="bp-line-top bp-panel lg:hidden">
           <svg
             className="pointer-events-none absolute inset-0 overflow-visible text-border"
@@ -286,6 +287,7 @@ export function HeroGrid({
 }
 
 /* ─── Main Content ─── */
+// TODO(refactor)[P2]: MainContent takes 8 props forwarded
 
 interface MainContentProps {
   className?: string;
@@ -308,6 +310,7 @@ function MainContent({
   ctaHref,
   ctaSecondaryHref,
 }: MainContentProps) {
+  // TODO(refactor)[P1]: .icon access reassigned every render
   const NodeIcon = nodejs.icon;
   const NestIcon = nestjs.icon;
   const GoIcon = go.icon;
@@ -319,12 +322,12 @@ function MainContent({
         className,
       )}
     >
-      <h1 className="mb-3 text-3xl leading-none font-semibold tracking-tight text-foreground sm:mb-4 sm:text-4xl md:text-5xl lg:text-5xl">
+      <h1 className="mb-3 text-3xl leading-none font-semibold tracking-tight bg-gradient-to-b from-foreground via-foreground to-accent bg-clip-text text-transparent sm:mb-4 sm:text-4xl md:text-5xl lg:text-5xl">
         <span className="block">{title}</span>
-        <span className="block text-muted-foreground/60">{subtitle}</span>
+        <span className="block">{subtitle}</span>
       </h1>
 
-      <p className="mb-5 text-sm leading-normal text-muted-foreground sm:mb-6 sm:text-base md:text-lg">
+      <p className="mb-5 text-sm leading-normal text-foreground/70 sm:mb-6 sm:text-base md:text-lg">
         {description}
       </p>
 

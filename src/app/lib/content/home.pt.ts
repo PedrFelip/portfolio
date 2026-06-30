@@ -73,6 +73,16 @@ export const homePt = {
     tapHint: "Toque em uma célula para detalhes",
   },
 
+  latestPost: {
+    badge: "Escrita recente",
+    title: "Do blog",
+    description: "Notas sobre sistemas, performance e ofício backend.",
+    readMore: "Ler post",
+    readingTime: "min de leitura",
+    serial: "Mais recente",
+    empty: "Nenhum post ainda",
+  },
+
   techStack: {
     badge: "Tecnologias",
     title: "Tech Stack",
@@ -118,12 +128,17 @@ export const homePt = {
     secondary: "Entre em Contato",
   },
 
+  // TODO(refactor)[P0]: skills key duplicated in about.pt.ts
   skills: {
     badge: "Habilidades",
     title: "Habilidades Técnicas Principais",
+    // TODO(refactor)[P1]: unused translation key
     backend: "Backend",
+    // TODO(refactor)[P1]: unused translation key
     databases: "Bancos de Dados",
+    // TODO(refactor)[P1]: unused translation key
     devops: "DevOps & Infraestrutura",
+    // TODO(refactor)[P1]: unused translation key
     tools: "Ferramentas & Práticas",
   },
 };

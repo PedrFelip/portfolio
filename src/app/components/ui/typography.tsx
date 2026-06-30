@@ -5,7 +5,6 @@ import { cn } from "@/lib/utils";
  * Typography components following AGENTS.md design principles
  * - Headlines: 600 weight, tight letter-spacing (-0.02em)
  * - Body: 400-500 weight, standard tracking
- * - Labels: 500 weight, slight positive tracking for uppercase
  * - Monospace for data
  */
 
@@ -85,29 +84,6 @@ export function P({
 P.displayName = "P";
 
 /**
- * Label - Form labels and UI labels
- * @example <Label>Email Address</Label>
- */
-export function Label({
-  className,
-  as: Component = "label",
-  ref,
-  ...props
-}: TypographyProps) {
-  return (
-    <Component
-      ref={ref}
-      className={cn(
-        "text-xs font-medium tracking-wide text-foreground sm:text-sm",
-        className,
-      )}
-      {...props}
-    />
-  );
-}
-Label.displayName = "Label";
-
-/**
  * MonoText - Monospace text for data (IDs, timestamps, numbers)
  * @example <MonoText>2024-01-15</MonoText>
  */
@@ -126,23 +102,3 @@ export function MonoText({
   );
 }
 MonoText.displayName = "MonoText";
-
-/**
- * Lead - Larger intro paragraph
- * @example <Lead>Welcome to my portfolio</Lead>
- */
-export function Lead({
-  className,
-  as: Component = "p",
-  ref,
-  ...props
-}: TypographyProps) {
-  return (
-    <Component
-      ref={ref}
-      className={cn("text-base text-muted-foreground sm:text-lg", className)}
-      {...props}
-    />
-  );
-}
-Lead.displayName = "Lead";

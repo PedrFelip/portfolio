@@ -4,6 +4,7 @@ import { stripMarkdown } from "@/lib/strip-markdown";
 
 export const revalidate = 604800; // 1 week — same ISR as blog posts
 
+// TODO(refactor)[P1]: 40 lines of static page metadata inline
 const SITE_PAGES: SearchPage[] = [
   {
     type: "page",
@@ -50,6 +51,7 @@ const SITE_PAGES: SearchPage[] = [
 export async function GET(): Promise<Response> {
   const posts = getAllPosts();
 
+  // TODO(refactor)[P2]: calls getPostBySlug again after getAllPosts
   const indexedPosts: SearchPost[] = posts.map((meta) => {
     const full = getPostBySlug(meta.slug);
     const rawContent = full?.content ?? "";
@@ -63,6 +65,7 @@ export async function GET(): Promise<Response> {
       excerpt: meta.excerpt,
       tags: meta.tags,
       date: meta.date,
+      // TODO(refactor)[P1]: unreachable fallback
       readingTime: meta.readingTime ?? 1,
       content: plainContent,
       headings,

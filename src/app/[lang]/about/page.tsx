@@ -14,7 +14,7 @@ import {
 } from "@/lib/about-data";
 import { aboutEn } from "@/lib/content/about.en";
 import { aboutPt } from "@/lib/content/about.pt";
-import { isLanguage, SUPPORTED_LANGS } from "@/lib/i18n";
+import { isLanguage, SUPPORTED_LOCALES } from "@/lib/i18n";
 import { parseBoldMarkdown } from "@/lib/markdown";
 
 const WorkExperienceBlueprint = dynamic(
@@ -62,8 +62,10 @@ const aboutContent = {
   pt: aboutPt,
 };
 
+// TODO(refactor)[P1]: generateStaticParams duplicated
+// extract langStaticParams helper
 export function generateStaticParams() {
-  return SUPPORTED_LANGS.map((lang) => ({ lang }));
+  return SUPPORTED_LOCALES.map((lang) => ({ lang }));
 }
 
 export async function generateMetadata({
@@ -83,6 +85,8 @@ export default async function AboutPage({ params }: AboutPageProps) {
   const { lang } = await params;
   const t = aboutContent[lang] || aboutEn;
 
+  // TODO(refactor)[P1]: Promise.all wrapping 3 sync cache()
+  // functions — drop await/Promise.all
   const [workExperience, education, contactLinks] = await Promise.all([
     getWorkExperience(lang),
     getEducation(lang),

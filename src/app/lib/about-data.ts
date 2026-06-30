@@ -4,10 +4,12 @@
  */
 
 import { cache } from "react";
+// TODO(refactor)[P1]: relative import instead of @/ alias
 import type { Education, WorkExperience } from "../types/portfolio";
 import { socialLinks } from "./links";
 
 export const getWorkExperience = cache(
+  // TODO(refactor)[P1]: inline union instead of Language type
   (language: "en" | "pt"): WorkExperience[] => {
     if (language === "pt") {
       return [
@@ -37,28 +39,32 @@ export const getWorkExperience = cache(
   },
 );
 
-export const getEducation = cache((language: "en" | "pt"): Education[] => {
-  if (language === "pt") {
+export const getEducation = cache(
+  // TODO(refactor)[P1]: inline union instead of Language type
+  (language: "en" | "pt"): Education[] => {
+    if (language === "pt") {
+      return [
+        {
+          school: "UNICEPLAC",
+          degree: "Engenharia de Software",
+          start: "2024",
+          end: "2028",
+        },
+      ];
+    }
+
     return [
       {
         school: "UNICEPLAC",
-        degree: "Engenharia de Software",
+        degree: "Software Engineering",
         start: "2024",
         end: "2028",
       },
     ];
-  }
+  },
+);
 
-  return [
-    {
-      school: "UNICEPLAC",
-      degree: "Software Engineering",
-      start: "2024",
-      end: "2028",
-    },
-  ];
-});
-
+// TODO(refactor)[P1]: _language parameter unused
 export const getContactLinks = cache((_language: "en" | "pt") => {
   const allowed = new Set(["github", "linkedin", "x", "email"]);
   const contactLinks = socialLinks.reduce<
@@ -75,6 +81,7 @@ export const getContactLinks = cache((_language: "en" | "pt") => {
         link.icon === "email"
           ? link.url.replace("mailto:", "")
           : link.url.replace(/\/$/, ""),
+      // TODO(refactor)[P1]: repeated as cast for contact icon
       icon: link.icon as "github" | "linkedin" | "x" | "email",
     });
     return acc;

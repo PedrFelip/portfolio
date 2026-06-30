@@ -1,43 +1,110 @@
 "use client";
 
 import Link from "next/link";
-import { HatchSeparator } from "@/components/blueprint";
-import { MonoText } from "@/components/ui";
-import { ArrowLeft } from "@/components/ui/icons";
+import type { JSX } from "react";
+import { memo } from "react";
+import { ArrowRight, BookOpen, FolderGit2, Home } from "@/components/ui/icons";
+import { MonoText } from "@/components/ui/typography";
 import { useLanguage } from "@/lib/language-store";
 import { useLocalizedLink } from "@/lib/useLocalizedLink";
+import { APP_VERSION } from "@/lib/version";
+
+interface NavItem {
+  label: string;
+  href: string;
+  icon: JSX.Element;
+}
+
+const NotFoundLinkItem = memo(({ item }: { item: NavItem }) => (
+  <Link
+    href={item.href}
+    className="group flex items-center gap-4 px-4 py-3.5 sm:px-5 sm:py-4 lg:px-6 lg:py-5 rounded-lg border border-transparent transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:bg-surface-4 hover:-translate-y-0.5 hover:border-accent/20 active:translate-y-0 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+  >
+    <div className="flex flex-shrink-0 items-center justify-center">
+      {item.icon}
+    </div>
+
+    <div className="flex min-w-0 flex-1 flex-col">
+      <span className="text-base font-semibold tracking-tight text-foreground transition-colors duration-150 sm:text-lg lg:text-xl">
+        {item.label}
+      </span>
+    </div>
+
+    <ArrowRight
+      className="size-5 sm:size-6 lg:size-7 flex-shrink-0 text-muted-foreground/40 transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:translate-x-1.5 group-hover:scale-110 group-hover:text-accent"
+      strokeWidth={1.5}
+      aria-hidden="true"
+    />
+  </Link>
+));
+
+NotFoundLinkItem.displayName = "NotFoundLinkItem";
 
 export function NotFound() {
   const { t } = useLanguage();
   const getLocalizedLink = useLocalizedLink();
 
+  const navItems: NavItem[] = [
+    {
+      label: t.notFound.cta,
+      href: getLocalizedLink("/"),
+      icon: (
+        <Home
+          className="size-6 sm:size-7 lg:size-8 text-muted-foreground transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-110 group-hover:rotate-3 group-hover:text-accent"
+          strokeWidth={1.5}
+          aria-hidden="true"
+        />
+      ),
+    },
+    {
+      label: t.nav.projects,
+      href: getLocalizedLink("/projects"),
+      icon: (
+        <FolderGit2
+          className="size-6 sm:size-7 lg:size-8 text-muted-foreground transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-110 group-hover:rotate-3 group-hover:text-accent"
+          strokeWidth={1.5}
+          aria-hidden="true"
+        />
+      ),
+    },
+    {
+      label: t.nav.blog,
+      href: getLocalizedLink("/blog"),
+      icon: (
+        <BookOpen
+          className="size-6 sm:size-7 lg:size-8 text-muted-foreground transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-110 group-hover:rotate-3 group-hover:text-accent"
+          strokeWidth={1.5}
+          aria-hidden="true"
+        />
+      ),
+    },
+  ];
+
   return (
-    <div className="mx-auto md:max-w-4xl px-4">
-      <HatchSeparator />
+    <div className="fixed inset-0 z-[100] overflow-y-auto bg-background flex flex-col items-center justify-center p-6">
+      <div className="w-full max-w-2xl">
+        <p className="mb-2 text-center text-7xl sm:text-8xl lg:text-9xl font-semibold tracking-tighter bg-gradient-to-br from-foreground via-foreground to-accent bg-clip-text text-transparent">
+          404
+        </p>
 
-      <section className="bp-panel bp-line-bottom flex items-center justify-center px-4 py-24 sm:px-6">
-        <div className="flex flex-col items-center text-center">
-          <MonoText className="text-[10px] tracking-[0.3em] text-muted-foreground/40 uppercase">
-            {t.notFound.errorCode}
-          </MonoText>
+        <h1 className="mb-2 text-center text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-foreground">
+          {t.notFound.title}
+        </h1>
 
-          <p className="mt-6 text-5xl font-light tracking-tighter text-foreground/90">
-            404
-          </p>
+        <p className="mb-8 text-center text-sm text-foreground/70 sm:text-base">
+          {t.notFound.description}
+        </p>
 
-          <p className="mt-3 max-w-xs text-sm leading-relaxed text-muted-foreground">
-            {t.notFound.description}
-          </p>
-
-          <Link
-            href={getLocalizedLink("/")}
-            className="group mt-8 inline-flex items-center gap-2 text-xs font-mono uppercase tracking-[0.15em] text-muted-foreground transition-colors duration-150 hover:text-foreground min-h-[44px] touch-manipulation"
-          >
-            <ArrowLeft className="size-3 transition-transform duration-150 group-hover:-translate-x-0.5" />
-            {t.notFound.cta}
-          </Link>
+        <div className="flex flex-col gap-1 sm:gap-1.5 lg:gap-2">
+          {navItems.map((item) => (
+            <NotFoundLinkItem key={item.href} item={item} />
+          ))}
         </div>
-      </section>
+
+        <MonoText className="mt-8 block text-center text-[10px] tracking-[0.15em] text-muted-foreground/30">
+          {APP_VERSION}
+        </MonoText>
+      </div>
     </div>
   );
 }

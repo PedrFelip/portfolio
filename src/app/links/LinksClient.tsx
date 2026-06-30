@@ -9,10 +9,15 @@ import {
   Linkedin,
   Mail,
 } from "@/components/ui/icons";
+import { MonoText } from "@/components/ui/typography";
 import { XIcon } from "@/components/ui/x-icon";
 import { useLanguage } from "@/lib/language-store";
 import { socialLinks } from "@/lib/links";
+import { APP_VERSION } from "@/lib/version";
 
+// TODO(refactor)[P2]: social icon+color map duplicated in
+// Footer + BlueprintContactSection — extract
+// lib/social-icons.tsx
 const iconMap = {
   portfolio: Home,
   github: Github,
@@ -74,10 +79,11 @@ const LinkItem = memo(({ label, url, icon, description }: LinkItemProps) => {
       }
     : { href: url };
 
+  // TODO(refactor)[P2]: link row className byte-identical to NotFound.tsx
   return (
     <a
       {...linkProps}
-      className={`group flex items-center gap-4 px-4 py-3.5 sm:px-5 sm:py-4 lg:px-6 lg:py-5 rounded-lg border border-transparent transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:bg-surface-4 hover:-translate-y-0.5 hover:border-current/10 active:translate-y-0 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background ${colors.border} ${colors.bg}`}
+      className={`group flex items-center gap-4 px-4 py-3.5 sm:px-5 sm:py-4 lg:px-6 lg:py-5 rounded-lg border border-transparent transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:bg-surface-4 hover:-translate-y-0.5 hover:border-current/10 active:translate-y-0 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background ${colors.border} ${colors.bg} ${isExternal ? "no-external-indicator" : ""}`}
     >
       <div className="flex flex-shrink-0 items-center justify-center">
         <Icon
@@ -143,6 +149,10 @@ function LinksContent() {
             />
           ))}
         </div>
+
+        <MonoText className="mt-8 block text-center text-[10px] tracking-[0.15em] text-muted-foreground/30">
+          {APP_VERSION}
+        </MonoText>
       </div>
     </div>
   );

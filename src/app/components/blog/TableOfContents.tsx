@@ -43,42 +43,38 @@ export const TableOfContents = memo(({ headings }: TableOfContentsProps) => {
   const tBlog = t.blog;
 
   const tickingRef = useRef(false);
-  const headingPositionsRef = useRef<Map<string, number>>(new Map());
-  const observerRef = useRef<MutationObserver | null>(null);
   const activeIdRef = useRef(activeId);
 
   useEffect(() => {
     activeIdRef.current = activeId;
   }, [activeId]);
 
-  const updateHeadingPositions = useCallback(() => {
-    const positions = new Map<string, number>();
-
-    for (const { id } of headings) {
-      const element = document.getElementById(id);
-      if (element) {
-        const rect = element.getBoundingClientRect();
-        positions.set(id, rect.top + window.scrollY);
-      }
-    }
-
-    headingPositionsRef.current = positions;
-  }, [headings]);
-
   const findActiveHeading = useCallback((): string => {
     if (headings.length === 0) return "";
 
-    const scrollY = window.scrollY;
-    const triggerOffset = scrollY + HEADER_HEIGHT;
+    // When the page can't scroll any further, the viewport bottom pins to the
+    // document bottom — so the trigger line (HEADER_HEIGHT) may sit above the
+    // last heading's top on short final sections. Force the last existing
+    // heading to win in that case.
+    const atBottom =
+      window.innerHeight + window.scrollY >=
+      document.documentElement.scrollHeight - 4;
+    if (atBottom) {
+      for (let i = headings.length - 1; i >= 0; i--) {
+        if (document.getElementById(headings[i].id)) {
+          return headings[i].id;
+        }
+      }
+    }
 
+    const triggerOffset = HEADER_HEIGHT;
     let activeHeadingId = headings[0].id;
-    const positions = headingPositionsRef.current;
 
     for (const heading of headings) {
-      const position = positions.get(heading.id);
-      if (position === undefined) continue;
-
-      if (position <= triggerOffset) {
+      const element = document.getElementById(heading.id);
+      if (!element) continue;
+      const top = element.getBoundingClientRect().top;
+      if (top <= triggerOffset) {
         activeHeadingId = heading.id;
       } else {
         break;
@@ -91,61 +87,34 @@ export const TableOfContents = memo(({ headings }: TableOfContentsProps) => {
   useEffect(() => {
     if (headings.length === 0) return;
 
-    updateHeadingPositions();
+    const update = () => {
+      const newActiveId = findActiveHeading();
+      if (newActiveId && newActiveId !== activeIdRef.current) {
+        startTransition(() => {
+          setActiveId(newActiveId);
+        });
+      }
+    };
 
     const handleScroll = () => {
       if (tickingRef.current) return;
-
       tickingRef.current = true;
-
       requestAnimationFrame(() => {
-        const newActiveId = findActiveHeading();
-
-        if (newActiveId && newActiveId !== activeIdRef.current) {
-          startTransition(() => {
-            setActiveId(newActiveId);
-          });
-        }
-
+        update();
         tickingRef.current = false;
       });
     };
 
-    const handleResize = () => {
-      updateHeadingPositions();
-      const newActiveId = findActiveHeading();
-      if (newActiveId !== activeIdRef.current) {
-        startTransition(() => setActiveId(newActiveId));
-      }
-    };
-
-    const handleMutations = () => {
-      requestAnimationFrame(updateHeadingPositions);
-    };
-
-    observerRef.current = new MutationObserver(handleMutations);
-    const article = document.querySelector("article");
-    if (article) {
-      observerRef.current.observe(article, {
-        childList: true,
-        subtree: true,
-        attributes: true,
-        attributeFilter: ["src", "class"],
-      });
-    }
-
     window.addEventListener("scroll", handleScroll, { passive: true });
-    window.addEventListener("resize", handleResize, { passive: true });
-    window.addEventListener("load", updateHeadingPositions, { passive: true });
+    window.addEventListener("resize", handleScroll, { passive: true });
+    window.addEventListener("load", update, { passive: true, once: true });
+    update();
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", handleResize);
-      window.removeEventListener("load", updateHeadingPositions);
-      observerRef.current?.disconnect();
-      observerRef.current = null;
+      window.removeEventListener("resize", handleScroll);
     };
-  }, [headings, findActiveHeading, updateHeadingPositions]);
+  }, [headings, findActiveHeading]);
 
   useEffect(() => {
     const hash = window.location.hash.slice(1);
@@ -180,17 +149,8 @@ export const TableOfContents = memo(({ headings }: TableOfContentsProps) => {
       });
 
       startTransition(() => setActiveId(id));
-
-      const handleScrollEnd = () => {
-        updateHeadingPositions();
-      };
-
-      window.addEventListener("scrollend", handleScrollEnd, {
-        passive: true,
-        once: true,
-      });
     },
-    [updateHeadingPositions],
+    [],
   );
 
   const renderedHeadings = useMemo(() => {

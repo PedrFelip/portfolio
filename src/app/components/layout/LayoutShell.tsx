@@ -3,6 +3,7 @@ import { Navigation } from "@/components/layout/Navigation";
 import { ZenLayoutTransition } from "@/components/layout/ZenLayoutTransition";
 import { SearchWrapper } from "@/components/search/SearchWrapper";
 
+// TODO(refactor)[P1]: dynamic() with ssr:true is redundant
 const Footer = dynamic(
   () => import("@/components/layout/Footer").then((mod) => mod.Footer),
   {

@@ -8,7 +8,7 @@ import {
 import { getAllPosts, getAllTags } from "@/lib/blog-data";
 import { blogEn } from "@/lib/content/blog.en";
 import { blogPt } from "@/lib/content/blog.pt";
-import { isLanguage, SUPPORTED_LANGS } from "@/lib/i18n";
+import { isLanguage, SUPPORTED_LOCALES } from "@/lib/i18n";
 
 const blogContent = {
   en: blogEn,
@@ -27,8 +27,10 @@ interface BlogPageProps {
 
 export const revalidate = 86400;
 
+// TODO(refactor)[P1]: generateStaticParams duplicated
+// extract langStaticParams helper
 export function generateStaticParams() {
-  return SUPPORTED_LANGS.map((lang) => ({ lang }));
+  return SUPPORTED_LOCALES.map((lang) => ({ lang }));
 }
 
 export async function generateMetadata({
@@ -46,9 +48,12 @@ export async function generateMetadata({
 
 export default async function BlogPage({ params }: BlogPageProps) {
   const { lang } = await params;
+  // TODO(refactor)[P1]: no fallback for invalid lang
+  // isLanguage() check
   const t = blogContent[lang].blog;
   const allPosts = getAllPosts();
   const allTags = getAllTags();
+  // TODO(refactor)[P1]: magic number 8
   const postsPerPage = 8;
 
   return (
@@ -76,7 +81,7 @@ export default async function BlogPage({ params }: BlogPageProps) {
               {allPosts.length}
             </span>
             <span className="text-[10px] font-semibold uppercase tracking-[0.15em] text-muted-foreground/60 mt-1">
-              {lang === "pt" ? "Artigos publicados" : "Published articles"}
+              {t.publishedCount}
             </span>
           </div>
         </div>

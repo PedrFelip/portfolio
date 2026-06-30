@@ -1,5 +1,3 @@
-"use client";
-
 import { FlickeringGrid } from "@/components/ui/flickering-grid";
 import { FLICKER_CONFIG } from "@/lib/constants";
 import { cn } from "@/lib/utils";

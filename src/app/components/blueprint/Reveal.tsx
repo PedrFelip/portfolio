@@ -1,8 +1,8 @@
 "use client";
 
 import { Slot } from "@radix-ui/react-slot";
-import { m, useInView } from "framer-motion";
-import { useRef } from "react";
+import { m, useInView, useReducedMotion } from "framer-motion";
+import { type ElementType, useRef } from "react";
 import { revealVariants } from "@/lib/animations";
 import { cn } from "@/lib/utils";
 
@@ -30,10 +30,20 @@ export function Reveal({
 }: RevealProps) {
   const ref = useRef<Element | null>(null);
   const isInView = useInView(ref, { once, margin: "-10% 0px -10% 0px" });
+  const shouldReduce = useReducedMotion();
   const setRef = (node: Element | null) => {
     ref.current = node;
   };
   const Comp = asChild ? Slot : "div";
+
+  if (shouldReduce) {
+    const Tag = as as ElementType;
+    return (
+      <Tag ref={setRef} className={cn(className)}>
+        <Comp>{children}</Comp>
+      </Tag>
+    );
+  }
 
   if (as === "span") {
     return (

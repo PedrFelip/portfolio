@@ -52,6 +52,7 @@ export const ShareButtons = memo(
     const [isPending, startTransition] = useTransition();
     const { t } = useLanguage();
     const tBlog = t.blog;
+    // TODO(refactor)[P1]: use ReturnType<typeof setTimeout> in browser code
     const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
     const shareLinks = useMemo(() => {
@@ -74,6 +75,7 @@ export const ShareButtons = memo(
       };
     }, []);
 
+    // TODO(refactor)[P2]: copy+timeout duplicated in CodeBlockWrapper
     const copyToClipboard = useCallback(async () => {
       try {
         if (timeoutRef.current) {
@@ -105,12 +107,13 @@ export const ShareButtons = memo(
           {tBlog.share}
         </MonoText>
 
+        {/* TODO(refactor)[P2]: 4 near-identical className strings */}
         <div className="flex flex-wrap gap-2 md:gap-3">
           <a
             href={shareLinks.twitter}
             target="_blank"
             rel="noopener noreferrer"
-            className="terminal-glow inline-flex h-11 md:h-9 items-center gap-2 rounded-lg border border-border bg-card px-4 md:px-3 text-sm text-muted-foreground transition-all duration-200 hover:text-foreground active:scale-[0.98] active:opacity-90 touch-manipulation select-none"
+            className="terminal-glow inline-flex h-11 md:h-9 items-center gap-2 rounded-lg border border-border bg-card px-4 md:px-3 text-sm text-muted-foreground transition-all duration-200 hover:text-foreground active:scale-[0.98] active:opacity-90 touch-manipulation select-none no-external-indicator icon-link-hover"
             aria-label={`${tBlog.shareOn} X (Twitter)`}
           >
             <XIcon className="size-3.5" />
@@ -121,7 +124,7 @@ export const ShareButtons = memo(
             href={shareLinks.linkedin}
             target="_blank"
             rel="noopener noreferrer"
-            className="terminal-glow inline-flex h-11 md:h-9 items-center gap-2 rounded-lg border border-border bg-card px-4 md:px-3 text-sm text-muted-foreground transition-all duration-200 hover:text-foreground active:scale-[0.98] active:opacity-90 touch-manipulation select-none"
+            className="terminal-glow inline-flex h-11 md:h-9 items-center gap-2 rounded-lg border border-border bg-card px-4 md:px-3 text-sm text-muted-foreground transition-all duration-200 hover:text-foreground active:scale-[0.98] active:opacity-90 touch-manipulation select-none no-external-indicator icon-link-hover"
             aria-label={`${tBlog.shareOn} LinkedIn`}
           >
             <Linkedin className="size-3.5" />
@@ -130,7 +133,7 @@ export const ShareButtons = memo(
 
           <a
             href={shareLinks.email}
-            className="terminal-glow inline-flex h-11 md:h-9 items-center gap-2 rounded-lg border border-border bg-card px-4 md:px-3 text-sm text-muted-foreground transition-all duration-200 hover:text-foreground active:scale-[0.98] active:opacity-90 touch-manipulation select-none"
+            className="terminal-glow inline-flex h-11 md:h-9 items-center gap-2 rounded-lg border border-border bg-card px-4 md:px-3 text-sm text-muted-foreground transition-all duration-200 hover:text-foreground active:scale-[0.98] active:opacity-90 touch-manipulation select-none icon-link-hover"
             aria-label={`${tBlog.shareVia} Email`}
           >
             <Mail className="size-3.5" />

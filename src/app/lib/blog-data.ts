@@ -27,6 +27,13 @@ function getSlugFileMap(): Map<string, string> {
   return map;
 }
 
+/**
+ * Author's timezone. Used to interpret frontmatter dates written without
+ * an explicit offset (e.g. `"2026-05-07T15:30"`) and to render times.
+ */
+const AUTHOR_TZ = "America/Sao_Paulo"; // Brasília (UTC-3)
+
+// TODO(refactor)[P4]: untested published check
 function isPostPublished(frontmatter: Record<string, unknown>): boolean {
   const published = frontmatter.published;
 
@@ -47,9 +54,74 @@ function isPostPublished(frontmatter: Record<string, unknown>): boolean {
 }
 
 /**
+ * Normalize a frontmatter `date` value into an ISO string.
+ *
+ * Accepts the following shapes:
+ *   - `"2026-05-07"`                  → date-only, anchored at 12:00 (author TZ)
+ *   - `"2026-05-07T14:30"`            → date + time, interpreted in author TZ
+ *   - `"2026-05-07 14:30"`            → same as above (space separator)
+ *   - `"2026-05-07T14:30:00-03:00"`   → ISO with explicit offset, kept as-is
+ *
+ * Falls back to "now" when the value is missing or unparseable.
+ */
+// TODO(refactor)[P4]: untested date normalization with 4 branches
+function normalizeFrontmatterDate(raw: unknown): string {
+  if (!raw) return new Date().toISOString();
+
+  const str = typeof raw === "string" ? raw.trim() : String(raw);
+
+  // Already ISO with explicit timezone (Z or ±HH:MM) → keep as-is
+  if (/\d{4}-\d{2}-\d{2}[T ]\d{2}:\d{2}.*([zZ]|[+-]\d{2}:?\d{2})$/.test(str)) {
+    const parsed = new Date(str);
+    if (!Number.isNaN(parsed.getTime())) return parsed.toISOString();
+  }
+
+  // Date + time without timezone → interpret in author's TZ (Brasília)
+  const dateTimeMatch = str.match(
+    /^(\d{4}-\d{2}-\d{2})[T ](\d{2}:\d{2}(?::\d{2})?)$/,
+  );
+  if (dateTimeMatch) {
+    const parsed = new Date(`${dateTimeMatch[1]}T${dateTimeMatch[2]}-03:00`);
+    if (!Number.isNaN(parsed.getTime())) return parsed.toISOString();
+  }
+
+  // Date only → anchor at 12:00 in author TZ (sentinel for date-only)
+  const parsed = new Date(`${str}T12:00:00-03:00`);
+  if (!Number.isNaN(parsed.getTime())) return parsed.toISOString();
+
+  return new Date().toISOString();
+}
+
+/**
+ * Format the date portion of a post's ISO date as `YYYY-MM-DD` in the
+ * author's timezone (Brasília). Use this for any machine-style date
+ * display so it stays consistent across environments.
+ */
+// TODO(refactor)[P4]: untested TZ-aware date formatting
+export function getPostDateISO(isoDate: string): string {
+  const date = new Date(isoDate);
+  if (Number.isNaN(date.getTime())) return isoDate;
+
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    timeZone: AUTHOR_TZ,
+  }).formatToParts(date);
+
+  const y = parts.find((p) => p.type === "year")?.value ?? "";
+  const m = parts.find((p) => p.type === "month")?.value ?? "";
+  const d = parts.find((p) => p.type === "day")?.value ?? "";
+
+  if (!y || !m || !d) return isoDate;
+  return `${y}-${m}-${d}`;
+}
+
+/**
  * Slugify text for anchor IDs
  * Handles Portuguese characters (accents, ç)
  */
+// TODO(refactor)[P4]: untested Portuguese-aware slugify
 function slugify(text: string): string {
   return text
     .toLowerCase()
@@ -70,6 +142,7 @@ function slugify(text: string): string {
  * Best Practice 7.11 - Use Set/Map for O(1) Lookups
  * Uses Set to track duplicate IDs and append numeric suffixes
  */
+// TODO(refactor)[P4]: untested regex-based heading extraction
 function extractHeadings(content: string): Heading[] {
   const headingRegex = /^(#{2,3})\s+(.+?)$/gm;
   const headings: Heading[] = [];
@@ -78,6 +151,10 @@ function extractHeadings(content: string): Heading[] {
 
   // biome-ignore lint/suspicious/noAssignInExpressions: regex exec pattern requires assignment in loop
   while ((match = headingRegex.exec(content)) !== null) {
+    const precedingText = content.slice(0, match.index);
+    const openFences = (precedingText.match(/^```[^\n]*$/gm) || []).length;
+    if (openFences % 2 === 1) continue;
+
     const level = match[1].length as 2 | 3;
     const text = match[2]
       .trim()
@@ -106,6 +183,7 @@ function extractHeadings(content: string): Heading[] {
 /**
  * Get all blog post slugs
  */
+// TODO(refactor)[P2]: sync readdirSync + per-file existsSync
 export function getAllPostSlugs(): string[] {
   const slugs: string[] = [];
   for (const slug of getSlugFileMap().keys()) {
@@ -133,15 +211,19 @@ export const getPostBySlug = cache((slug: string): BlogPost | null => {
 
     const headings = extractHeadings(content);
 
+    // TODO(refactor)[P0]: readingTime missing from return
     return {
       slug,
       title: data.title || "Untitled",
-      date: data.date ? `${data.date}T12:00:00.000Z` : new Date().toISOString(),
+      date: normalizeFrontmatterDate(data.date),
+      // TODO(refactor)[P0]: excerpt always empty
       excerpt: data.excerpt || "",
+      // TODO(refactor)[P1]: unsafe as string[] cast on frontmatter tags
       tags: (data.tags || data.categories || []) as string[],
       content,
       headings,
     };
+    // TODO(refactor)[P1]: malformed frontmatter silently returns null
   } catch (error) {
     console.error(`Error reading post ${slug}:`, error);
     return null;
@@ -165,6 +247,7 @@ export const getAllPosts = cache((): BlogMetadata[] => {
       date: post.date,
       excerpt: post.excerpt,
       tags: post.tags,
+      // TODO(refactor)[P0]: readingTime computed here but not in getPostBySlug
       readingTime: calculateReadingTime(post.content),
     });
     return acc;
@@ -173,6 +256,17 @@ export const getAllPosts = cache((): BlogMetadata[] => {
   posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
   return posts;
+});
+
+/**
+ * Get the most recently published post.
+ *
+ * Returns null when no posts are available so callers can
+ * gracefully omit the section.
+ */
+export const getLatestPost = cache((): BlogMetadata | null => {
+  const posts = getAllPosts();
+  return posts[0] ?? null;
 });
 
 /**
@@ -196,6 +290,7 @@ export function getAllTags(): string[] {
  * Average reading speed: 200-250 words per minute
  * Uses 225 as the average
  */
+// TODO(refactor)[P4]: untested reading time calc
 function calculateReadingTime(content: string): number {
   const wordCount = content
     .split(/\s+/)

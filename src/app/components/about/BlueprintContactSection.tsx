@@ -5,6 +5,7 @@ import { MonoText } from "@/components/ui";
 import { Github, Linkedin, Mail } from "@/components/ui/icons";
 import { XIcon } from "@/components/ui/x-icon";
 
+// TODO(refactor)[P1]: inline type duplicates SocialIcon from links.ts
 interface ContactLink {
   label: string;
   url: string;
@@ -18,6 +19,7 @@ interface BlueprintContactSectionProps {
   links: ContactLink[];
 }
 
+// TODO(refactor)[P2]: social icon map duplicated
 const iconMap = {
   github: Github,
   linkedin: Linkedin,
@@ -25,6 +27,7 @@ const iconMap = {
   email: Mail,
 };
 
+// TODO(refactor)[P0]: hardcoded oklch colors mismatch CSS vars
 const iconColors: Record<string, string> = {
   github:
     "hover:border-[oklch(0.72_0.12_290)_/_40%] hover:bg-[oklch(0.72_0.12_290)_/_8%] hover:text-[oklch(0.72_0.12_290)]",
@@ -44,6 +47,7 @@ export const BlueprintContactSection = memo(function BlueprintContactSection({
   return (
     <section id="contact" data-slot="panel" className="bp-panel">
       {/* Header */}
+      {/* TODO(refactor)[P2]: section header duplicated 8+ times */}
       <SectionBadge className="bp-line-bottom px-4 py-3 sm:px-6">
         <SectionLabel>{badge}</SectionLabel>
         <h2 className="mt-1 text-lg font-semibold tracking-tight sm:text-xl">

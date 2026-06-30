@@ -1,6 +1,6 @@
 "use client";
 
-import { m, useInView } from "framer-motion";
+import { m, useInView, useReducedMotion } from "framer-motion";
 import { useRef } from "react";
 import { revealVariants, staggerContainer } from "@/lib/animations";
 import { cn } from "@/lib/utils";
@@ -18,6 +18,15 @@ export function StaggerGroup({
 }: StaggerGroupProps) {
   const ref = useRef<HTMLDivElement | null>(null);
   const isInView = useInView(ref, { once, margin: "-10% 0px -10% 0px" });
+  const shouldReduce = useReducedMotion();
+
+  if (shouldReduce) {
+    return (
+      <div ref={ref} className={cn(className)}>
+        {children}
+      </div>
+    );
+  }
 
   return (
     <m.div
@@ -45,6 +54,16 @@ export function StaggerItem({
   style,
   variant = "left",
 }: StaggerItemProps) {
+  const shouldReduce = useReducedMotion();
+
+  if (shouldReduce) {
+    return (
+      <div className={cn(className)} style={style}>
+        {children}
+      </div>
+    );
+  }
+
   return (
     <m.div
       className={cn(className)}

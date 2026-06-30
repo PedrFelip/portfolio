@@ -45,6 +45,7 @@ export const ProjectCard = memo(({ project }: ProjectCardProps) => {
           {project.technologies.map((tech, index) => (
             <Badge
               key={tech}
+              // TODO(refactor)[P0]: variant-projects is not a Badge variant
               className="text-[10px] sm:text-xs transition-all duration-200 ease-[cubic-bezier(0.25,1,0.5,1)] motion-reduce:transition-none hover:border-accent/60 hover:bg-accent/25 hover:text-accent hover:shadow-md hover:shadow-accent/5 variant-projects"
               style={{ transitionDelay: `${index * 20}ms` }}
             >
@@ -57,13 +58,14 @@ export const ProjectCard = memo(({ project }: ProjectCardProps) => {
       {/* Links */}
       {project.links && (
         <div className="mt-4 flex flex-wrap gap-2 border-t border-dashed border-border/60 pt-4 sm:mt-5">
+          {/* TODO(refactor)[P2]: 3 near-identical project link blocks */}
           {project.links.github && (
             <Button asChild variant="outline" size="sm">
               <Link
                 href={project.links.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group/link text-xs sm:text-sm"
+                className="group/link text-xs sm:text-sm no-external-indicator"
               >
                 <Github
                   className="mr-1.5 size-3 sm:mr-2 sm:size-3.5 icon-hover-rotate group-hover/link:scale-110"
@@ -79,10 +81,10 @@ export const ProjectCard = memo(({ project }: ProjectCardProps) => {
                 href={project.links.demo}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group/link text-xs sm:text-sm"
+                className="group/link text-xs sm:text-sm no-external-indicator"
               >
                 <ExternalLink
-                  className="mr-1.5 size-3 sm:mr-2 sm:size-3.5 icon-hover-rotate group-hover/link:scale-110"
+                  className="mr-1.5 size-3 sm:mr-2 sm:size-3.5 transition-transform duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover/link:translate-x-0.5 group-hover/link:scale-110"
                   aria-hidden="true"
                 />
                 {linkLabels.demo}
@@ -95,10 +97,10 @@ export const ProjectCard = memo(({ project }: ProjectCardProps) => {
                 href={project.links.website}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group/link text-xs sm:text-sm"
+                className="group/link text-xs sm:text-sm no-external-indicator"
               >
                 <ExternalLink
-                  className="mr-1.5 size-3 sm:mr-2 sm:size-3.5 icon-hover-rotate group-hover/link:scale-110"
+                  className="mr-1.5 size-3 sm:mr-2 sm:size-3.5 transition-transform duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover/link:translate-x-0.5 group-hover/link:scale-110"
                   aria-hidden="true"
                 />
                 {linkLabels.website}

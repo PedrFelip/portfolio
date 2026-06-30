@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 import { memo } from "react";
 
@@ -17,6 +15,7 @@ export const Figure = memo(
       <figure className="my-9">
         <div className="relative overflow-hidden rounded-sm border border-border/60">
           <Image
+            // TODO(refactor)[P1]: missing sizes prop
             src={src}
             alt={alt}
             width={width}

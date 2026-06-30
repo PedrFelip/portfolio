@@ -22,8 +22,10 @@ import { ArrowLeft, Calendar, ChevronDown, Clock } from "@/components/ui/icons";
 import { getAllPostSlugs, getPostBySlug } from "@/lib/blog-data";
 import { blogEn } from "@/lib/content/blog.en";
 import { blogPt } from "@/lib/content/blog.pt";
-import { SUPPORTED_LANGS } from "@/lib/i18n";
+import { SUPPORTED_LOCALES } from "@/lib/i18n";
 import { getSocialHandle } from "@/lib/links";
+import rehypeCodeMeta from "@/lib/mdx/rehype-code-meta";
+import remarkCodeMeta from "@/lib/mdx/remark-code-meta";
 
 const blogContent = {
   en: blogEn,
@@ -59,8 +61,17 @@ interface BlogPostPageProps {
   }>;
 }
 
-const PreComponent = ({ children }: { children: React.ReactNode }) => (
-  <CodeBlockWrapper>{children}</CodeBlockWrapper>
+const PreComponent = ({
+  children,
+  "data-code-title": filename,
+  "data-code-language": language,
+}: React.HTMLAttributes<HTMLPreElement> & {
+  "data-code-title"?: string;
+  "data-code-language"?: string;
+}) => (
+  <CodeBlockWrapper filename={filename} language={language}>
+    {children}
+  </CodeBlockWrapper>
 );
 
 const CodeComponent = ({
@@ -74,7 +85,7 @@ const CodeComponent = ({
     return <code className={className}>{children}</code>;
   }
   return (
-    <code className="bg-[var(--code-bg)] text-[color:var(--code-fg)] px-1.5 py-0.5 rounded-sm">
+    <code className="bg-code-bg text-code-fg px-1.5 py-0.5 rounded-lg">
       {children}
     </code>
   );
@@ -88,6 +99,9 @@ const TableCell = ({ children }: { children: React.ReactNode }) => (
   <MDXTableCell>{children}</MDXTableCell>
 );
 
+// TODO(refactor)[P0]: MDXLink opens all links in new tab
+// detect internal links (starts with "/" or "#") and render
+// plain <a>
 const MDXLink = ({
   href,
   children,
@@ -99,6 +113,8 @@ const MDXLink = ({
 );
 
 export const revalidate = 604800;
+// TODO(refactor)[P2]: dynamicParams=false blocks new posts
+// until full rebuild — set true or use on-demand revalidation
 export const dynamicParams = false;
 
 export async function generateMetadata({
@@ -111,6 +127,8 @@ export async function generateMetadata({
     return {};
   }
 
+  // TODO(refactor)[P1]: postUrl construction duplicated in
+  // generateMetadata — extract getPostUrl helper
   const baseUrl =
     process.env.NEXT_PUBLIC_SITE_URL || "https://portfolio.vercel.app";
   const postUrl = `${baseUrl}/${lang}/blog/${slug}`;
@@ -161,12 +179,14 @@ export async function generateMetadata({
 export async function generateStaticParams() {
   const slugs = getAllPostSlugs();
   return slugs.flatMap((slug) =>
-    SUPPORTED_LANGS.map((lang) => ({ slug, lang })),
+    SUPPORTED_LOCALES.map((lang) => ({ slug, lang })),
   );
 }
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { slug, lang } = await params;
+  // TODO(refactor)[P1]: no fallback for invalid lang
+  // isLanguage() check
   const post = getPostBySlug(slug);
   const t = blogContent[lang].blog;
 
@@ -174,6 +194,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     notFound();
   }
 
+  // TODO(refactor)[P1]: static MDX components rebuilt every
+  // render — hoist to module scope, only vary headingComponents
   const headingComponents = createHeadingComponents(post.headings || []);
   const MDX_COMPONENTS = {
     a: MDXLink,
@@ -198,15 +220,15 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const postUrl = `${process.env.NEXT_PUBLIC_SITE_URL || ""}/${lang}/blog/${post.slug}`;
 
   return (
-    <main className="min-h-screen animate-in-fade animate-duration-700 pb-24 md:pb-0">
+    <div className="animate-in-fade animate-duration-700 pb-24 md:pb-0">
       <ScrollToTop />
       <ZenFloatingControls />
 
       {/* Header Section */}
       <header className="border-b border-border">
-        <div className="mx-auto max-w-4xl px-6 py-12 sm:px-8 sm:py-24">
+        <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6 sm:py-12">
           {/* Title */}
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-[-0.03em] text-foreground mb-6 animate-in-up">
+          <h1 className="w-fit max-w-full pr-1 text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-[-0.03em] leading-[1.2] pb-1 mb-6 animate-in-up bg-gradient-to-br from-foreground to-accent bg-clip-text [-webkit-background-clip:text] [-webkit-text-fill-color:transparent] [box-decoration-break:clone]">
             {post.title}
           </h1>
 
@@ -217,9 +239,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               <time dateTime={post.date}>{formattedDate}</time>
             </span>
 
+            {/* TODO(refactor)[P0]: post.readingTime always undefined */}
             {post.readingTime && (
               <>
-                <span className="text-border" aria-hidden="true">
+                <span className="text-accent/40" aria-hidden="true">
                   ·
                 </span>
                 <span className="inline-flex items-center gap-1.5">
@@ -255,13 +278,13 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       </header>
 
       {/* Content Section */}
-      <div className="mx-auto max-w-5xl px-6 sm:px-8">
+      <div className="mx-auto max-w-4xl px-4 sm:px-6">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_200px] gap-8 lg:gap-12">
           {/* Main Article */}
           <div className="py-10 sm:py-16 animate-in-up animate-delay-300">
             {/* Mobile TOC */}
             <details className="lg:hidden mb-8 group">
-              <summary className="flex items-center justify-between cursor-pointer text-xs font-mono uppercase tracking-wide text-muted-foreground hover:text-foreground transition-colors py-3 border-b border-border min-h-[48px] touch-manipulation">
+              <summary className="flex items-center justify-between cursor-pointer text-xs font-mono uppercase tracking-wide text-muted-foreground hover:text-accent transition-colors py-3 border-b border-border min-h-[48px] touch-manipulation">
                 <span>{t.onThisPage || "On this page"}</span>
                 <ChevronDown
                   className="size-3 transition-transform group-open:rotate-180"
@@ -279,7 +302,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 source={post.content}
                 options={{
                   mdxOptions: {
-                    rehypePlugins: [[rehypeHighlight, { detect: true }]],
+                    remarkPlugins: [remarkCodeMeta],
+                    rehypePlugins: [
+                      rehypeCodeMeta,
+                      [rehypeHighlight, { detect: true }],
+                    ],
                   },
                 }}
                 components={MDX_COMPONENTS}
@@ -290,13 +317,14 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             <footer className="mt-20 pt-12 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-8 animate-in-up animate-delay-400">
               <div className="flex flex-col items-center sm:items-start gap-3">
                 <p className="text-sm text-muted-foreground font-mono">
+                  {/* TODO(refactor)[P1]: hardcoded "Thanks for reading" strings */}
                   {lang === "pt" ? "Obrigado por ler!" : "Thanks for reading!"}
                 </p>
                 <Link
                   href={`/${lang}/blog`}
-                  className="group inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors min-h-[44px] touch-manipulation"
+                  className="group inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-muted-foreground hover:text-accent transition-colors min-h-[44px] touch-manipulation"
                 >
-                  <ArrowLeft className="size-3 text-muted-foreground group-hover:text-foreground group-hover:-translate-x-1.5 transition-all duration-300 ease-[cubic-bezier(0.25,1,0.5,1)]" />
+                  <ArrowLeft className="size-3 text-muted-foreground group-hover:text-accent group-hover:-translate-x-1.5 transition-all duration-300 ease-[cubic-bezier(0.25,1,0.5,1)]" />
                   {t.back}
                 </Link>
               </div>
@@ -312,13 +340,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </div>
 
           {/* Sidebar (Desktop) */}
-          <aside className="hidden lg:block animate-in-right animate-delay-500">
-            <div className="sticky top-24 py-16 space-y-12">
-              <TableOfContents headings={post.headings || []} />
-            </div>
+          <aside className="hidden lg:block sticky top-24 self-start py-16 animate-in-right animate-delay-500">
+            <TableOfContents headings={post.headings || []} />
           </aside>
         </div>
       </div>
-    </main>
+    </div>
   );
 }

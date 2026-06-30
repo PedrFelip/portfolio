@@ -1,3 +1,4 @@
+// TODO(refactor)[P2]: entire footer is client just for useLanguage + motion
 "use client";
 
 import Link from "next/link";
@@ -7,10 +8,10 @@ import { EncryptedText, Logo, MonoText } from "@/components/ui";
 import { FluidGradientText } from "@/components/ui/fluid-gradient-text";
 import { Github, Linkedin, Mail } from "@/components/ui/icons";
 import { XIcon } from "@/components/ui/x-icon";
-import { useScrambleText } from "@/hooks/useScrambleText";
 import { useLanguage } from "@/lib/language-store";
 import { socialLinks } from "@/lib/links";
 import { useLocalizedLink } from "@/lib/useLocalizedLink";
+import { APP_VERSION } from "@/lib/version";
 
 /**
  * Footer — chanhdai.com inspired blueprint layout
@@ -29,6 +30,7 @@ export const Footer = memo(() => {
   const { t } = useLanguage();
   const getLocalizedLink = useLocalizedLink();
 
+  // TODO(refactor)[P2]: nav links duplicated w/ Navigation
   const navLinks = useMemo(
     () => [
       { href: "/", label: t.nav.home },
@@ -39,6 +41,7 @@ export const Footer = memo(() => {
     [t.nav],
   );
 
+  // TODO(refactor)[P2]: social icon map duplicated
   const footerSocialLinks = useMemo(
     () =>
       socialLinks
@@ -81,7 +84,8 @@ export const Footer = memo(() => {
               />
             </span>
           </Link>
-          <MonoText className="text-[10px] tracking-[0.2em] text-muted-foreground/50 uppercase hidden sm:block">
+          {/* TODO(refactor)[P1]: hardcoded English "backend engineer" */}
+          <MonoText className="text-[10px] tracking-[0.2em] text-muted-foreground/50 hidden sm:block">
             backend engineer
           </MonoText>
         </div>
@@ -129,7 +133,8 @@ export const Footer = memo(() => {
 
             {/* Social Column */}
             <div className="flex flex-col items-start justify-center gap-2 border-t border-border/30 px-4 py-3 sm:border-t-0 sm:items-end sm:px-6">
-              <MonoText className="text-[9px] tracking-[0.2em] text-muted-foreground/40 uppercase">
+              {/* TODO(refactor)[P1]: hardcoded English "connect" */}
+              <MonoText className="text-[9px] tracking-[0.2em] text-muted-foreground/40">
                 connect
               </MonoText>
               <div className="flex items-center gap-3">
@@ -145,6 +150,7 @@ export const Footer = memo(() => {
                       text-muted-foreground/60 transition-all duration-200 ease-[cubic-bezier(0.25,1,0.5,1)]
                       hover:text-accent hover:border-accent/20 hover:bg-accent/5
                       active:scale-[0.9] active:bg-accent/10 touch-manipulation
+                      no-external-indicator icon-link-hover
                     "
                   >
                     {link.icon}
@@ -155,13 +161,12 @@ export const Footer = memo(() => {
           </div>
         </div>
 
-        {/* ─── Bottom Bar ─── */}
-        <div className="bp-panel flex  bp-line-bottom items-center justify-between px-4 py-4 sm:px-6">
+        <div className="bp-panel flex bp-line-bottom items-center justify-between px-4 py-4 sm:px-6">
           <MonoText className="text-[10px] tracking-[0.15em] text-muted-foreground/40">
             © {t.footer.year}
           </MonoText>
           <MonoText className="text-[10px] tracking-[0.15em] text-muted-foreground/40">
-            v5.2.0
+            {APP_VERSION}
           </MonoText>
         </div>
       </div>
@@ -176,23 +181,10 @@ export const Footer = memo(() => {
 Footer.displayName = "Footer";
 
 function FooterGradientText() {
-  const { display, handleMouseEnter, handleMouseLeave } = useScrambleText({
-    text: "Pedro Felipe",
-    targets: ["pdrdotdev", "pdr.dev"],
-  });
-
   return (
-    // biome-ignore lint/a11y/useSemanticElements: Decorative hover effect container
-    <div
-      className="px-4 py-4 sm:px-6"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      role="button"
-      tabIndex={0}
-      aria-label="Pedro Felipe"
-    >
+    <div className="px-4 py-4 sm:px-6">
       <div className="text-foreground h-24 sm:h-32 md:h-40">
-        <FluidGradientText text={display} />
+        <FluidGradientText text="PEDRO FELIPE" />
       </div>
     </div>
   );

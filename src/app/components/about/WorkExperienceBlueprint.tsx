@@ -1,5 +1,3 @@
-"use client";
-
 import { Briefcase } from "lucide-react";
 import { memo } from "react";
 import {
@@ -46,6 +44,7 @@ export const WorkExperienceBlueprint = memo(
         className="bp-panel bp-line-bottom"
       >
         {/* ─── Header ─── */}
+        {/* TODO(refactor)[P2]: section header duplicated 8+ times */}
         <SectionBadge className="bp-line-bottom px-4 py-3 sm:px-6">
           <div className="flex items-center justify-between">
             <div>
@@ -94,6 +93,7 @@ export const WorkExperienceBlueprint = memo(
                       <div className="flex items-center gap-1.5">
                         {isPresent && (
                           <span
+                            // TODO(refactor)[P1]: emerald-500 off-palette
                             className="size-1.5 rounded-full bg-emerald-500/80 animate-pulse"
                             aria-hidden="true"
                           />
@@ -101,6 +101,7 @@ export const WorkExperienceBlueprint = memo(
                         <MonoText
                           className={cn(
                             "text-[10px] tabular-nums uppercase tracking-widest",
+                            // TODO(refactor)[P1]: emerald-500 off-palette
                             isPresent
                               ? "text-emerald-500/60"
                               : "text-muted-foreground/40",

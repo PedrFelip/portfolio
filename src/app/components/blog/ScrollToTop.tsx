@@ -13,6 +13,7 @@ export function ScrollToTop() {
     }
 
     sessionStorage.removeItem(SCROLL_FLAG_KEY);
+    // TODO(refactor)[P1]: smooth scroll ignores prefers-reduced-motion
     window.scrollTo({ top: 0, left: 0, behavior: "auto" });
   }, []);
 

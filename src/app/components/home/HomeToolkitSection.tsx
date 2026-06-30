@@ -25,6 +25,7 @@ export function HomeToolkitSection({
   return (
     <section id="toolkit" data-slot="panel" className="bp-panel bp-line-bottom">
       {/* Header */}
+      {/* TODO(refactor)[P2]: section header duplicated 8+ times */}
       <SectionBadge className="bp-line-bottom px-4 py-3 sm:px-6">
         <SectionLabel>{badge}</SectionLabel>
         <h2 className="mt-1 text-lg font-semibold tracking-tight sm:text-xl">
@@ -40,6 +41,7 @@ export function HomeToolkitSection({
           return (
             <div
               key={item.id}
+              // TODO(refactor)[P2]: grid border logic duplicated
               className={`group px-4 py-8 sm:px-5 transition-all duration-200 hover:bg-surface-2
                 ${i % 3 !== 0 ? "lg:border-l lg:border-dashed lg:border-border" : ""}
                 ${i % 2 !== 0 ? "sm:max-lg:border-l sm:max-lg:border-dashed sm:max-lg:border-border" : ""}
@@ -61,6 +63,7 @@ export function HomeToolkitSection({
                         style={
                           {
                             "--icon-color": iconConfig.color || "#ffffff",
+                            // TODO(refactor)[P1]: "#ffffff" fallback
                             transitionDelay: `${iconIndex * 50}ms`,
                           } as React.CSSProperties
                         }
@@ -71,7 +74,7 @@ export function HomeToolkitSection({
                   ))}
                 </div>
 
-                <p className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground/60 transition-colors duration-150 group-hover:text-muted-foreground">
+                <p className="text-[10px] font-medium tracking-wider text-muted-foreground/60 transition-colors duration-150 group-hover:text-muted-foreground">
                   {item.title}
                 </p>
                 <h3 className="mt-1 text-sm font-semibold tracking-tight transition-colors duration-150 group-hover:text-foreground">

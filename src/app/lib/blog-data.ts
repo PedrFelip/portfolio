@@ -6,6 +6,27 @@ import type { BlogMetadata, BlogPost, Heading } from "@/types/portfolio";
 
 const BLOG_DIR = path.join(process.cwd(), "src/app/content/blog");
 
+let slugFileCache: Map<string, string> | null = null;
+
+function getSlugFileMap(): Map<string, string> {
+  if (slugFileCache) return slugFileCache;
+  const map = new Map<string, string>();
+  if (!fs.existsSync(BLOG_DIR)) {
+    slugFileCache = map;
+    return map;
+  }
+  for (const file of fs.readdirSync(BLOG_DIR)) {
+    if (!file.endsWith(".md") && !file.endsWith(".mdx")) continue;
+    const slug = file.replace(/\.mdx?$/, "");
+    const existing = map.get(slug);
+    if (!existing || (existing.endsWith(".mdx") && file.endsWith(".md"))) {
+      map.set(slug, file);
+    }
+  }
+  slugFileCache = map;
+  return map;
+}
+
 function isPostPublished(frontmatter: Record<string, unknown>): boolean {
   const published = frontmatter.published;
 
@@ -86,17 +107,11 @@ function extractHeadings(content: string): Heading[] {
  * Get all blog post slugs
  */
 export function getAllPostSlugs(): string[] {
-  if (!fs.existsSync(BLOG_DIR)) {
-    return [];
+  const slugs: string[] = [];
+  for (const slug of getSlugFileMap().keys()) {
+    if (getPostBySlug(slug) !== null) slugs.push(slug);
   }
-
-  const files = fs.readdirSync(BLOG_DIR);
-  return files.reduce<string[]>((acc, file) => {
-    if (!file.endsWith(".md") && !file.endsWith(".mdx")) return acc;
-    const slug = file.replace(/\.mdx?$/, "");
-    if (getPostBySlug(slug) !== null) acc.push(slug);
-    return acc;
-  }, []);
+  return slugs;
 }
 
 /**
@@ -105,18 +120,10 @@ export function getAllPostSlugs(): string[] {
  */
 export const getPostBySlug = cache((slug: string): BlogPost | null => {
   try {
-    const filePath = path.join(BLOG_DIR, `${slug}.md`);
-    const mdxFilePath = path.join(BLOG_DIR, `${slug}.mdx`);
+    const fileName = getSlugFileMap().get(slug);
+    if (!fileName) return null;
 
-    let fullPath = filePath;
-    if (!fs.existsSync(filePath) && fs.existsSync(mdxFilePath)) {
-      fullPath = mdxFilePath;
-    }
-
-    if (!fs.existsSync(fullPath)) {
-      return null;
-    }
-
+    const fullPath = path.join(BLOG_DIR, fileName);
     const fileContents = fs.readFileSync(fullPath, "utf8");
     const { data, content } = matter(fileContents);
 

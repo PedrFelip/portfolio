@@ -99,18 +99,29 @@ const TableCell = ({ children }: { children: React.ReactNode }) => (
   <MDXTableCell>{children}</MDXTableCell>
 );
 
-// TODO(refactor)[P0]: MDXLink opens all links in new tab
-// detect internal links (starts with "/" or "#") and render
-// plain <a>
+const isExternalLink = (href: string) =>
+  /^https?:\/\//i.test(href) ||
+  href.startsWith("mailto:") ||
+  href.startsWith("tel:");
+
 const MDXLink = ({
-  href,
+  href = "",
   children,
   ...props
-}: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
-  <a href={href} target="_blank" rel="noopener noreferrer" {...props}>
-    {children}
-  </a>
-);
+}: React.AnchorHTMLAttributes<HTMLAnchorElement>) => {
+  if (isExternalLink(href)) {
+    return (
+      <a href={href} target="_blank" rel="noopener noreferrer" {...props}>
+        {children}
+      </a>
+    );
+  }
+  return (
+    <Link href={href} {...props}>
+      {children}
+    </Link>
+  );
+};
 
 export const revalidate = 604800;
 // TODO(refactor)[P2]: dynamicParams=false blocks new posts

@@ -27,15 +27,14 @@ const iconMap = {
   email: Mail,
 };
 
-// TODO(refactor)[P0]: hardcoded oklch colors mismatch CSS vars
 const iconColors: Record<string, string> = {
   github:
-    "hover:border-[oklch(0.72_0.12_290)_/_40%] hover:bg-[oklch(0.72_0.12_290)_/_8%] hover:text-[oklch(0.72_0.12_290)]",
+    "hover:border-[var(--brand-github)]/40 hover:bg-[var(--brand-github)]/8 hover:text-[var(--brand-github)]",
   linkedin:
-    "hover:border-[oklch(0.68_0.1_255)_/_40%] hover:bg-[oklch(0.68_0.1_255)_/_8%] hover:text-[oklch(0.68_0.1_255)]",
-  x: "hover:border-[oklch(0.85_0.04_270)_/_40%] hover:bg-[oklch(0.85_0.04_270)_/_8%] hover:text-[oklch(0.85_0.04_270)]",
+    "hover:border-[var(--brand-linkedin)]/40 hover:bg-[var(--brand-linkedin)]/8 hover:text-[var(--brand-linkedin)]",
+  x: "hover:border-[var(--brand-twitter)]/40 hover:bg-[var(--brand-twitter)]/8 hover:text-[var(--brand-twitter)]",
   email:
-    "hover:border-[oklch(0.72_0.08_25)_/_40%] hover:bg-[oklch(0.72_0.08_25)_/_8%] hover:text-[oklch(0.72_0.08_25)]",
+    "hover:border-[var(--brand-email)]/40 hover:bg-[var(--brand-email)]/8 hover:text-[var(--brand-email)]",
 };
 
 export const BlueprintContactSection = memo(function BlueprintContactSection({

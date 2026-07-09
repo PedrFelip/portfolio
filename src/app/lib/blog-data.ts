@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
 import { cache } from "react";
+import { slugify } from "@/lib/slugify";
 import type { BlogMetadata, BlogPost, Heading } from "@/types/portfolio";
 
 const BLOG_DIR = path.join(process.cwd(), "src/app/content/blog");
@@ -115,22 +116,6 @@ export function getPostDateISO(isoDate: string): string {
 
   if (!y || !m || !d) return isoDate;
   return `${y}-${m}-${d}`;
-}
-
-/**
- * Slugify text for anchor IDs
- * Handles Portuguese characters (accents, ç)
- */
-// TODO(refactor)[P4]: untested Portuguese-aware slugify
-function slugify(text: string): string {
-  return text
-    .toLowerCase()
-    .normalize("NFD") // Decompose accents
-    .replace(/[\u0300-\u036f]/g, "") // Remove diacritics
-    .replace(/[^\w\s-]/g, "") // Remove special chars
-    .replace(/\s+/g, "-") // Spaces to hyphens
-    .replace(/-+/g, "-") // Multiple hyphens to single
-    .trim();
 }
 
 /**

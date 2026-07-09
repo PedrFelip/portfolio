@@ -1,8 +1,8 @@
 "use client";
 
-import type { ReactNode } from "react";
+import { type ReactNode, useEffect } from "react";
 import type { Language } from "@/lib/i18n";
-import { useLanguageSync } from "@/lib/language-store";
+import { useLanguage, useLanguageSync } from "@/lib/language-store";
 
 export function LanguageSync({
   children,
@@ -12,5 +12,11 @@ export function LanguageSync({
   initialLanguage?: Language;
 }) {
   useLanguageSync(initialLanguage);
+  const { language } = useLanguage();
+
+  useEffect(() => {
+    document.documentElement.lang = language;
+  }, [language]);
+
   return <>{children}</>;
 }

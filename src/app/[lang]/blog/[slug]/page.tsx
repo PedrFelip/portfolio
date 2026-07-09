@@ -207,7 +207,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   // TODO(refactor)[P1]: static MDX components rebuilt every
   // render — hoist to module scope, only vary headingComponents
-  const headingComponents = createHeadingComponents(post.headings || []);
+  const headingComponents = createHeadingComponents();
   const MDX_COMPONENTS = {
     a: MDXLink,
     pre: PreComponent,

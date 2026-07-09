@@ -6,12 +6,15 @@ import { homeEn } from "./content/home.en";
 import { homePt } from "./content/home.pt";
 import { linksEn } from "./content/links.en";
 import { linksPt } from "./content/links.pt";
+import { metaEn } from "./content/meta.en";
+import { metaPt } from "./content/meta.pt";
 import { notFoundEn } from "./content/not-found.en";
 import { notFoundPt } from "./content/not-found.pt";
 import { projectsEn } from "./content/projects.en";
 import { projectsPt } from "./content/projects.pt";
 import { sharedEn } from "./content/shared.en";
 import { sharedPt } from "./content/shared.pt";
+import type { Dictionary } from "./content/types";
 
 export const SUPPORTED_LOCALES = ["en", "pt"] as const;
 
@@ -33,6 +36,7 @@ export const translations = {
     ...linksEn,
     ...notFoundEn,
     ...projectsEn,
+    ...metaEn,
   },
   pt: {
     ...sharedPt,
@@ -42,7 +46,16 @@ export const translations = {
     ...linksPt,
     ...notFoundPt,
     ...projectsPt,
+    ...metaPt,
   },
-};
+} satisfies Record<Language, Dictionary>;
 
-export type Translation = (typeof translations)[Language];
+export type Translation = Dictionary;
+
+export function getTranslations(lang: Language): Translation {
+  return translations[lang];
+}
+
+export function langStaticParams(): { lang: Language }[] {
+  return SUPPORTED_LOCALES.map((lang) => ({ lang }));
+}

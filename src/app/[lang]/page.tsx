@@ -7,9 +7,12 @@ import { HeroGrid } from "@/components/home/HeroGrid";
 import { HomeCtaSection } from "@/components/home/HomeCtaSection";
 import { HomeFeaturesSection } from "@/components/home/HomeFeaturesSection";
 import { LatestPostSection } from "@/components/home/LatestPostSection";
-import { homeEn } from "@/lib/content/home.en";
-import { homePt } from "@/lib/content/home.pt";
-import { SUPPORTED_LOCALES } from "@/lib/i18n";
+import {
+  DEFAULT_LANGUAGE,
+  getTranslations,
+  isLanguage,
+  langStaticParams,
+} from "@/lib/i18n";
 
 const SimpleTechStack = dynamic(() =>
   import("@/components/home/SimpleTechStack").then(
@@ -27,20 +30,13 @@ interface HomePageProps {
   params: Promise<{ lang: string }>;
 }
 
-// TODO(refactor)[P1]: generateStaticParams duplicated across 5
-// page files — extract langStaticParams helper from lib/i18n.ts
 export function generateStaticParams() {
-  return SUPPORTED_LOCALES.map((lang) => ({ lang }));
+  return langStaticParams();
 }
-
-const homeContent = {
-  en: homeEn,
-  pt: homePt,
-};
 
 export default async function HomePage({ params }: HomePageProps) {
   const { lang } = await params;
-  const t = homeContent[lang as keyof typeof homeContent] || homeEn;
+  const t = getTranslations(isLanguage(lang) ? lang : DEFAULT_LANGUAGE);
 
   return (
     <>

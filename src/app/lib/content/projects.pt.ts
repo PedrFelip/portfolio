@@ -2,6 +2,8 @@
  * Projects content (Portuguese) - descriptions for all projects
  */
 
+import type { ProjectsSection } from "./types";
+
 export const projectsPt = {
   projects: {
     badge: "Projetos",
@@ -52,5 +54,6 @@ export const projectsPt = {
       description:
         "API REST simples para gerenciamento de notas construída com Node.js, Fastify e TypeScript. Recursos incluem operações CRUD, validação de dados com Zod, ORM Prisma para PostgreSQL e containerização Docker.",
     },
+    pageTitle: "Projetos",
   },
-};
+} satisfies { projects: ProjectsSection };

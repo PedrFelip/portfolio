@@ -3,6 +3,8 @@
  * Hero section, featured projects section labels
  */
 
+import type { HomeSection } from "./types";
+
 export const homeEn = {
   hero: {
     greeting: "Hi, I'm Pedro Felipe",
@@ -125,4 +127,4 @@ export const homeEn = {
     primary: "View Projects",
     secondary: "DM me on Twitter",
   },
-};
+} satisfies HomeSection;

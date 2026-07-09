@@ -5,9 +5,13 @@ import {
   SectionBadge,
   SectionLabel,
 } from "@/components/blueprint";
-import { projectsEn } from "@/lib/content/projects.en";
-import { projectsPt } from "@/lib/content/projects.pt";
-import { isLanguage, SUPPORTED_LOCALES } from "@/lib/i18n";
+import {
+  DEFAULT_LANGUAGE,
+  getTranslations,
+  isLanguage,
+  type Language,
+  langStaticParams,
+} from "@/lib/i18n";
 import { getProjects } from "@/lib/projects-data";
 
 const ProjectsClient = dynamic(() => import("./ProjectsClient"), {
@@ -18,43 +22,35 @@ const ProjectsClient = dynamic(() => import("./ProjectsClient"), {
   ),
 });
 
-const projectsContent = {
-  en: projectsEn,
-  pt: projectsPt,
-};
-
-type Lang = "en" | "pt";
+type Lang = Language;
 
 interface ProjectsPageProps {
   params: Promise<{ lang: Lang }>;
 }
 
-// TODO(refactor)[P1]: generateStaticParams duplicated
-// extract langStaticParams helper
 export function generateStaticParams() {
-  return SUPPORTED_LOCALES.map((lang) => ({ lang }));
+  return langStaticParams();
 }
 
 export async function generateMetadata({
   params,
 }: ProjectsPageProps): Promise<Metadata> {
   const { lang } = await params;
-  const validLang = (isLanguage(lang) ? lang : "en") as Lang;
-  const t = projectsContent[validLang].projects;
+  const validLang = isLanguage(lang) ? lang : DEFAULT_LANGUAGE;
+  const t = getTranslations(validLang).projects;
 
   return {
-    title: validLang === "pt" ? "Projetos" : "Projects",
+    title: t.pageTitle,
     description: t.description,
   };
 }
 
 export default async function ProjectsPage({ params }: ProjectsPageProps) {
   const { lang } = await params;
-  // TODO(refactor)[P1]: no fallback for invalid lang
-  // isLanguage() check or getContentForLang(lang) helper
-  const t = projectsContent[lang].projects;
+  const validLang = isLanguage(lang) ? lang : DEFAULT_LANGUAGE;
+  const t = getTranslations(validLang).projects;
 
-  const projects = getProjects(lang);
+  const projects = getProjects(validLang);
 
   return (
     <div className="mx-auto md:max-w-4xl px-4">

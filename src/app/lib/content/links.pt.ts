@@ -2,6 +2,8 @@
  * Links page content (Portuguese)
  */
 
+import type { LinksSection } from "./types";
+
 export const linksPt = {
   links: {
     heading: "Pedro Felipe",
@@ -10,4 +12,4 @@ export const linksPt = {
     availableForWork: "Disponível para trabalhar",
     portfolioDescription: "Ver meus projetos",
   },
-};
+} satisfies { links: LinksSection };

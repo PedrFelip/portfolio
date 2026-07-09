@@ -12,9 +12,12 @@ import {
   getEducation,
   getWorkExperience,
 } from "@/lib/about-data";
-import { aboutEn } from "@/lib/content/about.en";
-import { aboutPt } from "@/lib/content/about.pt";
-import { isLanguage, SUPPORTED_LOCALES } from "@/lib/i18n";
+import {
+  DEFAULT_LANGUAGE,
+  getTranslations,
+  isLanguage,
+  langStaticParams,
+} from "@/lib/i18n";
 import { parseBoldMarkdown } from "@/lib/markdown";
 
 const WorkExperienceBlueprint = dynamic(
@@ -57,40 +60,34 @@ interface AboutPageProps {
   params: Promise<{ lang: Lang }>;
 }
 
-const aboutContent = {
-  en: aboutEn,
-  pt: aboutPt,
-};
-
-// TODO(refactor)[P1]: generateStaticParams duplicated
-// extract langStaticParams helper
 export function generateStaticParams() {
-  return SUPPORTED_LOCALES.map((lang) => ({ lang }));
+  return langStaticParams();
 }
 
 export async function generateMetadata({
   params,
 }: AboutPageProps): Promise<Metadata> {
   const { lang } = await params;
-  const validLang = isLanguage(lang) ? lang : "en";
-  const t = aboutContent[validLang as keyof typeof aboutContent] || aboutEn;
+  const validLang = isLanguage(lang) ? lang : DEFAULT_LANGUAGE;
+  const t = getTranslations(validLang).about;
 
   return {
-    title: validLang === "pt" ? "Sobre" : "About",
-    description: t.about.intro,
+    title: t.pageTitle,
+    description: t.intro,
   };
 }
 
 export default async function AboutPage({ params }: AboutPageProps) {
   const { lang } = await params;
-  const t = aboutContent[lang] || aboutEn;
+  const validLang = isLanguage(lang) ? lang : DEFAULT_LANGUAGE;
+  const t = getTranslations(validLang);
 
   // TODO(refactor)[P1]: Promise.all wrapping 3 sync cache()
   // functions — drop await/Promise.all
   const [workExperience, education, contactLinks] = await Promise.all([
-    getWorkExperience(lang),
-    getEducation(lang),
-    getContactLinks(lang),
+    getWorkExperience(validLang),
+    getEducation(validLang),
+    getContactLinks(validLang),
   ]);
 
   return (

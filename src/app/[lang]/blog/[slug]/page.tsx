@@ -20,17 +20,15 @@ import {
 import { Badge } from "@/components/ui";
 import { ArrowLeft, Calendar, ChevronDown, Clock } from "@/components/ui/icons";
 import { getAllPostSlugs, getPostBySlug } from "@/lib/blog-data";
-import { blogEn } from "@/lib/content/blog.en";
-import { blogPt } from "@/lib/content/blog.pt";
-import { SUPPORTED_LOCALES } from "@/lib/i18n";
+import {
+  DEFAULT_LANGUAGE,
+  getTranslations,
+  isLanguage,
+  SUPPORTED_LOCALES,
+} from "@/lib/i18n";
 import { getSocialHandle } from "@/lib/links";
 import rehypeCodeMeta from "@/lib/mdx/rehype-code-meta";
 import remarkCodeMeta from "@/lib/mdx/remark-code-meta";
-
-const blogContent = {
-  en: blogEn,
-  pt: blogPt,
-};
 
 const ShareButtons = dynamic(
   () =>
@@ -144,22 +142,11 @@ export async function generateMetadata({
     process.env.NEXT_PUBLIC_SITE_URL || "https://portfolio.vercel.app";
   const postUrl = `${baseUrl}/${lang}/blog/${slug}`;
 
-  const config = {
-    en: {
-      title: post.title,
-      description: post.excerpt,
-      siteName: "Pedro Felipe Portfolio",
-    },
-    pt: {
-      title: post.title,
-      description: post.excerpt,
-      siteName: "Portfólio Pedro Felipe",
-    },
-  };
+  const t = getTranslations(isLanguage(lang) ? lang : DEFAULT_LANGUAGE).blog;
 
   return {
-    title: config[lang].title,
-    description: config[lang].description,
+    title: post.title,
+    description: post.excerpt,
     alternates: {
       canonical: postUrl,
       languages: {
@@ -173,15 +160,15 @@ export async function generateMetadata({
       alternateLocale: lang === "pt" ? "en_US" : "pt_BR",
       url: postUrl,
       title: `${post.title} | Pedro Felipe`,
-      description: config[lang].description,
-      siteName: config[lang].siteName,
+      description: post.excerpt,
+      siteName: t.siteName,
       publishedTime: post.date,
       authors: ["Pedro Felipe"],
     },
     twitter: {
       card: "summary",
       title: `${post.title} | Pedro Felipe`,
-      description: config[lang].description,
+      description: post.excerpt,
       creator: getSocialHandle("x"),
     },
   };
@@ -196,10 +183,9 @@ export async function generateStaticParams() {
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { slug, lang } = await params;
-  // TODO(refactor)[P1]: no fallback for invalid lang
-  // isLanguage() check
+  const validLang = isLanguage(lang) ? lang : DEFAULT_LANGUAGE;
   const post = getPostBySlug(slug);
-  const t = blogContent[lang].blog;
+  const t = getTranslations(validLang).blog;
 
   if (!post) {
     notFound();
@@ -327,8 +313,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             <footer className="mt-20 pt-12 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-8 animate-in-up animate-delay-400">
               <div className="flex flex-col items-center sm:items-start gap-3">
                 <p className="text-sm text-muted-foreground font-mono">
-                  {/* TODO(refactor)[P1]: hardcoded "Thanks for reading" strings */}
-                  {lang === "pt" ? "Obrigado por ler!" : "Thanks for reading!"}
+                  {t.thanksForReading}
                 </p>
                 <Link
                   href={`/${lang}/blog`}

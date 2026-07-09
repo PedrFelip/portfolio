@@ -2,6 +2,8 @@
  * Projects content (English) - descriptions for all projects
  */
 
+import type { ProjectsSection } from "./types";
+
 export const projectsEn = {
   projects: {
     badge: "Projects",
@@ -52,5 +54,6 @@ export const projectsEn = {
       description:
         "Simple REST API for note management built with Node.js, Fastify, and TypeScript. Features include CRUD operations, data validation with Zod, Prisma ORM for PostgreSQL, and Docker containerization.",
     },
+    pageTitle: "Projects",
   },
-};
+} satisfies { projects: ProjectsSection };

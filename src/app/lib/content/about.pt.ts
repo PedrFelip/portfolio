@@ -3,6 +3,8 @@
  * About intro, work experience, education, contact sections
  */
 
+import type { AboutSection } from "./types";
+
 export const aboutPt = {
   about: {
     badge: "Sobre",
@@ -11,6 +13,7 @@ export const aboutPt = {
       "Sou um engenheiro backend apaixonado por projetar sistemas robustos e escaláveis.",
     description:
       "Sou um desenvolvedor backend apaixonado por **system design**, **infraestrutura de cloud** e **automação**. Construo APIs escaláveis, implemento Infraestrutura como Código e projeto sistemas confiáveis e mantíveis que suportam o crescimento. Minha stack principal inclui **Node.js**, **TypeScript**, **NestJS**, **PostgreSQL**, **Docker** e **Linux**. Também sou um usuário de Linux de longa data, sempre experimentando setups e otimizando ambientes para tornar o desenvolvimento mais rápido e limpo. Acredito em aprendizado prático, melhorando continuamente minhas habilidades através de projetos e desafios do mundo real.",
+    pageTitle: "Sobre",
   },
 
   work: {
@@ -35,4 +38,4 @@ export const aboutPt = {
     badge: "Habilidades",
     title: "Habilidades Técnicas Principais",
   },
-};
+} satisfies AboutSection;

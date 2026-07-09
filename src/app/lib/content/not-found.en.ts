@@ -2,6 +2,8 @@
  * Not Found page content (English)
  */
 
+import type { NotFoundSection } from "./types";
+
 export const notFoundEn = {
   notFound: {
     title: "Page Not Found",
@@ -11,4 +13,4 @@ export const notFoundEn = {
     errorCode: "Error 404",
     quickNav: "Quick Navigation",
   },
-};
+} satisfies { notFound: NotFoundSection };

@@ -3,6 +3,8 @@
  * Hero section, featured projects section labels
  */
 
+import type { HomeSection } from "./types";
+
 export const homePt = {
   hero: {
     greeting: "Olá, Sou Pedro Felipe",
@@ -127,18 +129,4 @@ export const homePt = {
     primary: "Ver Projetos",
     secondary: "Entre em Contato",
   },
-
-  // TODO(refactor)[P0]: skills key duplicated in about.pt.ts
-  skills: {
-    badge: "Habilidades",
-    title: "Habilidades Técnicas Principais",
-    // TODO(refactor)[P1]: unused translation key
-    backend: "Backend",
-    // TODO(refactor)[P1]: unused translation key
-    databases: "Bancos de Dados",
-    // TODO(refactor)[P1]: unused translation key
-    devops: "DevOps & Infraestrutura",
-    // TODO(refactor)[P1]: unused translation key
-    tools: "Ferramentas & Práticas",
-  },
-};
+} satisfies HomeSection;

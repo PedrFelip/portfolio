@@ -3,6 +3,8 @@
  * Hero section, featured projects section labels
  */
 
+import type { HomeSection } from "./types";
+
 export const homeEn = {
   hero: {
     greeting: "Hi, I'm Pedro Felipe",
@@ -125,18 +127,4 @@ export const homeEn = {
     primary: "View Projects",
     secondary: "DM me on Twitter",
   },
-
-  // TODO(refactor)[P0]: skills key duplicated in about.en.ts
-  skills: {
-    badge: "Skills",
-    title: "Core Technical Skills",
-    // TODO(refactor)[P1]: unused translation key
-    backend: "Backend",
-    // TODO(refactor)[P1]: unused translation key
-    databases: "Databases",
-    // TODO(refactor)[P1]: unused translation key
-    devops: "DevOps & Infrastructure",
-    // TODO(refactor)[P1]: unused translation key
-    tools: "Tools & Practices",
-  },
-};
+} satisfies HomeSection;

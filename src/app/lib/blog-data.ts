@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
 import { cache } from "react";
+import { slugify } from "@/lib/slugify";
 import type { BlogMetadata, BlogPost, Heading } from "@/types/portfolio";
 
 const BLOG_DIR = path.join(process.cwd(), "src/app/content/blog");
@@ -118,22 +119,6 @@ export function getPostDateISO(isoDate: string): string {
 }
 
 /**
- * Slugify text for anchor IDs
- * Handles Portuguese characters (accents, ç)
- */
-// TODO(refactor)[P4]: untested Portuguese-aware slugify
-function slugify(text: string): string {
-  return text
-    .toLowerCase()
-    .normalize("NFD") // Decompose accents
-    .replace(/[\u0300-\u036f]/g, "") // Remove diacritics
-    .replace(/[^\w\s-]/g, "") // Remove special chars
-    .replace(/\s+/g, "-") // Spaces to hyphens
-    .replace(/-+/g, "-") // Multiple hyphens to single
-    .trim();
-}
-
-/**
  * Extract headings from markdown content
  * Returns array of heading objects with level, text, and id
  * Improved regex to handle H2 (##) and H3 (###) across multiline content
@@ -211,11 +196,11 @@ export const getPostBySlug = cache((slug: string): BlogPost | null => {
 
     const headings = extractHeadings(content);
 
-    // TODO(refactor)[P0]: readingTime missing from return
     return {
       slug,
       title: data.title || "Untitled",
       date: normalizeFrontmatterDate(data.date),
+      readingTime: calculateReadingTime(content),
       // TODO(refactor)[P0]: excerpt always empty
       excerpt: data.excerpt || "",
       // TODO(refactor)[P1]: unsafe as string[] cast on frontmatter tags
@@ -247,8 +232,7 @@ export const getAllPosts = cache((): BlogMetadata[] => {
       date: post.date,
       excerpt: post.excerpt,
       tags: post.tags,
-      // TODO(refactor)[P0]: readingTime computed here but not in getPostBySlug
-      readingTime: calculateReadingTime(post.content),
+      readingTime: post.readingTime,
     });
     return acc;
   }, []);

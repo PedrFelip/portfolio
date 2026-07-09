@@ -19,6 +19,8 @@ export function useScrambleText({
   pauseDuration = 400,
 }: UseScrambleTextOptions) {
   const [display, setDisplay] = useState(text);
+  const displayRef = useRef(display);
+  displayRef.current = display;
   const [currentTarget, setCurrentTarget] = useState(text);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -74,7 +76,7 @@ export function useScrambleText({
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
     if (intervalRef.current) clearInterval(intervalRef.current);
 
-    const current = display;
+    const current = displayRef.current;
     phaseRef.current = 0;
 
     const runNext = (from: string, index: number) => {
@@ -89,20 +91,15 @@ export function useScrambleText({
     };
 
     runNext(current, 0);
-    // TODO(refactor)[P0]: display in handleMouseEnter deps
-    // callback recreated ~33x/sec during scramble, use
-    // displayRef instead
-  }, [scrambleTo, display, targets, scrambleDuration, pauseDuration]);
+  }, [scrambleTo, targets, scrambleDuration, pauseDuration]);
 
   const handleMouseLeave = useCallback(() => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
     if (intervalRef.current) clearInterval(intervalRef.current);
     phaseRef.current = 0;
     setCurrentTarget(originalRef.current);
-    scrambleTo(display, originalRef.current, scrambleDuration);
-    // TODO(refactor)[P0]: display in handleMouseLeave deps
-    // same derived-state anti-pattern, read from ref
-  }, [scrambleTo, display, scrambleDuration]);
+    scrambleTo(displayRef.current, originalRef.current, scrambleDuration);
+  }, [scrambleTo, scrambleDuration]);
 
   useEffect(() => {
     return () => {

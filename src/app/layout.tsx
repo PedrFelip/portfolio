@@ -95,9 +95,6 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    // TODO(refactor)[P0]: lang="en" hardcoded
-    // routes get wrong lang attribute (SEO+a11y), add client
-    // component to set document.documentElement.lang
     <html lang="en" suppressHydrationWarning>
       <body
         className={`${ibmPlexSans.variable} ${ibmPlexMono.variable} font-sans antialiased flex flex-col min-h-screen`}

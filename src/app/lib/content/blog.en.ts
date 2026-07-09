@@ -2,6 +2,8 @@
  * Blog page content (English)
  */
 
+import type { BlogSection } from "./types";
+
 export const blogEn = {
   blog: {
     badge: "Blog",
@@ -27,5 +29,7 @@ export const blogEn = {
     codeCopied: "Copied!",
     failedToCopy: "Failed to copy",
     publishedCount: "Published articles",
+    siteName: "Pedro Felipe Portfolio",
+    thanksForReading: "Thanks for reading!",
   },
-};
+} satisfies { blog: BlogSection };

@@ -1,15 +1,29 @@
 "use client";
 
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { create } from "zustand";
 import {
   DEFAULT_LANGUAGE,
   isLanguage,
   LANGUAGE_COOKIE,
   type Language,
+  type Translation,
   translations,
 } from "@/lib/i18n";
+
+function setLanguageCookie(lang: Language): void {
+  // biome-ignore lint/suspicious/noDocumentCookie: Cookie Store API has limited browser support
+  document.cookie = `${LANGUAGE_COOKIE}=${lang}; path=/; max-age=31536000; SameSite=Lax`;
+}
+
+function getLanguageCookie(): Language | undefined {
+  const value = document.cookie
+    .split("; ")
+    .find((row) => row.startsWith(`${LANGUAGE_COOKIE}=`))
+    ?.split("=")[1];
+  return isLanguage(value) ? value : undefined;
+}
 
 interface LanguageState {
   language: Language;
@@ -23,9 +37,7 @@ const useLanguageStore = create<LanguageState>((set, get) => ({
   _router: null,
   setLanguage: (lang: Language) => {
     set({ language: lang });
-    // TODO(refactor)[P1]: duplicated cookie-write string
-    // biome-ignore lint/suspicious/noDocumentCookie: Cookie Store API has limited browser support
-    document.cookie = `${LANGUAGE_COOKIE}=${lang}; path=/; max-age=31536000; SameSite=Lax`;
+    setLanguageCookie(lang);
 
     const { _router } = get();
     if (!_router) return;
@@ -45,66 +57,44 @@ const useLanguageStore = create<LanguageState>((set, get) => ({
   },
 }));
 
-// TODO(refactor)[P2]: hook does 5 things (register router, seed, sync URL, sync cookie, fallback)
 export function useLanguageSync(initialLanguage?: Language) {
   const router = useRouter();
   const pathname = usePathname();
-  const [synced, setSynced] = useState(false);
 
   useEffect(() => {
     useLanguageStore.setState({ _router: router });
   }, [router]);
 
   useEffect(() => {
-    // TODO(refactor)[P0]: synced flag short-circuits permanently
-    if (synced) return;
-
     const currentStoreLang = useLanguageStore.getState().language;
-
-    if (initialLanguage && currentStoreLang !== initialLanguage) {
-      useLanguageStore.setState({ language: initialLanguage });
-      setSynced(true);
-      return;
-    }
-
     const pathParts = pathname.split("/").filter(Boolean);
-    // TODO(refactor)[P1]: unsafe as Language before type guard
-    const langFromUrl = pathParts[0] as Language;
+    const langFromUrl = pathParts[0];
 
-    if (isLanguage(langFromUrl)) {
-      if (currentStoreLang !== langFromUrl) {
-        useLanguageStore.setState({ language: langFromUrl });
-        // TODO(refactor)[P1]: duplicated cookie-write string (see L26)
-        // biome-ignore lint/suspicious/noDocumentCookie: Cookie Store API has limited browser support
-        document.cookie = `${LANGUAGE_COOKIE}=${langFromUrl}; path=/; max-age=31536000; SameSite=Lax`;
-      }
+    let nextLang: Language | undefined;
+    let persistToCookie = false;
+
+    if (initialLanguage) {
+      nextLang = initialLanguage;
+    } else if (isLanguage(langFromUrl)) {
+      nextLang = langFromUrl;
+      persistToCookie = true;
     } else {
-      // TODO(refactor)[P1]: hand-rolled cookie parsing
-      const cookieLang = document.cookie
-        .split("; ")
-        .find((row) => row.startsWith(`${LANGUAGE_COOKIE}=`))
-        ?.split("=")[1];
-
-      if (isLanguage(cookieLang)) {
-        if (currentStoreLang !== cookieLang) {
-          useLanguageStore.setState({ language: cookieLang });
-        }
-      } else {
-        const browserLang = navigator.language.startsWith("pt") ? "pt" : "en";
-        if (currentStoreLang !== browserLang) {
-          useLanguageStore.setState({ language: browserLang });
-        }
-      }
+      nextLang =
+        getLanguageCookie() ??
+        (navigator.language.startsWith("pt") ? "pt" : "en");
     }
 
-    setSynced(true);
-  }, [synced, initialLanguage, pathname]);
+    if (nextLang && currentStoreLang !== nextLang) {
+      useLanguageStore.setState({ language: nextLang });
+      if (persistToCookie) setLanguageCookie(nextLang);
+    }
+  }, [initialLanguage, pathname]);
 }
 
 export function useLanguage() {
   const language = useLanguageStore((s) => s.language);
   const setLanguage = useLanguageStore((s) => s.setLanguage);
-  const t = translations[language];
+  const t: Translation = translations[language];
 
   return { language, setLanguage, t } as const;
 }

@@ -136,8 +136,6 @@ export interface Heading {
  * @property content - Full MDX/Markdown content
  * @property headings - Array of headings extracted from content
  */
-// TODO(refactor)[P0]: BlogPost.readingTime inherited but never
-// populated by getPostBySlug — always undefined
 export interface BlogPost extends BlogMetadata {
   content: string;
   headings?: Heading[];

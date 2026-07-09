@@ -1,32 +1,45 @@
-import type { Heading } from "@/types/portfolio";
+import type { HTMLAttributes, ReactNode } from "react";
+import { isValidElement } from "react";
+import { slugify } from "@/lib/slugify";
 
-interface HeadingProps {
-  children: React.ReactNode;
+function nodeToString(node: ReactNode): string {
+  if (node == null || typeof node === "boolean") return "";
+  if (typeof node === "string" || typeof node === "number") return String(node);
+  if (Array.isArray(node)) return node.map(nodeToString).join("");
+  if (isValidElement(node)) {
+    return nodeToString((node.props as { children?: ReactNode }).children);
+  }
+  return "";
 }
 
-// TODO(refactor)[P0]: shared let index across h1/h2/h3 breaks if any H1 appears
-export function createHeadingComponents(headings: Heading[]) {
-  let index = 0;
+export function createHeadingComponents() {
+  // h2/h3 share a dedup map to match extractHeadings (H2/H3 only);
+  // h1 is isolated so a body H1 never desyncs the TOC anchors.
+  const primaryCounts = new Map<string, number>();
+  const h1Counts = new Map<string, number>();
 
-  const getNextId = (): string => {
-    if (index < headings.length) {
-      return headings[index++].id;
-    }
-    return `heading-${index++}`;
+  const makeId = (counts: Map<string, number>, text: string): string => {
+    const base = slugify(text);
+    const count = counts.get(base) || 0;
+    const id = count > 0 ? `${base}-${count}` : base;
+    counts.set(base, count + 1);
+    return id;
   };
 
+  const create =
+    (Tag: "h1" | "h2" | "h3") =>
+    ({ children, ...props }: HTMLAttributes<HTMLHeadingElement>) => {
+      const counts = Tag === "h1" ? h1Counts : primaryCounts;
+      return (
+        <Tag {...props} id={makeId(counts, nodeToString(children))}>
+          {children}
+        </Tag>
+      );
+    };
+
   return {
-    h1: ({ children }: HeadingProps) => {
-      const id = getNextId();
-      return <h1 id={id}>{children}</h1>;
-    },
-    h2: ({ children }: HeadingProps) => {
-      const id = getNextId();
-      return <h2 id={id}>{children}</h2>;
-    },
-    h3: ({ children }: HeadingProps) => {
-      const id = getNextId();
-      return <h3 id={id}>{children}</h3>;
-    },
+    h1: create("h1"),
+    h2: create("h2"),
+    h3: create("h3"),
   };
 }

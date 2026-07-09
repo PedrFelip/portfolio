@@ -20,17 +20,15 @@ import {
 import { Badge } from "@/components/ui";
 import { ArrowLeft, Calendar, ChevronDown, Clock } from "@/components/ui/icons";
 import { getAllPostSlugs, getPostBySlug } from "@/lib/blog-data";
-import { blogEn } from "@/lib/content/blog.en";
-import { blogPt } from "@/lib/content/blog.pt";
-import { SUPPORTED_LOCALES } from "@/lib/i18n";
+import {
+  DEFAULT_LANGUAGE,
+  getTranslations,
+  isLanguage,
+  SUPPORTED_LOCALES,
+} from "@/lib/i18n";
 import { getSocialHandle } from "@/lib/links";
 import rehypeCodeMeta from "@/lib/mdx/rehype-code-meta";
 import remarkCodeMeta from "@/lib/mdx/remark-code-meta";
-
-const blogContent = {
-  en: blogEn,
-  pt: blogPt,
-};
 
 const ShareButtons = dynamic(
   () =>
@@ -99,18 +97,29 @@ const TableCell = ({ children }: { children: React.ReactNode }) => (
   <MDXTableCell>{children}</MDXTableCell>
 );
 
-// TODO(refactor)[P0]: MDXLink opens all links in new tab
-// detect internal links (starts with "/" or "#") and render
-// plain <a>
+const isExternalLink = (href: string) =>
+  /^https?:\/\//i.test(href) ||
+  href.startsWith("mailto:") ||
+  href.startsWith("tel:");
+
 const MDXLink = ({
-  href,
+  href = "",
   children,
   ...props
-}: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
-  <a href={href} target="_blank" rel="noopener noreferrer" {...props}>
-    {children}
-  </a>
-);
+}: React.AnchorHTMLAttributes<HTMLAnchorElement>) => {
+  if (isExternalLink(href)) {
+    return (
+      <a href={href} target="_blank" rel="noopener noreferrer" {...props}>
+        {children}
+      </a>
+    );
+  }
+  return (
+    <Link href={href} {...props}>
+      {children}
+    </Link>
+  );
+};
 
 export const revalidate = 604800;
 // TODO(refactor)[P2]: dynamicParams=false blocks new posts
@@ -133,22 +142,11 @@ export async function generateMetadata({
     process.env.NEXT_PUBLIC_SITE_URL || "https://portfolio.vercel.app";
   const postUrl = `${baseUrl}/${lang}/blog/${slug}`;
 
-  const config = {
-    en: {
-      title: post.title,
-      description: post.excerpt,
-      siteName: "Pedro Felipe Portfolio",
-    },
-    pt: {
-      title: post.title,
-      description: post.excerpt,
-      siteName: "Portfólio Pedro Felipe",
-    },
-  };
+  const t = getTranslations(isLanguage(lang) ? lang : DEFAULT_LANGUAGE).blog;
 
   return {
-    title: config[lang].title,
-    description: config[lang].description,
+    title: post.title,
+    description: post.excerpt,
     alternates: {
       canonical: postUrl,
       languages: {
@@ -162,15 +160,15 @@ export async function generateMetadata({
       alternateLocale: lang === "pt" ? "en_US" : "pt_BR",
       url: postUrl,
       title: `${post.title} | Pedro Felipe`,
-      description: config[lang].description,
-      siteName: config[lang].siteName,
+      description: post.excerpt,
+      siteName: t.siteName,
       publishedTime: post.date,
       authors: ["Pedro Felipe"],
     },
     twitter: {
       card: "summary",
       title: `${post.title} | Pedro Felipe`,
-      description: config[lang].description,
+      description: post.excerpt,
       creator: getSocialHandle("x"),
     },
   };
@@ -185,10 +183,9 @@ export async function generateStaticParams() {
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { slug, lang } = await params;
-  // TODO(refactor)[P1]: no fallback for invalid lang
-  // isLanguage() check
+  const validLang = isLanguage(lang) ? lang : DEFAULT_LANGUAGE;
   const post = getPostBySlug(slug);
-  const t = blogContent[lang].blog;
+  const t = getTranslations(validLang).blog;
 
   if (!post) {
     notFound();
@@ -196,7 +193,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   // TODO(refactor)[P1]: static MDX components rebuilt every
   // render — hoist to module scope, only vary headingComponents
-  const headingComponents = createHeadingComponents(post.headings || []);
+  const headingComponents = createHeadingComponents();
   const MDX_COMPONENTS = {
     a: MDXLink,
     pre: PreComponent,
@@ -239,7 +236,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               <time dateTime={post.date}>{formattedDate}</time>
             </span>
 
-            {/* TODO(refactor)[P0]: post.readingTime always undefined */}
             {post.readingTime && (
               <>
                 <span className="text-accent/40" aria-hidden="true">
@@ -317,8 +313,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             <footer className="mt-20 pt-12 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-8 animate-in-up animate-delay-400">
               <div className="flex flex-col items-center sm:items-start gap-3">
                 <p className="text-sm text-muted-foreground font-mono">
-                  {/* TODO(refactor)[P1]: hardcoded "Thanks for reading" strings */}
-                  {lang === "pt" ? "Obrigado por ler!" : "Thanks for reading!"}
+                  {t.thanksForReading}
                 </p>
                 <Link
                   href={`/${lang}/blog`}

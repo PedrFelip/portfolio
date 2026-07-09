@@ -3,6 +3,8 @@
  * Navigation, Footer, Common buttons and labels
  */
 
+import type { SharedSection } from "./types";
+
 export const sharedEn = {
   nav: {
     home: "Home",
@@ -42,4 +44,4 @@ export const sharedEn = {
     name: "Pedro Felipe",
     subtitle: "Backend Engineer & System Architect",
   },
-};
+} satisfies SharedSection;

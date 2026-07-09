@@ -6,14 +6,12 @@ import {
   SectionLabel,
 } from "@/components/blueprint";
 import { getAllPosts, getAllTags } from "@/lib/blog-data";
-import { blogEn } from "@/lib/content/blog.en";
-import { blogPt } from "@/lib/content/blog.pt";
-import { isLanguage, SUPPORTED_LOCALES } from "@/lib/i18n";
-
-const blogContent = {
-  en: blogEn,
-  pt: blogPt,
-};
+import {
+  DEFAULT_LANGUAGE,
+  getTranslations,
+  isLanguage,
+  langStaticParams,
+} from "@/lib/i18n";
 
 const BlogListLazy = dynamic(() =>
   import("@/components/blog/BlogList").then((mod) => mod.BlogList),
@@ -27,18 +25,16 @@ interface BlogPageProps {
 
 export const revalidate = 86400;
 
-// TODO(refactor)[P1]: generateStaticParams duplicated
-// extract langStaticParams helper
 export function generateStaticParams() {
-  return SUPPORTED_LOCALES.map((lang) => ({ lang }));
+  return langStaticParams();
 }
 
 export async function generateMetadata({
   params,
 }: BlogPageProps): Promise<Metadata> {
   const { lang } = await params;
-  const validLang = (isLanguage(lang) ? lang : "en") as "en" | "pt";
-  const t = blogContent[validLang].blog;
+  const validLang = isLanguage(lang) ? lang : DEFAULT_LANGUAGE;
+  const t = getTranslations(validLang).blog;
 
   return {
     title: t.title,
@@ -48,9 +44,8 @@ export async function generateMetadata({
 
 export default async function BlogPage({ params }: BlogPageProps) {
   const { lang } = await params;
-  // TODO(refactor)[P1]: no fallback for invalid lang
-  // isLanguage() check
-  const t = blogContent[lang].blog;
+  const validLang = isLanguage(lang) ? lang : DEFAULT_LANGUAGE;
+  const t = getTranslations(validLang).blog;
   const allPosts = getAllPosts();
   const allTags = getAllTags();
   // TODO(refactor)[P1]: magic number 8

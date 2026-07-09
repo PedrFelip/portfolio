@@ -31,7 +31,6 @@ export const aboutPt = {
       "Interessado em colaborar em um projeto, discutir tecnologia ou apenas quer dizer oi? Estou sempre aberto a conectar com outros desenvolvedores e explorar novas oportunidades. Sinta-se à vontade para entrar em contato através de qualquer um dos meus canais sociais abaixo!",
   },
 
-  // TODO(refactor)[P0]: skills key duplicated in home.pt.ts
   skills: {
     badge: "Habilidades",
     title: "Habilidades Técnicas Principais",

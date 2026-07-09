@@ -24,7 +24,6 @@ export function isLanguage(lang: string | null | undefined): lang is Language {
   return (SUPPORTED_LOCALES as readonly string[]).includes(lang ?? "");
 }
 
-// TODO(refactor)[P0]: spread merge silently overwrites duplicate keys (skills in home+about)
 export const translations = {
   en: {
     ...sharedEn,
@@ -46,4 +45,4 @@ export const translations = {
   },
 };
 
-// TODO(refactor)[P2]: export type Translation = typeof translations.en for type-safe t.skills.title access
+export type Translation = (typeof translations)[Language];

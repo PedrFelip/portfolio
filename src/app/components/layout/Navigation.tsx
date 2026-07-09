@@ -73,7 +73,6 @@ const NavLinkItem = memo(function NavLinkItem({
         <span className="relative">
           {label}
           <span
-            // TODO(refactor)[P0]: duration-350 not in Tailwind v4
             className={`absolute -bottom-0.5 left-0 h-px bg-accent transition-all duration-350 ease-[cubic-bezier(0.25,1,0.5,1)] ${
               isActive
                 ? "w-full opacity-100"
@@ -85,7 +84,6 @@ const NavLinkItem = memo(function NavLinkItem({
       ) : (
         <span className="flex items-center gap-3">
           <span
-            // TODO(refactor)[P0]: duration-250 not in Tailwind v4
             className={`rounded-full transition-all duration-250 ease-[cubic-bezier(0.25,1,0.5,1)] ${
               isActive
                 ? "size-2 bg-accent scale-100"
@@ -276,7 +274,6 @@ export const Navigation = memo(() => {
                     variant="ghost"
                     onClick={openSearch}
                     aria-label="Search"
-                    // TODO(refactor)[P0]: duration-250 not in Tailwind v4
                     className="size-11 md:size-7 rounded-lg border border-overlay-border bg-surface-3 flex md:hidden items-center justify-center transition-all duration-250 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-overlay-border-hover hover:bg-surface-4 active:scale-[0.97] touch-manipulation"
                   >
                     <Search className="size-4" aria-hidden="true" />
@@ -290,7 +287,6 @@ export const Navigation = memo(() => {
                   aria-label={`Switch language to ${
                     language === "en" ? "Portuguese" : "English"
                   }`}
-                  // TODO(refactor)[P0]: duration-250 not in Tailwind v4
                   className="size-11 md:size-7 rounded-lg border border-overlay-border bg-surface-3 font-mono text-[10px] font-medium transition-all duration-250 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-overlay-border-hover hover:bg-surface-4 active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-50 touch-manipulation"
                 >
                   {language === "en" ? "EN" : "PT"}
@@ -299,7 +295,6 @@ export const Navigation = memo(() => {
                 <Button
                   variant="ghost"
                   size="icon"
-                  // TODO(refactor)[P0]: duration-250 not in Tailwind v4
                   className={`rounded-lg border transition-all duration-250 ease-[cubic-bezier(0.25,1,0.5,1)] active:scale-[0.97] md:hidden touch-manipulation ${
                     isMenuOpen
                       ? "border-foreground/20 bg-surface-4 text-foreground"
@@ -311,14 +306,12 @@ export const Navigation = memo(() => {
                 >
                   {isMenuOpen ? (
                     <X
-                      // TODO(refactor)[P0]: duration-250 not in Tailwind v4
                       className="size-5 text-foreground transition-transform duration-250 ease-[cubic-bezier(0.25,1,0.5,1)]"
                       strokeWidth={2}
                       aria-hidden="true"
                     />
                   ) : (
                     <Menu
-                      // TODO(refactor)[P0]: duration-250 not in Tailwind v4
                       className="size-5 text-foreground transition-transform duration-250 ease-[cubic-bezier(0.25,1,0.5,1)]"
                       strokeWidth={2}
                       aria-hidden="true"

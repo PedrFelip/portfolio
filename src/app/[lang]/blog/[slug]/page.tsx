@@ -239,7 +239,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               <time dateTime={post.date}>{formattedDate}</time>
             </span>
 
-            {/* TODO(refactor)[P0]: post.readingTime always undefined */}
             {post.readingTime && (
               <>
                 <span className="text-accent/40" aria-hidden="true">

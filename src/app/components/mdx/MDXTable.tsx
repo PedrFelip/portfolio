@@ -66,9 +66,9 @@ export const MDXTableCell = memo(function MDXTableCell({
   children,
   isHeader,
 }: TableCellProps) {
-  // TODO(refactor)[P0]: isHeader only changes style, still renders <td>
+  const Tag = isHeader ? "th" : "td";
   return (
-    <td
+    <Tag
       className={cn(
         "px-3 py-2.5 sm:px-4 sm:py-3",
         isHeader
@@ -77,6 +77,6 @@ export const MDXTableCell = memo(function MDXTableCell({
       )}
     >
       {children}
-    </td>
+    </Tag>
   );
 });

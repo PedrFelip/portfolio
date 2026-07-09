@@ -211,11 +211,11 @@ export const getPostBySlug = cache((slug: string): BlogPost | null => {
 
     const headings = extractHeadings(content);
 
-    // TODO(refactor)[P0]: readingTime missing from return
     return {
       slug,
       title: data.title || "Untitled",
       date: normalizeFrontmatterDate(data.date),
+      readingTime: calculateReadingTime(content),
       // TODO(refactor)[P0]: excerpt always empty
       excerpt: data.excerpt || "",
       // TODO(refactor)[P1]: unsafe as string[] cast on frontmatter tags
@@ -247,8 +247,7 @@ export const getAllPosts = cache((): BlogMetadata[] => {
       date: post.date,
       excerpt: post.excerpt,
       tags: post.tags,
-      // TODO(refactor)[P0]: readingTime computed here but not in getPostBySlug
-      readingTime: calculateReadingTime(post.content),
+      readingTime: post.readingTime,
     });
     return acc;
   }, []);

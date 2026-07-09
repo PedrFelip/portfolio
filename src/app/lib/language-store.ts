@@ -8,6 +8,7 @@ import {
   isLanguage,
   LANGUAGE_COOKIE,
   type Language,
+  type Translation,
   translations,
 } from "@/lib/i18n";
 
@@ -104,7 +105,7 @@ export function useLanguageSync(initialLanguage?: Language) {
 export function useLanguage() {
   const language = useLanguageStore((s) => s.language);
   const setLanguage = useLanguageStore((s) => s.setLanguage);
-  const t = translations[language];
+  const t: Translation = translations[language];
 
   return { language, setLanguage, t } as const;
 }

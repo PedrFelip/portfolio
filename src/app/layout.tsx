@@ -2,7 +2,6 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata, Viewport } from "next";
 import { IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google";
 
-import { FaviconSwitcher } from "@/components/FaviconSwitcher";
 import { MotionProvider } from "@/components/MotionProvider";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import "./globals.css";
@@ -61,7 +60,7 @@ export const metadata: Metadata = {
   title: metadataConfig.en.title,
   description: metadataConfig.en.description,
   icons: {
-    icon: "/favicon-light.svg",
+    icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
     apple: "/favicon-light.svg",
   },
   openGraph: {
@@ -100,11 +99,7 @@ export default function RootLayout({
         className={`${ibmPlexSans.variable} ${ibmPlexMono.variable} font-sans antialiased flex flex-col min-h-screen`}
       >
         <ThemeProvider>
-          <MotionProvider>
-            <FaviconSwitcher />
-
-            {children}
-          </MotionProvider>
+          <MotionProvider>{children}</MotionProvider>
         </ThemeProvider>
         <SpeedInsights />
       </body>

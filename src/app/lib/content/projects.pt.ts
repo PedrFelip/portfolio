@@ -54,6 +54,11 @@ export const projectsPt = {
       description:
         "API REST simples para gerenciamento de notas construída com Node.js, Fastify e TypeScript. Recursos incluem operações CRUD, validação de dados com Zod, ORM Prisma para PostgreSQL e containerização Docker.",
     },
+    engineRoom: {
+      title: "EngineRoom",
+      description:
+        "Aplicativo desktop para revisão de partidas de xadrez localmente com o motor Stockfish 18. Importe um PGN para obter classificação lance a lance, acurácia por lado, gráfico de avaliação, linhas candidatas e detecção de abertura ECO. Construído com Tauri 2, Rust e React.",
+    },
     pageTitle: "Projetos",
   },
 } satisfies { projects: ProjectsSection };

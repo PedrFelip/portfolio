@@ -31,6 +31,24 @@ export const getProjects = cache((language: Language): Project[] => {
       featured: true,
     },
     {
+      id: "engine-room",
+      title: t.engineRoom.title,
+      description: t.engineRoom.description,
+      technologies: [
+        "Tauri",
+        "Rust",
+        "React",
+        "TypeScript",
+        "SQLite",
+        "Tailwind CSS",
+      ],
+      links: {
+        github: "https://github.com/PedrFelip/EngineRoom",
+      },
+      active: true,
+      featured: true,
+    },
+    {
       id: "saude-pontual",
       title: t.saudePontual.title,
       description: t.saudePontual.description,

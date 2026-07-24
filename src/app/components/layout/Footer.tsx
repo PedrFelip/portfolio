@@ -109,18 +109,10 @@ export const Footer = memo(() => {
                 <Link
                   key={link.href}
                   href={getLocalizedLink(link.href)}
-                  className="
-                    group flex items-center gap-2 py-2.5 sm:py-1.5 text-sm text-muted-foreground
-                    transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)]
-                    hover:text-foreground
-                  "
+                  className="group flex items-center gap-2 py-2.5 sm:py-1.5 text-sm text-muted-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:text-foreground"
                 >
                   <span
-                    className="
-                      inline-block h-px bg-border/40
-                      transition-all duration-300 ease-[cubic-bezier(0.25,1,0.5,1)]
-                      w-3 group-hover:w-5 group-hover:bg-accent/40
-                    "
+                    className="inline-block h-px bg-border/40 transition-all duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] w-3 group-hover:w-5 group-hover:bg-accent/40"
                     aria-hidden="true"
                   />
                   {link.label}
@@ -145,13 +137,7 @@ export const Footer = memo(() => {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={link.label}
-                    className="
-                      size-11 sm:size-9 flex items-center justify-center rounded-lg border border-transparent
-                      text-muted-foreground/60 transition-all duration-200 ease-[cubic-bezier(0.25,1,0.5,1)]
-                      hover:text-accent hover:border-accent/20 hover:bg-accent/5
-                      active:scale-[0.9] active:bg-accent/10 touch-manipulation
-                      no-external-indicator icon-link-hover
-                    "
+                    className="size-11 sm:size-9 flex items-center justify-center rounded-lg border border-transparent text-muted-foreground/60 transition-all duration-200 ease-[cubic-bezier(0.25,1,0.5,1)] hover:text-accent hover:border-accent/20 hover:bg-accent/5 active:scale-[0.9] active:bg-accent/10 touch-manipulation icon-link-hover"
                   >
                     {link.icon}
                   </a>

@@ -64,7 +64,7 @@ export const ExternalLinkAnchor = memo(
         target="_blank"
         rel="noopener noreferrer"
         className={cn(
-          "group/link inline-flex items-center no-external-indicator",
+          "group/link inline-flex items-center",
           gapClasses[size],
           sizeClasses[size],
           weightClasses[weight],

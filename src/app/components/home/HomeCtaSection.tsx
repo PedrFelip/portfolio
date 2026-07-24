@@ -56,7 +56,7 @@ export function HomeCtaSection({
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`${secondary} — opens in new tab`}
-              className="no-external-indicator group/link"
+              className="group/link"
             >
               {secondary}
               <ExternalLink className="size-3.5 transition-transform duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover/link:translate-x-1 group-hover/link:scale-110" />

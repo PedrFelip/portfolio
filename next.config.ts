@@ -8,11 +8,6 @@ const nextConfig: NextConfig = {
   // module it then fails to resolve in dev (Cannot find module
   // 'next-mdx-remote-<hash>/rsc'). Transpiling it sidesteps that.
   transpilePackages: ["next-mdx-remote"],
-  images: {
-    // pbs.twimg.com serves tweet media + author avatars
-    // for react-tweet embeds rendered via next/image
-    remotePatterns: [{ protocol: "https", hostname: "pbs.twimg.com" }],
-  },
   experimental: {
     // TODO(refactor)[P1]: optimizePackageImports is stable in
     // Next 16 — promote out of experimental

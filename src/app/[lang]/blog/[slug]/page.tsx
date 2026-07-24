@@ -17,6 +17,7 @@ import {
   MDXTableHead,
   MDXTableRow,
 } from "@/components/mdx/MDXTable";
+import { Tweet } from "@/components/mdx/Tweet";
 import { Badge } from "@/components/ui";
 import { ArrowLeft, Calendar, ChevronDown, Clock } from "@/components/ui/icons";
 import { getAllPostSlugs, getPostBySlug } from "@/lib/blog-data";
@@ -28,6 +29,7 @@ import {
 } from "@/lib/i18n";
 import { getSocialHandle } from "@/lib/links";
 import rehypeCodeMeta from "@/lib/mdx/rehype-code-meta";
+import rehypeTweet from "@/lib/mdx/rehype-tweet";
 import remarkCodeMeta from "@/lib/mdx/remark-code-meta";
 
 const ShareButtons = dynamic(
@@ -200,6 +202,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     code: CodeComponent,
     Callout,
     Figure,
+    Tweet,
     table: MDXTable,
     thead: MDXTableHead,
     tbody: MDXTableBody,
@@ -301,6 +304,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                     remarkPlugins: [remarkCodeMeta],
                     rehypePlugins: [
                       rehypeCodeMeta,
+                      rehypeTweet,
                       [rehypeHighlight, { detect: true }],
                     ],
                   },

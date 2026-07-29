@@ -123,7 +123,6 @@ export default async function HomePage({ params }: HomePageProps) {
         {/* ─── CTA Panel ─── */}
         <HomeCtaSection
           lang={lang}
-          badge={t.cta.badge}
           title={t.cta.title}
           description={t.cta.description}
           primary={t.cta.primary}

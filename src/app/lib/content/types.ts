@@ -203,6 +203,7 @@ export interface ProjectsSection {
   planItCalendar: ProjectEntry;
   apiFinanceiro: ProjectEntry;
   notesApi: ProjectEntry;
+  engineRoom: ProjectEntry;
   pageTitle: string;
 }
 

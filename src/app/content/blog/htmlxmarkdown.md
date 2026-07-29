@@ -1,7 +1,7 @@
 ---
 title: HTML vs Markdown para agentes de IA
 description: Markdown resolve a maioria das coisas com agentes de IA, mas às vezes pedir HTML muda o jogo.
-date: '2026-06-14'
+date: "2026-06-14"
 categories:
   - AI
 published: true
@@ -23,7 +23,9 @@ Outra coisa: **consome menos tokens** que o HTML. E com LLMs, economizar tokens 
 
 ### Mas que história é essa de HTML?
 
-Há um tempo, li um artigo sobre o uso eficaz do HTML ([Using Claude Code: The Unreasonable Effectiveness of HTML](https://x.com/trq212/status/2052809885763747935?s=20)) e pensei: por que não testar?
+Há um tempo, li um artigo sobre o uso eficaz do HTML e pensei: por que não testar?
+
+https://x.com/trq212/status/2052809885763747935
 
 E não é difícil. Basta colocar no prompt algo como "faça um arquivo HTML" ou "crie um artefato HTML" que o modelo entende: deve **gerar HTML como resposta**.
 

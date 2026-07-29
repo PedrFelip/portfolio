@@ -54,6 +54,11 @@ export const projectsEn = {
       description:
         "Simple REST API for note management built with Node.js, Fastify, and TypeScript. Features include CRUD operations, data validation with Zod, Prisma ORM for PostgreSQL, and Docker containerization.",
     },
+    engineRoom: {
+      title: "EngineRoom",
+      description:
+        "Desktop application for reviewing chess games locally with the Stockfish 18 engine. Import a PGN to get move-by-move classification, per-side accuracy, an evaluation graph, candidate lines, and ECO opening detection. Built with Tauri 2, Rust, and React.",
+    },
     pageTitle: "Projects",
   },
 } satisfies { projects: ProjectsSection };

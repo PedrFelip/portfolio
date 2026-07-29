@@ -30,6 +30,7 @@
     "ogl": "^1.0.11",
     "react": "19.2.3",
     "react-dom": "19.2.3",
+    "react-tweet": "^3.3.1",
     "rehype-highlight": "^7.0.2",
     "simple-icons": "^16.23.0",
     "tailwind-merge": "^3.5.0",

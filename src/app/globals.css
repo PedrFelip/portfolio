@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import "react-tweet/theme.css";
 
 /* TODO(refactor)[P1]: ease-[cubic-bezier(0.25,1,0.5,1)] repeated 52x in components */
 @custom-variant dark (&:is(.dark *));
@@ -554,30 +555,6 @@ body {
 
   .prose a {
     @apply text-foreground underline underline-offset-4 decoration-muted-foreground/40 transition-colors hover:decoration-foreground;
-  }
-
-  /* External link indicator
-   * Adds a subtle ↗ arrow to inline links that open in a new tab.
-   * Components that already provide their own external icon should
-   * use .no-external-indicator to avoid duplication.
-   */
-  a[target="_blank"]:not([role="button"]):not(.no-external-indicator)::after {
-    content: "↗";
-    display: inline-block;
-    margin-left: 0.25em;
-    font-size: 0.8em;
-    line-height: 1;
-    color: var(--muted-foreground);
-    transition:
-      color 150ms cubic-bezier(0.25, 1, 0.5, 1),
-      transform 150ms cubic-bezier(0.25, 1, 0.5, 1);
-  }
-
-  a[target="_blank"]:not([role="button"]):not(
-      .no-external-indicator
-    ):hover::after {
-    color: var(--accent);
-    transform: translate(1px, -1px);
   }
 
   .prose strong {

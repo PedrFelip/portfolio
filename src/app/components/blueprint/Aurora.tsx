@@ -4,9 +4,9 @@ import { useReducedMotion } from "framer-motion";
 import { Color, Mesh, Program, Renderer, Triangle } from "ogl";
 import { useEffect, useRef, useState } from "react";
 
-// Accent-blue palette derived from --accent (oklch(0.66 0.1 220)).
-const DEFAULT_COLOR_STOPS = ["#08161c", "#3ba0bc", "#08161c"];
-const DEFAULT_GLOW = "#7fcbdf";
+// Blue palette (cursor glow matches the aurora).
+const DEFAULT_COLOR_STOPS = ["#0a1226", "#3b82f6", "#0a1226"];
+const DEFAULT_GLOW = "#3b82f6";
 
 const VERT = `#version 300 es
 in vec2 position;

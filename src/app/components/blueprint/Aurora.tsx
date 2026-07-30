@@ -5,8 +5,8 @@ import { Color, Mesh, Program, Renderer, Triangle } from "ogl";
 import { useEffect, useRef, useState } from "react";
 
 // Blueprint cyan (hue 220) — matches --accent on dark.
-const DEFAULT_COLOR_STOPS = ["#00050b", "#3ca0bc", "#00050b"];
-const DEFAULT_GLOW = "#00050b";
+const DEFAULT_COLOR_STOPS = ["#3ca0bc", "#00050b", "#3ca0bc"];
+const DEFAULT_GLOW = "#3ca0bc";
 
 const VERT = `#version 300 es
 in vec2 position;
@@ -152,9 +152,9 @@ interface AuroraProps {
 export function Aurora({
   colorStops = DEFAULT_COLOR_STOPS,
   glowColor = DEFAULT_GLOW,
-  amplitude = 1.0,
-  blend = 0.5,
-  speed = 1.0,
+  amplitude = 1.0, // default = 1.0
+  blend = 0.5, // default = 0.5
+  speed = 1.0, // default = 1.0
 }: AuroraProps) {
   const shouldReduce = useReducedMotion();
   const ctnDom = useRef<HTMLDivElement>(null);

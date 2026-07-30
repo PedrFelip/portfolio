@@ -4,9 +4,9 @@ import { useReducedMotion } from "framer-motion";
 import { Color, Mesh, Program, Renderer, Triangle } from "ogl";
 import { useEffect, useRef, useState } from "react";
 
-// Blue palette (cursor glow matches the aurora).
-const DEFAULT_COLOR_STOPS = ["#0a1226", "#3b82f6", "#0a1226"];
-const DEFAULT_GLOW = "#3b82f6";
+// Blueprint cyan (hue 220) — matches --accent on dark.
+const DEFAULT_COLOR_STOPS = ["#00050b", "#3ca0bc", "#00050b"];
+const DEFAULT_GLOW = "#00050b";
 
 const VERT = `#version 300 es
 in vec2 position;

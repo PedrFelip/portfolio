@@ -22,47 +22,46 @@ export function HomeCtaSection({
     <section className="my-6 sm:my-10">
       <div data-slot="cta" className="relative overflow-hidden rounded-[2rem]">
         <div aria-hidden className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-r from-background via-[#3b82f6]/55 to-background" />
+          <div className="absolute inset-0 bg-gradient-to-r from-background via-accent/55 to-background" />
           <Aurora />
           <NoiseOverlay />
           <div className="absolute inset-0 bg-background/30" />
         </div>
 
-        <Reveal
-          variant="up"
-          className="relative z-10 flex flex-col items-center px-6 py-12 text-center sm:px-10 sm:py-16"
-        >
-          <h2 className="text-2xl font-semibold tracking-tight sm:text-4xl">
-            {title}
-          </h2>
-          <p className="mt-3 max-w-md text-sm text-foreground/70 sm:text-base">
-            {description}
-          </p>
-          <div className="mt-8 w-full flex flex-col gap-2 sm:flex-row sm:justify-center sm:gap-3">
-            <Button
-              asChild
-              variant="primary"
-              size="md"
-              className="border-none px-4 sm:px-6"
-            >
-              <Link href={`/${lang}/projects`}>{primary}</Link>
-            </Button>
-            <Button
-              asChild
-              variant="outline"
-              size="md"
-              className="px-4 sm:px-6"
-            >
-              <Link
-                href={getSocialUrl("x")}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`${secondary} — opens in new tab`}
-                className="no-external-indicator"
+        <Reveal variant="up" className="relative z-10">
+          <div className="flex flex-col items-center px-6 py-12 text-center sm:px-10 sm:py-16">
+            <h2 className="text-2xl font-semibold tracking-tight sm:text-4xl">
+              {title}
+            </h2>
+            <p className="mt-3 max-w-md text-sm text-foreground/70 sm:text-base">
+              {description}
+            </p>
+            <div className="mt-8 w-full flex flex-col gap-2 sm:flex-row sm:justify-center sm:gap-3">
+              <Button
+                asChild
+                variant="primary"
+                size="md"
+                className="border-none px-4 sm:px-6"
               >
-                {secondary}
-              </Link>
-            </Button>
+                <Link href={`/${lang}/projects`}>{primary}</Link>
+              </Button>
+              <Button
+                asChild
+                variant="outline"
+                size="md"
+                className="px-4 sm:px-6"
+              >
+                <Link
+                  href={getSocialUrl("x")}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${secondary} — opens in new tab`}
+                  className="no-external-indicator"
+                >
+                  {secondary}
+                </Link>
+              </Button>
+            </div>
           </div>
         </Reveal>
       </div>

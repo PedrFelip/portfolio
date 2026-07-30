@@ -35,7 +35,7 @@ export function HomeCtaSection({
           <p className="mt-3 max-w-md text-sm text-foreground/70 sm:text-base">
             {description}
           </p>
-          <div className="mt-8 flex flex-col items-center justify-center gap-2 sm:flex-row sm:gap-3">
+          <div className="mt-8 w-full flex flex-col gap-2 sm:flex-row sm:justify-center sm:gap-3">
             <Button
               asChild
               variant="primary"

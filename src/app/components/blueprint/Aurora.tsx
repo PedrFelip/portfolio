@@ -1,6 +1,5 @@
 "use client";
 
-import { useReducedMotion } from "framer-motion";
 import { Color, Mesh, Program, Renderer, Triangle } from "ogl";
 import { useEffect, useRef, useState } from "react";
 
@@ -156,7 +155,6 @@ export function Aurora({
   blend = 0.5, // default = 0.5
   speed = 1.0, // default = 1.0
 }: AuroraProps) {
-  const shouldReduce = useReducedMotion();
   const ctnDom = useRef<HTMLDivElement>(null);
   const mouse = useRef({ x: 0, y: 0 });
   const [isVisible, setIsVisible] = useState(false);
@@ -187,7 +185,6 @@ export function Aurora({
   }, []);
 
   useEffect(() => {
-    if (shouldReduce) return;
     const ctn = ctnDom.current;
     if (!ctn || !isVisible) return;
 
@@ -276,7 +273,7 @@ export function Aurora({
       }
       gl.getExtension("WEBGL_lose_context")?.loseContext();
     };
-  }, [isVisible, shouldReduce, amplitude, blend]);
+  }, [isVisible, amplitude, blend]);
 
   return <div ref={ctnDom} className="absolute inset-0" aria-hidden />;
 }

@@ -200,6 +200,9 @@ export const getPostBySlug = cache((slug: string): BlogPost | null => {
       slug,
       title: data.title || "Untitled",
       date: normalizeFrontmatterDate(data.date),
+      modifiedDate: normalizeFrontmatterDate(
+        data.updated || data.modified || data.date,
+      ),
       readingTime: calculateReadingTime(content),
       excerpt: data.excerpt || data.description || "",
       // TODO(refactor)[P1]: unsafe as string[] cast on frontmatter tags
@@ -229,6 +232,7 @@ export const getAllPosts = cache((): BlogMetadata[] => {
       slug: post.slug,
       title: post.title,
       date: post.date,
+      modifiedDate: post.modifiedDate,
       excerpt: post.excerpt,
       tags: post.tags,
       readingTime: post.readingTime,

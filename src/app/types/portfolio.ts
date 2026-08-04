@@ -103,6 +103,7 @@ export interface BlogMetadata {
   slug: string;
   title: string;
   date: string;
+  modifiedDate: string;
   excerpt: string;
   tags: string[];
   readingTime?: number;

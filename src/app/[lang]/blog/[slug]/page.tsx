@@ -27,10 +27,15 @@ import {
   isLanguage,
   SUPPORTED_LOCALES,
 } from "@/lib/i18n";
-import { getSocialHandle } from "@/lib/links";
+import {
+  blogBreadcrumbSchema,
+  blogPostingSchema,
+  JsonLdScript,
+} from "@/lib/jsonld";
 import rehypeCodeMeta from "@/lib/mdx/rehype-code-meta";
 import rehypeTweet from "@/lib/mdx/rehype-tweet";
 import remarkCodeMeta from "@/lib/mdx/remark-code-meta";
+import { siteConfig } from "@/lib/site";
 
 const ShareButtons = dynamic(
   () =>
@@ -138,40 +143,42 @@ export async function generateMetadata({
     return {};
   }
 
-  // TODO(refactor)[P1]: postUrl construction duplicated in
-  // generateMetadata — extract getPostUrl helper
-  const baseUrl =
-    process.env.NEXT_PUBLIC_SITE_URL || "https://portfolio.vercel.app";
-  const postUrl = `${baseUrl}/${lang}/blog/${slug}`;
+  // Posts are monolingual (Portuguese). The canonical source of truth is
+  // always /pt/blog/<slug> so both /en/blog/<slug> and /pt/blog/<slug>
+  // consolidate to a single URL, avoiding duplicate-content signals.
+  const canonicalUrl = `${siteConfig.url}/pt/blog/${slug}`;
 
   const t = getTranslations(isLanguage(lang) ? lang : DEFAULT_LANGUAGE).blog;
 
   return {
     title: post.title,
     description: post.excerpt,
+    keywords: post.tags,
     alternates: {
-      canonical: postUrl,
+      canonical: canonicalUrl,
       languages: {
-        en: `${baseUrl}/en/blog/${slug}`,
-        pt: `${baseUrl}/pt/blog/${slug}`,
+        pt: canonicalUrl,
+        "x-default": canonicalUrl,
       },
     },
     openGraph: {
       type: "article",
-      locale: lang === "pt" ? "pt_BR" : "en_US",
-      alternateLocale: lang === "pt" ? "en_US" : "pt_BR",
-      url: postUrl,
-      title: `${post.title} | Pedro Felipe`,
+      locale: "pt_BR",
+      alternateLocale: ["en_US"],
+      url: canonicalUrl,
+      title: `${post.title} | ${siteConfig.name}`,
       description: post.excerpt,
       siteName: t.siteName,
       publishedTime: post.date,
-      authors: ["Pedro Felipe"],
+      modifiedTime: post.modifiedDate,
+      authors: [siteConfig.author.name],
+      tags: post.tags,
     },
     twitter: {
-      card: "summary",
-      title: `${post.title} | Pedro Felipe`,
+      card: "summary_large_image",
+      title: `${post.title} | ${siteConfig.name}`,
       description: post.excerpt,
-      creator: getSocialHandle("x"),
+      creator: siteConfig.social.xHandle,
     },
   };
 }
@@ -196,6 +203,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   // TODO(refactor)[P1]: static MDX components rebuilt every
   // render — hoist to module scope, only vary headingComponents
   const headingComponents = createHeadingComponents();
+
+  const wordCount = post.content.split(/\s+/).filter(Boolean).length;
   const MDX_COMPONENTS = {
     a: MDXLink,
     pre: PreComponent,
@@ -217,10 +226,25 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     { year: "numeric", month: "long", day: "numeric" },
   );
 
-  const postUrl = `${process.env.NEXT_PUBLIC_SITE_URL || ""}/${lang}/blog/${post.slug}`;
+  const postUrl = `${siteConfig.url}/pt/blog/${post.slug}`;
 
   return (
     <div className="animate-in-fade animate-duration-700 pb-24 md:pb-0">
+      <JsonLdScript
+        data={[
+          blogPostingSchema({
+            title: post.title,
+            description: post.excerpt,
+            slug: post.slug,
+            date: post.date,
+            modifiedDate: post.modifiedDate,
+            tags: post.tags,
+            wordCount,
+            readingTime: post.readingTime,
+          }),
+          blogBreadcrumbSchema({ slug: post.slug, title: post.title }),
+        ]}
+      />
       <ScrollToTop />
       <ZenFloatingControls />
 

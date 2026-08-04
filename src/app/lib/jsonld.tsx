@@ -131,9 +131,9 @@ interface JsonLdScriptProps {
 /** Render a JSON-LD <script> tag. */
 export function JsonLdScript({ data }: JsonLdScriptProps) {
   return (
-    // biome-ignore lint/security/noDangerouslySetInnerHtml: serializing static structured data, no user input
     <script
       type="application/ld+json"
+      // biome-ignore lint/security/noDangerouslySetInnerHtml: serializing static structured data, no user input
       dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
     />
   );

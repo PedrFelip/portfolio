@@ -201,8 +201,7 @@ export const getPostBySlug = cache((slug: string): BlogPost | null => {
       title: data.title || "Untitled",
       date: normalizeFrontmatterDate(data.date),
       readingTime: calculateReadingTime(content),
-      // TODO(refactor)[P0]: excerpt always empty
-      excerpt: data.excerpt || "",
+      excerpt: data.excerpt || data.description || "",
       // TODO(refactor)[P1]: unsafe as string[] cast on frontmatter tags
       tags: (data.tags || data.categories || []) as string[],
       content,

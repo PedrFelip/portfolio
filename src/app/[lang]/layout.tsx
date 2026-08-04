@@ -7,10 +7,25 @@ import {
   getTranslations,
   isLanguage,
   langStaticParams,
+  SUPPORTED_LOCALES,
 } from "@/lib/i18n";
+import { siteConfig } from "@/lib/site";
 
 export function generateStaticParams() {
   return langStaticParams();
+}
+
+/** Build hreflang alternates for a localized path under [lang]. */
+function localizedAlternates(currentLang: string, path = "") {
+  const languages: Record<string, string> = {};
+  for (const locale of SUPPORTED_LOCALES) {
+    languages[locale] = `${siteConfig.url}/${locale}${path}`;
+  }
+  languages["x-default"] = `${siteConfig.url}/${DEFAULT_LANGUAGE}${path}`;
+  return {
+    canonical: `${siteConfig.url}/${currentLang}${path}`,
+    languages,
+  };
 }
 
 export async function generateMetadata({
@@ -29,13 +44,23 @@ export async function generateMetadata({
     },
     description: t.description,
     keywords: t.keywords,
-    authors: [{ name: "Pedro Felipe" }],
+    authors: [{ name: siteConfig.author.name, url: siteConfig.url }],
+    creator: siteConfig.author.name,
     openGraph: {
       title: t.ogTitle,
       description: t.ogDescription,
       type: "website",
       locale: validLang === "pt" ? "pt_BR" : "en_US",
+      siteName: siteConfig.name,
+      url: `${siteConfig.url}/${validLang}`,
     },
+    twitter: {
+      card: "summary_large_image",
+      title: t.ogTitle,
+      description: t.ogDescription,
+      creator: siteConfig.social.xHandle,
+    },
+    alternates: localizedAlternates(validLang),
   };
 }
 

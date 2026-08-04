@@ -4,6 +4,7 @@ import { IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google";
 
 import { MotionProvider } from "@/components/MotionProvider";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { siteConfig } from "@/lib/site";
 import "./globals.css";
 
 const ibmPlexSans = IBM_Plex_Sans({
@@ -33,32 +34,25 @@ export const viewport: Viewport = {
   userScalable: true,
 };
 
-// TODO(refactor)[P2]: metadata config duplicated with
-// [lang]/layout.tsx — centralize in lib/metadata.ts
-const metadataConfig = {
-  en: {
-    title: "Pedro Felipe - Backend Engineer & System Architect",
-    description:
-      "Backend developer passionate about system design, cloud infrastructure, and automation. Building scalable, maintainable systems with Node.js, TypeScript, Go, PostgreSQL, Docker, and Linux.",
-    ogDescription:
-      "Backend developer passionate about system design, cloud infrastructure, and automation. Building scalable, maintainable systems.",
-    twitterDescription:
-      "Backend developer passionate about system design, cloud infrastructure, and automation.",
-  },
-  pt: {
-    title: "Pedro Felipe - Engenheiro Backend & Arquiteto de Sistemas",
-    description:
-      "Desenvolvedor backend apaixonado por design de sistemas, infraestrutura em nuvem e automação. Construindo sistemas escaláveis e mantíveis com Node.js, TypeScript, Go, PostgreSQL, Docker e Linux.",
-    ogDescription:
-      "Desenvolvedor backend apaixonado por design de sistemas, infraestrutura em nuvem e automação. Construindo sistemas escaláveis e mantíveis.",
-    twitterDescription:
-      "Desenvolvedor backend apaixonado por design de sistemas, infraestrutura em nuvem e automação.",
-  },
-};
-
 export const metadata: Metadata = {
-  title: metadataConfig.en.title,
-  description: metadataConfig.en.description,
+  metadataBase: new URL(siteConfig.url),
+  title: siteConfig.title,
+  description: siteConfig.description,
+  applicationName: siteConfig.name,
+  authors: [{ name: siteConfig.author.name, url: siteConfig.url }],
+  creator: siteConfig.author.name,
+  keywords: [
+    "Backend Developer",
+    "System Architect",
+    "Node.js",
+    "TypeScript",
+    "Go",
+    "PostgreSQL",
+    "Docker",
+    "Linux",
+    "DevOps",
+    "Cloud Infrastructure",
+  ],
   icons: {
     icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
     apple: "/favicon-light.svg",
@@ -67,23 +61,34 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     alternateLocale: ["pt_BR"],
-    // TODO(refactor)[P1]: hardcoded portfolio.vercel.app URL
-    // read from NEXT_PUBLIC_SITE_URL env
-    url: "https://portfolio.vercel.app",
-    siteName: "Pedro Felipe",
-    title: metadataConfig.en.title,
-    description: metadataConfig.en.ogDescription,
+    url: siteConfig.url,
+    siteName: siteConfig.name,
+    title: siteConfig.title,
+    description: siteConfig.description,
   },
   twitter: {
-    card: "summary",
-    title: metadataConfig.en.title,
-    description: metadataConfig.en.twitterDescription,
+    card: "summary_large_image",
+    title: siteConfig.title,
+    description: siteConfig.description,
+    creator: siteConfig.social.xHandle,
   },
   alternates: {
-    canonical: "https://portfolio.vercel.app/en",
+    canonical: `${siteConfig.url}/en`,
     languages: {
-      en: "https://portfolio.vercel.app/en",
-      pt: "https://portfolio.vercel.app/pt",
+      en: `${siteConfig.url}/en`,
+      pt: `${siteConfig.url}/pt`,
+      "x-default": `${siteConfig.url}/en`,
+    },
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
     },
   },
 };

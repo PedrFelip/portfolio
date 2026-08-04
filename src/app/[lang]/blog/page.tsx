@@ -11,7 +11,9 @@ import {
   getTranslations,
   isLanguage,
   langStaticParams,
+  SUPPORTED_LOCALES,
 } from "@/lib/i18n";
+import { siteConfig } from "@/lib/site";
 
 const BlogListLazy = dynamic(() =>
   import("@/components/blog/BlogList").then((mod) => mod.BlogList),
@@ -29,6 +31,18 @@ export function generateStaticParams() {
   return langStaticParams();
 }
 
+function blogAlternates(currentLang: string) {
+  const languages: Record<string, string> = {};
+  for (const locale of SUPPORTED_LOCALES) {
+    languages[locale] = `${siteConfig.url}/${locale}/blog`;
+  }
+  languages["x-default"] = `${siteConfig.url}/${DEFAULT_LANGUAGE}/blog`;
+  return {
+    canonical: `${siteConfig.url}/${currentLang}/blog`,
+    languages,
+  };
+}
+
 export async function generateMetadata({
   params,
 }: BlogPageProps): Promise<Metadata> {
@@ -39,6 +53,21 @@ export async function generateMetadata({
   return {
     title: t.title,
     description: t.subtitle,
+    openGraph: {
+      type: "website",
+      locale: validLang === "pt" ? "pt_BR" : "en_US",
+      url: `${siteConfig.url}/${validLang}/blog`,
+      siteName: siteConfig.name,
+      title: `${t.title} | ${siteConfig.name}`,
+      description: t.subtitle,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${t.title} | ${siteConfig.name}`,
+      description: t.subtitle,
+      creator: siteConfig.social.xHandle,
+    },
+    alternates: blogAlternates(validLang),
   };
 }
 

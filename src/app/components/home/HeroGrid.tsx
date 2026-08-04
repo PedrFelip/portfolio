@@ -14,6 +14,7 @@ const go = createIcon(siGo);
 /* ─── Hero Component ─── */
 
 interface HeroGridProps {
+  name: string;
   title: string;
   subtitle: string;
   description: string;
@@ -24,6 +25,7 @@ interface HeroGridProps {
 }
 
 export function HeroGrid({
+  name,
   title,
   subtitle,
   description,
@@ -156,6 +158,7 @@ export function HeroGrid({
           <div className="relative grid aspect-[1/1.618] grid-cols-[1.618fr_minmax(0,1fr)] grid-rows-[1.618fr_1fr]">
             <MainContent
               className="col-[1/span_2] row-1"
+              name={name}
               title={title}
               subtitle={subtitle}
               description={description}
@@ -267,6 +270,7 @@ export function HeroGrid({
           <div className="relative grid aspect-[1.618/1] grid-cols-[1.618fr_minmax(0,1fr)] grid-rows-[1fr_1.618fr]">
             <MainContent
               className="col-1 row-[1/span_2]"
+              name={name}
               title={title}
               subtitle={subtitle}
               description={description}
@@ -291,6 +295,7 @@ export function HeroGrid({
 
 interface MainContentProps {
   className?: string;
+  name: string;
   title: string;
   subtitle: string;
   description: string;
@@ -302,6 +307,7 @@ interface MainContentProps {
 
 function MainContent({
   className,
+  name,
   title,
   subtitle,
   description,
@@ -323,8 +329,15 @@ function MainContent({
       )}
     >
       <h1 className="mb-3 text-3xl leading-none font-semibold tracking-tight bg-gradient-to-b from-foreground via-foreground to-accent bg-clip-text text-transparent sm:mb-4 sm:text-4xl md:text-5xl lg:text-5xl">
-        <span className="block">{title}</span>
-        <span className="block">{subtitle}</span>
+        <span className="sr-only">
+          {name} — {title} {subtitle}
+        </span>
+        <span aria-hidden="true" className="block">
+          {title}
+        </span>
+        <span aria-hidden="true" className="block">
+          {subtitle}
+        </span>
       </h1>
 
       <p className="mb-5 text-sm leading-normal text-foreground/70 sm:mb-6 sm:text-base md:text-lg">

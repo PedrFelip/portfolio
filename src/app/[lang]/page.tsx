@@ -14,6 +14,7 @@ import {
   langStaticParams,
 } from "@/lib/i18n";
 import { JsonLdScript, personSchema, websiteSchema } from "@/lib/jsonld";
+import { siteConfig } from "@/lib/site";
 
 const SimpleTechStack = dynamic(() =>
   import("@/components/home/SimpleTechStack").then(
@@ -44,6 +45,7 @@ export default async function HomePage({ params }: HomePageProps) {
       <JsonLdScript data={[personSchema(), websiteSchema()]} />
       {/* ─── Hero Grid ─── */}
       <HeroGrid
+        name={siteConfig.author.name}
         title={t.hero.title}
         subtitle={t.hero.subtitle}
         description={t.hero.description}

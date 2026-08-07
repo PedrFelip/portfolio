@@ -38,7 +38,7 @@ export function SimpleTechStack({
             <div
               key={tech.name}
               // TODO(refactor)[P2]: grid border logic duplicated
-              className={`group px-4 py-8 sm:px-5 transition-all duration-300 hover:bg-surface-2 touch-manipulation
+              className={`group flex flex-col items-center px-4 py-8 text-center transition-all duration-300 hover:bg-surface-2 touch-manipulation
                 ${i % 4 !== 0 ? "lg:border-l lg:border-dashed lg:border-border" : ""}
                 ${i % 3 !== 0 ? "sm:max-lg:border-l sm:max-lg:border-dashed sm:max-lg:border-border" : ""}
                 ${i % 2 !== 0 ? "max-sm:border-l max-sm:border-dashed max-sm:border-border" : ""}

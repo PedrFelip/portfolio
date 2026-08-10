@@ -50,7 +50,7 @@ export function ZenFloatingControls() {
     <>
       {/* Top Reading Progress Bar */}
       <m.div
-        className="fixed top-0 left-0 right-0 h-1 bg-accent origin-left z-[60]"
+        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-foreground to-accent origin-left z-[60]"
         style={{ scaleX }}
         initial={{ opacity: 0 }}
         animate={{ opacity: isVisible ? 1 : 0 }}

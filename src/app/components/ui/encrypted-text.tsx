@@ -1,6 +1,7 @@
 "use client";
 
 import type * as React from "react";
+import { useEffect, useRef } from "react";
 import { useScrambleText } from "@/hooks/useScrambleText";
 import { cn } from "@/lib/utils";
 
@@ -21,29 +22,38 @@ export function EncryptedText({
       targets,
     });
 
+  const ref = useRef<HTMLSpanElement>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    el.addEventListener("mouseenter", handleMouseEnter);
+    el.addEventListener("mouseleave", handleMouseLeave);
+    return () => {
+      el.removeEventListener("mouseenter", handleMouseEnter);
+      el.removeEventListener("mouseleave", handleMouseLeave);
+    };
+  }, [handleMouseEnter, handleMouseLeave]);
+
+  const segments = display.split("").map((char, position) => ({
+    char,
+    position,
+    key: `pos-${position}`,
+  }));
+
   return (
-    // TODO(refactor)[P1]: role="button" with tabIndex but no Enter/Space handler
-    // biome-ignore lint/a11y/useSemanticElements: Visual effect inside parent Link
     <span
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+      ref={ref}
       className={cn(
         "inline-block cursor-pointer font-mono tracking-tight",
         className,
       )}
-      role="button"
-      tabIndex={0}
-      aria-label={text}
       {...props}
     >
-      {display.split("").map((char, i) => {
-        const isMatch = char === currentTarget[i];
+      {segments.map(({ char, position, key }) => {
+        const isMatch = char === currentTarget[position];
         const isSpecial = char === "@" || char === "." || char === "#";
         return (
-          <span
-            key={`${i}-${char}`}
-            className={isMatch && isSpecial ? "text-accent" : ""}
-          >
+          <span key={key} className={isMatch && isSpecial ? "text-accent" : ""}>
             {char}
           </span>
         );

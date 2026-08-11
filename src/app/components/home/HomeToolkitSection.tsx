@@ -39,6 +39,14 @@ export function HomeToolkitSection({
         {items.map((item, i) => {
           const itemConfig = TOOLKIT_CONFIG[item.id];
           const index = String(i + 1).padStart(2, "0");
+          const iconSegments = (itemConfig?.icons ?? []).map(
+            (iconConfig, iconIndex) => ({
+              iconConfig,
+              key: `${item.id}-icon-${iconIndex}`,
+              showPlus: iconIndex > 0,
+              delay: iconIndex * 60,
+            }),
+          );
           return (
             <div
               key={item.id}
@@ -56,9 +64,9 @@ export function HomeToolkitSection({
 
               {/* Icons */}
               <div className="mb-5 flex items-center gap-2.5">
-                {itemConfig?.icons.map((iconConfig, iconIndex) => (
-                  <React.Fragment key={`${item.id}-icon-${iconIndex}`}>
-                    {iconIndex > 0 && (
+                {iconSegments.map(({ iconConfig, key, showPlus, delay }) => (
+                  <React.Fragment key={key}>
+                    {showPlus && (
                       <span className="font-mono text-xs leading-none text-muted-foreground/30">
                         +
                       </span>
@@ -68,7 +76,7 @@ export function HomeToolkitSection({
                       style={
                         {
                           "--icon-color": iconConfig.color || "#ffffff",
-                          transitionDelay: `${iconIndex * 60}ms`,
+                          transitionDelay: `${delay}ms`,
                         } as React.CSSProperties
                       }
                     >

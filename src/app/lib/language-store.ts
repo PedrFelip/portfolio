@@ -1,5 +1,6 @@
 "use client";
 
+import Cookies from "js-cookie";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { create } from "zustand";
@@ -13,15 +14,15 @@ import {
 } from "@/lib/i18n";
 
 function setLanguageCookie(lang: Language): void {
-  // biome-ignore lint/suspicious/noDocumentCookie: Cookie Store API has limited browser support
-  document.cookie = `${LANGUAGE_COOKIE}=${lang}; path=/; max-age=31536000; SameSite=Lax`;
+  Cookies.set(LANGUAGE_COOKIE, lang, {
+    path: "/",
+    sameSite: "Lax",
+    expires: 365,
+  });
 }
 
 function getLanguageCookie(): Language | undefined {
-  const value = document.cookie
-    .split("; ")
-    .find((row) => row.startsWith(`${LANGUAGE_COOKIE}=`))
-    ?.split("=")[1];
+  const value = Cookies.get(LANGUAGE_COOKIE);
   return isLanguage(value) ? value : undefined;
 }
 

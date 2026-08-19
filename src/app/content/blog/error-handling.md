@@ -103,4 +103,14 @@ Exemplos:
 - Redis ou fila de mensagens indisponível
 - Disco cheio ao tentar salvar um arquivo
 
-## 
+Erros fazem parte do fluxo normal da aplicação.
+
+## Retornando Erros
+
+Como você já viu o classico retorno do tipo `error` com o `if err != nil`, O tipo `error` é um tipo de interface. Uma variável `error` representa qualquer valor que consegue descrever a si mesmo como uma string.
+
+```go
+type error interface {
+    Error() string
+}
+```

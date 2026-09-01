@@ -5,6 +5,7 @@
     "": {
       "name": "portfolio-v2",
       "dependencies": {
+        "@fontsource/ia-writer-quattro": "^5.3.0",
         "@radix-ui/react-slot": "^1.3.3",
         "@tailwindcss/typography": "^0.5.20",
         "@vercel/speed-insights": "^1.3.1",
@@ -80,6 +81,8 @@
     "@biomejs/cli-win32-x64": ["@biomejs/cli-win32-x64@2.5.7", "", { "os": "win32", "cpu": "x64" }, "sha512-V+0wu/nrj2S+MhP4EQ0uHNolP0IALEsz45pg0WoKkHfDeh0+ItHwP/p7bX5RPoMOl9NkpHYWdYPhIcy2mACHvQ=="],
 
     "@emnapi/runtime": ["@emnapi/runtime@1.11.3", "", { "dependencies": { "tslib": "^2.4.0" } }, "sha512-Xz4Tpyki7XyrpbUK1jR1AhdAdaXyhhY4lZ3neLodmhpuWfy2PAQN5B46sAiU4liOXGLkHypn/qU+jvfWSCYYLA=="],
+
+    "@fontsource/ia-writer-quattro": ["@fontsource/ia-writer-quattro@5.3.0", "", {}, "sha512-J249e+/1kBy9YzJ1JKRPDm0V3ELGwqSlxf3WlB7qNiExLA+kXGN+VwOhILNH21ZcezFVilvA9+ev2r/kZSyy/g=="],
 
     "@img/colour": ["@img/colour@1.1.0", "", {}, "sha512-Td76q7j57o/tLVdgS746cYARfSyxk8iEfRxewL9h4OMzYhbW4TAcppl0mT4eyqXddh6L/jwoM75mo7ixa/pCeQ=="],
 

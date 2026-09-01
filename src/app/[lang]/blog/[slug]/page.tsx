@@ -252,7 +252,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       <header className="border-b border-border">
         <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6 sm:py-12">
           {/* Title */}
-          <h1 className="w-fit max-w-full pr-1 text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-[-0.03em] leading-[1.2] pb-1 mb-6 animate-in-up bg-gradient-to-br from-foreground to-accent bg-clip-text [-webkit-background-clip:text] [-webkit-text-fill-color:transparent] [box-decoration-break:clone]">
+          <h1 className="w-fit max-w-full pr-1 text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-[-0.03em] leading-[1.2] pb-1 mb-6 animate-in-up [font-family:var(--font-ibm-plex-serif)] bg-gradient-to-br from-foreground to-accent bg-clip-text [-webkit-background-clip:text] [-webkit-text-fill-color:transparent] [box-decoration-break:clone]">
             {post.title}
           </h1>
 
@@ -320,7 +320,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             </details>
 
             {/* Article Content */}
-            <article className="prose max-w-none">
+            <article className="blog-article prose max-w-none">
               <MDXRemote
                 source={post.content}
                 options={{

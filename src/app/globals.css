@@ -545,6 +545,14 @@ body {
   }
 
   /* Blog Post Markdown Styles */
+  .blog-article {
+    font-family: "iA Writer Quattro", var(--font-ibm-plex-sans), sans-serif;
+  }
+
+  .blog-article :is(h1, h2, h3, h4) {
+    font-family: var(--font-ibm-plex-serif), Georgia, serif;
+  }
+
   .prose {
     @apply text-foreground;
   }

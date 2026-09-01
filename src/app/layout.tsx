@@ -1,6 +1,11 @@
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata, Viewport } from "next";
-import { IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google";
+import { IBM_Plex_Mono, IBM_Plex_Sans, IBM_Plex_Serif } from "next/font/google";
+
+import "@fontsource/ia-writer-quattro/latin-400.css";
+import "@fontsource/ia-writer-quattro/latin-400-italic.css";
+import "@fontsource/ia-writer-quattro/latin-700.css";
+import "@fontsource/ia-writer-quattro/latin-700-italic.css";
 
 import { MotionProvider } from "@/components/MotionProvider";
 import { ThemeProvider } from "@/components/ThemeProvider";
@@ -16,6 +21,13 @@ const ibmPlexSans = IBM_Plex_Sans({
 
 const ibmPlexMono = IBM_Plex_Mono({
   variable: "--font-ibm-plex-mono",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+});
+
+const ibmPlexSerif = IBM_Plex_Serif({
+  variable: "--font-ibm-plex-serif",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   display: "swap",
@@ -101,7 +113,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${ibmPlexSans.variable} ${ibmPlexMono.variable} font-sans antialiased flex flex-col min-h-screen`}
+        className={`${ibmPlexSans.variable} ${ibmPlexMono.variable} ${ibmPlexSerif.variable} font-sans antialiased flex flex-col min-h-screen`}
       >
         <ThemeProvider>
           <MotionProvider>{children}</MotionProvider>

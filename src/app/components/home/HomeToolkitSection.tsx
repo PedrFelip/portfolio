@@ -1,5 +1,5 @@
 import React from "react";
-import { SectionBadge, SectionLabel } from "@/components/blueprint";
+import { SectionBadge } from "@/components/blueprint";
 import { TOOLKIT_CONFIG } from "@/lib/toolkit-data";
 
 interface ToolkitItem {
@@ -10,14 +10,12 @@ interface ToolkitItem {
 }
 
 interface HomeToolkitSectionProps {
-  badge: string;
   title: string;
   description: string;
   items: ToolkitItem[];
 }
 
 export function HomeToolkitSection({
-  badge,
   title,
   description,
   items,
@@ -26,9 +24,8 @@ export function HomeToolkitSection({
     <section id="toolkit" data-slot="panel" className="bp-panel bp-line-bottom">
       {/* Header */}
       {/* TODO(refactor)[P2]: section header duplicated 8+ times */}
-      <SectionBadge className="bp-line-bottom px-4 py-3 sm:px-6">
-        <SectionLabel>{badge}</SectionLabel>
-        <h2 className="mt-1 text-lg font-semibold tracking-tight sm:text-xl">
+      <SectionBadge line="bottom" className="px-4 py-3 sm:px-6">
+        <h2 className="text-lg font-semibold tracking-tight sm:text-xl">
           {title}
         </h2>
         <p className="mt-1 text-sm text-muted-foreground">{description}</p>

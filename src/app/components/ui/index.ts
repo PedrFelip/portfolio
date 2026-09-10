@@ -13,5 +13,10 @@ export { EncryptedText } from "./encrypted-text";
 export { FlickeringGrid } from "./flickering-grid";
 export { FluidGradientText } from "./fluid-gradient-text";
 export { Logo } from "./logo";
+export {
+  PixelFlicker,
+  type PixelFlickerProps,
+  type PixelFlickerVariant,
+} from "./pixel-flicker";
 export { H1, H3, MonoText, P } from "./typography";
 export { XIcon } from "./x-icon";

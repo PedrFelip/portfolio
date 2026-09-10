@@ -1,55 +1,34 @@
-import { GraduationCap } from "lucide-react";
 import { memo } from "react";
-import {
-  CornerBrackets,
-  SectionBadge,
-  SectionLabel,
-} from "@/components/blueprint";
+import { SectionBadge } from "@/components/blueprint";
 import { MonoText } from "@/components/ui";
 import type { Education } from "@/types/portfolio";
 
 interface EducationBlueprintProps {
   education: Education[];
   title: string;
-  badge: string;
 }
 
 /**
  * EducationBlueprint — chanhdai.com inspired panel
  *
- * Header with badge + title, content area with education
+ * Header with title, content area with education
  * items displayed in a clean layout with dashed divider.
  */
 export const EducationBlueprint = memo(
-  ({ education, title, badge }: EducationBlueprintProps) => {
+  ({ education, title }: EducationBlueprintProps) => {
     return (
-      <section
-        data-slot="panel"
-        className="bp-panel bp-line-bottom relative group overflow-hidden"
-      >
+      <section data-slot="panel" className="bp-panel bp-line-bottom">
         {/* Header */}
         {/* TODO(refactor)[P2]: section header duplicated 8+ times */}
-        <SectionBadge className="bp-line-bottom px-4 py-3 sm:px-6">
-          <SectionLabel>{badge}</SectionLabel>
-          <h2 className="mt-1 text-lg font-semibold tracking-tight sm:text-xl">
+        <SectionBadge line="bottom" className="px-4 py-3 sm:px-6">
+          <h2 className="relative z-10 text-lg font-semibold tracking-tight sm:text-xl">
             {title}
           </h2>
         </SectionBadge>
 
         {/* Content */}
-        <div className="relative px-4 py-8 sm:px-6 sm:py-12 transition-colors duration-300 hover:bg-surface-2">
-          {/* Subtle decorative elements */}
-          <CornerBrackets
-            size={12}
-            className="opacity-15 transition-opacity duration-300 group-hover:opacity-40 pointer-events-none"
-          />
-
-          {/* Graduation cap decoration */}
-          <div className="absolute right-6 top-1/2 -translate-y-1/2 opacity-[0.03] group-hover:opacity-[0.06] transition-opacity duration-500 pointer-events-none">
-            <GraduationCap size={100} strokeWidth={1} />
-          </div>
-
-          <div className="relative z-10 space-y-6">
+        <div className="px-4 py-6 sm:px-6">
+          <div className="space-y-6">
             {education.map((edu, i) => (
               <div
                 key={`${edu.school}-${edu.degree}`}
@@ -58,7 +37,7 @@ export const EducationBlueprint = memo(
                 }`}
               >
                 <div className="flex flex-col">
-                  <MonoText className="text-[10px] tabular-nums uppercase tracking-widest text-muted-foreground/40">
+                  <MonoText className="text-[10px] tabular-nums uppercase tracking-widest text-muted-foreground">
                     {edu.start} — {edu.end}
                   </MonoText>
                   <h3 className="text-base font-semibold text-foreground">

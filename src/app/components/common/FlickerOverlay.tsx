@@ -1,10 +1,8 @@
 "use client";
 
 import { m } from "framer-motion";
-import { FlickeringGrid } from "@/components/ui/flickering-grid";
 import type { FlickerPhase } from "@/hooks/useFlickerTransition";
 import { flickerOverlayVariants } from "@/lib/animations";
-import { FLICKER_CONFIG } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
 interface FlickerOverlayProps {
@@ -24,14 +22,7 @@ export function FlickerOverlay({ phase, className }: FlickerOverlayProps) {
       )}
       aria-hidden="true"
     >
-      <FlickeringGrid
-        squareSize={FLICKER_CONFIG.SQUARE_SIZE}
-        gridGap={FLICKER_CONFIG.GRID_GAP}
-        flickerChance={FLICKER_CONFIG.FLICKER_CHANCE}
-        color={FLICKER_CONFIG.COLOR}
-        maxOpacity={FLICKER_CONFIG.MAX_OPACITY}
-        className="h-full w-full"
-      />
+      <div className="h-full w-full bg-background" />
     </m.div>
   );
 }

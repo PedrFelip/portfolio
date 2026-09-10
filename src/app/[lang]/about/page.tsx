@@ -4,7 +4,6 @@ import {
   HatchSeparator,
   PanelSpacer,
   SectionBadge,
-  SectionLabel,
 } from "@/components/blueprint";
 import { SimpleTechStack } from "@/components/home/SimpleTechStack";
 import {
@@ -91,75 +90,67 @@ export default async function AboutPage({ params }: AboutPageProps) {
   ]);
 
   return (
-    <div className="mx-auto md:max-w-4xl px-4">
-      {/* ─── About Intro Panel ─── */}
-      <section
-        data-slot="panel"
-        className="bp-panel bp-line-top bp-line-bottom"
-      >
-        <div className="grid grid-cols-1 sm:grid-cols-2">
-          {/* Column 1: Intro Info */}
-          <SectionBadge className="px-4 py-8 sm:px-6 sm:py-12">
-            <SectionLabel>{t.about.badge}</SectionLabel>
-            <h1 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
-              {t.about.title}
-            </h1>
-            <p className="mt-3 text-base font-medium text-foreground/90">
-              {t.about.intro}
-            </p>
-          </SectionBadge>
+    <>
+      <div className="mx-auto md:max-w-4xl px-4">
+        {/* ─── About Intro Panel ─── */}
+        <section
+          data-slot="panel"
+          className="bp-panel bp-line-top bp-line-bottom"
+        >
+          <div className="grid grid-cols-1 sm:grid-cols-2">
+            {/* Column 1: Intro Info */}
+            <SectionBadge className="px-4 py-8 sm:px-6 sm:py-12">
+              <div className="relative z-10">
+                <h1 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
+                  {t.about.title}
+                </h1>
+                <p className="mt-3 text-base font-medium text-foreground/90">
+                  {t.about.intro}
+                </p>
+              </div>
+            </SectionBadge>
 
-          {/* Column 2: Description */}
-          <div className="border-t border-dashed border-border px-4 py-8 sm:border-t-0 sm:border-l sm:px-6 sm:py-12">
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              {parseBoldMarkdown(t.about.description)}
-            </p>
+            {/* Column 2: Description */}
+            <div className="border-t border-dashed border-border px-4 py-8 sm:border-t-0 sm:border-l sm:px-6 sm:py-12">
+              <p className="text-sm leading-relaxed text-muted-foreground">
+                {parseBoldMarkdown(t.about.description)}
+              </p>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* ─── Hatch ─── */}
-      <HatchSeparator />
+        {/* ─── Hatch ─── */}
+        <HatchSeparator />
 
-      {/* ─── Work Experience Panel ─── */}
-      <WorkExperienceBlueprint
-        experiences={workExperience}
-        title={t.work.title}
-        badge={t.work.badge}
-        presentLabel={t.work.present}
-      />
+        {/* ─── Work Experience Panel ─── */}
+        <WorkExperienceBlueprint
+          experiences={workExperience}
+          title={t.work.title}
+          presentLabel={t.work.present}
+        />
 
-      {/* ─── Spacer ─── */}
-      <PanelSpacer />
+        {/* ─── Spacer ─── */}
+        <PanelSpacer />
 
-      {/* ─── Skills Panel ─── */}
-      <SimpleTechStack
-        id="skills"
-        title={t.skills.title}
-        subtitle={t.skills.badge}
-        description=""
-      />
+        {/* ─── Skills Panel ─── */}
+        <SimpleTechStack id="skills" title={t.skills.title} description="" />
 
-      {/* ─── Hatch ─── */}
-      <HatchSeparator />
+        {/* ─── Hatch ─── */}
+        <HatchSeparator />
 
-      {/* ─── Education Panel ─── */}
-      <EducationBlueprint
-        education={education}
-        title={t.education.title}
-        badge={t.education.badge}
-      />
+        {/* ─── Education Panel ─── */}
+        <EducationBlueprint education={education} title={t.education.title} />
 
-      {/* ─── Hatch ─── */}
-      <HatchSeparator />
+        {/* ─── Hatch ─── */}
+        <HatchSeparator />
+      </div>
 
       {/* ─── Contact Panel ─── */}
       <BlueprintContactSection
-        badge={t.contact.badge}
         title={t.contact.title}
         description={t.contact.description}
         links={contactLinks}
       />
-    </div>
+    </>
   );
 }

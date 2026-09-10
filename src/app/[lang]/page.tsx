@@ -62,7 +62,6 @@ export default async function HomePage({ params }: HomePageProps) {
         {/* ─── Tech Stack Panel ─── */}
         <SimpleTechStack
           title={t.techStack.title}
-          subtitle={t.techStack.badge}
           description={t.techStack.description}
         />
 
@@ -71,7 +70,6 @@ export default async function HomePage({ params }: HomePageProps) {
 
         {/* ─── Features Panel ─── */}
         <HomeFeaturesSection
-          badge={t.features.badge}
           title={t.features.title}
           description={t.features.description}
           items={t.features.items}
@@ -84,7 +82,6 @@ export default async function HomePage({ params }: HomePageProps) {
         <Suspense fallback={<GitHubSectionSkeleton />}>
           <GitHubSection
             title={t.github.title}
-            subtitle={t.github.badge}
             description={t.github.description}
             swipeHint={t.github.swipeHint}
             less={t.github.less}
@@ -102,7 +99,6 @@ export default async function HomePage({ params }: HomePageProps) {
         {/* ─── Latest Post Panel ─── */}
         <LatestPostSection
           lang={lang}
-          badge={t.latestPost.badge}
           title={t.latestPost.title}
           description={t.latestPost.description}
           readMore={t.latestPost.readMore}
@@ -115,7 +111,6 @@ export default async function HomePage({ params }: HomePageProps) {
 
         {/* ─── Toolkit Panel ─── */}
         <HomeToolkitSection
-          badge={t.toolkit.badge}
           title={t.toolkit.title}
           description={t.toolkit.description}
           items={t.toolkit.items}

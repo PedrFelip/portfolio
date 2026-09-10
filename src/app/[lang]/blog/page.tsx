@@ -1,10 +1,6 @@
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
-import {
-  HatchSeparator,
-  SectionBadge,
-  SectionLabel,
-} from "@/components/blueprint";
+import { HatchSeparator, SectionBadge } from "@/components/blueprint";
 import { getAllPosts, getAllTags } from "@/lib/blog-data";
 import {
   DEFAULT_LANGUAGE,
@@ -90,7 +86,6 @@ export default async function BlogPage({ params }: BlogPageProps) {
         <div className="grid grid-cols-1 sm:grid-cols-2">
           {/* Info */}
           <SectionBadge className="px-4 py-8 sm:px-6 sm:py-12">
-            <SectionLabel>{t.badge}</SectionLabel>
             <h1 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
               {t.title}
             </h1>

@@ -2,10 +2,10 @@
 
 import { Color, Mesh, Program, Renderer, Triangle } from "ogl";
 import { useEffect, useRef, useState } from "react";
+import { BLUEPRINT_COLOR } from "@/lib/constants";
 
-// Blueprint cyan (hue 220) — matches --accent on dark.
-const DEFAULT_COLOR_STOPS = ["#3ca0bc", "#00050b", "#3ca0bc"];
-const DEFAULT_GLOW = "#3ca0bc";
+const DEFAULT_COLOR_STOPS = [BLUEPRINT_COLOR, "#00050b", BLUEPRINT_COLOR];
+const DEFAULT_GLOW = BLUEPRINT_COLOR;
 
 const VERT = `#version 300 es
 in vec2 position;

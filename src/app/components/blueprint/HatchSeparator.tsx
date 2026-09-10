@@ -4,6 +4,8 @@ import { cn } from "@/lib/utils";
 interface HatchSeparatorProps {
   /** Height of the separator band (default: 2rem) */
   height?: string;
+  /** Omit the top border when the preceding section already supplies it. */
+  topBorder?: boolean;
   /** Additional class names */
   className?: string;
 }
@@ -15,9 +17,6 @@ interface HatchSeparatorProps {
  * Creates a full-viewport-width band of diagonal lines that visually
  * separates panels in a continuous bordered column.
  *
- * Uses CSS `bp-hatch` class for the full-viewport hatch pattern
- * via `::before` pseudo-element.
- *
  * @example
  * ```tsx
  * <HatchSeparator />
@@ -26,11 +25,12 @@ interface HatchSeparatorProps {
  */
 export const HatchSeparator = memo(function HatchSeparator({
   height = "2rem",
+  topBorder = true,
   className,
 }: HatchSeparatorProps) {
   return (
     <div
-      className={cn("bp-hatch", className)}
+      className={cn("bp-hatch", !topBorder && "bp-hatch-top-none", className)}
       style={{ height }}
       aria-hidden="true"
     />

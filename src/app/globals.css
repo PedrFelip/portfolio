@@ -50,6 +50,7 @@ body {
   --color-ring: var(--ring);
   --color-input: var(--input);
   --color-border: var(--border);
+  --color-line: var(--border);
   --color-destructive: var(--destructive);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent: var(--accent);
@@ -123,8 +124,8 @@ body {
   --muted: oklch(0.96 0 0);
   --muted-foreground: oklch(0.38 0 0);
   --faint: oklch(0.93 0 0);
-  /* Blueprint Cyan — hue 220 · chroma 0.10 */
-  --accent: oklch(0.42 0.1 220);
+  /* Blueprint teal — hue 209 · chroma 0.087 */
+  --accent: oklch(0.42 0.087 209);
   --accent-foreground: oklch(1 0 0);
   --destructive: oklch(0.4 0 0);
   --border: oklch(0.86 0 0);
@@ -174,12 +175,12 @@ body {
   --code-fg: oklch(0.25 0.015 220);
   --code-border: oklch(0.86 0.01 220 / 50%);
   --code-keyword: oklch(0.42 0.13 220);
-  --code-type: oklch(0.48 0.1 240);
-  --code-built-in: oklch(0.48 0.1 240);
+  --code-type: oklch(0.48 0.1 220);
+  --code-built-in: oklch(0.48 0.1 220);
   --code-tag: oklch(0.42 0.13 220);
-  --code-attr: oklch(0.48 0.1 240);
+  --code-attr: oklch(0.48 0.1 220);
   --code-selector-tag: oklch(0.42 0.13 220);
-  --code-selector-class: oklch(0.48 0.1 240);
+  --code-selector-class: oklch(0.48 0.1 220);
   --code-selector-id: oklch(0.25 0.015 220);
   --code-function: oklch(0.25 0.015 220);
   --code-title: oklch(0.25 0.015 220);
@@ -221,7 +222,7 @@ body {
   --muted: oklch(0.1 0 0);
   --muted-foreground: oklch(0.62 0 0);
   --faint: oklch(0.15 0 0);
-  --accent: oklch(0.66 0.1 220);
+  --accent: oklch(0.638 0.087 209);
   --accent-foreground: oklch(0.04 0 0);
   --destructive: oklch(0.72 0 0);
   --border: oklch(0.98 0 0 / 13%);
@@ -266,12 +267,12 @@ body {
   --code-fg: oklch(0.85 0.008 220);
   --code-border: oklch(0.93 0.01 220 / 10%);
   --code-keyword: oklch(0.72 0.12 220);
-  --code-type: oklch(0.76 0.1 240);
-  --code-built-in: oklch(0.76 0.1 240);
+  --code-type: oklch(0.76 0.1 220);
+  --code-built-in: oklch(0.76 0.1 220);
   --code-tag: oklch(0.72 0.12 220);
-  --code-attr: oklch(0.76 0.1 240);
+  --code-attr: oklch(0.76 0.1 220);
   --code-selector-tag: oklch(0.72 0.12 220);
-  --code-selector-class: oklch(0.76 0.1 240);
+  --code-selector-class: oklch(0.76 0.1 220);
   --code-selector-id: oklch(0.85 0.008 220);
   --code-function: oklch(0.85 0.008 220);
   --code-title: oklch(0.85 0.008 220);
@@ -785,55 +786,38 @@ body {
   margin-right: var(--rail-offset);
 }
 
-/* Horizontal section divider between rails */
-.section-divider {
-  position: relative;
-  height: 1px;
-  z-index: 2;
+@utility screen-line-top {
+  @apply relative;
+
+  &::before {
+    content: "";
+    @apply absolute top-0 left-[-100vw] -z-1 h-px w-[200vw] bg-line;
+  }
 }
 
-.section-divider::before {
-  content: "";
-  position: absolute;
-  left: var(--rail-offset, max(1rem, calc(50% - 36rem)));
-  right: var(--rail-offset, max(1rem, calc(50% - 36rem)));
-  height: 1px;
-  background: var(--border);
+@utility screen-line-bottom {
+  @apply relative;
+
+  &::after {
+    content: "";
+    @apply absolute bottom-0 left-[-100vw] -z-1 h-px w-[200vw] bg-line;
+  }
+}
+
+/* Horizontal section divider using the shared screen-line primitive. */
+.section-divider {
+  @apply screen-line-top h-px;
 }
 
 /* ─── Blueprint Panel System (chanhdai.com inspired) ─── */
 
-/* Horizontal lines that span full viewport width, behind content */
+/* Horizontal lines that span the viewport, matching chanhdai.com's primitive. */
 .bp-line-top {
-  position: relative;
-}
-.bp-line-top::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  margin-left: calc(-50vw + 50%);
-  width: 100vw;
-  height: 1px;
-  background: var(--border);
-  z-index: -1;
+  @apply screen-line-top;
 }
 
 .bp-line-bottom {
-  position: relative;
-}
-.bp-line-bottom::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin-left: calc(-50vw + 50%);
-  width: 100vw;
-  height: 1px;
-  background: var(--border);
-  z-index: -1;
+  @apply screen-line-bottom;
 }
 
 /* Panel: bordered section with side lines */
@@ -848,7 +832,6 @@ body {
   border-left: 1px solid var(--border);
   border-right: 1px solid var(--border);
 }
-/* Hatch fill — full viewport width, inside the lines */
 .bp-hatch::before {
   content: "";
   position: absolute;
@@ -869,7 +852,6 @@ body {
   background-size: 10px 10px;
 }
 
-/* Hatch top/bottom lines — full viewport width */
 .bp-hatch::after {
   content: "";
   position: absolute;
@@ -882,6 +864,11 @@ body {
   z-index: -1;
   background:
     linear-gradient(var(--border), var(--border)) top / 100% 1px no-repeat,
+    linear-gradient(var(--border), var(--border)) bottom / 100% 1px no-repeat;
+}
+
+.bp-hatch-top-none::after {
+  background:
     linear-gradient(var(--border), var(--border)) bottom / 100% 1px no-repeat;
 }
 

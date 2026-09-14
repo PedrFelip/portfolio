@@ -1,7 +1,7 @@
 "use client";
 
-import { m, useMotionValue, useSpring } from "motion/react";
-import { useCallback, useEffect, useRef } from "react";
+import { m, useMotionValue, useReducedMotion, useSpring } from "motion/react";
+import { useId, useRef } from "react";
 
 export type FluidGradientTextProps = {
   text: string;
@@ -36,80 +36,69 @@ export function FluidGradientText({
     mass: 0.5,
   });
 
-  const updateGradient = useCallback(
-    (clientX: number, container: HTMLDivElement) => {
-      const rect = container.getBoundingClientRect();
-      const normalizedX =
-        ((clientX - rect.left) / rect.width) * svgViewBoxWidth;
-      gradientX1Raw.set(Math.max(0, Math.min(svgViewBoxWidth, normalizedX)));
-    },
-    [svgViewBoxWidth, gradientX1Raw],
-  );
+  const shouldReduceMotion = useReducedMotion();
+  const gradientId = useId();
+  const svgRef = useRef<SVGSVGElement>(null);
 
   const resetGradient = () => {
     gradientX1Raw.set(svgViewBoxWidth / 2);
   };
 
-  const containerRef = useRef<HTMLDivElement>(null);
+  const handlePointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (shouldReduceMotion || !svgRef.current) return;
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    updateGradient(e.clientX, e.currentTarget);
+    const rect = svgRef.current.getBoundingClientRect();
+    if (rect.width === 0) return;
+
+    const normalizedX =
+      ((event.clientX - rect.left) / rect.width) * svgViewBoxWidth;
+    gradientX1Raw.set(Math.max(0, Math.min(svgViewBoxWidth, normalizedX)));
   };
-
-  const handleTouchMove = useCallback(
-    (e: TouchEvent) => {
-      if (e.touches.length > 0 && containerRef.current) {
-        updateGradient(e.touches[0].clientX, containerRef.current);
-      }
-    },
-    [updateGradient],
-  );
-
-  useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-    el.addEventListener("touchmove", handleTouchMove, { passive: true });
-    return () => el.removeEventListener("touchmove", handleTouchMove);
-  }, [handleTouchMove]);
 
   return (
     <div
-      ref={containerRef}
-      role="img"
       aria-hidden="true"
-      className="relative size-full overflow-hidden after:absolute after:bottom-0 after:h-px after:w-full after:bg-current/8"
-      onMouseMove={handleMouseMove}
-      onMouseLeave={resetGradient}
-      onTouchEnd={resetGradient}
+      className="relative w-full overflow-clip after:pointer-events-none after:absolute after:bottom-0 after:left-0 after:h-px after:w-full after:bg-current/8"
+      onPointerMove={handlePointerMove}
+      onPointerLeave={resetGradient}
+      onPointerUp={resetGradient}
+      onPointerCancel={resetGradient}
     >
-      <svg
-        className="size-full translate-y-[37.5%] select-none"
-        viewBox={`0 0 ${svgViewBoxWidth} ${svgViewBoxHeight}`}
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        aria-hidden="true"
-      >
-        <text
-          {...textProps}
-          fill="url(#fluid_gradient_text_linear)"
-          style={{ ...textStyle, fontSize: svgViewBoxHeight }}
+      <div className="w-full translate-y-[37.5%]">
+        <svg
+          ref={svgRef}
+          className="block h-auto w-full select-none"
+          width={svgViewBoxWidth}
+          height={svgViewBoxHeight}
+          viewBox={`0 0 ${svgViewBoxWidth} ${svgViewBoxHeight}`}
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
         >
-          {text}
-        </text>
-        <defs>
-          <m.linearGradient
-            id="fluid_gradient_text_linear"
-            x1={gradientX1}
-            y1="0"
-            x2={svgViewBoxWidth / 2}
-            y2={svgViewBoxHeight}
-            gradientUnits="userSpaceOnUse"
+          <text
+            {...textProps}
+            fill={`url(#${gradientId})`}
+            textLength={svgViewBoxWidth - svgViewBoxHeight / 5}
+            lengthAdjust="spacingAndGlyphs"
+            style={{ ...textStyle, fontSize: svgViewBoxHeight }}
           >
-            <stop offset="0.50" stopColor="var(--accent)" stopOpacity="0" />
-            <stop offset="1" stopColor="var(--accent)" stopOpacity="0.85" />
-          </m.linearGradient>
-        </defs>
-      </svg>
+            {text}
+          </text>
+          <defs>
+            <m.linearGradient
+              id={gradientId}
+              x1={shouldReduceMotion ? svgViewBoxWidth / 2 : gradientX1}
+              y1="0"
+              x2={svgViewBoxWidth / 2}
+              y2={svgViewBoxHeight}
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop offset="0.50" stopColor="var(--accent)" stopOpacity="0" />
+              <stop offset="1" stopColor="var(--accent)" stopOpacity="0.85" />
+            </m.linearGradient>
+          </defs>
+        </svg>
+      </div>
     </div>
   );
 }

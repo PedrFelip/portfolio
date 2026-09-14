@@ -168,10 +168,8 @@ Footer.displayName = "Footer";
 
 function FooterGradientText() {
   return (
-    <div className="px-4 py-4 sm:px-6">
-      <div className="text-foreground h-24 sm:h-32 md:h-40">
-        <FluidGradientText text="PEDRO FELIPE" />
-      </div>
+    <div className="px-4 py-4 text-foreground sm:px-6">
+      <FluidGradientText text="PEDRO FELIPE" svgViewBoxWidth={2160} />
     </div>
   );
 }

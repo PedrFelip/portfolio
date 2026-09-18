@@ -94,10 +94,13 @@ async function LocalizedLayout({
   }
 
   const validLang = lang as "pt" | "en";
+  const t = getTranslations(validLang);
 
   return (
     <LanguageSync initialLanguage={validLang}>
-      <LayoutShell>{children}</LayoutShell>
+      <LayoutShell lang={validLang} nav={t.nav} footerYear={t.footer.year}>
+        {children}
+      </LayoutShell>
     </LanguageSync>
   );
 }

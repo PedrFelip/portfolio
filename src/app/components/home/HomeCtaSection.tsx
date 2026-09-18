@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { Aurora, NoiseOverlay } from "@/components/blueprint";
 import { Button } from "@/components/ui/button";
 import { getSocialUrl } from "@/lib/links";
+import { HomeCtaEffects } from "./HomeCtaEffects";
 
 interface HomeCtaSectionProps {
   lang: string;
@@ -23,8 +23,7 @@ export function HomeCtaSection({
       <div data-slot="cta" className="relative overflow-hidden rounded-[2rem]">
         <div aria-hidden className="absolute inset-0">
           <div className="absolute inset-0 bg-gradient-to-r from-background via-accent/55 to-background" />
-          <Aurora />
-          <NoiseOverlay />
+          <HomeCtaEffects />
           <div className="absolute inset-0 bg-background/30" />
         </div>
 

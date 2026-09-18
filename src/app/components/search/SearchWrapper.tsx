@@ -12,32 +12,23 @@ const SearchCommand = dynamic(
   },
 );
 
+/** Warm the command palette only after the user signals search intent. */
+export function preloadSearch() {
+  void import("./SearchCommand").catch((err) => {
+    console.warn("Failed to prefetch SearchCommand:", err);
+  });
+  void useSearchStore
+    .getState()
+    .loadIndex()
+    .catch((err) => {
+      console.warn("Failed to prefetch search index:", err);
+    });
+}
+
 export function SearchWrapper() {
   const isOpen = useSearchStore((s) => s.isOpen);
   const open = useSearchStore((s) => s.open);
   const isTouch = useIsTouchDevice();
-
-  useEffect(() => {
-    const prefetch = () => {
-      void import("./SearchCommand").catch((err) => {
-        console.warn("Failed to prefetch SearchCommand:", err);
-      });
-      void useSearchStore
-        .getState()
-        .loadIndex()
-        .catch((err) => {
-          console.warn("Failed to prefetch search index:", err);
-        });
-    };
-
-    if (typeof window !== "undefined") {
-      if ("requestIdleCallback" in window) {
-        window.requestIdleCallback(() => prefetch());
-      } else {
-        setTimeout(prefetch, 2000);
-      }
-    }
-  }, []);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {

@@ -12,6 +12,7 @@ import {
   useState,
   useTransition,
 } from "react";
+import { preloadSearch } from "@/components/search/SearchWrapper";
 import { Button, EncryptedText, Logo } from "@/components/ui";
 import { Menu, Search, X } from "@/components/ui/icons";
 import { useIsTouchDevice } from "@/hooks/useIsTouchDevice";
@@ -105,6 +106,8 @@ function SearchBar() {
     <button
       type="button"
       onClick={openSearch}
+      onPointerEnter={preloadSearch}
+      onFocus={preloadSearch}
       className="hidden md:flex items-center gap-1.5 h-7 px-2.5 rounded-lg border border-border bg-surface-2/50 text-muted-foreground/60 select-none transition-colors duration-150 hover:border-border/80 hover:bg-surface-3/50 hover:text-muted-foreground/80"
       aria-label="Search"
     >
@@ -273,6 +276,8 @@ export const Navigation = memo(() => {
                   <Button
                     variant="ghost"
                     onClick={openSearch}
+                    onPointerEnter={preloadSearch}
+                    onFocus={preloadSearch}
                     aria-label="Search"
                     className="size-11 md:size-7 rounded-lg border border-overlay-border bg-surface-3 flex md:hidden items-center justify-center transition-all duration-250 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-overlay-border-hover hover:bg-surface-4 active:scale-[0.97] touch-manipulation"
                   >

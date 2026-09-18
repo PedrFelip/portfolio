@@ -1,7 +1,7 @@
 "use client";
 
 import type React from "react";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { FLICKER_CONFIG } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
@@ -15,6 +15,8 @@ interface FlickeringGridProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string;
   maxOpacity?: number;
 }
+
+const FRAME_INTERVAL = 1000 / 15;
 
 // TODO(refactor)[P1]: React.FC discouraged
 export const FlickeringGrid: React.FC<FlickeringGridProps> = ({
@@ -30,8 +32,6 @@ export const FlickeringGrid: React.FC<FlickeringGridProps> = ({
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [isInView, setIsInView] = useState(false);
-  const [canvasSize, setCanvasSize] = useState({ width: 0, height: 0 });
 
   const memoizedColor = useMemo(() => {
     const toRGBA = (color: string) => {
@@ -70,8 +70,16 @@ export const FlickeringGrid: React.FC<FlickeringGridProps> = ({
     const container = containerRef.current;
     const ctx = canvas?.getContext("2d") ?? null;
     let animationFrameId: number | null = null;
+    let animationTimeoutId: ReturnType<typeof setTimeout> | null = null;
+    let resizeFrameId: number | null = null;
+    let idleCallbackId: number | null = null;
+    let idleTimeoutId: ReturnType<typeof setTimeout> | null = null;
     let resizeObserver: ResizeObserver | null = null;
     let intersectionObserver: IntersectionObserver | null = null;
+    let handleVisibilityChange: (() => void) | null = null;
+    let isInView = false;
+    let isIdleReady = false;
+    let isDocumentVisible = !document.hidden;
 
     const setupCanvas = (canvas: HTMLCanvasElement, w: number, h: number) => {
       const { squareSize: sq, gridGap: gg, maxOpacity: mo } = propsRef.current;
@@ -135,15 +143,26 @@ export const FlickeringGrid: React.FC<FlickeringGridProps> = ({
       const updateCanvasSize = () => {
         const newWidth = width || container.clientWidth;
         const newHeight = height || container.clientHeight;
-        setCanvasSize({ width: newWidth, height: newHeight });
         gridParams = setupCanvas(canvas, newWidth, newHeight);
+        drawGrid(
+          ctx,
+          canvas.width,
+          canvas.height,
+          gridParams.cols,
+          gridParams.rows,
+          gridParams.squares,
+          gridParams.dpr,
+        );
       };
 
       updateCanvasSize();
 
       let lastTime = 0;
       const animate = (time: number) => {
-        if (!isInView || !gridParams) return;
+        if (!isInView || !isIdleReady || !isDocumentVisible || !gridParams) {
+          animationFrameId = null;
+          return;
+        }
 
         const deltaTime = (time - lastTime) / 1000;
         lastTime = time;
@@ -158,30 +177,85 @@ export const FlickeringGrid: React.FC<FlickeringGridProps> = ({
           gridParams.squares,
           gridParams.dpr,
         );
+
+        animationTimeoutId = setTimeout(() => {
+          animationFrameId = requestAnimationFrame(animate);
+        }, FRAME_INTERVAL);
+      };
+
+      const startAnimation = () => {
+        if (
+          animationFrameId !== null ||
+          !isInView ||
+          !isIdleReady ||
+          !isDocumentVisible
+        ) {
+          return;
+        }
+        lastTime = performance.now();
         animationFrameId = requestAnimationFrame(animate);
       };
 
+      const stopAnimation = () => {
+        if (animationFrameId === null) return;
+        cancelAnimationFrame(animationFrameId);
+        animationFrameId = null;
+        if (animationTimeoutId !== null) {
+          clearTimeout(animationTimeoutId);
+          animationTimeoutId = null;
+        }
+      };
+
       resizeObserver = new ResizeObserver(() => {
-        updateCanvasSize();
+        if (resizeFrameId !== null) cancelAnimationFrame(resizeFrameId);
+        resizeFrameId = requestAnimationFrame(updateCanvasSize);
       });
       resizeObserver.observe(container);
 
       intersectionObserver = new IntersectionObserver(
         ([entry]) => {
-          setIsInView(entry.isIntersecting);
+          isInView = entry.isIntersecting;
+          if (isInView) startAnimation();
+          else stopAnimation();
         },
         { threshold: 0 },
       );
       intersectionObserver.observe(canvas);
 
-      if (isInView) {
-        animationFrameId = requestAnimationFrame(animate);
+      handleVisibilityChange = () => {
+        isDocumentVisible = !document.hidden;
+        if (isDocumentVisible) startAnimation();
+        else stopAnimation();
+      };
+      document.addEventListener("visibilitychange", handleVisibilityChange);
+
+      const enableAnimation = () => {
+        isIdleReady = true;
+        startAnimation();
+      };
+
+      if ("requestIdleCallback" in window) {
+        idleCallbackId = window.requestIdleCallback(enableAnimation, {
+          timeout: 1000,
+        });
+      } else {
+        idleTimeoutId = setTimeout(enableAnimation, 250);
       }
     }
 
     return () => {
       if (animationFrameId !== null) {
         cancelAnimationFrame(animationFrameId);
+      }
+      if (animationTimeoutId !== null) clearTimeout(animationTimeoutId);
+      if (resizeFrameId !== null) cancelAnimationFrame(resizeFrameId);
+      if (idleCallbackId !== null) window.cancelIdleCallback(idleCallbackId);
+      if (idleTimeoutId !== null) clearTimeout(idleTimeoutId);
+      if (handleVisibilityChange) {
+        document.removeEventListener(
+          "visibilitychange",
+          handleVisibilityChange,
+        );
       }
       if (resizeObserver) {
         resizeObserver.disconnect();
@@ -190,7 +264,7 @@ export const FlickeringGrid: React.FC<FlickeringGridProps> = ({
         intersectionObserver.disconnect();
       }
     };
-  }, [width, height, isInView]);
+  }, [width, height]);
 
   return (
     <div
@@ -198,14 +272,7 @@ export const FlickeringGrid: React.FC<FlickeringGridProps> = ({
       className={cn("h-full w-full", className)}
       {...props}
     >
-      <canvas
-        ref={canvasRef}
-        className="pointer-events-none"
-        style={{
-          width: canvasSize.width,
-          height: canvasSize.height,
-        }}
-      />
+      <canvas ref={canvasRef} className="pointer-events-none h-full w-full" />
     </div>
   );
 };

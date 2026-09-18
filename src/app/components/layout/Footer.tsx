@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { HatchSeparator } from "@/components/blueprint";
+import { DeferredFooterGradient } from "@/components/layout/DeferredFooterGradient";
 import { EncryptedText, Logo, MonoText } from "@/components/ui";
-import { FluidGradientText } from "@/components/ui/fluid-gradient-text";
 import { Github, Linkedin, Mail } from "@/components/ui/icons";
 import { XIcon } from "@/components/ui/x-icon";
 import type { Language, Translation } from "@/lib/i18n";
@@ -148,18 +148,10 @@ export function Footer({ lang, nav, year }: FooterProps) {
           </MonoText>
         </div>
       </div>
-      <FooterGradientText />
+      <DeferredFooterGradient />
 
       {/* Safe area spacer */}
       <div className="pb-[env(safe-area-inset-bottom,0px)]" />
     </footer>
-  );
-}
-
-function FooterGradientText() {
-  return (
-    <div className="px-4 py-4 text-foreground sm:px-6">
-      <FluidGradientText text="PEDRO FELIPE" svgViewBoxWidth={2160} />
-    </div>
   );
 }

@@ -1,4 +1,5 @@
 import dynamic from "next/dynamic";
+import { Suspense } from "react";
 import { Navigation } from "@/components/layout/Navigation";
 import { ZenLayoutTransition } from "@/components/layout/ZenLayoutTransition";
 import { SearchWrapper } from "@/components/search/SearchWrapper";
@@ -19,14 +20,18 @@ interface LayoutShellProps {
 export function LayoutShell({ children }: LayoutShellProps) {
   return (
     <>
-      <ZenLayoutTransition element="nav">
-        <Navigation />
-      </ZenLayoutTransition>
+      <Suspense fallback={null}>
+        <ZenLayoutTransition element="nav">
+          <Navigation />
+        </ZenLayoutTransition>
+      </Suspense>
       <SearchWrapper />
       <main className="flex-grow">{children}</main>
-      <ZenLayoutTransition element="footer">
-        <Footer />
-      </ZenLayoutTransition>
+      <Suspense fallback={null}>
+        <ZenLayoutTransition element="footer">
+          <Footer />
+        </ZenLayoutTransition>
+      </Suspense>
     </>
   );
 }

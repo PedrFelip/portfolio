@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
+import { Suspense } from "react";
 import {
   HatchSeparator,
   PanelSpacer,
@@ -77,7 +78,15 @@ export async function generateMetadata({
   };
 }
 
-export default async function AboutPage({ params }: AboutPageProps) {
+export default function AboutPage({ params }: AboutPageProps) {
+  return (
+    <Suspense fallback={null}>
+      <AboutPageContent params={params} />
+    </Suspense>
+  );
+}
+
+async function AboutPageContent({ params }: AboutPageProps) {
   const { lang } = await params;
   const validLang = isLanguage(lang) ? lang : DEFAULT_LANGUAGE;
   const t = getTranslations(validLang);

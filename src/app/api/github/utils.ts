@@ -1,3 +1,4 @@
+import { io } from "next/cache";
 import { NextResponse } from "next/server";
 
 // TODO(refactor)[P1]: GitHub username hardcoded
@@ -7,6 +8,10 @@ export function createGitHubRoute<T>(
   fetcher: (username: string) => Promise<T>,
 ) {
   return async function GET() {
+    // GitHub data requires a runtime secret. Keep it out of the static shell;
+    // the underlying fetch remains cached by Next's persistent Data Cache.
+    await io();
+
     try {
       const data = await fetcher(GITHUB_USERNAME);
       return NextResponse.json({

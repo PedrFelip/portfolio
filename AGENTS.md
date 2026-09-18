@@ -44,3 +44,13 @@
 
 - Blueprint/architectural aesthetic: monochrome dark, precise grid, minimal shadows. Use `globals.css` tokens: `blueprint` grid lines, corner brackets, 4px spacing grid, radii `2–4px` (`--radius: 0.25rem`), transitions `150–250ms` `cubic-bezier(0.25,1,0.5,1)`.
 - Key utilities: `.page-rails`, `.bp-panel`, `.bp-hatch`, `.bp-line-top/bottom`, `.dot-pattern`, `.terminal-glow`. Use `overflow-x: clip` (not `hidden`) — `hidden` breaks `position: sticky`.
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+# This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->

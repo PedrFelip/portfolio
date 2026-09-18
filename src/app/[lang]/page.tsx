@@ -1,8 +1,6 @@
 import dynamic from "next/dynamic";
-import { Suspense } from "react";
 import { HatchSeparator, PanelSpacer } from "@/components/blueprint";
-import { GitHubSection } from "@/components/home/GitHubSection";
-import { GitHubSectionSkeleton } from "@/components/home/GitHubSectionSkeleton";
+import { GitHubSectionLoader } from "@/components/home/GitHubSectionLoader";
 import { HeroGrid } from "@/components/home/HeroGrid";
 import { HomeCtaSection } from "@/components/home/HomeCtaSection";
 import { HomeFeaturesSection } from "@/components/home/HomeFeaturesSection";
@@ -81,20 +79,18 @@ export default async function HomePage({ params }: HomePageProps) {
         <HatchSeparator />
 
         {/* ─── GitHub Panel ─── */}
-        <Suspense fallback={<GitHubSectionSkeleton />}>
-          <GitHubSection
-            title={t.github.title}
-            subtitle={t.github.badge}
-            description={t.github.description}
-            swipeHint={t.github.swipeHint}
-            less={t.github.less}
-            more={t.github.more}
-            tapHint={t.github.tapHint}
-            commitLabel={t.github.commit}
-            commitsLabel={t.github.commits}
-            commitsLastYearLabel={t.github.commitsLastYear}
-          />
-        </Suspense>
+        <GitHubSectionLoader
+          title={t.github.title}
+          subtitle={t.github.badge}
+          description={t.github.description}
+          swipeHint={t.github.swipeHint}
+          less={t.github.less}
+          more={t.github.more}
+          tapHint={t.github.tapHint}
+          commitLabel={t.github.commit}
+          commitsLabel={t.github.commits}
+          commitsLastYearLabel={t.github.commitsLastYear}
+        />
 
         {/* ─── Spacer ─── */}
         <PanelSpacer />

@@ -1,8 +1,7 @@
 import dynamic from "next/dynamic";
 import { Suspense } from "react";
 import { HatchSeparator, PanelSpacer } from "@/components/blueprint";
-import { GitHubSection } from "@/components/home/GitHubSection";
-import { GitHubSectionSkeleton } from "@/components/home/GitHubSectionSkeleton";
+import { GitHubSectionLoader } from "@/components/home/GitHubSectionLoader";
 import { HeroGrid } from "@/components/home/HeroGrid";
 import { HomeCtaSection } from "@/components/home/HomeCtaSection";
 import { HomeFeaturesSection } from "@/components/home/HomeFeaturesSection";
@@ -36,7 +35,15 @@ export function generateStaticParams() {
   return langStaticParams();
 }
 
-export default async function HomePage({ params }: HomePageProps) {
+export default function HomePage({ params }: HomePageProps) {
+  return (
+    <Suspense fallback={null}>
+      <HomePageContent params={params} />
+    </Suspense>
+  );
+}
+
+async function HomePageContent({ params }: HomePageProps) {
   const { lang } = await params;
   const t = getTranslations(isLanguage(lang) ? lang : DEFAULT_LANGUAGE);
 
@@ -79,19 +86,18 @@ export default async function HomePage({ params }: HomePageProps) {
         <HatchSeparator />
 
         {/* ─── GitHub Panel ─── */}
-        <Suspense fallback={<GitHubSectionSkeleton />}>
-          <GitHubSection
-            title={t.github.title}
-            description={t.github.description}
-            swipeHint={t.github.swipeHint}
-            less={t.github.less}
-            more={t.github.more}
-            tapHint={t.github.tapHint}
-            commitLabel={t.github.commit}
-            commitsLabel={t.github.commits}
-            commitsLastYearLabel={t.github.commitsLastYear}
-          />
-        </Suspense>
+        <GitHubSectionLoader
+          title={t.github.title}
+          subtitle={t.github.badge}
+          description={t.github.description}
+          swipeHint={t.github.swipeHint}
+          less={t.github.less}
+          more={t.github.more}
+          tapHint={t.github.tapHint}
+          commitLabel={t.github.commit}
+          commitsLabel={t.github.commits}
+          commitsLastYearLabel={t.github.commitsLastYear}
+        />
 
         {/* ─── Spacer ─── */}
         <PanelSpacer />

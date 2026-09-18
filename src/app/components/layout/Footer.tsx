@@ -1,16 +1,11 @@
-// TODO(refactor)[P2]: entire footer is client just for useLanguage + motion
-"use client";
-
 import Link from "next/link";
-import { memo, useMemo } from "react";
 import { HatchSeparator } from "@/components/blueprint";
+import { DeferredFooterGradient } from "@/components/layout/DeferredFooterGradient";
 import { EncryptedText, Logo, MonoText } from "@/components/ui";
-import { FluidGradientText } from "@/components/ui/fluid-gradient-text";
 import { Github, Linkedin, Mail } from "@/components/ui/icons";
 import { XIcon } from "@/components/ui/x-icon";
-import { useLanguage } from "@/lib/language-store";
+import type { Language, Translation } from "@/lib/i18n";
 import { socialLinks } from "@/lib/links";
-import { useLocalizedLink } from "@/lib/useLocalizedLink";
 import { APP_VERSION } from "@/lib/version";
 
 /**
@@ -26,42 +21,39 @@ import { APP_VERSION } from "@/lib/version";
  * All inside bp-panel (border-x) with screen-spanning horizontal lines
  */
 
-export const Footer = memo(() => {
-  const { t } = useLanguage();
-  const getLocalizedLink = useLocalizedLink();
+interface FooterProps {
+  lang: Language;
+  nav: Translation["nav"];
+  year: number;
+}
 
-  // TODO(refactor)[P2]: nav links duplicated w/ Navigation
-  const navLinks = useMemo(
-    () => [
-      { href: "/", label: t.nav.home },
-      { href: "/about", label: t.nav.about },
-      { href: "/projects", label: t.nav.projects },
-      { href: "/blog", label: t.nav.blog },
-    ],
-    [t.nav],
-  );
+export function Footer({ lang, nav, year }: FooterProps) {
+  const navLinks = [
+    { href: "/", label: nav.home },
+    { href: "/about", label: nav.about },
+    { href: "/projects", label: nav.projects },
+    { href: "/blog", label: nav.blog },
+  ];
 
-  // TODO(refactor)[P2]: social icon map duplicated
-  const footerSocialLinks = useMemo(
-    () =>
-      socialLinks
-        .filter((l) => l.icon !== "portfolio")
-        .map((link) => ({
-          href: link.url,
-          label: link.label,
-          icon:
-            link.icon === "github" ? (
-              <Github className="size-3.5" />
-            ) : link.icon === "linkedin" ? (
-              <Linkedin className="size-3.5" />
-            ) : link.icon === "x" ? (
-              <XIcon className="size-3.5" />
-            ) : (
-              <Mail className="size-3.5" />
-            ),
-        })),
-    [],
-  );
+  const footerSocialLinks = socialLinks
+    .filter((link) => link.icon !== "portfolio")
+    .map((link) => ({
+      href: link.url,
+      label: link.label,
+      icon:
+        link.icon === "github" ? (
+          <Github className="size-3.5" />
+        ) : link.icon === "linkedin" ? (
+          <Linkedin className="size-3.5" />
+        ) : link.icon === "x" ? (
+          <XIcon className="size-3.5" />
+        ) : (
+          <Mail className="size-3.5" />
+        ),
+    }));
+
+  const localize = (href: string) =>
+    href === "/" ? `/${lang}` : `/${lang}${href}`;
 
   return (
     <footer className="max-w-screen">
@@ -72,7 +64,7 @@ export const Footer = memo(() => {
         {/* ─── Brand Row ─── */}
         <div className="bp-panel bp-line-bottom flex items-center justify-between px-4 py-4 sm:px-6">
           <Link
-            href={getLocalizedLink("/")}
+            href={localize("/")}
             className="group flex items-center gap-3 text-foreground"
           >
             <Logo height={22} className="h-5 w-auto" />
@@ -108,7 +100,7 @@ export const Footer = memo(() => {
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
-                  href={getLocalizedLink(link.href)}
+                  href={localize(link.href)}
                   className="group flex items-center gap-2 py-2.5 sm:py-1.5 text-sm text-muted-foreground transition-colors duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] hover:text-foreground"
                 >
                   <span
@@ -149,29 +141,17 @@ export const Footer = memo(() => {
 
         <div className="bp-panel flex bp-line-bottom items-center justify-between px-4 py-4 sm:px-6">
           <MonoText className="text-[10px] tracking-[0.15em] text-muted-foreground/40">
-            © {t.footer.year}
+            © {year}
           </MonoText>
           <MonoText className="text-[10px] tracking-[0.15em] text-muted-foreground/40">
             {APP_VERSION}
           </MonoText>
         </div>
       </div>
-      <FooterGradientText />
+      <DeferredFooterGradient />
 
       {/* Safe area spacer */}
       <div className="pb-[env(safe-area-inset-bottom,0px)]" />
     </footer>
-  );
-});
-
-Footer.displayName = "Footer";
-
-function FooterGradientText() {
-  return (
-    <div className="px-4 py-4 sm:px-6">
-      <div className="text-foreground h-24 sm:h-32 md:h-40">
-        <FluidGradientText text="PEDRO FELIPE" />
-      </div>
-    </div>
   );
 }

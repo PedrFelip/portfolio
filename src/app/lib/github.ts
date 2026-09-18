@@ -147,22 +147,22 @@ export async function fetchGitHubContributions(
 }
 
 /**
- * Get contribution color based on level (blueprint cyan accent)
+ * Get contribution color based on level using GitHub's contribution palette.
  */
 const contributionColorsDark: Record<0 | 1 | 2 | 3 | 4, string> = {
-  0: "oklch(0.70 0.06 220 / 3%)",
-  1: "oklch(0.66 0.12 220 / 32%)",
-  2: "oklch(0.60 0.15 220 / 58%)",
-  3: "oklch(0.54 0.17 220 / 82%)",
-  4: "oklch(0.48 0.19 220 / 100%)",
+  0: "#161b22",
+  1: "#0e4429",
+  2: "#006d32",
+  3: "#26a641",
+  4: "#39d353",
 };
 
 const contributionColorsLight: Record<0 | 1 | 2 | 3 | 4, string> = {
-  0: "oklch(0.55 0.06 220 / 6%)",
-  1: "oklch(0.55 0.12 220 / 32%)",
-  2: "oklch(0.52 0.15 220 / 58%)",
-  3: "oklch(0.48 0.17 220 / 82%)",
-  4: "oklch(0.45 0.19 220 / 100%)",
+  0: "#ebedf0",
+  1: "#9be9a8",
+  2: "#40c463",
+  3: "#30a14e",
+  4: "#216e39",
 };
 
 // TODO(refactor)[P1]: UI color helper in data module

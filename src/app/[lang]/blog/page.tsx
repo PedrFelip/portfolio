@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import { cacheLife } from "next/cache";
 import dynamic from "next/dynamic";
+import { Suspense } from "react";
 import { HatchSeparator, SectionBadge } from "@/components/blueprint";
 import { getAllPosts, getAllTags } from "@/lib/blog-data";
 import {
@@ -20,8 +22,6 @@ interface BlogPageProps {
     lang: "en" | "pt";
   }>;
 }
-
-export const revalidate = 86400;
 
 export function generateStaticParams() {
   return langStaticParams();
@@ -67,7 +67,18 @@ export async function generateMetadata({
   };
 }
 
-export default async function BlogPage({ params }: BlogPageProps) {
+export default function BlogPage({ params }: BlogPageProps) {
+  return (
+    <Suspense fallback={null}>
+      <BlogPageContent params={params} />
+    </Suspense>
+  );
+}
+
+async function BlogPageContent({ params }: BlogPageProps) {
+  "use cache";
+  cacheLife("days");
+
   const { lang } = await params;
   const validLang = isLanguage(lang) ? lang : DEFAULT_LANGUAGE;
   const t = getTranslations(validLang).blog;

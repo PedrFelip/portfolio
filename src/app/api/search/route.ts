@@ -1,8 +1,7 @@
+import { cacheLife } from "next/cache";
 import { getAllPosts, getPostBySlug } from "@/lib/blog-data";
 import type { SearchItem, SearchPage, SearchPost } from "@/lib/search-types";
 import { stripMarkdown } from "@/lib/strip-markdown";
-
-export const revalidate = 604800; // 1 week — same ISR as blog posts
 
 // TODO(refactor)[P1]: 40 lines of static page metadata inline
 const SITE_PAGES: SearchPage[] = [
@@ -48,7 +47,10 @@ const SITE_PAGES: SearchPage[] = [
   },
 ];
 
-export async function GET(): Promise<Response> {
+async function getSearchIndex(): Promise<SearchItem[]> {
+  "use cache";
+  cacheLife("weeks");
+
   const posts = getAllPosts();
 
   // TODO(refactor)[P2]: calls getPostBySlug again after getAllPosts
@@ -72,7 +74,9 @@ export async function GET(): Promise<Response> {
     };
   });
 
-  const index: SearchItem[] = [...SITE_PAGES, ...indexedPosts];
+  return [...SITE_PAGES, ...indexedPosts];
+}
 
-  return Response.json(index);
+export async function GET(): Promise<Response> {
+  return Response.json(await getSearchIndex());
 }

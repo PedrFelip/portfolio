@@ -132,10 +132,8 @@ function extractHeadings(content: string): Heading[] {
   const headingRegex = /^(#{2,3})\s+(.+?)$/gm;
   const headings: Heading[] = [];
   const idCounts = new Map<string, number>(); // Track ID occurrences for deduplication
-  let match: RegExpExecArray | null = null;
 
-  // biome-ignore lint/suspicious/noAssignInExpressions: regex exec pattern requires assignment in loop
-  while ((match = headingRegex.exec(content)) !== null) {
+  for (const match of content.matchAll(headingRegex)) {
     const precedingText = content.slice(0, match.index);
     const openFences = (precedingText.match(/^```[^\n]*$/gm) || []).length;
     if (openFences % 2 === 1) continue;

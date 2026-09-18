@@ -1,7 +1,11 @@
+"use client";
+
 import dynamic from "next/dynamic";
+import { useEffect, useState } from "react";
 import { SectionBadge } from "@/components/blueprint";
-import { fetchGitHubContributions } from "@/lib/github";
+import type { ContributionData } from "@/lib/github";
 import { cn } from "@/lib/utils";
+import { GitHubSectionSkeleton } from "./GitHubSectionSkeleton";
 
 const GitHubContributionGraph = dynamic(
   () =>
@@ -37,7 +41,7 @@ interface GitHubSectionProps {
  * - Header row: title + stats (inline)
  * - Content: contribution graph with dot pattern bg
  */
-export async function GitHubSection({
+export function GitHubSection({
   className,
   title = "GitHub Activity",
   description = "Daily contributions and coding activity over the past year.",
@@ -52,10 +56,31 @@ export async function GitHubSection({
   commitsLastYearLabel = "Commits last year",
   // TODO(refactor)[P1]: hardcoded English defaults despite i18n
 }: GitHubSectionProps) {
-  const data = await fetchGitHubContributions(username).catch(() => null);
+  const [data, setData] = useState<ContributionData | null>(null);
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    fetch("/api/github/contributions", { signal: controller.signal })
+      .then((response) => {
+        if (!response.ok) throw new Error("GitHub request failed");
+        return response.json() as Promise<{
+          success: boolean;
+          data?: ContributionData;
+        }>;
+      })
+      .then((response) => {
+        if (response.success && response.data) setData(response.data);
+      })
+      .catch(() => {
+        // GitHub activity is optional; keep the rest of the page available.
+      });
+
+    return () => controller.abort();
+  }, []);
 
   if (!data) {
-    return null;
+    return <GitHubSectionSkeleton />;
   }
 
   return (

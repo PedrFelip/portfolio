@@ -1,6 +1,7 @@
 "use client";
 
-import { usePathname, useRouter } from "next/navigation";
+import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { create } from "zustand";
 import {
@@ -13,15 +14,15 @@ import {
 } from "@/lib/i18n";
 
 function setLanguageCookie(lang: Language): void {
-  // biome-ignore lint/suspicious/noDocumentCookie: Cookie Store API has limited browser support
-  document.cookie = `${LANGUAGE_COOKIE}=${lang}; path=/; max-age=31536000; SameSite=Lax`;
+  Cookies.set(LANGUAGE_COOKIE, lang, {
+    path: "/",
+    sameSite: "Lax",
+    expires: 365,
+  });
 }
 
 function getLanguageCookie(): Language | undefined {
-  const value = document.cookie
-    .split("; ")
-    .find((row) => row.startsWith(`${LANGUAGE_COOKIE}=`))
-    ?.split("=")[1];
+  const value = Cookies.get(LANGUAGE_COOKIE);
   return isLanguage(value) ? value : undefined;
 }
 
@@ -59,7 +60,6 @@ const useLanguageStore = create<LanguageState>((set, get) => ({
 
 export function useLanguageSync(initialLanguage?: Language) {
   const router = useRouter();
-  const pathname = usePathname();
 
   useEffect(() => {
     useLanguageStore.setState({ _router: router });
@@ -67,6 +67,7 @@ export function useLanguageSync(initialLanguage?: Language) {
 
   useEffect(() => {
     const currentStoreLang = useLanguageStore.getState().language;
+    const pathname = window.location.pathname;
     const pathParts = pathname.split("/").filter(Boolean);
     const langFromUrl = pathParts[0];
 
@@ -88,7 +89,7 @@ export function useLanguageSync(initialLanguage?: Language) {
       useLanguageStore.setState({ language: nextLang });
       if (persistToCookie) setLanguageCookie(nextLang);
     }
-  }, [initialLanguage, pathname]);
+  }, [initialLanguage]);
 }
 
 export function useLanguage() {

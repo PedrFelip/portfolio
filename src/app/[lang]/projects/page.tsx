@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
+import { Suspense } from "react";
 import { HatchSeparator, SectionBadge } from "@/components/blueprint";
 import {
   DEFAULT_LANGUAGE,
@@ -41,7 +42,15 @@ export async function generateMetadata({
   };
 }
 
-export default async function ProjectsPage({ params }: ProjectsPageProps) {
+export default function ProjectsPage({ params }: ProjectsPageProps) {
+  return (
+    <Suspense fallback={null}>
+      <ProjectsPageContent params={params} />
+    </Suspense>
+  );
+}
+
+async function ProjectsPageContent({ params }: ProjectsPageProps) {
   const { lang } = await params;
   const validLang = isLanguage(lang) ? lang : DEFAULT_LANGUAGE;
   const t = getTranslations(validLang).projects;

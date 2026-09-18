@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import { cacheLife } from "next/cache";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
+import { Suspense } from "react";
 import rehypeHighlight from "rehype-highlight";
 import { ScrollToTop } from "@/components/blog/ScrollToTop";
 import { ZenFloatingControls } from "@/components/blog/ZenFloatingControls";
@@ -128,11 +130,6 @@ const MDXLink = ({
   );
 };
 
-export const revalidate = 604800;
-// TODO(refactor)[P2]: dynamicParams=false blocks new posts
-// until full rebuild — set true or use on-demand revalidation
-export const dynamicParams = false;
-
 export async function generateMetadata({
   params,
 }: BlogPostPageProps): Promise<Metadata> {
@@ -190,7 +187,18 @@ export async function generateStaticParams() {
   );
 }
 
-export default async function BlogPostPage({ params }: BlogPostPageProps) {
+export default function BlogPostPage({ params }: BlogPostPageProps) {
+  return (
+    <Suspense fallback={null}>
+      <BlogPostPageContent params={params} />
+    </Suspense>
+  );
+}
+
+async function BlogPostPageContent({ params }: BlogPostPageProps) {
+  "use cache";
+  cacheLife("weeks");
+
   const { slug, lang } = await params;
   const validLang = isLanguage(lang) ? lang : DEFAULT_LANGUAGE;
   const post = getPostBySlug(slug);

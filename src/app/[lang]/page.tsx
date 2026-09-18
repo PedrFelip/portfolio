@@ -1,4 +1,5 @@
 import dynamic from "next/dynamic";
+import { Suspense } from "react";
 import { HatchSeparator, PanelSpacer } from "@/components/blueprint";
 import { GitHubSectionLoader } from "@/components/home/GitHubSectionLoader";
 import { HeroGrid } from "@/components/home/HeroGrid";
@@ -34,7 +35,15 @@ export function generateStaticParams() {
   return langStaticParams();
 }
 
-export default async function HomePage({ params }: HomePageProps) {
+export default function HomePage({ params }: HomePageProps) {
+  return (
+    <Suspense fallback={null}>
+      <HomePageContent params={params} />
+    </Suspense>
+  );
+}
+
+async function HomePageContent({ params }: HomePageProps) {
   const { lang } = await params;
   const t = getTranslations(isLanguage(lang) ? lang : DEFAULT_LANGUAGE);
 

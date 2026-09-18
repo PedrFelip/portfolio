@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 import { LanguageSync } from "@/components/LanguageSync";
 import { LayoutShell } from "@/components/layout/LayoutShell";
 import {
@@ -64,7 +65,21 @@ export async function generateMetadata({
   };
 }
 
-export default async function RootLayout({
+export default function RootLayout({
+  children,
+  params,
+}: Readonly<{
+  children: React.ReactNode;
+  params: Promise<{ lang: string }>;
+}>) {
+  return (
+    <Suspense fallback={children}>
+      <LocalizedLayout params={params}>{children}</LocalizedLayout>
+    </Suspense>
+  );
+}
+
+async function LocalizedLayout({
   children,
   params,
 }: Readonly<{

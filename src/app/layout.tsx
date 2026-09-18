@@ -1,4 +1,3 @@
-import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata, Viewport } from "next";
 import { IBM_Plex_Mono, IBM_Plex_Sans, IBM_Plex_Serif } from "next/font/google";
 
@@ -7,6 +6,7 @@ import "@fontsource/ia-writer-quattro/latin-400-italic.css";
 import "@fontsource/ia-writer-quattro/latin-700.css";
 import "@fontsource/ia-writer-quattro/latin-700-italic.css";
 
+import { ClientSpeedInsights } from "@/components/ClientSpeedInsights";
 import { MotionProvider } from "@/components/MotionProvider";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { siteConfig } from "@/lib/site";
@@ -118,7 +118,7 @@ export default function RootLayout({
         <ThemeProvider>
           <MotionProvider>{children}</MotionProvider>
         </ThemeProvider>
-        <SpeedInsights />
+        <ClientSpeedInsights />
       </body>
     </html>
   );

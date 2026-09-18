@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { cacheLife } from "next/cache";
 import { getAllPosts } from "@/lib/blog-data";
 import { SUPPORTED_LOCALES } from "@/lib/i18n";
 import { siteConfig } from "@/lib/site";
@@ -11,7 +12,10 @@ const STATIC_SECTIONS = ["", "/about", "/projects"] as const;
  * blog post under its canonical Portuguese path only (posts are
  * monolingual PT — see blog [slug] canonical strategy).
  */
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  "use cache";
+  cacheLife("days");
+
   const now = new Date();
 
   const entries: MetadataRoute.Sitemap = [];

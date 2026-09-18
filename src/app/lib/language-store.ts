@@ -1,7 +1,7 @@
 "use client";
 
 import Cookies from "js-cookie";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { create } from "zustand";
 import {
@@ -60,7 +60,6 @@ const useLanguageStore = create<LanguageState>((set, get) => ({
 
 export function useLanguageSync(initialLanguage?: Language) {
   const router = useRouter();
-  const pathname = usePathname();
 
   useEffect(() => {
     useLanguageStore.setState({ _router: router });
@@ -68,6 +67,7 @@ export function useLanguageSync(initialLanguage?: Language) {
 
   useEffect(() => {
     const currentStoreLang = useLanguageStore.getState().language;
+    const pathname = window.location.pathname;
     const pathParts = pathname.split("/").filter(Boolean);
     const langFromUrl = pathParts[0];
 
@@ -89,7 +89,7 @@ export function useLanguageSync(initialLanguage?: Language) {
       useLanguageStore.setState({ language: nextLang });
       if (persistToCookie) setLanguageCookie(nextLang);
     }
-  }, [initialLanguage, pathname]);
+  }, [initialLanguage]);
 }
 
 export function useLanguage() {

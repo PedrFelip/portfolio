@@ -1,14 +1,6 @@
 "use client";
 
-import {
-  memo,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-  useTransition,
-} from "react";
+import { memo, useMemo } from "react";
 import { MonoText } from "@/components/ui";
 import {
   Linkedin,
@@ -17,7 +9,9 @@ import {
   Share2,
 } from "@/components/ui/icons";
 import { XIcon } from "@/components/ui/x-icon";
+import { useClipboard } from "@/hooks/useClipboard";
 import { useLanguage } from "@/lib/language-store";
+import { cn } from "@/lib/utils";
 
 interface ShareButtonsProps {
   title: string;
@@ -25,35 +19,14 @@ interface ShareButtonsProps {
   description?: string;
 }
 
-/**
- * ShareButtons component - Social sharing for blog posts
- *
- * Design principles (AGENTS.md):
- * - Minimal, technical aesthetic
- * - Terminal compact style: brackets for platform labels
- * - 4px grid spacing
- * - Borders-only approach: subtle glow on hover
- * - Monospace labels for platforms
- * - Accent hover states
- * - Copy link with feedback
- * - No scale/rotate animations on icons
- *
- * Best practices:
- * - Memoized to prevent re-renders
- * - Client-side only (uses navigator.clipboard)
- * - Accessible with aria-labels
- * - Non-blocking copy operation
- * - useTransition for state updates (Vercel best practice)
- * - Timer cleanup on unmount (Vercel 5.1)
- */
+const SHARE_BUTTON_CLASS =
+  "terminal-glow inline-flex h-11 md:h-9 items-center gap-2 rounded-lg border border-border bg-card px-4 md:px-3 text-sm text-muted-foreground transition-all duration-200 hover:text-foreground active:scale-[0.98] active:opacity-90 touch-manipulation select-none";
+
 export const ShareButtons = memo(
   ({ title, url, description = "" }: ShareButtonsProps) => {
-    const [copied, setCopied] = useState(false);
-    const [isPending, startTransition] = useTransition();
+    const { copied, isCopying, copy } = useClipboard();
     const { t } = useLanguage();
     const tBlog = t.blog;
-    // TODO(refactor)[P1]: use ReturnType<typeof setTimeout> in browser code
-    const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
     const shareLinks = useMemo(() => {
       const encodedTitle = encodeURIComponent(title);
@@ -67,53 +40,18 @@ export const ShareButtons = memo(
       };
     }, [title, url, description]);
 
-    useEffect(() => {
-      return () => {
-        if (timeoutRef.current) {
-          clearTimeout(timeoutRef.current);
-        }
-      };
-    }, []);
-
-    // TODO(refactor)[P2]: copy+timeout duplicated in CodeBlockWrapper
-    const copyToClipboard = useCallback(async () => {
-      try {
-        if (timeoutRef.current) {
-          clearTimeout(timeoutRef.current);
-          timeoutRef.current = null;
-        }
-
-        await navigator.clipboard.writeText(url);
-        startTransition(() => {
-          setCopied(true);
-          timeoutRef.current = setTimeout(() => {
-            setCopied(false);
-            timeoutRef.current = null;
-          }, 2000);
-        });
-      } catch (err) {
-        console.error("Failed to copy:", err);
-        setCopied(false);
-        if (timeoutRef.current) {
-          clearTimeout(timeoutRef.current);
-          timeoutRef.current = null;
-        }
-      }
-    }, [url]);
-
     return (
       <div className="flex flex-col gap-2 md:gap-3">
         <MonoText className="text-xs md:text-xs text-muted-foreground uppercase tracking-wider">
           {tBlog.share}
         </MonoText>
 
-        {/* TODO(refactor)[P2]: 4 near-identical className strings */}
         <div className="flex flex-wrap gap-2 md:gap-3">
           <a
             href={shareLinks.twitter}
             target="_blank"
             rel="noopener noreferrer"
-            className="terminal-glow inline-flex h-11 md:h-9 items-center gap-2 rounded-lg border border-border bg-card px-4 md:px-3 text-sm text-muted-foreground transition-all duration-200 hover:text-foreground active:scale-[0.98] active:opacity-90 touch-manipulation select-none icon-link-hover"
+            className={cn(SHARE_BUTTON_CLASS, "icon-link-hover")}
             aria-label={`${tBlog.shareOn} X (Twitter)`}
           >
             <XIcon className="size-3.5" />
@@ -124,7 +62,7 @@ export const ShareButtons = memo(
             href={shareLinks.linkedin}
             target="_blank"
             rel="noopener noreferrer"
-            className="terminal-glow inline-flex h-11 md:h-9 items-center gap-2 rounded-lg border border-border bg-card px-4 md:px-3 text-sm text-muted-foreground transition-all duration-200 hover:text-foreground active:scale-[0.98] active:opacity-90 touch-manipulation select-none icon-link-hover"
+            className={cn(SHARE_BUTTON_CLASS, "icon-link-hover")}
             aria-label={`${tBlog.shareOn} LinkedIn`}
           >
             <Linkedin className="size-3.5" />
@@ -133,7 +71,7 @@ export const ShareButtons = memo(
 
           <a
             href={shareLinks.email}
-            className="terminal-glow inline-flex h-11 md:h-9 items-center gap-2 rounded-lg border border-border bg-card px-4 md:px-3 text-sm text-muted-foreground transition-all duration-200 hover:text-foreground active:scale-[0.98] active:opacity-90 touch-manipulation select-none icon-link-hover"
+            className={cn(SHARE_BUTTON_CLASS, "icon-link-hover")}
             aria-label={`${tBlog.shareVia} Email`}
           >
             <Mail className="size-3.5" />
@@ -142,9 +80,12 @@ export const ShareButtons = memo(
 
           <button
             type="button"
-            onClick={copyToClipboard}
-            disabled={isPending}
-            className="terminal-glow inline-flex h-11 md:h-9 items-center gap-2 rounded-lg border border-border bg-card px-4 md:px-3 text-sm text-muted-foreground transition-all duration-200 hover:text-foreground active:scale-[0.98] active:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation select-none"
+            onClick={() => void copy(url)}
+            disabled={isCopying}
+            className={cn(
+              SHARE_BUTTON_CLASS,
+              "disabled:opacity-50 disabled:cursor-not-allowed",
+            )}
             aria-label={copied ? tBlog.linkCopied : tBlog.copyLink}
           >
             {copied ? (

@@ -13,8 +13,6 @@ import type { BlogMetadata } from "@/types/portfolio";
 import { BlogCard } from "./BlogCard";
 
 interface BlogListProps {
-  // TODO(refactor)[P1]: initialPosts prop declared but never used
-  initialPosts: BlogMetadata[];
   allPosts: BlogMetadata[];
   allTags: string[];
   postsPerPage: number;
@@ -41,7 +39,6 @@ export function BlogList({
   const listRef = useRef<HTMLDivElement>(null);
   const [minHeight, setMinHeight] = useState<number | undefined>(undefined);
 
-  // TODO(refactor)[P1]: filteredPosts computed outside useMemo
   const filteredPosts = activeTag
     ? allPosts.filter((p) => p.tags.includes(activeTag))
     : allPosts;

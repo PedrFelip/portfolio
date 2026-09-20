@@ -1,3 +1,5 @@
+import "server-only";
+
 import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
@@ -63,11 +65,14 @@ function isPostPublished(frontmatter: Record<string, unknown>): boolean {
  *   - `"2026-05-07 14:30"`            → same as above (space separator)
  *   - `"2026-05-07T14:30:00-03:00"`   → ISO with explicit offset, kept as-is
  *
- * Falls back to "now" when the value is missing or unparseable.
+ * Falls back to a stable sentinel date when the value is missing or
+ * unparseable. A moving fallback such as `new Date()` makes static
+ * prerendering depend on the current time.
  */
-// TODO(refactor)[P4]: untested date normalization with 4 branches
 function normalizeFrontmatterDate(raw: unknown): string {
-  if (!raw) return new Date().toISOString();
+  const fallback = "1970-01-01T12:00:00-03:00";
+
+  if (!raw) return fallback;
 
   const str = typeof raw === "string" ? raw.trim() : String(raw);
 
@@ -90,7 +95,7 @@ function normalizeFrontmatterDate(raw: unknown): string {
   const parsed = new Date(`${str}T12:00:00-03:00`);
   if (!Number.isNaN(parsed.getTime())) return parsed.toISOString();
 
-  return new Date().toISOString();
+  return fallback;
 }
 
 /**

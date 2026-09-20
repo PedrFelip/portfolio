@@ -1,16 +1,11 @@
 import Link from "next/link";
-import {
-  CornerBrackets,
-  SectionBadge,
-  SectionLabel,
-} from "@/components/blueprint";
+import { CornerBrackets, SectionBadge } from "@/components/blueprint";
 import { Badge, MonoText } from "@/components/ui";
 import { ArrowRight, BookOpen, Calendar } from "@/components/ui/icons";
 import { getLatestPost, getPostDateISO } from "@/lib/blog-data";
 
 interface LatestPostSectionProps {
   lang: string;
-  badge: string;
   title: string;
   description: string;
   readMore: string;
@@ -28,7 +23,7 @@ interface LatestPostSectionProps {
  */
 export async function LatestPostSection({
   lang,
-  badge,
+
   title,
   description,
   readMore,
@@ -56,11 +51,10 @@ export async function LatestPostSection({
     >
       {/* Header */}
       {/* TODO(refactor)[P2]: section header duplicated 8+ times */}
-      <SectionBadge className="bp-line-bottom px-4 py-3 sm:px-6">
+      <SectionBadge line="bottom" className="px-4 py-3 sm:px-6">
         <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <SectionLabel>{badge}</SectionLabel>
-            <h2 className="mt-1 text-lg font-semibold tracking-tight sm:text-xl">
+            <h2 className="text-lg font-semibold tracking-tight sm:text-xl">
               {title}
             </h2>
             <p className="mt-1 text-sm text-muted-foreground">{description}</p>

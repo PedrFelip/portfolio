@@ -12,7 +12,6 @@ interface FlickeringGridProps extends React.HTMLAttributes<HTMLDivElement> {
   color?: string;
   width?: number;
   height?: number;
-  className?: string;
   maxOpacity?: number;
 }
 
@@ -269,10 +268,14 @@ export const FlickeringGrid: React.FC<FlickeringGridProps> = ({
   return (
     <div
       ref={containerRef}
-      className={cn("h-full w-full", className)}
+      className={cn("relative h-full w-full", className)}
       {...props}
     >
       <canvas ref={canvasRef} className="pointer-events-none h-full w-full" />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background via-background/70 to-transparent"
+      />
     </div>
   );
 };

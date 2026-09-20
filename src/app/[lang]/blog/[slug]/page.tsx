@@ -3,27 +3,16 @@ import { cacheLife } from "next/cache";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { MDXRemote } from "next-mdx-remote/rsc";
 import { Suspense } from "react";
-import rehypeHighlight from "rehype-highlight";
 import "@fontsource/ia-writer-quattro/latin-400.css";
 import "@fontsource/ia-writer-quattro/latin-400-italic.css";
 import "@fontsource/ia-writer-quattro/latin-700.css";
 import "@fontsource/ia-writer-quattro/latin-700-italic.css";
 import { ScrollToTop } from "@/components/blog/ScrollToTop";
 import { ZenFloatingControls } from "@/components/blog/ZenFloatingControls";
-import { Callout } from "@/components/mdx/Callout";
-import { CodeBlockWrapper } from "@/components/mdx/CodeBlockWrapper";
-import { Figure } from "@/components/mdx/Figure";
-import { createHeadingComponents } from "@/components/mdx/MDXHeading";
-import {
-  MDXTable,
-  MDXTableBody,
-  MDXTableCell,
-  MDXTableHead,
-  MDXTableRow,
-} from "@/components/mdx/MDXTable";
-import { Tweet } from "@/components/mdx/Tweet";
+import { PageLoadingSkeleton } from "@/components/layout/PageLoadingSkeleton";
+import { ScrollToPageTop } from "@/components/layout/ScrollToPageTop";
+import { MarkdownContent } from "@/components/mdx/MarkdownContent";
 import { Badge } from "@/components/ui";
 import { ArrowLeft, Calendar, ChevronDown, Clock } from "@/components/ui/icons";
 import { getAllPostSlugs, getPostBySlug } from "@/lib/blog-data";
@@ -38,9 +27,6 @@ import {
   blogPostingSchema,
   JsonLdScript,
 } from "@/lib/jsonld";
-import rehypeCodeMeta from "@/lib/mdx/rehype-code-meta";
-import rehypeTweet from "@/lib/mdx/rehype-tweet";
-import remarkCodeMeta from "@/lib/mdx/remark-code-meta";
 import { siteConfig } from "@/lib/site";
 
 const ShareButtons = dynamic(
@@ -71,68 +57,6 @@ interface BlogPostPageProps {
     lang: "en" | "pt";
   }>;
 }
-
-const PreComponent = ({
-  children,
-  "data-code-title": filename,
-  "data-code-language": language,
-}: React.HTMLAttributes<HTMLPreElement> & {
-  "data-code-title"?: string;
-  "data-code-language"?: string;
-}) => (
-  <CodeBlockWrapper filename={filename} language={language}>
-    {children}
-  </CodeBlockWrapper>
-);
-
-const CodeComponent = ({
-  children,
-  className,
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) => {
-  if (className?.startsWith("hljs")) {
-    return <code className={className}>{children}</code>;
-  }
-  return (
-    <code className="bg-code-bg text-code-fg px-1.5 py-0.5 rounded-lg">
-      {children}
-    </code>
-  );
-};
-
-const TableCellHeader = ({ children }: { children: React.ReactNode }) => (
-  <MDXTableCell isHeader>{children}</MDXTableCell>
-);
-
-const TableCell = ({ children }: { children: React.ReactNode }) => (
-  <MDXTableCell>{children}</MDXTableCell>
-);
-
-const isExternalLink = (href: string) =>
-  /^https?:\/\//i.test(href) ||
-  href.startsWith("mailto:") ||
-  href.startsWith("tel:");
-
-const MDXLink = ({
-  href = "",
-  children,
-  ...props
-}: React.AnchorHTMLAttributes<HTMLAnchorElement>) => {
-  if (isExternalLink(href)) {
-    return (
-      <a href={href} target="_blank" rel="noopener noreferrer" {...props}>
-        {children}
-      </a>
-    );
-  }
-  return (
-    <Link href={href} {...props}>
-      {children}
-    </Link>
-  );
-};
 
 export async function generateMetadata({
   params,
@@ -193,9 +117,12 @@ export async function generateStaticParams() {
 
 export default function BlogPostPage({ params }: BlogPostPageProps) {
   return (
-    <Suspense fallback={null}>
-      <BlogPostPageContent params={params} />
-    </Suspense>
+    <>
+      <ScrollToPageTop />
+      <Suspense fallback={<PageLoadingSkeleton />}>
+        <BlogPostPageContent params={params} />
+      </Suspense>
+    </>
   );
 }
 
@@ -212,26 +139,8 @@ async function BlogPostPageContent({ params }: BlogPostPageProps) {
     notFound();
   }
 
-  // TODO(refactor)[P1]: static MDX components rebuilt every
-  // render — hoist to module scope, only vary headingComponents
-  const headingComponents = createHeadingComponents();
-
+  const headings = post.headings ?? [];
   const wordCount = post.content.split(/\s+/).filter(Boolean).length;
-  const MDX_COMPONENTS = {
-    a: MDXLink,
-    pre: PreComponent,
-    code: CodeComponent,
-    Callout,
-    Figure,
-    Tweet,
-    table: MDXTable,
-    thead: MDXTableHead,
-    tbody: MDXTableBody,
-    tr: MDXTableRow,
-    th: TableCellHeader,
-    td: TableCell,
-    ...headingComponents,
-  };
 
   const formattedDate = new Date(post.date).toLocaleDateString(
     lang === "pt" ? "pt-BR" : "en-US",
@@ -241,145 +150,147 @@ async function BlogPostPageContent({ params }: BlogPostPageProps) {
   const postUrl = `${siteConfig.url}/pt/blog/${post.slug}`;
 
   return (
-    <div className="animate-in-fade animate-duration-700 pb-24 md:pb-0">
-      <JsonLdScript
-        data={[
-          blogPostingSchema({
-            title: post.title,
-            description: post.excerpt,
-            slug: post.slug,
-            date: post.date,
-            modifiedDate: post.modifiedDate,
-            tags: post.tags,
-            wordCount,
-            readingTime: post.readingTime,
-          }),
-          blogBreadcrumbSchema({ slug: post.slug, title: post.title }),
-        ]}
-      />
+    <>
       <ScrollToTop />
       <ZenFloatingControls />
+      <div className="pb-[calc(6rem+env(safe-area-inset-bottom,0px))] md:pb-0">
+        <JsonLdScript
+          data={[
+            blogPostingSchema({
+              title: post.title,
+              description: post.excerpt,
+              slug: post.slug,
+              date: post.date,
+              modifiedDate: post.modifiedDate,
+              tags: post.tags,
+              wordCount,
+              readingTime: post.readingTime,
+            }),
+            blogBreadcrumbSchema({ slug: post.slug, title: post.title }),
+          ]}
+        />
+        {/* Header Section */}
+        <header className="blog-post-container">
+          <div className="blog-post-content border-b py-10 sm:py-12 lg:py-16">
+            <div className="min-w-0">
+              {/* Title */}
+              <h1 className="max-w-full pr-1 text-3xl sm:text-4xl lg:text-5xl [overflow-wrap:anywhere] text-balance font-semibold tracking-[-0.03em] leading-[1.2] pb-1 mb-6 animate-in-up [font-family:var(--font-ibm-plex-serif)] bg-gradient-to-br from-foreground to-accent bg-clip-text [-webkit-background-clip:text] [-webkit-text-fill-color:transparent] [box-decoration-break:clone]">
+                {post.title}
+              </h1>
 
-      {/* Header Section */}
-      <header className="border-b border-border">
-        <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6 sm:py-12">
-          {/* Title */}
-          <h1 className="w-fit max-w-full pr-1 text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-[-0.03em] leading-[1.2] pb-1 mb-6 animate-in-up [font-family:var(--font-ibm-plex-serif)] bg-gradient-to-br from-foreground to-accent bg-clip-text [-webkit-background-clip:text] [-webkit-text-fill-color:transparent] [box-decoration-break:clone]">
-            {post.title}
-          </h1>
-
-          {/* Meta row: date, reading time, tags */}
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs font-mono text-muted-foreground animate-in-up animate-delay-100">
-            <span className="inline-flex items-center gap-1.5">
-              <Calendar className="size-3.5" aria-hidden="true" />
-              <time dateTime={post.date}>{formattedDate}</time>
-            </span>
-
-            {post.readingTime && (
-              <>
-                <span className="text-accent/40" aria-hidden="true">
-                  ·
-                </span>
+              {/* Meta row: date, reading time, tags */}
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-3 text-xs font-mono text-muted-foreground animate-in-up animate-delay-100">
                 <span className="inline-flex items-center gap-1.5">
-                  <Clock className="size-3.5" aria-hidden="true" />
-                  {post.readingTime} {t.readingTime}
+                  <Calendar className="size-3.5" aria-hidden="true" />
+                  <time dateTime={post.date}>{formattedDate}</time>
                 </span>
-              </>
+
+                {post.readingTime && (
+                  <>
+                    <span
+                      className="hidden text-accent/40 sm:inline"
+                      aria-hidden="true"
+                    >
+                      ·
+                    </span>
+                    <span className="inline-flex items-center gap-1.5">
+                      <Clock className="size-3.5" aria-hidden="true" />
+                      {post.readingTime} {t.readingTime}
+                    </span>
+                  </>
+                )}
+              </div>
+
+              {/* Tags */}
+              {post.tags.length > 0 && (
+                <div className="flex flex-wrap gap-2 mt-4 animate-in-up animate-delay-150">
+                  {post.tags.map((tag) => (
+                    <Badge
+                      key={tag}
+                      variant="outline"
+                      className="max-w-full whitespace-normal [overflow-wrap:anywhere] text-[11px] font-mono font-normal px-2 py-0.5 border-border/60 text-muted-foreground"
+                    >
+                      {tag}
+                    </Badge>
+                  ))}
+                </div>
+              )}
+
+              {/* Excerpt */}
+              {post.excerpt && (
+                <p className="mt-6 text-base sm:text-lg leading-relaxed text-muted-foreground italic animate-in-up animate-delay-200">
+                  {post.excerpt}
+                </p>
+              )}
+            </div>
+          </div>
+        </header>
+
+        {/* Content Section */}
+        <div className="blog-post-container">
+          <div className="blog-post-content">
+            {/* Main Article */}
+            <div className="min-w-0 py-8 sm:py-12">
+              {/* Mobile TOC */}
+              {headings.length > 0 && (
+                <details className="2xl:hidden mb-8 group">
+                  <summary className="flex items-center justify-between cursor-pointer text-xs font-mono uppercase tracking-wide text-muted-foreground hover:text-accent transition-colors py-3 border-b border-border min-h-[48px] touch-manipulation focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring">
+                    <span>{t.onThisPage || "On this page"}</span>
+                    <ChevronDown
+                      className="size-3 transition-transform group-open:rotate-180"
+                      aria-hidden="true"
+                    />
+                  </summary>
+                  <div className="pt-4 pb-2">
+                    <TableOfContents headings={headings} showTitle={false} />
+                  </div>
+                </details>
+              )}
+
+              {/* Article Content */}
+              <article
+                lang="pt-BR"
+                className="blog-article prose min-w-0 max-w-none"
+              >
+                <MarkdownContent source={post.content} />
+              </article>
+
+              {/* Footer */}
+              <footer className="mt-12 pt-8 sm:mt-16 border-t border-border flex flex-wrap items-start justify-between gap-6 animate-in-up animate-delay-400">
+                <div className="flex flex-col items-start gap-2">
+                  <p className="text-sm text-muted-foreground font-mono">
+                    {t.thanksForReading}
+                  </p>
+                  <Link
+                    href={`/${validLang}/blog`}
+                    className="group inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-muted-foreground hover:text-accent transition-colors min-h-[44px] touch-manipulation"
+                  >
+                    <ArrowLeft className="size-3 text-muted-foreground group-hover:text-accent group-hover:-translate-x-1.5 transition-all duration-300 ease-[cubic-bezier(0.25,1,0.5,1)]" />
+                    {t.back}
+                  </Link>
+                </div>
+
+                <div className="min-w-0 max-w-full">
+                  <ShareButtons
+                    title={post.title}
+                    url={postUrl}
+                    description={post.excerpt}
+                  />
+                </div>
+              </footer>
+            </div>
+
+            {/* Sidebar (Desktop) */}
+            {headings.length > 0 && (
+              <aside className="absolute top-0 bottom-0 left-full ml-8 hidden w-48 pt-12 2xl:block">
+                <div className="sticky top-8 max-h-[calc(100dvh-4rem)] overflow-y-auto">
+                  <TableOfContents headings={headings} />
+                </div>
+              </aside>
             )}
           </div>
-
-          {/* Tags */}
-          {post.tags.length > 0 && (
-            <div className="flex flex-wrap gap-2 mt-6 animate-in-up animate-delay-150">
-              {post.tags.map((tag) => (
-                <Badge
-                  key={tag}
-                  variant="outline"
-                  className="text-[11px] font-mono font-normal px-2 py-0.5 border-border/60 text-muted-foreground"
-                >
-                  {tag}
-                </Badge>
-              ))}
-            </div>
-          )}
-
-          {/* Excerpt */}
-          {post.excerpt && (
-            <p className="mt-8 text-lg sm:text-xl leading-relaxed text-muted-foreground italic max-w-2xl animate-in-up animate-delay-200">
-              {post.excerpt}
-            </p>
-          )}
-        </div>
-      </header>
-
-      {/* Content Section */}
-      <div className="mx-auto max-w-4xl px-4 sm:px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_200px] gap-8 lg:gap-12">
-          {/* Main Article */}
-          <div className="py-10 sm:py-16 animate-in-up animate-delay-300">
-            {/* Mobile TOC */}
-            <details className="lg:hidden mb-8 group">
-              <summary className="flex items-center justify-between cursor-pointer text-xs font-mono uppercase tracking-wide text-muted-foreground hover:text-accent transition-colors py-3 border-b border-border min-h-[48px] touch-manipulation">
-                <span>{t.onThisPage || "On this page"}</span>
-                <ChevronDown
-                  className="size-3 transition-transform group-open:rotate-180"
-                  aria-hidden="true"
-                />
-              </summary>
-              <div className="pt-4 pb-2">
-                <TableOfContents headings={post.headings || []} />
-              </div>
-            </details>
-
-            {/* Article Content */}
-            <article className="blog-article prose max-w-none">
-              <MDXRemote
-                source={post.content}
-                options={{
-                  mdxOptions: {
-                    remarkPlugins: [remarkCodeMeta],
-                    rehypePlugins: [
-                      rehypeCodeMeta,
-                      rehypeTweet,
-                      [rehypeHighlight, { detect: true }],
-                    ],
-                  },
-                }}
-                components={MDX_COMPONENTS}
-              />
-            </article>
-
-            {/* Footer */}
-            <footer className="mt-20 pt-12 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-8 animate-in-up animate-delay-400">
-              <div className="flex flex-col items-center sm:items-start gap-3">
-                <p className="text-sm text-muted-foreground font-mono">
-                  {t.thanksForReading}
-                </p>
-                <Link
-                  href={`/${lang}/blog`}
-                  className="group inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-muted-foreground hover:text-accent transition-colors min-h-[44px] touch-manipulation"
-                >
-                  <ArrowLeft className="size-3 text-muted-foreground group-hover:text-accent group-hover:-translate-x-1.5 transition-all duration-300 ease-[cubic-bezier(0.25,1,0.5,1)]" />
-                  {t.back}
-                </Link>
-              </div>
-
-              <div className="flex items-center gap-4">
-                <ShareButtons
-                  title={post.title}
-                  url={postUrl}
-                  description={post.excerpt}
-                />
-              </div>
-            </footer>
-          </div>
-
-          {/* Sidebar (Desktop) */}
-          <aside className="hidden lg:block sticky top-24 self-start py-16 animate-in-right animate-delay-500">
-            <TableOfContents headings={post.headings || []} />
-          </aside>
         </div>
       </div>
-    </div>
+    </>
   );
 }

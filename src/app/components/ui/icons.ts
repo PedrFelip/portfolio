@@ -42,6 +42,7 @@ export {
   AlertTriangle,
   ArrowLeft,
   ArrowRight,
+  ArrowUpRight,
   BookOpen,
   Calendar,
   Check,

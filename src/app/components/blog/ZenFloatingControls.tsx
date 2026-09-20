@@ -1,6 +1,12 @@
 "use client";
 
-import { m, useMotionValueEvent, useScroll, useSpring } from "framer-motion";
+import {
+  m,
+  useMotionValueEvent,
+  useReducedMotion,
+  useScroll,
+  useSpring,
+} from "framer-motion";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ArrowLeft, Home } from "@/components/ui/icons";
@@ -11,6 +17,7 @@ export function ZenFloatingControls() {
   const { t } = useLanguage();
   const getLocalizedLink = useLocalizedLink();
   const { scrollY, scrollYProgress } = useScroll();
+  const reduceMotion = useReducedMotion();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
@@ -30,8 +37,7 @@ export function ZenFloatingControls() {
 
     const idleTimer = setTimeout(() => {
       setIsScrollingDown(false);
-    }, 500); // Reaparece após 300ms parado
-    // TODO(refactor)[P1]: comment says 300ms but code is 500ms
+    }, 500);
 
     return () => clearTimeout(idleTimer);
   }, [isScrollingDown]);
@@ -50,8 +56,8 @@ export function ZenFloatingControls() {
     <>
       {/* Top Reading Progress Bar */}
       <m.div
-        className="fixed top-0 left-0 right-0 h-1 bg-accent origin-left z-[60]"
-        style={{ scaleX }}
+        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-foreground to-accent origin-left z-[60]"
+        style={{ scaleX: reduceMotion ? scrollYProgress : scaleX }}
         initial={{ opacity: 0 }}
         animate={{ opacity: isVisible ? 1 : 0 }}
       />
@@ -59,29 +65,36 @@ export function ZenFloatingControls() {
       {/* Desktop Floating Control Group */}
       {/* TODO(refactor)[P2]: desktop+mobile control groups near-identical */}
       <m.div
-        className="fixed top-6 left-6 z-[60] hidden md:flex"
-        initial={{ x: -20, opacity: 0 }}
-        animate={{ x: isVisible ? 0 : -20, opacity: isVisible ? 1 : 0 }}
-        transition={{ delay: 0.1 }}
+        className="sticky top-0 z-[60] hidden border-b border-border bg-background/95 backdrop-blur-sm md:block 2xl:fixed 2xl:top-8 2xl:left-[calc(50%_-_40rem)] 2xl:border-0 2xl:bg-transparent 2xl:backdrop-blur-none"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: isVisible ? 1 : 0 }}
+        transition={{ duration: reduceMotion ? 0 : 0.2 }}
       >
-        <div className="flex h-9 items-stretch rounded-lg border border-overlay-border bg-background shadow-sm overflow-hidden touch-manipulation">
-          <Link
-            href={getLocalizedLink("/blog")}
-            className="group flex items-center gap-2 px-4 text-[10px] font-mono uppercase tracking-widest text-muted-foreground hover:text-foreground hover:bg-surface-4 transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)]"
-          >
-            <ArrowLeft className="size-3 transition-transform group-hover:-translate-x-1" />
-            <span>{t.blog.back}</span>
-          </Link>
+        <div className="blog-post-container py-4 2xl:w-auto 2xl:p-0">
+          <div className="px-4 sm:px-6 2xl:px-0">
+            <nav
+              aria-label={t.blog.back}
+              className="flex min-h-11 w-fit items-stretch rounded-sm border border-overlay-border bg-background touch-manipulation"
+            >
+              <Link
+                href={getLocalizedLink("/blog")}
+                className="group flex items-center gap-2 px-4 text-[10px] font-mono uppercase tracking-widest text-muted-foreground hover:text-foreground hover:bg-surface-4 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)]"
+              >
+                <ArrowLeft className="size-3 transition-transform group-hover:-translate-x-1" />
+                <span>{t.blog.back}</span>
+              </Link>
 
-          <div className="w-px border-l border-dashed border-overlay-border" />
+              <div className="w-px border-l border-dashed border-overlay-border" />
 
-          <Link
-            href={getLocalizedLink("/")}
-            className="group flex items-center justify-center px-4 text-muted-foreground hover:text-foreground hover:bg-surface-4 transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)]"
-            aria-label={t.nav.home}
-          >
-            <Home className="size-3.5 transition-transform group-hover:scale-110" />
-          </Link>
+              <Link
+                href={getLocalizedLink("/")}
+                className="group flex items-center justify-center px-4 text-muted-foreground hover:text-foreground hover:bg-surface-4 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)]"
+                aria-label={t.nav.home}
+              >
+                <Home className="size-3.5 transition-transform group-hover:scale-110" />
+              </Link>
+            </nav>
+          </div>
         </div>
       </m.div>
 
@@ -98,10 +111,10 @@ export function ZenFloatingControls() {
           ease: [0.25, 1, 0.5, 1],
         }}
       >
-        <div className="flex h-11 items-stretch rounded-lg border border-overlay-border bg-background shadow-md overflow-hidden touch-manipulation">
+        <div className="flex min-h-11 items-stretch rounded-sm border border-overlay-border bg-background touch-manipulation">
           <Link
             href={getLocalizedLink("/blog")}
-            className="group flex items-center gap-2 px-6 text-[10px] font-mono uppercase tracking-widest text-foreground hover:bg-surface-4 transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] active:scale-[0.98] active:opacity-90"
+            className="group flex items-center gap-2 px-6 text-[10px] font-mono uppercase tracking-widest text-foreground hover:bg-surface-4 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] active:scale-[0.98] active:opacity-90"
           >
             <ArrowLeft className="size-3.5" />
             <span>{t.blog.back}</span>
@@ -111,7 +124,7 @@ export function ZenFloatingControls() {
 
           <Link
             href={getLocalizedLink("/")}
-            className="group flex items-center justify-center px-5 text-muted-foreground hover:text-foreground hover:bg-surface-4 transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] active:scale-[0.98] active:opacity-90"
+            className="group flex items-center justify-center px-5 text-muted-foreground hover:text-foreground hover:bg-surface-4 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] active:scale-[0.98] active:opacity-90"
             aria-label={t.nav.home}
           >
             <Home className="size-4" />

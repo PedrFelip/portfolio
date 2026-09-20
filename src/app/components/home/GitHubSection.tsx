@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
-import { SectionBadge, SectionLabel } from "@/components/blueprint";
+import { SectionBadge } from "@/components/blueprint";
 import type { ContributionData } from "@/lib/github";
 import { cn } from "@/lib/utils";
 import { GitHubSectionSkeleton } from "./GitHubSectionSkeleton";
@@ -23,7 +23,6 @@ const GitHubContributionGraph = dynamic(
 interface GitHubSectionProps {
   className?: string;
   title?: string;
-  subtitle?: string;
   description?: string;
   username?: string;
   swipeHint?: string;
@@ -39,13 +38,12 @@ interface GitHubSectionProps {
  * GitHubSection - chanhdai.com inspired panel layout
  *
  * Structure:
- * - Header row: subtitle + title + stats (inline)
+ * - Header row: title + stats (inline)
  * - Content: contribution graph with dot pattern bg
  */
 export function GitHubSection({
   className,
   title = "GitHub Activity",
-  subtitle = "Commit History",
   description = "Daily contributions and coding activity over the past year.",
   username = "pedrfelip",
   // TODO(refactor)[P1]: hardcoded username default
@@ -93,11 +91,10 @@ export function GitHubSection({
     >
       {/* Header */}
       {/* TODO(refactor)[P2]: section header pattern duplicated 8+ times */}
-      <SectionBadge className="bp-line-bottom px-4 py-3 sm:px-6">
+      <SectionBadge line="bottom" className="px-4 py-3 sm:px-6">
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2">
           <div>
-            <SectionLabel>{subtitle}</SectionLabel>
-            <h2 className="mt-1 text-lg font-semibold tracking-tight sm:text-xl">
+            <h2 className="text-lg font-semibold tracking-tight sm:text-xl">
               {title}
             </h2>
             <p className="mt-1 text-sm text-muted-foreground">{description}</p>

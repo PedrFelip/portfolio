@@ -11,5 +11,10 @@ export { Badge } from "./badge";
 export { Button } from "./button";
 export { EncryptedText } from "./encrypted-text";
 export { Logo } from "./logo";
+export {
+  PixelFlicker,
+  type PixelFlickerProps,
+  type PixelFlickerVariant,
+} from "./pixel-flicker";
 export { H1, H3, MonoText, P } from "./typography";
 export { XIcon } from "./x-icon";

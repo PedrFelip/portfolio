@@ -37,7 +37,7 @@ export function DeferredFooterGradient() {
       {shouldLoad ? (
         <Suspense fallback={<StaticFooterGradient />}>
           <FluidGradientText
-            text="PEDRO FELIPE"
+            text="Pedro Felipe"
             svgViewBoxWidth={VIEWBOX_WIDTH}
           />
         </Suspense>
@@ -83,7 +83,7 @@ function StaticFooterGradient() {
               fontSize: VIEWBOX_HEIGHT,
             }}
           >
-            PEDRO FELIPE
+            Pedro Felipe
           </text>
           <defs>
             <linearGradient

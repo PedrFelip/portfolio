@@ -4,8 +4,8 @@ import { MoveHorizontal } from "lucide-react";
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { MonoText } from "@/components/ui";
 import type { ContributionData, ContributionDay } from "@/lib/github";
-import { getContributionColor } from "@/lib/github";
 import { cn } from "@/lib/utils";
+import { getContributionColor } from "./github-colors";
 
 // TODO(refactor)[P1]: re-implements useTheme via MutationObserver
 function useTheme(): "dark" | "light" {

@@ -1,10 +1,9 @@
-import { SectionBadge, SectionLabel } from "@/components/blueprint";
+import { SectionBadge } from "@/components/blueprint";
 import { DEFAULT_TECH_STACK, type TechItem } from "@/lib/tech-stack";
 
 interface SimpleTechStackProps {
   id?: string;
   title?: string;
-  subtitle?: string;
   description?: string;
   items?: TechItem[];
 }
@@ -12,7 +11,6 @@ interface SimpleTechStackProps {
 export function SimpleTechStack({
   id = "tech-stack",
   title = "Tech Stack",
-  subtitle = "Technologies",
   description = "Modern tools and technologies I work with daily.",
   items = DEFAULT_TECH_STACK,
 }: SimpleTechStackProps) {
@@ -20,9 +18,8 @@ export function SimpleTechStack({
     <section id={id} data-slot="panel" className="bp-panel bp-line-bottom">
       {/* Header */}
       {/* TODO(refactor)[P2]: section header duplicated 8+ times */}
-      <SectionBadge className="bp-line-bottom px-4 py-3 sm:px-6">
-        <SectionLabel>{subtitle}</SectionLabel>
-        <h2 className="mt-1 text-lg font-semibold tracking-tight sm:text-xl">
+      <SectionBadge line="bottom" className="px-4 py-3 sm:px-6">
+        <h2 className="text-lg font-semibold tracking-tight sm:text-xl">
           {title}
         </h2>
         {description && (

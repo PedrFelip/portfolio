@@ -6,6 +6,8 @@ import { HeroGrid } from "@/components/home/HeroGrid";
 import { HomeCtaSection } from "@/components/home/HomeCtaSection";
 import { HomeFeaturesSection } from "@/components/home/HomeFeaturesSection";
 import { LatestPostSection } from "@/components/home/LatestPostSection";
+import { PageLoadingSkeleton } from "@/components/layout/PageLoadingSkeleton";
+import { ScrollToPageTop } from "@/components/layout/ScrollToPageTop";
 import {
   DEFAULT_LANGUAGE,
   getTranslations,
@@ -37,9 +39,12 @@ export function generateStaticParams() {
 
 export default function HomePage({ params }: HomePageProps) {
   return (
-    <Suspense fallback={null}>
-      <HomePageContent params={params} />
-    </Suspense>
+    <>
+      <ScrollToPageTop />
+      <Suspense fallback={<PageLoadingSkeleton variant="home" />}>
+        <HomePageContent params={params} />
+      </Suspense>
+    </>
   );
 }
 
@@ -69,7 +74,6 @@ async function HomePageContent({ params }: HomePageProps) {
         {/* ─── Tech Stack Panel ─── */}
         <SimpleTechStack
           title={t.techStack.title}
-          subtitle={t.techStack.badge}
           description={t.techStack.description}
         />
 
@@ -78,7 +82,6 @@ async function HomePageContent({ params }: HomePageProps) {
 
         {/* ─── Features Panel ─── */}
         <HomeFeaturesSection
-          badge={t.features.badge}
           title={t.features.title}
           description={t.features.description}
           items={t.features.items}
@@ -107,7 +110,6 @@ async function HomePageContent({ params }: HomePageProps) {
         {/* ─── Latest Post Panel ─── */}
         <LatestPostSection
           lang={lang}
-          badge={t.latestPost.badge}
           title={t.latestPost.title}
           description={t.latestPost.description}
           readMore={t.latestPost.readMore}
@@ -120,7 +122,6 @@ async function HomePageContent({ params }: HomePageProps) {
 
         {/* ─── Toolkit Panel ─── */}
         <HomeToolkitSection
-          badge={t.toolkit.badge}
           title={t.toolkit.title}
           description={t.toolkit.description}
           items={t.toolkit.items}

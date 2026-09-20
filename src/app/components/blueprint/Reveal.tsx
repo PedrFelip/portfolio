@@ -2,7 +2,7 @@
 
 import { Slot } from "@radix-ui/react-slot";
 import { m, useInView, useReducedMotion } from "framer-motion";
-import { type ElementType, useRef } from "react";
+import { useRef } from "react";
 import { revealVariants } from "@/lib/animations";
 import { cn } from "@/lib/utils";
 
@@ -37,11 +37,39 @@ export function Reveal({
   const Comp = asChild ? Slot : "div";
 
   if (shouldReduce) {
-    const Tag = as as ElementType;
+    const content = <Comp>{children}</Comp>;
+    if (as === "span") {
+      return (
+        <span ref={setRef} className={cn(className)}>
+          {content}
+        </span>
+      );
+    }
+    if (as === "section") {
+      return (
+        <section ref={setRef} className={cn(className)}>
+          {content}
+        </section>
+      );
+    }
+    if (as === "article") {
+      return (
+        <article ref={setRef} className={cn(className)}>
+          {content}
+        </article>
+      );
+    }
+    if (as === "li") {
+      return (
+        <li ref={setRef} className={cn(className)}>
+          {content}
+        </li>
+      );
+    }
     return (
-      <Tag ref={setRef} className={cn(className)}>
-        <Comp>{children}</Comp>
-      </Tag>
+      <div ref={setRef} className={cn(className)}>
+        {content}
+      </div>
     );
   }
 

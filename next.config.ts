@@ -6,10 +6,10 @@ const nextConfig: NextConfig = {
   cacheComponents: true,
   partialPrefetching: true,
   reactCompiler: true,
-  // Turbopack externalizes next-mdx-remote into a hashed virtual
-  // module it then fails to resolve in dev (Cannot find module
-  // 'next-mdx-remote-<hash>/rsc'). Transpiling it sidesteps that.
-  transpilePackages: ["next-mdx-remote"],
+  // Turbopack can externalize ESM-only MDX packages into hashed virtual
+  // modules that Bun then fails to resolve in dev. Bundling them avoids
+  // runtime imports such as `next-mdx-remote-<hash>` and `shiki-<hash>`.
+  transpilePackages: ["next-mdx-remote", "rehype-pretty-code", "shiki"],
   experimental: {
     // Eliminate render-blocking stylesheet requests on the first visit. This
     // portfolio uses Tailwind's atomic CSS, which is a good fit for inlining.

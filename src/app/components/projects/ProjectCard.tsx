@@ -1,20 +1,17 @@
 "use client";
 
-import Link from "next/link";
 import { memo } from "react";
-import { Badge, Button, H3, MonoText, P } from "@/components/ui";
-import { ExternalLink, Github, Star } from "@/components/ui/icons";
-import { useLanguage } from "@/lib/language-store";
+import { Badge, H3, MonoText, P } from "@/components/ui";
+import { Star } from "@/components/ui/icons";
 import type { Project } from "@/types/portfolio";
+
+import { ProjectLinks } from "./ProjectLinks";
 
 interface ProjectCardProps {
   project: Project;
 }
 
 export const ProjectCard = memo(({ project }: ProjectCardProps) => {
-  const { t } = useLanguage();
-  const linkLabels = t.projects.links;
-
   return (
     <div className="group/card relative flex h-full flex-col">
       {/* Header: title + date */}
@@ -55,60 +52,7 @@ export const ProjectCard = memo(({ project }: ProjectCardProps) => {
         </div>
       </div>
 
-      {/* Links */}
-      {project.links && (
-        <div className="mt-4 flex flex-wrap gap-2 border-t border-dashed border-border/60 pt-4 sm:mt-5">
-          {/* TODO(refactor)[P2]: 3 near-identical project link blocks */}
-          {project.links.github && (
-            <Button asChild variant="outline" size="sm">
-              <Link
-                href={project.links.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group/link text-xs sm:text-sm"
-              >
-                <Github
-                  className="mr-1.5 size-3 sm:mr-2 sm:size-3.5 icon-hover-rotate group-hover/link:scale-110"
-                  aria-hidden="true"
-                />
-                {linkLabels.code}
-              </Link>
-            </Button>
-          )}
-          {project.links.demo && (
-            <Button asChild variant="outline" size="sm">
-              <Link
-                href={project.links.demo}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group/link text-xs sm:text-sm"
-              >
-                <ExternalLink
-                  className="mr-1.5 size-3 sm:mr-2 sm:size-3.5 transition-transform duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover/link:translate-x-0.5 group-hover/link:scale-110"
-                  aria-hidden="true"
-                />
-                {linkLabels.demo}
-              </Link>
-            </Button>
-          )}
-          {project.links.website && (
-            <Button asChild variant="outline" size="sm">
-              <Link
-                href={project.links.website}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group/link text-xs sm:text-sm"
-              >
-                <ExternalLink
-                  className="mr-1.5 size-3 sm:mr-2 sm:size-3.5 transition-transform duration-150 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover/link:translate-x-0.5 group-hover/link:scale-110"
-                  aria-hidden="true"
-                />
-                {linkLabels.website}
-              </Link>
-            </Button>
-          )}
-        </div>
-      )}
+      {project.links && <ProjectLinks links={project.links} />}
     </div>
   );
 });

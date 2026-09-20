@@ -3,9 +3,9 @@ title: Tratamento de erros em Go
 description: Filosofia do Go em relação ao tratamento de erros
 date: "2026-08-12"
 categories:
-		- Go
-		- Boas Práticas
-		- Error Handling
+  - Go
+  - Boas Práticas
+  - Error Handling
 published: true
 ---
 
@@ -126,18 +126,18 @@ type error interface {
 Qualquer tipo que implemente o método `Error() string` satisfaz essa interface e pode ser usado como um `error`. Vamos criar um erro personalizado para representar a falta de estoque, um cenário comum de negócio:
 
 ```go
-type ErrorOutOfStock struct {
+type OutOfStockError struct {
   ProductID string
   Available int
 }
 
-// ErrorOutOfStock implementa a interface error
-func (e *ErrorOutOfStock) Error() string {
+// OutOfStockError implementa a interface error
+func (e *OutOfStockError) Error() string {
   return fmt.Sprintf("produto %s sem estoque suficiente (disponível: %d)", e.ProductID, e.Available)
 }
 ```
 
-Assim, ao retornar um `*ErrorOutOfStock`, ele pode ser tratado como um `error` padrão, mas carrega informações adicionais sobre o que aconteceu:
+Assim, ao retornar um `*OutOfStockError`, ele pode ser tratado como um `error` padrão, mas carrega informações adicionais sobre o que aconteceu:
 
 ```go
 func (s *Service) Reserve(productID string, quantity int) error {
@@ -148,7 +148,7 @@ func (s *Service) Reserve(productID string, quantity int) error {
 
   if available < quantity {
     // aqui retornamos um erro personalizado, com contexto
-    return &ErrorOutOfStock{ProductID: productID, Available: available}
+    return &OutOfStockError{ProductID: productID, Available: available}
   }
 
   return s.repo.Decrement(productID, quantity)
@@ -160,7 +160,7 @@ E, no chamador, conseguimos verificar o tipo específico do erro para tomar deci
 ```go
 err := service.Reserve("sku-123", 5)
 if err != nil {
-  var outOfStock *ErrorOutOfStock
+    var outOfStock *OutOfStockError
   if errors.As(err, &outOfStock) {
     fmt.Printf("estoque insuficiente: apenas %d unidades disponíveis\n", outOfStock.Available)
     return
@@ -361,25 +361,25 @@ Ele recebe dois argumentos:
 - `target`: um ponteiro para uma variável do tipo de erro que você espera encontrar.
   Retorna `true` caso encontre uma correspondência na cadeia e, nesse caso, atribui o erro encontrado à variável apontada por `target`. Caso contrário, retorna `false`.
 
-O `ErrOutOfStock` carrega informações adicionais (`ProductID` e `Available`) que não existem em um erro simples criado com `errors.New`. Para acessar esses campos, usamos `errors.As`:
+O `OutOfStockError` carrega informações adicionais (`ProductID` e `Available`) que não existem em um erro simples criado com `errors.New`. Para acessar esses campos, usamos `errors.As`:
 
 ```go
-type ErrOutOfStock struct {
+type OutOfStockError struct {
   ProductID string
   Available int
 }
 
-func (e *ErrOutOfStock) Error() string {
+func (e *OutOfStockError) Error() string {
   return fmt.Sprintf("produto %s sem estoque suficiente (disponível: %d)", e.ProductID, e.Available)
 }
 ```
 
-No chamador, declaramos uma variável do tipo do erro que queremos identificar (nesse caso, um ponteiro para `ErrOutOfStock`) e passamos o endereço dela para o `errors.As`:
+No chamador, declaramos uma variável do tipo do erro que queremos identificar (nesse caso, um ponteiro para `OutOfStockError`) e passamos o endereço dela para o `errors.As`:
 
 ```go
 err := service.Reserve("sku-123", 5)
 if err != nil {
-  var outOfStock *ErrOutOfStock
+  var outOfStock *OutOfStockError
 
   if errors.As(err, &outOfStock) {
     // aqui já temos acesso aos campos específicos do erro
@@ -392,7 +392,7 @@ if err != nil {
 }
 ```
 
-Assim como o `errors.Is`, o `errors.As` percorre a cadeia criada pelo `%w` até encontrar um tipo compatível com o `target`. Mesmo envolvido por várias camadas, **o `ErrOutOfStock` continua recuperável**:
+Assim como o `errors.Is`, o `errors.As` percorre a cadeia criada pelo `%w` até encontrar um tipo compatível com o `target`. Mesmo envolvido por várias camadas, **o `OutOfStockError` continua recuperável**:
 
 ```go
 func (s *Service) ReserveWithContext(productID string, quantity int) error {
@@ -406,7 +406,7 @@ func (s *Service) ReserveWithContext(productID string, quantity int) error {
 
 err := service.ReserveWithContext("sku-123", 5)
 if err != nil {
-  var outOfStock *ErrOutOfStock
+  var outOfStock *OutOfStockError
   if errors.As(err, &outOfStock) {
     fmt.Printf("estoque insuficiente: apenas %d unidades disponíveis\n", outOfStock.Available)
   }
@@ -423,8 +423,8 @@ Entretanto, **esses mecanismos não substituem o uso de error**. Em Go, falhas e
 
 ## Boas práticas
 
-- Para erros armazenados em variáveis globais, use o prefixo `Err` (ex: `ErrOutOfStock`).
-- Para tipos de erro personalizados, use o sufixo `Error` (ex: `ReserveError`).
+- Para erros armazenados em variáveis globais, use o prefixo `Err` (ex.: `ErrNotFound`).
+- Para tipos de erro personalizados, use o sufixo `Error` (ex.: `OutOfStockError`).
 - **Lide com cada erro apenas uma vez.**
 
 ## Conclusão

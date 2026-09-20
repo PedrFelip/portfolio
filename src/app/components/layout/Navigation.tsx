@@ -15,6 +15,7 @@ import {
 import { preloadSearch } from "@/components/search/SearchWrapper";
 import { Button, EncryptedText, Logo } from "@/components/ui";
 import { Menu, Search, X } from "@/components/ui/icons";
+import { useBodyScrollLock } from "@/hooks/useBodyScrollLock";
 import { useIsTouchDevice } from "@/hooks/useIsTouchDevice";
 import { useLanguage } from "@/lib/language-store";
 import { useSearchStore } from "@/lib/search-store";
@@ -202,17 +203,7 @@ export const Navigation = memo(() => {
     setIsMenuOpen((prev) => !prev);
   }, []);
 
-  // TODO(refactor)[P2]: body-scroll-lock duplicated (SearchCommand)
-  useEffect(() => {
-    if (isMenuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [isMenuOpen]);
+  useBodyScrollLock(isMenuOpen);
 
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {

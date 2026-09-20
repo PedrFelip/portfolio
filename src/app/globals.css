@@ -672,9 +672,15 @@ body {
   }
 
   .blog-article.prose pre code {
-    /* Keep the copy control clear of the first line of code. */
-    padding: 1rem 4rem 1rem 1rem;
+    padding: 1rem;
     border-radius: 0;
+  }
+
+  @media (min-width: 768px) {
+    .blog-article.prose pre code {
+      /* Keep the desktop copy control clear of the first line of code. */
+      padding-right: 4rem;
+    }
   }
 
   .blog-article.prose table {

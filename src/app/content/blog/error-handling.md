@@ -441,7 +441,7 @@ Isso torna explícito o que pode dar errado e como cada situação deve ser trat
 
 Ao longo deste post, vimos que:
 
-- Erros podem (e devem) ser classificados entre **erros de domínio** e **erros de infraestrutura**, cada um exigindo uma abordagem diferente.
+- Erros podem ser classificados entre **erros de domínio** e **erros de infraestrutura**, cada um exigindo uma abordagem diferente.
 - `errors.New` e `fmt.Errorf` são ferramentas simples, mas poderosas, para criar e contextualizar erros.
 - O _error wrapping_ com `%w` permite construir uma cadeia de erros que preserva o contexto sem perder a causa raiz.
 - `errors.Is` e `errors.As` são as ferramentas certas para inspecionar essa cadeia, seja para comparar valores sentinela ou para extrair tipos específicos de erro.

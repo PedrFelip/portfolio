@@ -57,9 +57,11 @@ export function GitHubSection({
   // TODO(refactor)[P1]: hardcoded English defaults despite i18n
 }: GitHubSectionProps) {
   const [data, setData] = useState<ContributionData | null>(null);
+  const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
     const controller = new AbortController();
+    const timeout = window.setTimeout(() => controller.abort(), 10_000);
 
     fetch("/api/github/contributions", { signal: controller.signal })
       .then((response) => {
@@ -70,16 +72,28 @@ export function GitHubSection({
         }>;
       })
       .then((response) => {
-        if (response.success && response.data) setData(response.data);
+        if (!response.success || !response.data) {
+          throw new Error("GitHub data is unavailable");
+        }
+        setData(response.data);
+        setHasError(false);
       })
       .catch(() => {
         // GitHub activity is optional; keep the rest of the page available.
+        setHasError(true);
       });
 
-    return () => controller.abort();
+    return () => {
+      window.clearTimeout(timeout);
+      controller.abort();
+    };
   }, []);
 
   if (!data) {
+    if (hasError) {
+      return null;
+    }
+
     return <GitHubSectionSkeleton />;
   }
 

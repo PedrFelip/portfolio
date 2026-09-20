@@ -32,7 +32,7 @@ export const CodeBlockWrapper = memo(
         title={t.blog.copyCode}
         aria-label={copied ? t.blog.codeCopied : t.blog.copyCode}
         className={cn(
-          "flex items-center justify-center rounded-sm border border-code-border text-muted-foreground",
+          "hidden items-center justify-center rounded-sm border border-code-border text-muted-foreground md:flex",
           "transition-[color,background-color,opacity,border-color] duration-150 ease-[cubic-bezier(0.25,1,0.5,1)]",
           "hover:border-accent/30 hover:bg-accent/[0.04] hover:text-foreground",
           "focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent/50",

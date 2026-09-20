@@ -6,6 +6,8 @@ import { HeroGrid } from "@/components/home/HeroGrid";
 import { HomeCtaSection } from "@/components/home/HomeCtaSection";
 import { HomeFeaturesSection } from "@/components/home/HomeFeaturesSection";
 import { LatestPostSection } from "@/components/home/LatestPostSection";
+import { PageLoadingSkeleton } from "@/components/layout/PageLoadingSkeleton";
+import { ScrollToPageTop } from "@/components/layout/ScrollToPageTop";
 import {
   DEFAULT_LANGUAGE,
   getTranslations,
@@ -37,9 +39,12 @@ export function generateStaticParams() {
 
 export default function HomePage({ params }: HomePageProps) {
   return (
-    <Suspense fallback={null}>
-      <HomePageContent params={params} />
-    </Suspense>
+    <>
+      <ScrollToPageTop />
+      <Suspense fallback={<PageLoadingSkeleton variant="home" />}>
+        <HomePageContent params={params} />
+      </Suspense>
+    </>
   );
 }
 

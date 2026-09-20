@@ -3,19 +3,23 @@ import { cacheLife } from "next/cache";
 import dynamic from "next/dynamic";
 import { Suspense } from "react";
 import { HatchSeparator, SectionBadge } from "@/components/blueprint";
+import { PageLoadingSkeleton } from "@/components/layout/PageLoadingSkeleton";
+import { ScrollToPageTop } from "@/components/layout/ScrollToPageTop";
 import { getAllPosts, getAllTags } from "@/lib/blog-data";
 import {
   DEFAULT_LANGUAGE,
   getTranslations,
   isLanguage,
   langStaticParams,
-  SUPPORTED_LOCALES,
 } from "@/lib/i18n";
+import { localizedAlternates } from "@/lib/localized-metadata";
 import { siteConfig } from "@/lib/site";
 
 const BlogListLazy = dynamic(() =>
   import("@/components/blog/BlogList").then((mod) => mod.BlogList),
 );
+
+const POSTS_PER_PAGE = 8;
 
 interface BlogPageProps {
   params: Promise<{
@@ -25,18 +29,6 @@ interface BlogPageProps {
 
 export function generateStaticParams() {
   return langStaticParams();
-}
-
-function blogAlternates(currentLang: string) {
-  const languages: Record<string, string> = {};
-  for (const locale of SUPPORTED_LOCALES) {
-    languages[locale] = `${siteConfig.url}/${locale}/blog`;
-  }
-  languages["x-default"] = `${siteConfig.url}/${DEFAULT_LANGUAGE}/blog`;
-  return {
-    canonical: `${siteConfig.url}/${currentLang}/blog`,
-    languages,
-  };
 }
 
 export async function generateMetadata({
@@ -63,15 +55,18 @@ export async function generateMetadata({
       description: t.subtitle,
       creator: siteConfig.social.xHandle,
     },
-    alternates: blogAlternates(validLang),
+    alternates: localizedAlternates(validLang, "/blog"),
   };
 }
 
 export default function BlogPage({ params }: BlogPageProps) {
   return (
-    <Suspense fallback={null}>
-      <BlogPageContent params={params} />
-    </Suspense>
+    <>
+      <ScrollToPageTop />
+      <Suspense fallback={<PageLoadingSkeleton />}>
+        <BlogPageContent params={params} />
+      </Suspense>
+    </>
   );
 }
 
@@ -84,8 +79,6 @@ async function BlogPageContent({ params }: BlogPageProps) {
   const t = getTranslations(validLang).blog;
   const allPosts = getAllPosts();
   const allTags = getAllTags();
-  // TODO(refactor)[P1]: magic number 8
-  const postsPerPage = 8;
 
   return (
     <div className="mx-auto md:max-w-4xl px-4">
@@ -123,10 +116,9 @@ async function BlogPageContent({ params }: BlogPageProps) {
       {/* ─── Blog List Panel ─── */}
       <section data-slot="panel" className="bp-panel">
         <BlogListLazy
-          initialPosts={allPosts.slice(0, postsPerPage)}
           allPosts={allPosts}
           allTags={allTags}
-          postsPerPage={postsPerPage}
+          postsPerPage={POSTS_PER_PAGE}
           translations={{
             noPosts: t.noPosts,
             noPostsDesc: t.noPostsDesc,

@@ -7,6 +7,8 @@ import {
   SectionBadge,
 } from "@/components/blueprint";
 import { SimpleTechStack } from "@/components/home/SimpleTechStack";
+import { PageLoadingSkeleton } from "@/components/layout/PageLoadingSkeleton";
+import { ScrollToPageTop } from "@/components/layout/ScrollToPageTop";
 import {
   getContactLinks,
   getEducation,
@@ -79,9 +81,12 @@ export async function generateMetadata({
 
 export default function AboutPage({ params }: AboutPageProps) {
   return (
-    <Suspense fallback={null}>
-      <AboutPageContent params={params} />
-    </Suspense>
+    <>
+      <ScrollToPageTop />
+      <Suspense fallback={<PageLoadingSkeleton />}>
+        <AboutPageContent params={params} />
+      </Suspense>
+    </>
   );
 }
 

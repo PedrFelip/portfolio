@@ -2,31 +2,19 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { LanguageSync } from "@/components/LanguageSync";
+import { InitialSiteSkeleton } from "@/components/layout/InitialSiteSkeleton";
 import { LayoutShell } from "@/components/layout/LayoutShell";
 import {
   DEFAULT_LANGUAGE,
   getTranslations,
   isLanguage,
   langStaticParams,
-  SUPPORTED_LOCALES,
 } from "@/lib/i18n";
+import { localizedAlternates } from "@/lib/localized-metadata";
 import { siteConfig } from "@/lib/site";
 
 export function generateStaticParams() {
   return langStaticParams();
-}
-
-/** Build hreflang alternates for a localized path under [lang]. */
-function localizedAlternates(currentLang: string, path = "") {
-  const languages: Record<string, string> = {};
-  for (const locale of SUPPORTED_LOCALES) {
-    languages[locale] = `${siteConfig.url}/${locale}${path}`;
-  }
-  languages["x-default"] = `${siteConfig.url}/${DEFAULT_LANGUAGE}${path}`;
-  return {
-    canonical: `${siteConfig.url}/${currentLang}${path}`,
-    languages,
-  };
 }
 
 export async function generateMetadata({
@@ -73,7 +61,7 @@ export default function RootLayout({
   params: Promise<{ lang: string }>;
 }>) {
   return (
-    <Suspense fallback={children}>
+    <Suspense fallback={<InitialSiteSkeleton />}>
       <LocalizedLayout params={params}>{children}</LocalizedLayout>
     </Suspense>
   );

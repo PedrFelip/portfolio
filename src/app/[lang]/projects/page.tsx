@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import { Suspense } from "react";
 import { HatchSeparator, SectionBadge } from "@/components/blueprint";
+import { PageLoadingSkeleton } from "@/components/layout/PageLoadingSkeleton";
+import { ScrollToPageTop } from "@/components/layout/ScrollToPageTop";
 import {
   DEFAULT_LANGUAGE,
   getTranslations,
@@ -44,9 +46,12 @@ export async function generateMetadata({
 
 export default function ProjectsPage({ params }: ProjectsPageProps) {
   return (
-    <Suspense fallback={null}>
-      <ProjectsPageContent params={params} />
-    </Suspense>
+    <>
+      <ScrollToPageTop />
+      <Suspense fallback={<PageLoadingSkeleton />}>
+        <ProjectsPageContent params={params} />
+      </Suspense>
+    </>
   );
 }
 

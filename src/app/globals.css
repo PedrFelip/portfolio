@@ -74,32 +74,6 @@ body {
   --color-code-bg: var(--code-bg);
   --color-code-fg: var(--code-fg);
   --color-code-border: var(--code-border);
-  --color-code-keyword: var(--code-keyword);
-  --color-code-type: var(--code-type);
-  --color-code-built-in: var(--code-built-in);
-  --color-code-tag: var(--code-tag);
-  --color-code-attr: var(--code-attr);
-  --color-code-selector-tag: var(--code-selector-tag);
-  --color-code-selector-class: var(--code-selector-class);
-  --color-code-selector-id: var(--code-selector-id);
-  --color-code-function: var(--code-function);
-  --color-code-title: var(--code-title);
-  --color-code-variable: var(--code-variable);
-  --color-code-name: var(--code-name);
-  --color-code-section: var(--code-section);
-  --color-code-subst: var(--code-subst);
-  --color-code-params: var(--code-params);
-  --color-code-string: var(--code-string);
-  --color-code-number: var(--code-number);
-  --color-code-regexp: var(--code-regexp);
-  --color-code-property: var(--code-property);
-  --color-code-literal: var(--code-literal);
-  --color-code-symbol: var(--code-symbol);
-  --color-code-comment: var(--code-comment);
-  --color-code-meta: var(--code-meta);
-  --color-code-punctuation: var(--code-punctuation);
-  --color-code-addition: var(--code-addition);
-  --color-code-deletion: var(--code-deletion);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -166,40 +140,24 @@ body {
   --status-error: oklch(0.35 0 0);
   --status-info: oklch(0.35 0.1 220);
   --status-neutral: oklch(0.4 0 0);
-  /* Blueprint code palette — 4-color discipline
-   * - Structural (keyword/type/tag) → cyan accent family
-   * - Identifiers (function/title/variable) → ink
-   * - Values (string/number) → warm copper
-   * - Muted (comment/meta) → gray */
+  /* Shiki owns syntax tokens; these preserve the blueprint block surface. */
   --code-bg: oklch(0.96 0.006 220);
   --code-fg: oklch(0.25 0.015 220);
   --code-border: oklch(0.86 0.01 220 / 50%);
-  --code-keyword: oklch(0.42 0.13 220);
-  --code-type: oklch(0.48 0.1 220);
-  --code-built-in: oklch(0.48 0.1 220);
-  --code-tag: oklch(0.42 0.13 220);
-  --code-attr: oklch(0.48 0.1 220);
-  --code-selector-tag: oklch(0.42 0.13 220);
-  --code-selector-class: oklch(0.48 0.1 220);
-  --code-selector-id: oklch(0.25 0.015 220);
-  --code-function: oklch(0.25 0.015 220);
-  --code-title: oklch(0.25 0.015 220);
-  --code-variable: oklch(0.25 0.015 220);
-  --code-name: oklch(0.25 0.015 220);
-  --code-section: oklch(0.25 0.015 220);
-  --code-subst: oklch(0.25 0.015 220);
-  --code-params: oklch(0.35 0.01 220);
-  --code-string: oklch(0.48 0.1 50);
-  --code-number: oklch(0.48 0.1 50);
-  --code-regexp: oklch(0.48 0.1 50);
-  --code-property: oklch(0.48 0.1 50);
-  --code-literal: oklch(0.52 0.12 30);
-  --code-symbol: oklch(0.52 0.12 30);
-  --code-comment: oklch(0.62 0.01 220);
-  --code-meta: oklch(0.62 0.01 220);
-  --code-punctuation: oklch(0.45 0.01 220);
-  --code-addition: oklch(0.5 0.1 145);
-  --code-deletion: oklch(0.5 0.18 25);
+  --code-syntax-foreground: oklch(0.25 0.015 220);
+  --code-syntax-background: transparent;
+  --code-syntax-token-keyword: oklch(0.42 0.15 255);
+  --code-syntax-token-function: oklch(0.42 0.15 300);
+  --code-syntax-token-string: oklch(0.48 0.13 75);
+  --code-syntax-token-string-expression: oklch(0.48 0.13 75);
+  --code-syntax-token-constant: oklch(0.48 0.13 145);
+  --code-syntax-token-parameter: oklch(0.35 0.02 220);
+  --code-syntax-token-comment: oklch(0.52 0.015 220);
+  --code-syntax-token-punctuation: oklch(0.42 0.015 220);
+  --code-syntax-token-link: oklch(0.42 0.13 220);
+  --code-syntax-token-inserted: oklch(0.46 0.13 145);
+  --code-syntax-token-deleted: oklch(0.48 0.17 25);
+  --code-syntax-token-changed: oklch(0.48 0.13 75);
   --surface-1: oklch(0.13 0 0 / 1%);
   --surface-2: oklch(0.13 0 0 / 2%);
   --surface-3: oklch(0.13 0 0 / 3%);
@@ -262,36 +220,24 @@ body {
   --status-error: oklch(0.72 0 0);
   --status-info: oklch(0.7 0.1 220);
   --status-neutral: oklch(0.72 0 0);
-  /* Blueprint code palette — dark */
+  /* Blueprint code block surface — dark */
   --code-bg: oklch(0.2 0.008 220);
   --code-fg: oklch(0.85 0.008 220);
   --code-border: oklch(0.93 0.01 220 / 10%);
-  --code-keyword: oklch(0.72 0.12 220);
-  --code-type: oklch(0.76 0.1 220);
-  --code-built-in: oklch(0.76 0.1 220);
-  --code-tag: oklch(0.72 0.12 220);
-  --code-attr: oklch(0.76 0.1 220);
-  --code-selector-tag: oklch(0.72 0.12 220);
-  --code-selector-class: oklch(0.76 0.1 220);
-  --code-selector-id: oklch(0.85 0.008 220);
-  --code-function: oklch(0.85 0.008 220);
-  --code-title: oklch(0.85 0.008 220);
-  --code-variable: oklch(0.85 0.008 220);
-  --code-name: oklch(0.85 0.008 220);
-  --code-section: oklch(0.85 0.008 220);
-  --code-subst: oklch(0.85 0.008 220);
-  --code-params: oklch(0.78 0.01 220);
-  --code-string: oklch(0.72 0.1 50);
-  --code-number: oklch(0.72 0.1 50);
-  --code-regexp: oklch(0.72 0.1 50);
-  --code-property: oklch(0.72 0.1 50);
-  --code-literal: oklch(0.74 0.12 30);
-  --code-symbol: oklch(0.74 0.12 30);
-  --code-comment: oklch(0.55 0.01 220);
-  --code-meta: oklch(0.55 0.01 220);
-  --code-punctuation: oklch(0.68 0.01 220);
-  --code-addition: oklch(0.72 0.1 145);
-  --code-deletion: oklch(0.72 0.16 25);
+  --code-syntax-foreground: oklch(0.85 0.008 220);
+  --code-syntax-background: transparent;
+  --code-syntax-token-keyword: oklch(0.76 0.14 245);
+  --code-syntax-token-function: oklch(0.78 0.14 300);
+  --code-syntax-token-string: oklch(0.78 0.13 75);
+  --code-syntax-token-string-expression: oklch(0.78 0.13 75);
+  --code-syntax-token-constant: oklch(0.78 0.13 145);
+  --code-syntax-token-parameter: oklch(0.78 0.01 220);
+  --code-syntax-token-comment: oklch(0.6 0.015 220);
+  --code-syntax-token-punctuation: oklch(0.68 0.01 220);
+  --code-syntax-token-link: oklch(0.76 0.12 220);
+  --code-syntax-token-inserted: oklch(0.72 0.1 145);
+  --code-syntax-token-deleted: oklch(0.72 0.16 25);
+  --code-syntax-token-changed: oklch(0.78 0.13 75);
   --surface-1: oklch(0.98 0 0 / 2%);
   --surface-2: oklch(0.98 0 0 / 3%);
   --surface-3: oklch(0.98 0 0 / 5%);
@@ -735,66 +681,18 @@ body {
     margin-bottom: 0;
   }
 
-  /* Highlight.js token colors — blueprint palette */
-  .hljs {
+  /* Shiki emits the blueprint syntax variables inline. The block surface
+   * remains owned by the site's light and dark theme tokens. */
+  [data-rehype-pretty-code-figure] {
+    min-width: 0;
+    margin: 0;
+  }
+
+  .blog-article.prose [data-rehype-pretty-code-figure] pre,
+  .blog-article.prose [data-rehype-pretty-code-figure] code {
     background: transparent;
-    color: var(--code-fg);
   }
 
-  .hljs-keyword,
-  .hljs-tag,
-  .hljs-selector-tag {
-    color: var(--code-keyword);
-  }
-
-  .hljs-type,
-  .hljs-built_in,
-  .hljs-attr,
-  .hljs-selector-class {
-    color: var(--code-type);
-    font-style: italic;
-  }
-
-  .hljs-string,
-  .hljs-number,
-  .hljs-regexp,
-  .hljs-property {
-    color: var(--code-string);
-  }
-
-  .hljs-literal,
-  .hljs-symbol {
-    color: var(--code-literal);
-  }
-
-  .hljs-function,
-  .hljs-title,
-  .hljs-variable,
-  .hljs-name,
-  .hljs-section,
-  .hljs-subst,
-  .hljs-selector-id,
-  .hljs-params {
-    color: var(--code-function);
-  }
-
-  .hljs-comment,
-  .hljs-meta {
-    color: var(--code-comment);
-    font-style: italic;
-  }
-
-  .hljs-punctuation {
-    color: var(--code-punctuation);
-  }
-
-  .hljs-addition {
-    color: var(--code-addition);
-  }
-
-  .hljs-deletion {
-    color: var(--code-deletion);
-  }
 }
 
 /* Tech Stack Icon — color-mix hover (unlayered for specificity over Tailwind utilities) */

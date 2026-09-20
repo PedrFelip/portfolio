@@ -2,7 +2,8 @@ import "server-only";
 
 import Link from "next/link";
 import { MDXRemote } from "next-mdx-remote/rsc";
-import rehypeHighlight from "rehype-highlight";
+import rehypePrettyCode from "rehype-pretty-code";
+import { createCssVariablesTheme } from "shiki";
 import { Callout } from "@/components/mdx/Callout";
 import { CodeBlockWrapper } from "@/components/mdx/CodeBlockWrapper";
 import { Figure } from "@/components/mdx/Figure";
@@ -19,15 +20,30 @@ import rehypeCodeMeta from "@/lib/mdx/rehype-code-meta";
 import rehypeTweet from "@/lib/mdx/rehype-tweet";
 import remarkCodeMeta from "@/lib/mdx/remark-code-meta";
 
+const CODE_TITLE_META_RE = /(?:^|\s)(?:title|file|name)="[^"]+"/g;
+
+const BLUEPRINT_CODE_THEME = createCssVariablesTheme({
+  name: "blueprint",
+  variablePrefix: "--code-syntax-",
+  fontStyle: false,
+});
+
 const PreComponent = ({
   children,
   "data-code-title": filename,
-  "data-code-language": language,
+  "data-code-language": codeLanguage,
+  "data-language": highlightedLanguage,
+  ...preProps
 }: React.HTMLAttributes<HTMLPreElement> & {
   "data-code-title"?: string;
   "data-code-language"?: string;
+  "data-language"?: string;
 }) => (
-  <CodeBlockWrapper filename={filename} language={language}>
+  <CodeBlockWrapper
+    filename={filename}
+    language={codeLanguage ?? highlightedLanguage}
+    preProps={preProps}
+  >
     {children}
   </CodeBlockWrapper>
 );
@@ -35,15 +51,31 @@ const PreComponent = ({
 const CodeComponent = ({
   children,
   className,
-}: {
-  children: React.ReactNode;
-  className?: string;
+  "data-language": language,
+  "data-theme": theme,
+  ...props
+}: React.HTMLAttributes<HTMLElement> & {
+  "data-language"?: string;
+  "data-theme"?: string;
 }) => {
-  if (className?.startsWith("hljs")) {
-    return <code className={className}>{children}</code>;
+  if (language || theme) {
+    return (
+      <code
+        className={className}
+        data-language={language}
+        data-theme={theme}
+        {...props}
+      >
+        {children}
+      </code>
+    );
   }
+
   return (
-    <code className="bg-code-bg text-code-fg px-1.5 py-0.5 rounded-sm">
+    <code
+      className="rounded-sm bg-code-bg px-1.5 py-0.5 text-code-fg"
+      {...props}
+    >
       {children}
     </code>
   );
@@ -113,7 +145,18 @@ export function MarkdownContent({ source }: MarkdownContentProps) {
           rehypePlugins: [
             rehypeCodeMeta,
             rehypeTweet,
-            [rehypeHighlight, { detect: true }],
+            [
+              rehypePrettyCode,
+              {
+                theme: BLUEPRINT_CODE_THEME,
+                keepBackground: false,
+                bypassInlineCode: true,
+                // The existing wrapper renders filenames in its own header.
+                // Remove title metadata here to avoid a second figcaption.
+                filterMetaString: (meta: string) =>
+                  meta.replace(CODE_TITLE_META_RE, "").trim(),
+              },
+            ],
           ],
         },
       }}

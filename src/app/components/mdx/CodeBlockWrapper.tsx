@@ -11,10 +11,11 @@ interface CodeBlockWrapperProps {
   children: React.ReactNode;
   filename?: string;
   language?: string;
+  preProps?: Omit<React.HTMLAttributes<HTMLPreElement>, "children">;
 }
 
 export const CodeBlockWrapper = memo(
-  ({ children, filename, language }: CodeBlockWrapperProps) => {
+  ({ children, filename, language, preProps }: CodeBlockWrapperProps) => {
     const { copied, isCopying, copy } = useClipboard();
     const { t } = useLanguage();
     const preRef = useRef<HTMLPreElement>(null);
@@ -65,8 +66,12 @@ export const CodeBlockWrapper = memo(
           />
         )}
         <pre
+          {...preProps}
           ref={preRef}
-          className="m-0 overflow-x-auto rounded-none border-0 bg-transparent p-0 text-sm leading-relaxed"
+          className={cn(
+            "m-0 overflow-x-auto rounded-none border-0 bg-transparent p-0 text-sm leading-relaxed",
+            preProps?.className,
+          )}
         >
           {children}
         </pre>

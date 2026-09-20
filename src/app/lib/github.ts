@@ -55,6 +55,7 @@ async function fetchGraphQL<T>(
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ query, variables }),
+    signal: AbortSignal.timeout(10_000),
     // TODO(refactor)[P1]: revalidate=86400 duplicated across 4 files
     next: { revalidate: 86400 },
   });

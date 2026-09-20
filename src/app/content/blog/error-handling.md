@@ -1,7 +1,7 @@
 ---
 title: Tratamento de erros em Go
 description: Filosofia do Go em relação ao tratamento de erros
-date: "2026-08-12"
+date: "2026-09-20"
 categories:
   - Go
   - Boas Práticas
@@ -96,8 +96,8 @@ Exemplos:
 - Tentativa de saque em conta com saldo insuficiente.
 - Cadastro com e-mail já existente no banco de dados.
 - Cupom de desconto expirado.
-- Pedido em um status que não permite cancelamento
-- Tentativa de acessar um recurso de outro usuário
+- Pedido em um status que não permite cancelamento.
+- Tentativa de acessar um recurso de outro usuário.
 
 ### Erros de infraestrutura e I/O (ambiente externo)
 
@@ -106,16 +106,18 @@ Falhas em componentes **fora do controle direto da sua lógica de código** (red
 Exemplos:
 
 - Perda temporária de conexão com o PostgreSQL.
-- Timeout ao chamar uma API externa (ex: Gateway de Pagamento).
+- Timeout ao chamar uma API externa (ex: gateway de pagamento).
 - Arquivo de configuração ausente ou sem permissão de leitura.
-- Redis ou fila de mensagens indisponível
-- Disco cheio ao tentar salvar um arquivo
+- Redis ou fila de mensagens indisponível.
+- Disco cheio ao tentar salvar um arquivo.
 
 Erros fazem parte do fluxo normal da aplicação, por isso precisam ser tratados de forma explícita.
 
 ## Retornando erros
 
-Como você já viu no retorno com `if err != nil`, o tipo `error` é, na verdade, **uma interface**. Uma variável `error` representa qualquer valor que consiga descrever a si mesmo como uma string.
+Como você já viu no retorno com `if err != nil`, o tipo `error` é, na verdade, **uma interface**. Qualquer tipo que implemente `Error() string` pode ser usado como um `error`.
+
+Conceitualmente, essa interface pode ser representada assim:
 
 ```go
 type error interface {
@@ -235,7 +237,7 @@ Conforme o erro sobe pelas camadas da aplicação, fica difícil descobrir em qu
 fmt.Errorf("buscando usuário %s: %w", id, err)
 ```
 
-> Imagine que tem uma função `FindByID`
+> Imagine que existe uma função `FindByID`.
 
 ```go
 var ErrUserNotFound = errors.New("user not found")
@@ -252,7 +254,7 @@ func (r *Repository) FindByID(id string) (*User, error) {
 }
 ```
 
-> a camada de cima pode simplesmente retornar o erro, sem contexto nenhum
+> A camada de cima pode simplesmente retornar o erro, sem contexto nenhum.
 
 ```go
 func (s *Service) UpdateUser(id string, name string) error {
@@ -312,7 +314,8 @@ Ele recebe dois argumentos:
 
 - `err`: o erro a ser verificado.
 - `target`: o erro alvo a ser comparado.
-  Retorna true caso encontre uma correspondência; caso contrário, retorna false.
+
+Retorna `true` caso encontre uma correspondência; caso contrário, retorna `false`.
 
 Voltando ao exemplo anterior, chegamos à última camada: o handler, que recebe o erro e decide qual resposta enviar ao cliente.
 
@@ -359,7 +362,8 @@ Ele recebe dois argumentos:
 
 - `err`: o erro a ser verificado.
 - `target`: um ponteiro para uma variável do tipo de erro que você espera encontrar.
-  Retorna `true` caso encontre uma correspondência na cadeia e, nesse caso, atribui o erro encontrado à variável apontada por `target`. Caso contrário, retorna `false`.
+
+Retorna `true` caso encontre uma correspondência na cadeia. Nesse caso, atribui o erro encontrado à variável apontada por `target`; caso contrário, retorna `false`.
 
 O `OutOfStockError` carrega informações adicionais (`ProductID` e `Available`) que não existem em um erro simples criado com `errors.New`. Para acessar esses campos, usamos `errors.As`:
 
@@ -416,7 +420,9 @@ if err != nil {
 ## E quanto ao panic e recover?
 
 Embora Go não utilize exceções como mecanismo convencional de tratamento de erros, a linguagem possui panic e recover.
+
 O panic interrompe o fluxo normal de execução da goroutine, enquanto o recover permite recuperar o controle em determinadas condições.
+
 Entretanto, **esses mecanismos não substituem o uso de error**. Em Go, falhas esperadas devem ser tratadas explicitamente, enquanto panic é geralmente reservado para situações excepcionais.
 
 > O funcionamento de panic, recover e defer merece uma discussão própria e será abordado em outro artigo.

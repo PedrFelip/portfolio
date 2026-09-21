@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { cacheLife } from "next/cache";
 import dynamic from "next/dynamic";
+import { IBM_Plex_Serif } from "next/font/google";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
@@ -28,6 +29,13 @@ import {
   JsonLdScript,
 } from "@/lib/jsonld";
 import { siteConfig } from "@/lib/site";
+
+const ibmPlexSerif = IBM_Plex_Serif({
+  variable: "--font-ibm-plex-serif",
+  subsets: ["latin"],
+  weight: "600",
+  display: "swap",
+});
 
 const ShareButtons = dynamic(
   () =>
@@ -153,7 +161,9 @@ async function BlogPostPageContent({ params }: BlogPostPageProps) {
     <>
       <ScrollToTop />
       <ZenFloatingControls />
-      <div className="pb-[calc(6rem+env(safe-area-inset-bottom,0px))] md:pb-0">
+      <div
+        className={`${ibmPlexSerif.variable} pb-[calc(6rem+env(safe-area-inset-bottom,0px))] md:pb-0`}
+      >
         <JsonLdScript
           data={[
             blogPostingSchema({

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { IBM_Plex_Mono, IBM_Plex_Sans, IBM_Plex_Serif } from "next/font/google";
+import { IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google";
 
 import { ClientSpeedInsights } from "@/components/ClientSpeedInsights";
 import { MotionProvider } from "@/components/MotionProvider";
@@ -17,14 +17,7 @@ const ibmPlexSans = IBM_Plex_Sans({
 const ibmPlexMono = IBM_Plex_Mono({
   variable: "--font-ibm-plex-mono",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  display: "swap",
-});
-
-const ibmPlexSerif = IBM_Plex_Serif({
-  variable: "--font-ibm-plex-serif",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "500", "700"],
   display: "swap",
 });
 
@@ -108,7 +101,7 @@ export default function RootLayout({
   return (
     <html lang="en" data-scroll-behavior="smooth" suppressHydrationWarning>
       <body
-        className={`${ibmPlexSans.variable} ${ibmPlexMono.variable} ${ibmPlexSerif.variable} font-sans antialiased flex flex-col min-h-screen`}
+        className={`${ibmPlexSans.variable} ${ibmPlexMono.variable} font-sans antialiased flex flex-col min-h-screen`}
       >
         <ThemeProvider>
           <MotionProvider>{children}</MotionProvider>

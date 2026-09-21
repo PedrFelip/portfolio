@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { JSX } from "react";
 
 import { siGo, siNestjs, siNodedotjs } from "simple-icons";
@@ -351,11 +352,11 @@ function MainContent({
           size="md"
           className="border-none px-4 sm:px-6"
         >
-          <a href={ctaHref}>{cta}</a>
+          <Link href={ctaHref}>{cta}</Link>
         </Button>
 
         <Button asChild variant="outline" size="md" className="px-4 sm:px-6">
-          <a href={ctaSecondaryHref}>{ctaSecondary}</a>
+          <Link href={ctaSecondaryHref}>{ctaSecondary}</Link>
         </Button>
       </div>
 

@@ -1,7 +1,5 @@
 import type { NextConfig } from "next";
 
-// TODO(refactor)[P1]: missing images.formats config — add
-// formats: ["image/avif", "image/webp"]
 const nextConfig: NextConfig = {
   cacheComponents: true,
   partialPrefetching: true,

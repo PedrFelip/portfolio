@@ -4,6 +4,7 @@ import Link from "next/link";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import rehypePrettyCode from "rehype-pretty-code";
 import { createCssVariablesTheme } from "shiki";
+import { BlogImage } from "@/components/mdx/BlogImage";
 import { Callout } from "@/components/mdx/Callout";
 import { CodeBlockWrapper } from "@/components/mdx/CodeBlockWrapper";
 import { Figure } from "@/components/mdx/Figure";
@@ -115,6 +116,7 @@ const MDXLink = ({
 
 const MDX_COMPONENTS = {
   a: MDXLink,
+  img: BlogImage,
   pre: PreComponent,
   code: CodeComponent,
   Callout,

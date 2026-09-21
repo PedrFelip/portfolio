@@ -229,7 +229,7 @@ Até aqui, ele parece o oposto do `errors.New`.
 
 Até agora usamos `fmt.Errorf` apenas para criar mensagens dinâmicas. Porém, um dos usos mais importantes é **adicionar contexto a um erro existente sem perder o erro original**. Esse mecanismo é chamado de error wrapping.
 
-![Error Wrapping](/images/posts/error-handling/error-wrapping.png)
+![Error Wrapping](/images/posts/error-handling/error-wrapping.webp)
 
 Conforme o erro sobe pelas camadas da aplicação, fica difícil descobrir em qual operação ele aconteceu. A parte importante aqui é o `%w`.
 

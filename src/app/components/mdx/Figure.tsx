@@ -15,11 +15,11 @@ export const Figure = memo(
       <figure className="my-9">
         <div className="relative overflow-hidden rounded-sm border border-border/60">
           <Image
-            // TODO(refactor)[P1]: missing sizes prop
             src={src}
             alt={alt}
             width={width}
             height={height}
+            sizes="(max-width: 768px) calc(100vw - 2rem), (max-width: 896px) calc(100vw - 3rem), 848px"
             className="h-auto w-full"
           />
         </div>

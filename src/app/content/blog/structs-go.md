@@ -209,7 +209,7 @@ O **Go** não usa um sistema de gerenciamento de memória tradicional como o `ma
 
 > O **TCMalloc** é um alocador de memória desenvolvido pelo **Google**, projetado pra alta concorrência. Ele funciona criando pequenos caches locais pra cada thread (no **Go**, pra cada processador lógico **P**). Isso permite que a maioria das alocações ocorra sem a necessidade de travas (**locks**), eliminando o gargalo que surge quando múltiplas partes de um programa tentam pedir memória ao mesmo tempo.
 
-![O TCMalloc](/images/posts/structs/tcmalloc_internals.png)
+![O TCMalloc](/images/posts/structs/tcmalloc_internals.webp)
 
 ### 1. mcache: O Cache Local
 

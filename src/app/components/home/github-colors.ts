@@ -1,20 +1,18 @@
-/**
- * Get contribution color based on level using GitHub's contribution palette.
- */
+/** Contribution heatmap colors based on the site's blueprint blue accent. */
 const contributionColorsDark: Record<0 | 1 | 2 | 3 | 4, string> = {
-  0: "#161b22",
-  1: "#0e4429",
-  2: "#006d32",
-  3: "#26a641",
-  4: "#39d353",
+  0: "#171b1e",
+  1: "#173b49",
+  2: "#1d627a",
+  3: "#278aa8",
+  4: "#55b9d8",
 };
 
 const contributionColorsLight: Record<0 | 1 | 2 | 3 | 4, string> = {
-  0: "#ebedf0",
-  1: "#9be9a8",
-  2: "#40c463",
-  3: "#30a14e",
-  4: "#216e39",
+  0: "#e7ecee",
+  1: "#b9d9e2",
+  2: "#83bfd0",
+  3: "#4c9eb6",
+  4: "#28738b",
 };
 
 export function getContributionColor(

@@ -508,7 +508,7 @@ body {
 
   /* Blog Post Markdown Styles */
   .blog-article {
-    font-family: "iA Writer Quattro", var(--font-ibm-plex-sans), sans-serif;
+    font-family: "iA Writer Mono", var(--font-ibm-plex-mono), monospace;
     overflow-wrap: anywhere;
   }
 
@@ -556,7 +556,8 @@ body {
   }
 
   .prose code {
-    @apply font-mono text-[13px] px-1.5 py-0.5 rounded-lg;
+    @apply text-[13px] px-1.5 py-0.5 rounded-lg;
+    font-family: "iA Writer Mono", var(--font-ibm-plex-mono), monospace;
     background: var(--code-bg);
     color: var(--code-fg);
   }
@@ -570,6 +571,7 @@ body {
 
   .prose pre code {
     @apply bg-transparent border-0 text-xs sm:text-sm leading-relaxed block p-3.5;
+    font-family: "iA Writer Mono", var(--font-ibm-plex-mono), monospace;
     color: var(--code-fg);
   }
 

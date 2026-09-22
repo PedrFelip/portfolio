@@ -146,10 +146,10 @@ body {
   --code-border: oklch(0.86 0.01 220 / 50%);
   --code-syntax-foreground: oklch(0.25 0.015 220);
   --code-syntax-background: transparent;
-  --code-syntax-token-keyword: oklch(0.42 0.15 255);
+  --code-syntax-token-keyword: oklch(0.5 0.18 25);
   --code-syntax-token-function: oklch(0.42 0.15 300);
-  --code-syntax-token-string: oklch(0.48 0.13 75);
-  --code-syntax-token-string-expression: oklch(0.48 0.13 75);
+  --code-syntax-token-string: oklch(0.46 0.13 235);
+  --code-syntax-token-string-expression: oklch(0.46 0.13 235);
   --code-syntax-token-constant: oklch(0.48 0.13 145);
   --code-syntax-token-parameter: oklch(0.35 0.02 220);
   --code-syntax-token-comment: oklch(0.52 0.015 220);
@@ -226,10 +226,10 @@ body {
   --code-border: oklch(0.93 0.01 220 / 10%);
   --code-syntax-foreground: oklch(0.85 0.008 220);
   --code-syntax-background: transparent;
-  --code-syntax-token-keyword: oklch(0.76 0.14 245);
+  --code-syntax-token-keyword: oklch(0.72 0.18 25);
   --code-syntax-token-function: oklch(0.78 0.14 300);
-  --code-syntax-token-string: oklch(0.78 0.13 75);
-  --code-syntax-token-string-expression: oklch(0.78 0.13 75);
+  --code-syntax-token-string: oklch(0.78 0.11 235);
+  --code-syntax-token-string-expression: oklch(0.78 0.11 235);
   --code-syntax-token-constant: oklch(0.78 0.13 145);
   --code-syntax-token-parameter: oklch(0.78 0.01 220);
   --code-syntax-token-comment: oklch(0.6 0.015 220);
@@ -674,15 +674,10 @@ body {
   }
 
   .blog-article.prose pre code {
-    padding: 1rem;
+    /* Reserve the top-right corner for the copy control at every viewport. */
+    padding: 0 3.5rem 0 1rem;
     border-radius: 0;
-  }
-
-  @media (min-width: 768px) {
-    .blog-article.prose pre code {
-      /* Keep the desktop copy control clear of the first line of code. */
-      padding-right: 4rem;
-    }
+    line-height: 1.75;
   }
 
   .blog-article.prose table {

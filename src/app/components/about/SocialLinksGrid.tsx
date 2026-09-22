@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { ArrowUpRight, Github, Linkedin, Mail } from "@/components/ui/icons";
 import { XIcon } from "@/components/ui/x-icon";
 import { cn } from "@/lib/utils";
@@ -32,49 +33,50 @@ export function SocialLinksGrid({ links }: SocialLinksGridProps) {
             <div className="border-l border-line" />
           </div>
 
-          <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+          <ul className="screen-line-top grid grid-cols-1 gap-x-2 gap-y-0 sm:grid-cols-2">
             {links.map((link, index) => {
               const Icon = iconMap[link.icon];
               const isEmail = link.icon === "email";
               const href = isEmail ? `mailto:${link.url}` : link.url;
-              const isLastMobileItem = index === links.length - 1;
-              const lastDesktopRowStart =
-                links.length - (links.length % 2 || 2);
-              const isLastDesktopRowStart = index === lastDesktopRowStart;
 
               return (
-                <li
-                  key={link.label}
-                  className={cn(
-                    "max-sm:screen-line-top",
-                    !isLastMobileItem && "max-sm:screen-line-bottom",
-                    "sm:nth-[2n+1]:screen-line-top",
-                    !isLastDesktopRowStart &&
-                      "sm:nth-[2n+1]:screen-line-bottom",
+                <Fragment key={link.label}>
+                  <li>
+                    <div className="relative flex cursor-pointer items-center gap-4 p-4 pr-2 transition-[background-color] duration-150 ease-out hover:bg-surface-2">
+                      <Icon
+                        className="size-4 shrink-0 text-muted-foreground"
+                        aria-hidden="true"
+                      />
+                      <h3 className="flex-1 font-medium">
+                        <a
+                          href={href}
+                          target={isEmail ? undefined : "_blank"}
+                          rel={isEmail ? undefined : "noopener noreferrer"}
+                          className="focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring focus-visible:ring-inset"
+                        >
+                          <span
+                            className="absolute inset-0"
+                            aria-hidden="true"
+                          />
+                          {link.label}
+                        </a>
+                      </h3>
+                      <ArrowUpRight
+                        className="size-4 shrink-0 text-muted-foreground"
+                        aria-hidden="true"
+                      />
+                    </div>
+                  </li>
+                  {index < links.length - 1 && (
+                    <li
+                      aria-hidden="true"
+                      className={cn(
+                        "col-span-full screen-line-top screen-line-bottom h-2",
+                        index % 2 === 0 && "sm:hidden",
+                      )}
+                    />
                   )}
-                >
-                  <div className="relative flex cursor-pointer items-center gap-4 p-4 pr-2 transition-[background-color] duration-150 ease-out hover:bg-surface-2">
-                    <Icon
-                      className="size-4 shrink-0 text-muted-foreground"
-                      aria-hidden="true"
-                    />
-                    <h3 className="flex-1 font-medium">
-                      <a
-                        href={href}
-                        target={isEmail ? undefined : "_blank"}
-                        rel={isEmail ? undefined : "noopener noreferrer"}
-                        className="focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring focus-visible:ring-inset"
-                      >
-                        <span className="absolute inset-0" aria-hidden="true" />
-                        {link.label}
-                      </a>
-                    </h3>
-                    <ArrowUpRight
-                      className="size-4 shrink-0 text-muted-foreground"
-                      aria-hidden="true"
-                    />
-                  </div>
-                </li>
+                </Fragment>
               );
             })}
           </ul>

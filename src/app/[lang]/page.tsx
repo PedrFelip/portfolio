@@ -72,10 +72,7 @@ async function HomePageContent({ params }: HomePageProps) {
         <HatchSeparator />
 
         {/* ─── Tech Stack Panel ─── */}
-        <SimpleTechStack
-          title={t.techStack.title}
-          description={t.techStack.description}
-        />
+        <SimpleTechStack title={t.techStack.title} description="" />
 
         {/* ─── Spacer ─── */}
         <PanelSpacer />

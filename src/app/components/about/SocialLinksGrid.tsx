@@ -33,17 +33,24 @@ export function SocialLinksGrid({ links }: SocialLinksGridProps) {
           </div>
 
           <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-            {links.map((link) => {
+            {links.map((link, index) => {
               const Icon = iconMap[link.icon];
               const isEmail = link.icon === "email";
               const href = isEmail ? `mailto:${link.url}` : link.url;
+              const isLastMobileItem = index === links.length - 1;
+              const lastDesktopRowStart =
+                links.length - (links.length % 2 || 2);
+              const isLastDesktopRowStart = index === lastDesktopRowStart;
 
               return (
                 <li
                   key={link.label}
                   className={cn(
-                    "max-sm:screen-line-top max-sm:screen-line-bottom",
-                    "sm:nth-[2n+1]:screen-line-top sm:nth-[2n+1]:screen-line-bottom",
+                    "max-sm:screen-line-top",
+                    !isLastMobileItem && "max-sm:screen-line-bottom",
+                    "sm:nth-[2n+1]:screen-line-top",
+                    !isLastDesktopRowStart &&
+                      "sm:nth-[2n+1]:screen-line-bottom",
                   )}
                 >
                   <div className="relative flex cursor-pointer items-center gap-4 p-4 pr-2 transition-[background-color] duration-150 ease-out hover:bg-surface-2">

@@ -59,7 +59,7 @@ export function Footer({ lang, nav, year }: FooterProps) {
     <footer className="max-w-screen">
       <div className="mx-auto md:max-w-4xl px-4">
         {/* ─── Hatch Separator ─── */}
-        <HatchSeparator topBorder={false} />
+        <HatchSeparator />
 
         {/* ─── Brand Row ─── */}
         <div className="bp-panel bp-line-bottom flex items-center justify-between px-4 py-4 sm:px-6">

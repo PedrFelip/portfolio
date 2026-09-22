@@ -18,21 +18,20 @@ export function CodeBlockHeader({
   return (
     <div
       className={cn(
-        "relative flex items-center justify-between gap-3",
-        "border-b border-code-border bg-code-bg/70 backdrop-blur-[2px]",
-        "px-3.5 py-2",
+        "relative flex h-9.5 items-center justify-between gap-3",
+        "px-3 text-muted-foreground",
       )}
     >
       <div className="flex min-w-0 items-center gap-2">
         <span
           aria-hidden
-          className="select-none font-mono text-[10px] text-accent/40 sm:text-xs"
+          className="select-none font-mono text-[10px] text-accent/40"
         >
           {"//"}
         </span>
         <span
           title={filename}
-          className="truncate font-mono text-[11px] font-medium text-accent/90 sm:text-xs"
+          className="truncate font-mono text-xs font-medium text-accent/90"
         >
           {filename}
         </span>

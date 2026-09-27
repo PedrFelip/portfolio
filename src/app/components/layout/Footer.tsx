@@ -72,7 +72,7 @@ export function Footer({ lang, nav, year }: FooterProps) {
             <span className="text-sm font-medium tracking-tight">
               <EncryptedText
                 text="Pedro Felipe"
-                targets={["@PedrFelip", "@pdrdotdev"]}
+                targets={["@PedrFelip", "@pedrofelipxt"]}
               />
             </span>
           </Link>

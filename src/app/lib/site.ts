@@ -30,8 +30,8 @@ export const siteConfig = {
   social: {
     github: "https://github.com/pedrfelip",
     linkedin: "https://www.linkedin.com/in/pedrfelip/",
-    x: "https://x.com/pdrdotdev",
-    xHandle: "@pdrdotdev",
+    x: "https://x.com/pedrofelipxt",
+    xHandle: "@pedrofelipxt",
     email: "mailto:pfsilva190406@gmail.com",
   },
 } as const;

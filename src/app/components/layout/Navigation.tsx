@@ -229,7 +229,7 @@ export const Navigation = memo(() => {
                 <span className="hidden sm:block text-sm font-semibold tracking-tight text-foreground">
                   <EncryptedText
                     text="Pedro Felipe"
-                    targets={["@PedrFelip", "@pdrdotdev"]}
+                    targets={["@PedrFelip", "@pedrofelipxt"]}
                   />
                 </span>
               </Link>

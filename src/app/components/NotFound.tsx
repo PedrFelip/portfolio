@@ -81,7 +81,10 @@ export function NotFound() {
   ];
 
   return (
-    <div className="fixed inset-0 z-[100] overflow-y-auto bg-background flex flex-col items-center justify-center p-6">
+    <div
+      data-no-progressive-blur
+      className="fixed inset-0 z-[100] overflow-y-auto bg-background flex flex-col items-center justify-center p-6"
+    >
       <div className="w-full max-w-2xl">
         <p className="mb-2 text-center text-7xl sm:text-8xl lg:text-9xl font-semibold tracking-tighter bg-gradient-to-br from-foreground via-foreground to-accent bg-clip-text text-transparent">
           404

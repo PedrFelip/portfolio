@@ -85,6 +85,7 @@ body {
 
 :root {
   --radius: 0.25rem;
+  --progressive-blur-space: clamp(5rem, 14vh, 9rem);
   --background: oklch(1 0 0);
   --foreground: oklch(0.06 0 0);
   --card: oklch(1 0 0);
@@ -164,6 +165,22 @@ body {
   --surface-4: oklch(0.13 0 0 / 4%);
   --overlay-border: oklch(0.13 0 0 / 8%);
   --overlay-border-hover: oklch(0.13 0 0 / 15%);
+}
+
+.progressive-blur-safe-space {
+  padding-bottom: calc(
+    var(--progressive-blur-space) + env(safe-area-inset-bottom, 0px)
+  );
+}
+
+.footer-progressive-blur-safe-space {
+  padding-bottom: calc(
+    clamp(2rem, 5vh, 4rem) + env(safe-area-inset-bottom, 0px)
+  );
+}
+
+body:has([data-no-progressive-blur]) .site-progressive-blur {
+  display: none;
 }
 
 .dark {

@@ -13,7 +13,7 @@ import {
   useTransition,
 } from "react";
 import { preloadSearch } from "@/components/search/SearchWrapper";
-import { Button, EncryptedText, Logo } from "@/components/ui";
+import { Button, Logo } from "@/components/ui";
 import { Menu, Search, X } from "@/components/ui/icons";
 import { useBodyScrollLock } from "@/hooks/useBodyScrollLock";
 import { useIsTouchDevice } from "@/hooks/useIsTouchDevice";
@@ -227,10 +227,7 @@ export const Navigation = memo(() => {
               >
                 <Logo height={28} className="h-5 sm:h-6 w-auto" />
                 <span className="hidden sm:block text-sm font-semibold tracking-tight text-foreground">
-                  <EncryptedText
-                    text="Pedro Felipe"
-                    targets={["@PedrFelip", "@pdrdotdev"]}
-                  />
+                  Pedro Felipe
                 </span>
               </Link>
 
@@ -280,9 +277,7 @@ export const Navigation = memo(() => {
                   variant="ghost"
                   onClick={toggleLanguage}
                   disabled={isPending}
-                  aria-label={`Switch language to ${
-                    language === "en" ? "Portuguese" : "English"
-                  }`}
+                  aria-label={`Switch language to ${language === "en" ? "Portuguese" : "English"}`}
                   className="size-11 md:size-7 rounded-lg border border-overlay-border bg-surface-3 font-mono text-[10px] font-medium transition-all duration-250 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-overlay-border-hover hover:bg-surface-4 active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-50 touch-manipulation"
                 >
                   {language === "en" ? "EN" : "PT"}

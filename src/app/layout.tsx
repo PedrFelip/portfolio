@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google";
 
 import { ClientSpeedInsights } from "@/components/ClientSpeedInsights";
+import { SiteProgressiveBlur } from "@/components/layout/SiteProgressiveBlur";
 import { MotionProvider } from "@/components/MotionProvider";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { siteConfig } from "@/lib/site";
@@ -106,6 +107,7 @@ export default function RootLayout({
         <ThemeProvider>
           <MotionProvider>{children}</MotionProvider>
         </ThemeProvider>
+        <SiteProgressiveBlur />
         <ClientSpeedInsights />
       </body>
     </html>

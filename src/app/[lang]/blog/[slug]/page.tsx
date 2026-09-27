@@ -162,7 +162,7 @@ async function BlogPostPageContent({ params }: BlogPostPageProps) {
       <ScrollToTop />
       <ZenFloatingControls />
       <div
-        className={`${ibmPlexSerif.variable} pb-[calc(6rem+env(safe-area-inset-bottom,0px))] md:pb-0`}
+        className={`${ibmPlexSerif.variable} progressive-blur-safe-space pb-[calc(6rem+env(safe-area-inset-bottom,0px))] md:pb-0`}
       >
         <JsonLdScript
           data={[

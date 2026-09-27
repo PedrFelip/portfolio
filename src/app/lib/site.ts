@@ -7,7 +7,8 @@
  * custom domain.
  */
 
-const rawUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://portfolio.vercel.app";
+const rawUrl =
+  process.env.NEXT_PUBLIC_SITE_URL || "https://portfolio.vercel.app";
 
 function normalizeUrl(url: string): string {
   return url.endsWith("/") ? url.slice(0, -1) : url;

@@ -56,7 +56,7 @@ export function Footer({ lang, nav, year }: FooterProps) {
     href === "/" ? `/${lang}` : `/${lang}${href}`;
 
   return (
-    <footer className="max-w-screen">
+    <footer className="footer-progressive-blur-safe-space max-w-screen">
       <div className="mx-auto md:max-w-4xl px-4">
         {/* ─── Hatch Separator ─── */}
         <HatchSeparator />
@@ -72,7 +72,7 @@ export function Footer({ lang, nav, year }: FooterProps) {
             <span className="text-sm font-medium tracking-tight">
               <EncryptedText
                 text="Pedro Felipe"
-                targets={["@PedrFelip", "@pdrdotdev"]}
+                targets={["@PedrFelip", "@pedrofelipxt"]}
               />
             </span>
           </Link>

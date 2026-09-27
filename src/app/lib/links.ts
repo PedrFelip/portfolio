@@ -30,8 +30,8 @@ export const socialLinks: SocialLink[] = [
   },
   {
     label: "X",
-    url: "https://x.com/pdrdotdev",
-    handle: "@pdrdotdev",
+    url: "https://x.com/pedrofelipxt",
+    handle: "@pedrofelipxt",
     icon: "x",
   },
   {

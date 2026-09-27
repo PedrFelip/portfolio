@@ -7,8 +7,7 @@
  * custom domain.
  */
 
-const rawUrl =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://portfolio.vercel.app";
+const rawUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://portfolio.vercel.app";
 
 function normalizeUrl(url: string): string {
   return url.endsWith("/") ? url.slice(0, -1) : url;
@@ -30,8 +29,8 @@ export const siteConfig = {
   social: {
     github: "https://github.com/pedrfelip",
     linkedin: "https://www.linkedin.com/in/pedrfelip/",
-    x: "https://x.com/pdrdotdev",
-    xHandle: "@pdrdotdev",
+    x: "https://x.com/pedrofelipxt",
+    xHandle: "@pedrofelipxt",
     email: "mailto:pfsilva190406@gmail.com",
   },
 } as const;

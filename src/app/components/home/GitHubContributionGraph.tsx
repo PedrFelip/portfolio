@@ -1,7 +1,7 @@
 "use client";
 
-import { MoveHorizontal } from "lucide-react";
-import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { ArrowUpRight } from "lucide-react";
+import { memo, useEffect, useMemo, useState } from "react";
 import { MonoText } from "@/components/ui";
 import type { ContributionData, ContributionDay } from "@/lib/github";
 import { cn } from "@/lib/utils";
@@ -46,12 +46,12 @@ interface GitHubContributionGraphProps {
  * - Adaptive week slicing (24 weeks on mobile, 52 on desktop)
  * - Tap-to-detail interaction for mobile (replaces hover tooltips)
  * - Optimized hit areas for small cells
- * - Swipe hint for better mobile discoverability
+ * - Grid fits the available width without horizontal scrolling
  */
 export const GitHubContributionGraph = memo(
   ({
     data,
-    swipeHint,
+    username,
     less,
     more,
     tapHint,
@@ -63,13 +63,7 @@ export const GitHubContributionGraph = memo(
       null,
     );
     const theme = useTheme();
-    const [scrollState, setScrollState] = useState({
-      left: false,
-      right: true,
-    });
-    const [hasScrolled, setHasScrolled] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
-    const scrollContainerRef = useRef<HTMLDivElement>(null);
 
     // Detect mobile for adaptive week slicing
     // TODO(refactor)[P1]: resize listener without debounce + flash
@@ -86,63 +80,29 @@ export const GitHubContributionGraph = memo(
       return data.weeks.slice(-limit);
     }, [data.weeks, isMobile]);
 
-    // Handle scroll for dynamic masks
-    const handleScroll = useCallback(() => {
-      if (!scrollContainerRef.current) return;
-
-      // Mark as scrolled to hide the hint
-      if (!hasScrolled && scrollContainerRef.current.scrollLeft > 10) {
-        setHasScrolled(true);
-      }
-
-      const { scrollLeft, scrollWidth, clientWidth } =
-        scrollContainerRef.current;
-      setScrollState({
-        left: scrollLeft > 10,
-        right: scrollLeft < scrollWidth - clientWidth - 10,
-      });
-    }, [hasScrolled]);
-
-    // Initial scroll check and effect
-    // TODO(refactor)[P1]: effect re-runs on handleScroll identity change
-    useEffect(() => {
-      handleScroll();
-    }, [handleScroll]);
-
     return (
       <div className="relative w-full max-w-full group/graph">
-        {/* Swipe Hint - Only mobile, only before first scroll */}
-        {isMobile && !hasScrolled && scrollState.right && (
-          <div className="absolute inset-0 z-30 flex items-center justify-center pointer-events-none animate-in-fade">
-            <div className="flex flex-col items-center gap-2 rounded-full border border-overlay-border bg-background/85 px-5 py-2.5 shadow-xl backdrop-blur-md animate-pulse">
-              <MoveHorizontal className="size-4 text-accent" />
-              <span className="text-[9px] text-foreground font-bold uppercase tracking-[0.2em]">
-                {swipeHint}
-              </span>
-            </div>
-          </div>
-        )}
-
-        {/* Scroll Container */}
-        <div
-          ref={scrollContainerRef}
-          onScroll={handleScroll}
-          className="relative w-full overflow-x-auto overflow-y-visible pb-10 pt-16 scrollbar-thin scrollbar-thumb-overlay-border scrollbar-track-transparent md:scrollbar-hide flex md:justify-center px-4"
-        >
-          <div className="relative inline-flex flex-shrink-0">
+        {/* Contribution grid */}
+        <div className="relative w-full pb-10 pt-16 px-4">
+          <div className="relative w-full">
             {/* Minimal contribution grid */}
             {/* TODO(refactor)[P3]: 364 buttons without virtualization */}
-            <div className="flex gap-1.5 sm:gap-1">
+            <div className="flex w-full justify-center gap-0.5 sm:gap-1">
               {recentWeeks.map((week, index) => {
                 const weekKey = week.days[0]?.date || `week-${index}`;
+                const tooltipAtStart = index < 6;
+                const tooltipAtEnd = index >= recentWeeks.length - 6;
                 return (
-                  <div key={weekKey} className="flex flex-col gap-1.5 sm:gap-1">
+                  <div
+                    key={weekKey}
+                    className="flex min-w-0 max-w-[12px] flex-1 flex-col gap-0.5 sm:gap-1"
+                  >
                     {week.days.map((day) => (
                       <button
                         key={day.date}
                         type="button"
                         className={cn(
-                          "group relative size-[10px] rounded-[3px] transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)]",
+                          "group relative aspect-square w-full shrink-0 rounded-[3px] transition-all duration-150 ease-[cubic-bezier(0.25,1,0.5,1)]",
                           "hover:scale-110 hover:z-10 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent",
                           selectedDay?.date === day.date &&
                             "ring-1 ring-accent z-10 scale-110",
@@ -168,7 +128,16 @@ export const GitHubContributionGraph = memo(
                       >
                         {/* Enhanced Tooltip (Desktop Only) */}
                         {!isMobile && hoveredDay?.date === day.date && (
-                          <div className="pointer-events-none absolute bottom-full left-1/2 z-[9999] mb-2 -translate-x-1/2 whitespace-nowrap rounded border border-overlay-border bg-card/95 px-2.5 py-1.5 shadow-2xl backdrop-blur-md animate-in-down">
+                          <div
+                            className={cn(
+                              "pointer-events-none absolute bottom-full z-[9999] mb-2 whitespace-nowrap rounded border border-overlay-border bg-card/95 px-2.5 py-1.5 shadow-2xl backdrop-blur-md animate-in-down",
+                              tooltipAtStart && "left-0",
+                              !tooltipAtStart && tooltipAtEnd && "right-0",
+                              !tooltipAtStart &&
+                                !tooltipAtEnd &&
+                                "left-1/2 -translate-x-1/2",
+                            )}
+                          >
                             <div className="flex flex-col gap-0.5 items-center">
                               <MonoText className="text-[10px] font-bold text-foreground">
                                 {day.count}{" "}
@@ -186,7 +155,16 @@ export const GitHubContributionGraph = memo(
                               </MonoText>
                             </div>
                             {/* Tooltip Arrow */}
-                            <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 size-2 rotate-45 border-r border-b border-overlay-border bg-card/95" />
+                            <div
+                              className={cn(
+                                "absolute -bottom-1 size-2 rotate-45 border-r border-b border-overlay-border bg-card/95",
+                                tooltipAtStart && "left-1",
+                                !tooltipAtStart && tooltipAtEnd && "right-1",
+                                !tooltipAtStart &&
+                                  !tooltipAtEnd &&
+                                  "left-1/2 -translate-x-1/2",
+                              )}
+                            />
                           </div>
                         )}
                       </button>
@@ -202,13 +180,13 @@ export const GitHubContributionGraph = memo(
         <div className="mt-4 flex flex-col gap-6 px-4 md:flex-row md:items-center md:justify-center">
           {/* Legend */}
           <div className="flex items-center justify-center gap-1.5">
-            <MonoText className="text-[10px] text-muted-foreground/60">
+            <MonoText className="text-xs text-muted-foreground/60">
               {less}
             </MonoText>
             {[0, 1, 2, 3, 4].map((lvl) => (
               <div
                 key={lvl}
-                className="size-2 rounded-[2px] border border-surface-4"
+                className="size-3 rounded-[3px]"
                 style={{
                   backgroundColor: getContributionColor(
                     lvl as 0 | 1 | 2 | 3 | 4,
@@ -217,7 +195,7 @@ export const GitHubContributionGraph = memo(
                 }}
               />
             ))}
-            <MonoText className="text-[10px] text-muted-foreground/60">
+            <MonoText className="text-xs text-muted-foreground/60">
               {more}
             </MonoText>
           </div>
@@ -270,6 +248,17 @@ export const GitHubContributionGraph = memo(
               )}
             </div>
           )}
+        </div>
+        <div className="mt-4 flex justify-end px-4">
+          <a
+            href={`https://github.com/${encodeURIComponent(username)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex min-h-11 items-center gap-2 rounded-[3px] font-mono text-xs text-muted-foreground transition-colors duration-150 hover:text-foreground hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent motion-reduce:transition-none"
+          >
+            @{username}
+            <ArrowUpRight aria-hidden="true" className="size-3.5" />
+          </a>
         </div>
       </div>
     );

@@ -1,24 +1,13 @@
 import "server-only";
 
-/**
- * GitHub API utilities
- * Uses GraphQL API to fetch contribution data
- */
+import {
+  buildContributionData,
+  type ContributionData,
+  type ContributionDay,
+  parseContributionDate,
+} from "./contribution-data";
 
-export interface ContributionDay {
-  date: string;
-  count: number;
-  level: 0 | 1 | 2 | 3 | 4;
-}
-
-interface ContributionWeek {
-  days: ContributionDay[];
-}
-
-export interface ContributionData {
-  weeks: ContributionWeek[];
-  totalContributions: number;
-}
+export type { ContributionData, ContributionDay } from "./contribution-data";
 
 export interface GitHubStats {
   repositories: number;
@@ -34,8 +23,7 @@ interface GitHubRepoNode {
 }
 
 /**
- * Fetch GitHub contribution data using GraphQL API
- * Requires GITHUB_TOKEN environment variable
+ * Fetch GitHub stats through GraphQL using GITHUB_TOKEN.
  */
 async function fetchGraphQL<T>(
   query: string,
@@ -75,78 +63,56 @@ async function fetchGraphQL<T>(
   return data.data as T;
 }
 
+/** Fetch the last year of activity using the public Contributions API. */
 export async function fetchGitHubContributions(
   username: string,
 ): Promise<ContributionData> {
-  const query = `
-    query($userName:String!) {
-      user(login: $userName) {
-        contributionsCollection {
-          contributionCalendar {
-            totalContributions
-            weeks {
-              contributionDays {
-                date
-                contributionCount
-                contributionLevel
-              }
-            }
-          }
-        }
-      }
-    }
-  `;
-
-  const data = await fetchGraphQL<{
-    user: {
-      contributionsCollection: {
-        contributionCalendar: {
-          totalContributions: number;
-          weeks: {
-            contributionDays: {
-              date: string;
-              contributionCount: number;
-              contributionLevel: string;
-            }[];
-          }[];
-        };
-      };
-    };
-  }>(query, { userName: username });
-
-  const calendar = data.user.contributionsCollection.contributionCalendar;
-
-  // TODO(refactor)[P1]: levelMap recreated on every call
-  const levelMap: Record<string, 0 | 1 | 2 | 3 | 4> = {
-    NONE: 0,
-    FIRST_QUARTILE: 1,
-    SECOND_QUARTILE: 2,
-    THIRD_QUARTILE: 3,
-    FOURTH_QUARTILE: 4,
-  };
-
-  const weeks: ContributionWeek[] = calendar.weeks.map(
-    (week: {
-      contributionDays: {
-        date: string;
-        contributionCount: number;
-        contributionLevel: string;
-      }[];
-    }) => ({
-      days: week.contributionDays.map((day) => ({
-        date: day.date,
-        count: day.contributionCount,
-        level:
-          levelMap[day.contributionLevel] ??
-          (day.contributionCount > 0 ? 1 : 0),
-      })),
-    }),
+  const apiUrl =
+    process.env.NEXT_PUBLIC_GITHUB_CONTRIBUTIONS_API_URL ??
+    "https://github-contributions-api.jogruber.de/v4";
+  const url = new URL(
+    `${apiUrl.replace(/\/$/, "")}/${encodeURIComponent(username)}`,
   );
+  url.searchParams.set("y", "last");
 
-  return {
-    weeks,
-    totalContributions: calendar.totalContributions,
-  };
+  const response = await fetch(url, {
+    signal: AbortSignal.timeout(10_000),
+    next: { revalidate: 86400 },
+  });
+  if (!response.ok) {
+    throw new Error(`Contribution API error: ${response.status}`);
+  }
+
+  const payload: unknown = await response.json();
+  if (
+    !payload ||
+    typeof payload !== "object" ||
+    !("contributions" in payload) ||
+    !Array.isArray(payload.contributions) ||
+    !payload.contributions.every(isContributionDay)
+  ) {
+    throw new Error("Invalid contribution API response");
+  }
+
+  return buildContributionData(payload.contributions);
+}
+
+function isContributionDay(value: unknown): value is ContributionDay {
+  if (!value || typeof value !== "object") return false;
+  const day = value as Record<string, unknown>;
+  return (
+    typeof day.date === "string" &&
+    /^\d{4}-\d{2}-\d{2}$/.test(day.date) &&
+    !Number.isNaN(parseContributionDate(day.date).getTime()) &&
+    parseContributionDate(day.date).toISOString().slice(0, 10) === day.date &&
+    typeof day.count === "number" &&
+    Number.isSafeInteger(day.count) &&
+    day.count >= 0 &&
+    typeof day.level === "number" &&
+    Number.isInteger(day.level) &&
+    day.level >= 0 &&
+    day.level <= 4
+  );
 }
 
 /**

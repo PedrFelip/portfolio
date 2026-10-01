@@ -25,6 +25,17 @@ bun install
 
 ### Development
 
+The contribution graph uses the public [GitHub Contributions API](https://github.com/grubersjoe/github-contributions-api)
+with a 24-hour server cache. Set the following in `.env.local` (see `.env.example`)
+and in your deployment environment to override the default API URL:
+
+```dotenv
+NEXT_PUBLIC_GITHUB_CONTRIBUTIONS_API_URL=https://github-contributions-api.jogruber.de/v4
+```
+
+Contributions do not require a GitHub token. The separate GitHub stats endpoint
+still requires `GITHUB_TOKEN`.
+
 ```bash
 bun dev
 ```

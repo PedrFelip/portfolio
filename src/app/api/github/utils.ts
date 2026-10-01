@@ -10,8 +10,7 @@ export function createGitHubRoute<T extends object>(
   fetcher: (username: string) => Promise<T>,
 ) {
   return async function GET() {
-    // GitHub data requires a runtime secret. Keep it out of the static shell;
-    // the underlying fetch remains cached by Next's persistent Data Cache.
+    // Fetch at request time; the underlying fetch uses Next's Data Cache.
     await io();
 
     try {

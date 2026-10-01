@@ -22,11 +22,11 @@ export function SectionBadge({
       )}
     >
       <FlickeringGrid
-        squareSize={2}
+        squareSize={3}
         gridGap={3}
         flickerChance={0.3}
         color={FLICKER_CONFIG.COLOR}
-        maxOpacity={0.28}
+        maxOpacity={0.45}
         className="pointer-events-none absolute inset-0 overflow-hidden"
       />
       <div className="relative z-10">{children}</div>

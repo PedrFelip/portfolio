@@ -274,7 +274,11 @@ export const FlickeringGrid: React.FC<FlickeringGridProps> = ({
       <canvas ref={canvasRef} className="pointer-events-none h-full w-full" />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background via-background/70 to-transparent"
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(to bottom, transparent 0%, var(--background) 75%, var(--background) 100%)",
+        }}
       />
     </div>
   );

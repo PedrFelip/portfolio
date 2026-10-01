@@ -9,5 +9,5 @@ export const FLICKER_CONFIG = {
   GRID_GAP: 6,
   FLICKER_CHANCE: 3, // Controls how often squares flicker (velocity)
   MAX_OPACITY: 9, // Reduced for subtler effect aligned with border-subtle approach
-  COLOR: BLUEPRINT_COLOR,
+  COLOR: "#55b9d8",
 } as const;
